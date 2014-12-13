@@ -1,0 +1,48 @@
+from django.conf.urls import patterns, url
+from stears import views
+
+urlpatterns = patterns('',
+                       url(r'^$', views.home, name='home'),
+                       url(r'^research/$', views.research, name='research'),
+                       url(r'^gts/$', views.gts, name='gts'),
+                       url(r'^article/submission/$',
+                           views.approve_article, name='approve_article'),
+                       # url(r'^approve_article/$', views.approve_article, name='approve_article'),
+                       # url(r'^editarticle/$', views.edit_article, name='edit'),
+                       url(r'^login/$', views.login_view, name='login'),
+                       url(r'^logout/$', views.logout_view, name='logout'),
+                       url(r'^writers/$', views.writers_home_test,
+                           {'group': None}, name='writers_home'),
+                       url(r'^writers/articles/(?P<group>[a-zA-Z0-9]+)/$',
+                           views.writers_home_test, name='articles_group'),
+
+                       url(r'^writers/post/$', views.writers_post,
+                           {'nse': None}, name='post'),
+                       url(r'^writers/write/$', views.writers_write,
+                           name='writers_write'),
+                       url(r'^writers/detail/(?P<pk>[0-9]+)/$',
+                           views.article_detail, name='article_detail'),
+                       url(r'^writers/suggest/$', views.suggest,
+                           name='suggest_nse_article'),
+                       url(r'^writers/delete/$', views.delete_article,
+                           name='delete_article'),
+                       url(r'^writers/accept/$', views.accept_article_category,
+                           name='accept_article'),
+
+                       url(r'^noaccess/$', views.noaccess, name='noaccess'),
+                       url(r'^register/$', views.register, name='register'),
+                       # url(r'^writers_boss/$', views.writers_boss_test, name='writers_boss'),
+                       url(r'^writers/list/$', views.writers_list,
+                           name='writers_list'),
+                       url(r'^writers/detail/(?P<name>[a-zA-Z0-9]+)/$',
+                           views.writer_detail, name='writer_detail'),
+                       url(r'^writers/approve/$', views.approve_writer,
+                           name='approve_writer'),
+
+                       # url(r'^articles/(?P<year>[0-9]{4})/$', views.year_archive),
+                       # url(r'^articles/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/$', views.month_archive),
+                       # url(r'^articles/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/$', views.day_archive),
+                       # url(r'^articles/article/?P<pk>\d+/$',views.article_detail),
+
+                       # url(r'^details/$', views.details, name='details'),
+                       )

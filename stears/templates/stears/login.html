@@ -1,0 +1,41 @@
+{% extends 'stears/base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+
+<div class="row" style = "padding-top:10%;">
+      <div class="columns small-12 medium-6 large-4 small-centered">
+
+            <h4 style="font-family:'Courier New'">Login to Stears Writers</h4>
+            {% if errors %}
+                  <table>
+                        {% for error in errors %}
+                              <tr><td><strong>{{ error }}</strong></td></tr>
+                        {% endfor %}
+                  </table>
+            {% endif %}
+
+            <form id="user_form" method="post" action="{% url 'stears:login' %}"
+              enctype="multipart/form-data">
+
+          {% csrf_token %}
+          {{ login_form }}
+
+          <button type="submit" name="submit" value="Register" style="border-radius:10px;">Login</button>
+      </form>
+      </div>
+</div>
+<div class="row" style = "padding-top:10%;">
+    <div class="columns small-12 medium-6 large-4 small-centered">
+      <strong>
+        <div>
+          <p>
+            Dont have a writers account?
+          </p>
+          <p>
+            Please <a href="{% url 'stears:register' %}">Sign Up</a> to request a writers account
+          </p>
+        </div>
+      </strong>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+
+<div class="fixed">
+		<nav class="top-bar " data-topbar role="navigation">
+			<ul class="title-area">
+				<li class="name ">
+					<h1><a href="#">Writers page</a></h1>
+				</li>
+				<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+			</ul>
+			<section class="top-bar-section">
+				<ul class="left">
+					
+				</ul>
+				<ul class="right">
+					<li>
+						<a href="#">Notifications</a>
+					</li>
+					<li class="divider"></li>
+					<li class="has-dropdown">
+						<a href="#">Writers</a>
+						<ul class="dropdown">
+							<li><a href="{% url 'stears:list_writers' %}">All</a></li>
+							<li><a href="#">NSE</a></li>
+							<li><a href="#">Tier 1</a></li>
+							<li><a href="#">Tier 2</a></li>
+							<li><a href="#">Columnists</a></li>
+						</ul>
+					</li>
+					<li class="divider"></li>
+					<li class="has-dropdown">
+						<a href="#">Articles</a>
+						
+						<ul class="dropdown">
+							<li><a href="{% url 'stears:articles_group' group='mine' %}">mine</a></li>
+							<li><a href="{% url 'stears:articles_group' group='NSE' %}">NSE</a></li>
+							<li><a href="{% url 'stears:articles_group' group='Tier1category' %}">Tier 1</a></li>
+							<li><a href="{% url 'stears:articles_group' group='Tier2category' %}">Tier 2</a></li>
+							<li><a href="{% url 'stears:articles_group' group='Columnscategory' %}">Columns</a></li>
+						</ul>
+					</li>
+					<li class="divider "></li>
+					<li class="has-form">
+						<div class="row collapse">
+							<div class="small-3 medium-5 columns">
+								<a class="button" href="{% url 'stears:logout' %}" style="border-radius:3px;background-color:#FF4747;">logout</a>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</section>
+		</nav>
+	</div>

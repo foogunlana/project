@@ -1,0 +1,15 @@
+<div class="row shadowbox article_box">
+	<div class="columns small-4 ">
+		<a href="{% url 'stears:writer_detail' name=writer.username %}" >
+			{{ writer.username }}|
+		</a>
+	</div>
+	<div class="columns small-4 ">
+		<a href="mailto:{{ writer.email }}">
+			{{ writer.email }}|
+		</a>
+	</div>
+	<div class="columns small-4">
+		{{ writer.state }}|
+	</div>
+</div>

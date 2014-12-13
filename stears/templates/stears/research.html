@@ -1,0 +1,22 @@
+{% extends 'stears/writers_base_test.html' %}
+
+{% block nav_block %}
+	{% include 'stears/writers_nav.html' %}
+{% endblock %}
+
+{% block writers_block %}
+<br>
+<br>
+<br>
+<br>
+<div class="row">
+	<div class="columns small-12 medium-6">
+		<form action="{% url 'stears:gts' %}" method="post">
+		{% csrf_token %}
+		{{ form }}
+		 <button type="submit" class="btn btn-default">Submit</button>
+</form>
+	</div>
+</div>
+
+{% endblock %}

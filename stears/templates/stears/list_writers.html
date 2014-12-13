@@ -1,0 +1,15 @@
+
+	{% load stears_tags %}
+	<br>
+	<br>
+	<div class="row fill">
+		<div class="columns small-10 small-centered medium-8 ">
+			{% for writer in writers %}
+				{% include 'stears/writer_button.html' %}
+				<br>
+				{% if forloop.last %}
+					<hr>
+				{% endif%}
+			{% endfor %}
+		</div>
+	</div>

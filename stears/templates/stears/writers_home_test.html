@@ -1,0 +1,24 @@
+{% extends "stears/writers_base_test.html" %}
+{% load stears_tags %}
+{% block page_title_block %}
+	<hr>
+	<div class="row">
+		<div class="columns small-10 ">
+			{% if article_is_chosen %}
+				<h1>{{ title }} Article</h1>
+			{% else %}
+				<h1>{{ title }} Articles</h1>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
+{% block nav_block %}
+	{% include 'stears/writers_nav.html' %}
+{% endblock %}
+{% block writers_block %}
+	<div class="row">
+		<div class="columns small-12">
+			{% include 'stears/list_articles.html' %}
+		</div>
+	</div>
+{% endblock %}

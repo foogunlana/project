@@ -1,0 +1,16 @@
+{% extends 'stears/writers_base_test.html' %}
+{% block nav_block %}
+	{% include 'stears/writers_nav.html' %}
+{% endblock %}
+{% block writers_block %}
+	<hr>
+	<div class="row">
+		<div class="columns small-12">
+			<h1>
+				Writers
+			</h1>
+		</div>
+	</div>
+
+	{% include 'stears/list_writers.html' %}
+{% endblock %}

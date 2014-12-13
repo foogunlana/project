@@ -1,0 +1,15 @@
+
+	{% load stears_tags %}
+
+	<hr>
+	<div class="row fill">
+		<div class="columns small-12 small-centered ">
+			{% for article in articles %}
+				{% include 'stears/article_button.html' %}
+				<br>
+				{% if forloop.last %}
+					<hr>
+				{% endif%}
+			{% endfor %}
+		</div>
+	</div>

@@ -1,0 +1,63 @@
+{% if writers_article_form %}
+	<form method="POST" action="{% url 'stears:post' %}">
+		{% csrf_token %}
+		<!-- 	<p style="color:red;">
+		For new articles, please indicate the related NSE article (if any) before saving!
+		</p> -->
+		{% if writers_article_form.categories %}
+			<h6>
+			Headline
+			</h6>
+			{{ writers_article_form.headline }}
+			<h6>
+			NSE headlines <a href='{% url "stears:articles_group" group="NSE" %}'>more info</a>
+			</h6>
+			{{ writers_article_form.nse_headlines }}
+			<h6>
+			Chose a category
+			</h6>
+			{{ writers_article_form.categories }}
+			<h6>
+			Content
+			</h6>
+			{{ writers_article_form.content }}
+			{{ writers_article_form.article_id.as_hidden }}
+		{% else %}
+			<p>
+			<h6>
+			Headline
+			</h6>
+			{{ writers_article_form.headline }}
+			</p>
+			<p>
+			<h6>
+			Associated NSE headline
+			</h6>
+			<strong>{{ article.headline }}</strong>
+			<p>
+				<a href='{% url "stears:articles_group" group="NSE" %}'>... more info about NSE headlines</a>
+			</p>
+			</p>
+			<p>
+			<h6>
+			Category
+			</h6>
+			<strong>Tier 1</strong>
+			<!-- Potentially use categories as article.category but this means setting nse to default tier 1 -->
+			</p>
+			<h6>
+			Content:
+			</h6>
+			{{ writers_article_form.content }}
+			{{ writers_article_form.nse_headlines.as_hidden }}
+		{% endif %}
+		
+		<button class="confirm-save" type="submit" name="submit" value="save" style="padding:15px;">Save article</button>
+		<button class="confirm-submission" type="submit" name="submit" value="submit" style="padding:15px;">Post article</button>
+	</form>
+{% else %}
+	<h1>
+	Oops, we're afraid you can't edit this Article :-(
+	Please contact your editor
+	</h1>
+{% endif %}

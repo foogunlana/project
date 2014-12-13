@@ -1,0 +1,14 @@
+{% extends "stears/writers_base_test.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>Home</h1>
+
+<div style = "padding:200px;">
+	<p><strong style = "font-size:100px"><a href = "{% url 'stears:writers_home' %}">Link to Stears Writers' page</a></strong></p>	
+</div>
+
+
+
+{% endblock %}

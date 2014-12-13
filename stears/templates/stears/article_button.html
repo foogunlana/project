@@ -1,0 +1,38 @@
+{% load stears_tags %}
+<div class="row shadowbox article_box" style='{% if article.writer %}{% else %}background-color:#D5EBFE{% endif %}'>
+<div class="columns small-6 ">
+	<a href="{% url 'stears:article_detail' pk=article.article_id %}" >
+		{{ article.headline }}|
+	</a>
+</div>
+<div class="columns small-6 medium-3 ">
+	{% ifequal article.visible False%}
+	{{ article.category }}|<font color="red">(Requested)</font>
+	{% else %}
+	{{ article.category }}|
+	{% endifequal %}
+</div>
+<div class="columns small-6 medium-3 ">
+	<strong>
+	{% if article.writer %}
+		{% if user|is_editor %}
+			{% if article.writer %}
+				<a href="{% url 'stears:writer_detail' article.writer %}">
+					{{ article.writer }}
+				</a>|
+			{% endif %}
+		{% else %}
+			{{ article.writer }}|
+		{% endif %}
+	{% endif %}
+	</strong>
+</div>
+<div class="columns small-6">
+	{{ article.time|nse_date }}|
+</div>
+<div class="columns small-6">
+	<strong>
+	{{ article.state }}
+	</strong>|
+</div>
+</div>

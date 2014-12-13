@@ -1,0 +1,26 @@
+{% load stears_tags %}
+<div class="row">
+	<div class="columns small-10">
+		<dl class="accordion" data-accordion>
+			<dd class="accordion-navigation">
+				<a href="#panel_versions" class="shadowbox">
+					<strong>
+					View current versions
+					</strong>
+				</a>
+				<div id="panel_versions" class="content" style = "background-color:#efefef;">
+					{% if article.versions %}
+						{% for article in article.article_id|article_array %}
+							{% include "stears/article_button.html" %}
+							<br>
+						{% endfor %}
+					{% else %}
+						<p>
+							No versions!
+						</p>
+					{% endif %}
+				</div>
+			</dd>
+		</dl>
+	</div>
+</div>

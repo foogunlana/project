@@ -1,0 +1,12 @@
+{% extends 'stears/writers_base_test.html' %}
+
+{% block content %}
+
+<div style="padding:300px;">
+	<p><strong>You don't have permission to view that page yet. Please wait for an email link indicating you have access</strong></p>
+	<h2><p><a href="{% url 'stears:home' %}">Go back home?</a></p></h2>
+	<h2><p><a href="{% url 'stears:logout' %}">Login</a> with different account</p></h2>
+	<h2><p>If you haven't registered as a writer, you can do that <a href="{% url 'stears:register' %}">here</a>. If you have, we will contact you shortly</p></h2>
+</div>
+
+{% endblock %}

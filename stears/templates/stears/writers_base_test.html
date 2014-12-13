@@ -1,0 +1,34 @@
+{% load staticfiles %}
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/css/normalize.css">
+        <link rel="stylesheet" href="/static/css/foundation.css">
+        <link rel="stylesheet" href="/static/css/stears.css">
+        <link type="text/css" media="screen" rel="stylesheet" href="/static/css/responsive-tables.css" />
+        <script src="/static/js/vendor/modernizr.js"></script>
+</head>
+<body>
+    
+    {% block page_title_block %}{% endblock %}
+	
+<!--     <img src="{% static "images/sitelogo.png" %}" alt="Logo" /> -->
+    {% block nav_block %}{% endblock %}
+	
+	{% block writers_block %}{% endblock %}
+
+    {% block content %}{% endblock %}
+
+<script src="/static/js/vendor/jquery.js"></script>
+<!-- <script src="/static/js/vendor/jquery.tablesorter.js"></script> -->
+<!-- <script src="/static/js/stears/stears-tablesort.js"></script> -->
+<!-- <script type="text/javascript" src="/static/js/vendor/responsive-tables.js"></script> -->
+<!-- <script src="/static/js/stears/stears.js"></script> -->
+<script src="/static/js/foundation.min.js"></script>
+<script>
+$(document).foundation();
+</script>
+</body>
+</html>
