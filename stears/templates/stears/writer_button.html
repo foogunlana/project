@@ -1,15 +1,19 @@
 <div class="row shadowbox article_box">
-	<div class="columns small-4 ">
+	<div class="columns small-6 medium-4 ">
+		{% if writer.username %}
 		<a href="{% url 'stears:writer_detail' name=writer.username %}" >
 			{{ writer.username }}|
 		</a>
+		{% endif %}
 	</div>
-	<div class="columns small-4 ">
+	<div class="columns small-6 medium-4">
+		{% if writer.email %}
 		<a href="mailto:{{ writer.email }}">
-			{{ writer.email }}|
+			{{ writer.email }}
 		</a>
+		{% endif %}
 	</div>
-	<div class="columns small-4">
-		{{ writer.state }}|
+	<div class="columns medium-4 hide-for-small">
+			|{{ writer.state }}
 	</div>
 </div>

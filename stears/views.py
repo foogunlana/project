@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from stears.forms import LoginForm, RegisterForm, ChoiceForm, SuggestForm, WritersArticleForm, NseArticleForm
+from stears.forms import LoginForm, RegisterForm, ChoiceForm, ForgotPasswordForm, SuggestForm, WritersArticleForm, NseArticleForm, ChangePasswordForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout
 from mongoengine.django.auth import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
-from stears.utils import migrate_article, save_writers_article, accept_to_write, get_nse_headlines, request_json, make_url, move_to_trash, suggest_nse_article, update_writers_article, retrieve_values, edit_user, make_writer_id, make_writers_article, submit_writers_article, client as mclient
+from stears.utils import migrate_article, forgot_password_email, save_writers_article, accept_to_write, get_nse_headlines, request_json, make_url, move_to_trash, suggest_nse_article, update_writers_article, retrieve_values, edit_user, make_writer_id, make_writers_article, submit_writers_article, client as mclient
 from stears.permissions import approved_writer, is_a_boss, writer_can_edit_article
 from mongoengine.queryset import DoesNotExist
 
@@ -42,6 +42,68 @@ def gts(request):
             print j_array
 
     return render(request, 'stears/gts.html', {'site': site})
+
+
+def change_password(request):
+    errors = []
+
+    if request.method == 'GET':
+        change_password_form = ChangePasswordForm()
+
+    if request.method == 'POST':
+        change_password_form = ChangePasswordForm(
+            request.POST
+        )
+
+        if change_password_form.is_valid():
+
+            username = change_password_form.cleaned_data['username']
+            password = change_password_form.cleaned_data['old_password']
+
+            try:
+                user = User.objects.get(username=username)
+        # FIX CHECK_PASSWORD FUNCTION if
+        # user.check_password(request.POST['password']):
+                if user.password == password:
+                    user.backend = params.MONGOENGINE_BACKEND
+                    if user:
+                        user.password = str(
+                            change_password_form.cleaned_data['new_password'])
+                        user.save()
+                        return HttpResponseRedirect(reverse('stears:login'))
+                    else:
+                        errors.append(
+                            'Oops! something went wrong. please refresh')
+                else:
+                    errors.append('Invalid username and password combination')
+            except DoesNotExist:
+                errors.append('Invalid username and password combination')
+            except Exception as e:
+                return HttpResponse(str(e))
+
+    context = {'change_password_form': change_password_form, 'errors': errors}
+    return render(request, 'stears/change_password.html', context)
+    # Return an 'invalid login' error message.
+
+
+def forgot_password(request):
+    errors = []
+
+    if request.method == 'GET':
+        forgot_password_form = ForgotPasswordForm()
+
+    if request.method == 'POST':
+        forgot_password_form = ForgotPasswordForm(
+            request.POST
+        )
+
+        if forgot_password_form.is_valid():
+            email = forgot_password_form.cleaned_data['email']
+            forgot_password_email(email)
+            forgot_password_form = {}
+
+    context = {'forgot_password_form': forgot_password_form, 'errors': errors}
+    return render(request, 'stears/forgot_password.html', context)
 
 
 def login_view(request):

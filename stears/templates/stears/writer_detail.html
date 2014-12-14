@@ -10,36 +10,32 @@
 	<div class="row fill">
 		<div class="columns small-11 small-centered">
 			<div class="row">
-				<div class="columns small-4">
-					<div class="row">
-						{% if writer.username|is_editor %}
-							<h4 style="color:red">
-							Editor Account
-							</h4>
-						{% else %}
-							<form action="{% url 'stears:approve_writer' %}" method="post" id="aprrove">
-								{% csrf_token %}
-								{% ifequal writer.state 'approved' %}
-									<button type="submit" name="revoke" value="{{ writer.username }}">Revoke {{ writer.username }}'s account</button>
-								{% else %}
-									<button type="submit" name="approve" value="{{ writer.username }}">Verify {{ writer.username }}'s account</button>
-								{% endifequal %}
-							</form>
-						{% endif %}
-						<br>
-					</div>
+				<div class="columns small-12 medium-5 large-3">
+					{% if writer.username|is_editor %}
+						<h4 style="color:red">
+						Editor Account
+						</h4>
+					{% else %}
+						<form action="{% url 'stears:approve_writer' %}" method="post" id="aprrove">
+							{% csrf_token %}
+							{% ifequal writer.state 'approved' %}
+								<button class="button2 fill" type="submit" name="revoke" value="{{ writer.username }}">Revoke {{ writer.username }}'s account</button>
+							{% else %}
+								<button class="button2 fill" type="submit" name="approve" value="{{ writer.username }}">Verify {{ writer.username }}'s account</button>
+							{% endifequal %}
+						</form>
+					{% endif %}
+					<br>
 				</div>
 			</div>
-			<div class="row">
-				<div class="columns small-4 ">
+			<div class="row fill">
+				<div class="columns small-12 medium-4">
 					<dl class="accordion" data-accordion>
 						<dd class="accordion-navigation">
-						<a href="#panel2" class="shadowbox article_box" style="display:inline-block;">
-							<h4>
+						<a href="#panel2" class="shadowbox article_box" style="display:inline-block;background-color:white;">
 							Writer Info/Details
-							</h4>
 						</a>
-						<div id="panel2" class="content" style = "background-color:#efefef;">
+						<div id="panel2" class="content" style = "background-color:#efefef;padding:0px;">
 							<table>
 								{% for attr,value in writer.items %}
 									{% ifnotequal attr 'password' %}

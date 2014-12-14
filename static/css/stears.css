@@ -16,7 +16,7 @@ margin-right: auto;
 max-width: initial;
 }
 
-
+/*
 button{
   background-color:white;
   border-radius: 20px;
@@ -25,6 +25,21 @@ button{
   -moz-box-shadow:    0px 0px 5px  #ccc;
   -webkit-box-shadow: 0px 0px 5px  #ccc;
   box-shadow:         0px 0px 5px 2px #ccc;
+}*/
+
+button{
+
+max-height: 40px;
+max-width: 100px;
+text-align: center;
+border-radius: 5px;
+padding: 10px;
+background-color: #2980F0;
+}
+
+.button2{
+  padding:8px;
+  border-radius: 5px;
 }
 
 button:hover{
@@ -47,6 +62,16 @@ button:hover{
   -webkit-box-shadow: 0px 0px 5px  #ccc;
   box-shadow:         0px 0px 5px 2px #ccc;
 }
+
+.home_box{
+  background-color:white;
+  border-radius:10px;
+  padding:20px;
+  -moz-box-shadow:    0px 0px 5px  #ccc;
+  -webkit-box-shadow: 0px 0px 5px  #ccc;
+  box-shadow:         0px 0px 5px 2px #ccc;
+}
+
 
 
 .in-shadow {

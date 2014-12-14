@@ -89,9 +89,12 @@ def do_magic_user():
     make_writer_id(foo.username)
 
 
-def mail_it():
-    send_mail('Subject here', 'Here is the message.', email_host,
-              ['fo311@ic.ac.uk'], fail_silently=False)
+def forgot_password_email(email):
+    user = client.stears.user.find_one({"email": email})
+    password = str(user['password'])
+    username = user['username']
+    send_mail('Email verification', 'Hi Stears writer, weve made you a new password: "%s" . Also, your username is "%s" incase you forgot that too' % (password, username), email_host,
+              [email], fail_silently=False)
 
 
 def print_links():
@@ -141,7 +144,7 @@ def suggest_nse_article(username, article_id):
 
 def update_writers_article(username, form):
     headline = form.cleaned_data['headline']
-    content = form.cleaned_data.get['content']
+    content = form.cleaned_data['content']
 
     article = {
         'headline': headline,
@@ -192,11 +195,12 @@ def make_writers_article(form, username):
 
 
 def request_to_write(article):
+    print article
     username = article['writer']
     user = User.objects.get(username=username)
     if user.is_superuser or user.is_staff:
         return article
-    if article.get['category'] in params.request_categories:
+    if article['category'] in params.request_categories:
         article['visible'] = False
     return article
 

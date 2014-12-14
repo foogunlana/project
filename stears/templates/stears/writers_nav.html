@@ -1,33 +1,32 @@
-
 {% load stears_tags %}
 <div class="fixed">
-		<nav class="top-bar " data-topbar role="navigation">
-			<ul class="title-area">
-				<li class="name ">
-					<h1><a href="{% url 'stears:writers_home' %}">The Wheel</a></h1>
-				</li>
-				<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-			</ul>
-			<section class="top-bar-section">
-				<ul class="left">
-					{% if user.is_authenticated %}
+	<nav class="top-bar " data-topbar role="navigation">
+		<ul class="title-area">
+			<li class="name ">
+				<h1><a href="{% url 'stears:writers_home' %}">WEAL</a></h1>
+			</li>
+			<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+		</ul>
+		<section class="top-bar-section">
+			<ul class="left">
+				{% if user.is_authenticated %}
 					<li class="divider "></li>
 					<li class=" hide-for-medium">
 						<a href="{% url 'stears:writers_write' %}" style="font-size:18px;color:#6699ff">{{ user.username }}</a>
 					</li>
-					{% endif %}
-				</ul>
-				<ul class="right">
-					<li class="divider "></li>
-					<li>
-						<a href="{% url 'stears:writers_write' %}">Write</a>
-					</li>
-					<li class="divider "></li>
-					<li>
-						<a href="{% url 'stears:articles_group' group='NSE' %}">NSE-data</a>
-					</li>
-					<li class="divider"></li>
-					{% if user|is_editor %}
+				{% endif %}
+			</ul>
+			<ul class="right">
+				<li class="divider "></li>
+				<li>
+					<a href="{% url 'stears:writers_write' %}">Write</a>
+				</li>
+				<li class="divider "></li>
+				<li>
+					<a href="{% url 'stears:articles_group' group='NSE' %}">NSE-data</a>
+				</li>
+				<li class="divider"></li>
+				{% if user|is_editor %}
 					<li class="has-dropdown">
 						<a href="{% url 'stears:writers_list' %}">Writers</a>
 						<ul class="dropdown">
@@ -36,29 +35,29 @@
 							<li><a href="#">Columnists</a></li>
 						</ul>
 					</li>
-					{% endif %}
-					<li class="divider"></li>
-					<li class="has-dropdown">
-						<a href="{% url 'stears:articles_group' group='peers' %}">Articles</a>
-						
-						<ul class="dropdown">
-							<li><a href="{% url 'stears:articles_group' group='t1' %}">Tier 1</a></li>
-							<li><a href="{% url 'stears:articles_group' group='t2' %}">Tier 2</a></li>
-							<li><a href="{% url 'stears:articles_group' group='col' %}">Columns</a></li>
-						</ul>
-					</li>
-					<li class="divider "></li>
-					<li class="has-form">
-						<div class="row collapse">
-							<div class="large-5 hide-for-small hide-for-medium columns">
-								{% include 'stears/write_quick.html' %}
-							</div>
-							<div class="large-5 small-11  columns">
-								<a class="button" href="{% url 'stears:logout' %}" style="border-radius:3px;background-color:#FF4747;">logout</a>
-							</div>
+				{% endif %}
+				<li class="divider"></li>
+				<li class="has-dropdown">
+					<a href="{% url 'stears:articles_group' group='peers' %}">Articles</a>
+					
+					<ul class="dropdown">
+						<li><a href="{% url 'stears:articles_group' group='t1' %}">Tier 1</a></li>
+						<li><a href="{% url 'stears:articles_group' group='t2' %}">Tier 2</a></li>
+						<li><a href="{% url 'stears:articles_group' group='col' %}">Columns</a></li>
+					</ul>
+				</li>
+				<li class="divider "></li>
+				<li class="has-form">
+					<div class="row collapse">
+						<div class="large-5 hide-for-small hide-for-medium columns">
+							{% include 'stears/write_quick.html' %}
 						</div>
-					</li>
-				</ul>
-			</section>
-		</nav>
-	</div>
+						<div class="large-5 small-11  columns">
+							<a class="button fill" href="{% url 'stears:logout' %}" style="border-radius:3px;background-color:#FF4747;">logout</a>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</section>
+	</nav>
+</div>

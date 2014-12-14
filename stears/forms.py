@@ -105,6 +105,40 @@ class SuggestForm(forms.Form):
 #         )
 
 
+class ChangePasswordForm(forms.Form):
+    username = forms.CharField(label='Username', max_length=20)
+    old_password = forms.CharField(widget=forms.PasswordInput, required=True)
+    new_password = forms.CharField(widget=forms.PasswordInput, required=True)
+    confirm = forms.CharField(
+        widget=forms.PasswordInput, label='Confirm new password', required=True)
+
+    def clean_new_password(self):
+        old_password = self.cleaned_data['old_password']
+        new_password = self.cleaned_data['new_password']
+        if old_password == new_password:
+            raise ValidationError("That's the same password :-(")
+        return new_password
+
+    def clean_confirm(self):
+        confirm = self.cleaned_data['confirm']
+        new_password = self.cleaned_data['new_password']
+        if confirm != new_password:
+            raise ValidationError("These two passwords aren't the same")
+        return confirm
+
+
+class ForgotPasswordForm(forms.Form):
+    email = forms.EmailField(label='Your email', max_length=30, required=True)
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if email not in User.objects.distinct('email'):
+            raise ValidationError("That email address is not registered")
+        # if not email_re.match(email):
+        #   raise ValidationError("That email address is not valid")
+        return email
+
+
 class NseArticleForm(forms.Form):
     headline = forms.CharField(max_length=200)
     content = forms.CharField(widget=forms.Textarea)

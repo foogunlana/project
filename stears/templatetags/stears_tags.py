@@ -1,6 +1,5 @@
 from django import template
 from stears.params import remove_from_date
-from stears.params import article_category_tuples
 from mongoengine.django.auth import User
 from stears.utils import client
 import time

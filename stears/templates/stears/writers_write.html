@@ -12,14 +12,16 @@
 	{% include 'stears/writers_nav.html' %}
 {% endblock %}
 {% block writers_block %}
-	<div class="row">
+<div class="row">
+	<div class="columns small-12">
+		<div class="row">
 		<div class="columns small-11 ">
 			<a href="{% url 'stears:articles_group' group='NSE' %}" class="shadowbox article_box" style="padding:10px;">See NSE articles to write about</a>
 		</div>
 	</div>
 	<br>
 	<div class="row">
-		<div class="columns small-11 ">
+		<div class="columns small-12 ">
 			<dl class="accordion" data-accordion>
 				<dd class="accordion-navigation">
 				<a href="#panel2" class="article_box shadowbox" style="display:inline-block;float:right;background-color:white;" >Brand new article??</a>
@@ -32,13 +34,12 @@
 	</div>
 	<br>
 	{% if suggestions %}
-	<div class="row">
-		<div class="columns small-11">
-			<h4>
-			Suggestions
-			</h4>
-			<div class="row fill">
-				<div class="columns small-12 small-centered ">
+		<div class="row">
+			<div class="columns small-12">
+				<h4>
+				Suggestions
+				</h4>
+				<div class="row fill">
 					{% for article in suggestions %}
 						{% include 'stears/article_button.html' %}
 						<br>
@@ -47,19 +48,21 @@
 						{% endif%}
 					{% endfor %}
 				</div>
+				<br>
 			</div>
-			<br>
 		</div>
-	</div>
 	{% endif %}
 	{% if articles %}
-	<div class="row">
-		<h4>
-		Your articles
-		</h4>
-		<div class="columns small-11">
-			{% include 'stears/list_articles.html' %}
+		<div class="row">
+			<h4>
+			Your articles
+			</h4>
+			<div class="columns small-12 small-centered">
+				{% include 'stears/list_articles.html' %}
+			</div>
 		</div>
-	</div>
 	{% endif %}
+	</div>
+</div>
+	
 {% endblock %}
