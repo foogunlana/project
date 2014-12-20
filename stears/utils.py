@@ -11,8 +11,6 @@ import params
 import json
 import time
 
-client = None
-
 
 def get_mongo_client():
     client = None
