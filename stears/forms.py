@@ -4,6 +4,7 @@ from mongoengine.django.auth import User
 from django.core.exceptions import ValidationError
 import utils
 import params
+import re
 # from django.core.validators import email_re
 
 
@@ -40,6 +41,9 @@ class RegisterForm(forms.Form):
         name = self.cleaned_data['name']
         if name in User.objects.distinct('username'):
             raise ValidationError("That username is already taken")
+        if not re.match(r'^[a-zA-Z0-9]+$', name):
+            raise forms.ValidationError(
+                "Username should include only alphanumeric characters, letters and numbers")
         return name
 
     def clean_email(self):
