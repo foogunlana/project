@@ -15,15 +15,19 @@ client = None
 
 
 def get_mongo_client():
-    global client
-    if not client:
-        try:
-            # print "Getting new Mongo Client"
-            client = MongoClient()
-        except Exception:
-            raise Exception
-    return client
-
+    client = None
+    while True:
+        if client != None:
+            print "YIELD CLIENT"
+            yield client
+        else:
+            try:
+                # print "Getting new Mongo Client"
+                client = MongoClient(params.MONGO_URI)
+                print "NEW CLIENT"
+            except Exception as e:
+                print e
+                raise Exception
 
 def make_url(name, True_for_snapshot):
 
@@ -380,7 +384,7 @@ class NseNews(Singleton):
     name = "NseNewsThread"
     nse_thread.daemon = True
 
-    client = get_mongo_client()
+    client = next(get_mongo_client())
 
     def startThread(self):
         if active_count() == 1:
