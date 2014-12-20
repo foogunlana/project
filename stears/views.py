@@ -113,7 +113,9 @@ def login_view(request):
 
     if request.method == 'POST':
         try:
+            print username
             user = User.objects.get(username=username)
+            print "got here bro"
         # FIX CHECK_PASSWORD FUNCTION if
         # user.check_password(request.POST['password']):
             if user.password == password:
