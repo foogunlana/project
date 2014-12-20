@@ -39,9 +39,8 @@ def article_array(pk):
     nse_article = client.stears.articles.find_one({'article_id': int(pk)})
     versions = nse_article.get('versions', [])
     articles = []
-    for version_pk in versions:
-        articles = articles + \
-            [client.stears.articles.find_one({'article_id': int(version_pk)})]
+    articles = articles + [article for article in client.stears.articles.find(
+        {'article_id': {'$in': versions}})]
     return articles
 
 

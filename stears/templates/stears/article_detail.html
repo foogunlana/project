@@ -13,6 +13,12 @@
 			<div class="row">
 				<div class="columns small-12 large-9">
 					<br>
+					<div class="fill" id="comment_area" style="padding-left:15px;padding-right:15px;" hidden>
+						<div class="row">
+							{% include 'stears/comment_form.html' %}
+						</div>
+						<br>
+					</div>
 					<div class="fill" style="padding-left:15px;padding-right:15px;">
 						{% if article.writer %}
 							{% if user.username|can_write:article %}
@@ -35,7 +41,7 @@
 								<div class="row">
 									<div class="home_box">
 										<strong>
-											Sorry, you can't edit this article
+										Sorry, you can't edit this article
 										</strong>
 									</div>
 								</div>
@@ -58,7 +64,6 @@
 							{% include "stears/nse_versions.html" %}
 						{% endif %}
 					</div>
-
 					<br>
 					<div>
 						<table>
@@ -134,10 +139,13 @@
 					<br>
 					<div class="home_box">
 						<strong>
-							Options
+						Options
 						</strong>
 						<br>
 						<br>
+						<div class="row">
+							<button id="comment_area_button" style="border-radius:3px;" class=" fill">Comment</button>
+						</div>
 						{% if user.username|is_editor %}
 							{% if article.writer %}
 								<div class="row">
@@ -199,6 +207,28 @@
 					</div>
 				</div>
 				
+			</div>
+			<br>
+			<div class="row">
+				<div class="columns small-12 large-9">
+					<div class="fill" style="padding-left:15px;padding-right:15px;">
+						{% if article.comments %}
+							<h3>
+							Comments
+							</h3>
+							<br>
+							{% for comment in article.comments %}
+								{% include 'stears/comment_button.html' %}
+								<br>
+							{% endfor %}
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+						{% endif %}
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

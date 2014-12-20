@@ -16,6 +16,11 @@ margin-right: auto;
 max-width: initial;
 }
 
+.small_textarea{
+  border-radius: 10px;
+  max-height: 100px;
+}
+
 /*
 button{
   background-color:white;
@@ -32,14 +37,14 @@ button{
 max-height: 40px;
 max-width: 100px;
 text-align: center;
-border-radius: 5px;
+border-radius: 3px;
 padding: 10px;
 background-color: #2980F0;
 }
 
 .button2{
   padding:8px;
-  border-radius: 5px;
+  border-radius: 3px;
 }
 
 button:hover{

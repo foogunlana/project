@@ -1,0 +1,32 @@
+{% load stears_tags %}
+<div class="row shadowbox article_box" style='{% if article.writer %}{% else %}background-color:#D5EBFE{% endif %}'>
+<div class="columns small-12 medium-10 ">
+	<div class="comment_summary" id="summary{{ forloop.counter }}">
+		{{ comment.comment|urlize|safe|slice:':20' }}...
+	</div>
+	<div class="comment_body" id="body{{ forloop.counter }}" hidden>
+		{{ comment.comment|urlize|safe }}
+		<p>
+		<div style="float:right;">
+			<strong>
+			Author
+			</strong>
+			{% if article.writer %}
+				{% if user|is_editor %}
+					{% if article.writer %}
+						<a href="{% url 'stears:writer_detail' article.writer %}">
+							{{ article.writer }}
+						</a>|
+					{% endif %}
+				{% else %}
+					{{ article.writer }}
+				{% endif %}
+			{% endif %}
+		</div>
+		</p>
+	</div>
+</div>
+<div class="columns small-12 medium-2">
+	<a href="#" class="comment_body_toggle" id="{{ forloop.counter }}" >Show/Hide</a>
+</div>
+</div>

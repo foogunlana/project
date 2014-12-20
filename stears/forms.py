@@ -203,3 +203,8 @@ class WritersArticleForm(forms.Form):
         if lock:
             for field in lock:
                 self.fields[field].widget.attrs = {'disabled': 'disabled'}
+
+
+class CommentForm(forms.Form):
+    comment = forms.CharField(
+        widget=forms.Textarea(attrs={'class': 'small_textarea'}), max_length=300)

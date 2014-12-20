@@ -54,21 +54,26 @@ def make_url(name, True_for_snapshot):
 
 def make_writer_id(writer):
     collection = client.stears.user
-    writer_dict = collection.find_one({'username': writer})
     ids = collection.distinct('writer_id')
     if ids and (None not in ids):
         max_id = max(ids)
-        writer_dict['writer_id'] = int(max_id) + 1
+        writer_id = int(max_id) + 1
     else:
-        writer_dict['writer_id'] = 1
-    collection.save(writer_dict)
+        writer_id = 1
+
+    collection.update({
+        "username": writer
+    }, {'$set': {"writer_id": writer_id}
+        }, False, False
+    )
 
 
 def edit_user(username, key, item):
-    user = client.stears.user.find_one({'username': username})
-    # current_item = user.get(key, 'NOVALUE')
-    user[key] = item
-    client.stears.user.save(user)
+    client.stears.user.update({
+        "username": username
+    }, {'$set': {key: item}
+        }, False, False
+    )
     # print "%s's %s has been changed from %s to
     # %s"%(username,key,current_item,item)
 
@@ -148,10 +153,8 @@ def retrieve_values(key, doc, collection):
 
 def suggest_nse_article(username, article_id):
     users = client.stears.user
-    user = users.find_one({'username': username})
-    user['suggested_articles'] = list(
-        set(user.get('suggested_articles', []) + [article_id]))
-    users.save(user)
+    users.update(
+        {'username': username}, {'$push': {'suggested_articles': int(article_id)}}, False)
 
 
 def update_writers_article(username, form):
@@ -181,9 +184,8 @@ def update_writers_article(username, form):
 
 def submit_writers_article(article_id):
     articles = client.stears.articles
-    article = articles.find_one({'article_id': int(article_id)})
-    article['state'] = 'submitted'
-    articles.save(article)
+    articles.update({'article_id': int(article_id)},
+                    {'$set': {'state': 'submitted'}}, False, False)
 
 
 def make_writers_article(form, username):
@@ -206,8 +208,21 @@ def make_writers_article(form, username):
     return article
 
 
+def make_comment(username, article_id, comment):
+    comment_body = {
+        'time': time.time(),
+        'writer': username,
+        'comment': comment,
+    }
+    client.stears.articles.update(
+        {'article_id': article_id},
+        {'$push': {'comments': comment_body}},
+        False,
+        False
+    )
+
+
 def request_to_write(article):
-    print article
     username = article['writer']
     user = User.objects.get(username=username)
     if user.is_superuser or user.is_staff:
@@ -219,35 +234,39 @@ def request_to_write(article):
 
 def accept_to_write(article_id):
     articles = client.stears.articles
-    article = articles.find_one({"article_id": int(article_id)})
-    if article.get('category', None) in params.request_categories:
-        if not article.get('visible', True):
-            article['visible'] = True
-        # else:
-        # 	print "Article was never requested or has already been approved!"
-    articles.save(article)
+    articles.update(
+        {
+            "article_id": int(article_id),
+            'category': {'$in': params.request_categories},
+            'visible': False},
+        {'$set': {'visible': True}},
+        False,
+        False
+    )
 
 
 def move_to_trash(pk):
     articles = client.stears.articles
     bin = client.stears.bin
     users = client.stears.user
-
     article = articles.find_one({'article_id': int(pk)})
-    writer = users.find_one({'username': article['writer']})
-    writer['articles'] = list(set(writer['articles']) - set([int(pk)]))
     nse_article_id = int(article['nse_article_id'])
 
-    if nse_article_id:
-        nse_article_id = int(nse_article_id)
-        nse_article = articles.find_one(
-            {'article_id': nse_article_id, 'type': 'nse_article'})
-        print nse_article_id, nse_article
-        nse_article['versions'] = list(
-            set(nse_article['versions']) - set([int(pk)]))
-        articles.save(nse_article)
+    users.update(
+        {'username': article['writer']},
+        {'$pull': {'articles': int(pk)}},
+        False,
+        False
+    )
 
-    users.save(writer)
+    if nse_article_id:
+        articles.update(
+            {'article_id': int(nse_article_id), 'type': 'nse_article'},
+            {'$pull': {'versions': int(pk)}},
+            False,
+            False
+        )
+
     bin.insert(article)
     articles.remove({'article_id': int(pk)})
 
@@ -271,29 +290,29 @@ def save_writers_article(article):
     articles = client.stears.articles
     nse_article_id = int(article['nse_article_id'])
     article = add_id_to_dict(article)
-
     username = article['writer']
     users = client.stears.user
-    writer = users.find_one({'username': username})
-    writer['articles'] = writer.get('articles', []) + [article['article_id']]
+    article_id = int(article['article_id'])
 
-    if nse_article_id and nse_article_id != 'None':
-        nse_article = articles.find_one(
-            {'article_id': int(nse_article_id), 'type': 'nse_article'})
-        if nse_article:
-            nse_article['versions'] = nse_article[
-                'versions'] + [article['article_id']]
-            articles.save(nse_article)
+    users.update(
+        {'username': username},
+        {'$push': {'articles': article_id}, '$pull': {
+            'suggested_articles': nse_article_id}},
+        False,
+        False,
+    )
 
-            suggested_articles = writer.get('suggested_articles', [])
-            writer['suggested_articles'] = list(
-                set(suggested_articles) - set([nse_article_id]))
-        else:
-            # print 'ERROR, no article to save versions'
-            raise Exception
+    if nse_article_id:
+        articles.update(
+            {'article_id': nse_article_id, 'type': 'nse_article'},
+            {'$push': {'versions': article_id}},
+            True,
+            False,
+        )
+    else:
+        articles.save(article)
+        # print 'ERROR, no article to save versions'
 
-    users.save(writer)
-    articles.save(article)
     return article['article_id']
 
 
@@ -309,6 +328,7 @@ def get_nse_headlines():
 def organise_new_articles():
     collection_with_news = client.stears.nse_news
     articles = client.stears.articles
+
     new_bulletins = collection_with_news.find_one({'type': 'news'})
     if new_bulletins:
         new_bulletins = new_bulletins.get('Bulletins', '')
@@ -341,9 +361,12 @@ def organise_new_articles():
 def add_id_to_dict(article):
     available_id = available_article_id()
     article['article_id'] = available_id
-    register = client.stears.nse_news.find_one({'type': 'register'})
-    register['article_ids'] = register.get('article_ids', []) + [available_id]
-    client.stears.nse_news.save(register)
+    client.stears.register.update(
+        {'type': 'register'},
+        {'$push': {'article_ids': available_id}},
+        False,
+        False
+    )
     return article
 
 
@@ -351,10 +374,9 @@ def available_article_id():
     register = client.stears.nse_news.find_one({'type': 'register'})
     if not register:
         register = {'type': 'register', 'article_ids': []}
-        # print register,'register'
         client.stears.nse_news.insert(register)
-    article_ids = register.get('article_ids', [])
 
+    article_ids = register.get('article_ids', [])
     if article_ids:
         max_id = max(article_ids)
     else:

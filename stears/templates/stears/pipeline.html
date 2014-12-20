@@ -1,0 +1,20 @@
+{% extends "stears/writers_base_test.html" %}
+{% load stears_tags %}
+{% block nav_block %}
+	{% include 'stears/writers_nav.html' %}
+{% endblock %}
+{% block page_title_block %}
+	<hr>
+	<div class="row">
+		<div class="columns small-10 ">
+			<h1>Stears Pipeline</h1>
+		</div>
+	</div>
+{% endblock %}
+{% block writers_block %}
+	<div class="row">
+		<div class="columns small-12">
+			{% include 'stears/list_articles.html' %}
+		</div>
+	</div>
+{% endblock %}

@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from stears.forms import LoginForm, RegisterForm, ChoiceForm, ForgotPasswordForm, SuggestForm, WritersArticleForm, NseArticleForm, ChangePasswordForm
+from stears.forms import LoginForm, RegisterForm, ChoiceForm, ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, NseArticleForm, ChangePasswordForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout
 from mongoengine.django.auth import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
-from stears.utils import migrate_article, forgot_password_email, save_writers_article, accept_to_write, get_nse_headlines, request_json, make_url, move_to_trash, suggest_nse_article, update_writers_article, retrieve_values, edit_user, make_writer_id, make_writers_article, submit_writers_article, client as mclient
+from stears.utils import migrate_article, make_comment, forgot_password_email, save_writers_article, accept_to_write, get_nse_headlines, request_json, make_url, move_to_trash, suggest_nse_article, update_writers_article, retrieve_values, edit_user, make_writer_id, make_writers_article, submit_writers_article, client as mclient
 from stears.permissions import approved_writer, is_a_boss, writer_can_edit_article
 from mongoengine.queryset import DoesNotExist
 
@@ -234,11 +234,11 @@ def writers_write(request):
 
     if request.method == 'GET':
         username = str(request.user)
-        # get articles specific to writer
+        # get suggested articles
         writer = mclient.stears.user.find_one({'username': username})
         suggested_articles = writer.get('suggested_articles', [])
-        suggestions = [mclient.stears.articles.find_one({'article_id': int(
-            article_id), 'type': 'nse_article'}) for article_id in suggested_articles]
+        suggestions = [article for article in mclient.stears.articles.find(
+            {'article_id': {'$in': suggested_articles}})]
 
         articles = [
             article for article in mclient.stears.articles.find({'writer': username})]
@@ -303,6 +303,8 @@ def delete_article(request):
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
 def article_detail(request, pk):
+    comment_form = CommentForm
+
     article = mclient.stears.articles.find_one({'article_id': int(pk)})
     if article['type'] == 'writers_article':
         nse_id = article['nse_article_id']
@@ -341,7 +343,7 @@ def article_detail(request, pk):
         article = mclient.stears.articles.find_one(
             {'article_id': int(pk), 'type': 'nse_article'})
     context = {'article': article, 'suggest_form': suggest_form,
-               'writers_article_form': writers_article_form}
+               'writers_article_form': writers_article_form, 'comment_form': comment_form}
     return render(request, 'stears/article_detail.html', context)
 
 
@@ -370,10 +372,12 @@ def approve_article(request):
         articles = mclient.stears.articles
 
         if reject_id:
-            # change state to in progress
-            article = articles.find_one({"article_id": int(reject_id)})
-            article['state'] = 'in_progress'
-            articles.save(article)
+            articles.update({
+                "article_id": int(reject_id)
+            }, {'$set': {"state": 'in_progress'}
+                }, False, False
+            )
+
         elif commit_id:
             migrate_article(int(commit_id))
 
@@ -409,6 +413,31 @@ def accept_article_category(request):
         pass
 
     return HttpResponseRedirect(reverse('stears:writers_home', args=()))
+
+
+@user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
+def pipeline(request):
+    if request.method == 'GET':
+        # articles = [article for article in mclient.stears.migrations.find()]
+        # Articles here cannot be found in the article database and that will
+        # cause a few problems!
+        pass
+    context = {}
+    return render(request, 'stears/pipeline.html', context)
+
+
+@user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
+def comment(request):
+    if request.method == 'POST':
+        article_id = int(request.POST.get('article_id', 0))
+        comment_form = CommentForm(
+            request.POST,
+        )
+        if comment_form.is_valid():
+            make_comment(
+                str(request.user), int(article_id), comment_form.cleaned_data['comment'])
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def noaccess(request):
