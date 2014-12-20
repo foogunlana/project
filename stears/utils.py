@@ -27,7 +27,10 @@ def get_mongo_client():
                 print e
                 raise Exception
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> 05367917387d8f5e8ee5bf8f2dd6ee5749f20a31
 =======
 >>>>>>> 05367917387d8f5e8ee5bf8f2dd6ee5749f20a31
 
