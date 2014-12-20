@@ -26,7 +26,10 @@ def get_mongo_client():
             except Exception as e:
                 print e
                 raise Exception
+<<<<<<< HEAD
 
+=======
+>>>>>>> 05367917387d8f5e8ee5bf8f2dd6ee5749f20a31
 
 def make_url(name, True_for_snapshot):
 
