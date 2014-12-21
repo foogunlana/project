@@ -4,11 +4,13 @@ background-color: #eee;
 
 *{
   font-family: "Tahoma";
+  font-size: 15px;
 }
 
 h1,h2,h3,h4,h5,h6{
   font-family: "Candara";
 }
+
 .fill {
 width:100%;
 margin-left: auto;
@@ -105,37 +107,6 @@ button:hover{
 
 }
 
-td.limit{
-    max-width: 150px;
-    word-wrap: break-word;
-}
-
-td.small{
-    max-width: 150px;
-    max-height: 150px;
-    overflow: hidden;
-    font-size: 10px;
-}
-
-th.headerSortUp { 
-    background-image: url(../img/small_asc.gif); 
-    background-color: #3399FF; 
-} 
-
-th.headerSortDown { 
-    background-image: url(../img/small_desc.gif); 
-    background-color: #3399FF; 
-} 
-
-th.header { 
-    cursor: pointer; 
-    font-weight: bold; 
-    background-repeat: no-repeat; 
-    background-position: center left; 
-    padding-left: 20px; 
-    border-right: 1px solid #dad9c7; 
-    margin-left: -1px; 
-} 
 
 .shadowbox{
     border-radius: 10px;

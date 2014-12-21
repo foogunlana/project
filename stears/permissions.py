@@ -5,7 +5,7 @@ def approved_writer(username):
     if username.is_superuser:
         return True
 
-    users = mongo_calls()
+    users = mongo_calls('user')
     writer = users.find_one({'username': str(username)})
     if writer:
         if writer.get('state', "") == 'approved':
