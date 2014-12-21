@@ -84,31 +84,6 @@ class SuggestForm(forms.Form):
         )
 
 
-# class NseArticleForm(forms.Form):
-#     headline = forms.CharField(max_length=200, label='Headline')
-#     content = forms.CharField(widget=forms.Textarea, label='Content')
-#     article_id = forms.CharField(max_length=30, initial=None)
-
-#     def __init__(self, *args, **kwargs):
-#         nse_headlines = kwargs.pop('nse_headlines')
-#         nse_headline = kwargs.pop('nse_headline')
-#         categories = kwargs.pop('categories')
-#         category = kwargs.pop('category')
-
-#         super(WritersArticleForm, self).__init__(*args, **kwargs)
-
-#         self.fields['nse_headlines'] = forms.ChoiceField(
-#             choices=[choice for choice in nse_headlines],
-#             label='NSE headlines. See "Articles" tab for content',
-#             initial=(nse_headline),
-#         )
-#         self.fields['categories'] = forms.ChoiceField(
-#             choices=[choice for choice in categories],
-#             label='Pick a primary category',
-#             initial=(category),
-#         )
-
-
 class ChangePasswordForm(forms.Form):
     username = forms.CharField(label='Username', max_length=20)
     old_password = forms.CharField(widget=forms.PasswordInput, required=True)
@@ -207,4 +182,22 @@ class WritersArticleForm(forms.Form):
 
 class CommentForm(forms.Form):
     comment = forms.CharField(
-        widget=forms.Textarea(attrs={'class': 'small_textarea'}), max_length=300)
+        widget=forms.Textarea(attrs={'class': 'small_textarea'}), max_length=300, required=True, error_messages={
+            'required': 'You did not enter any comment',
+            'invalid': 'Your comment entry was invalid'
+        })
+
+
+class KeyWordsForm(forms.Form):
+    keywords = forms.CharField(
+        widget=forms.Textarea(attrs={'class': 'tiny_textarea'}), max_length=200, required=True, error_messages={
+            'required': 'You did not enter any key words',
+            'invalid': 'Your key words were invalid and were not saved, please read the instructions on entering key words'
+        })
+
+    def clean_keywords(self):
+        keywords = self.cleaned_data['keywords']
+        if not re.match(r'^[a-zA-Z ]+$', keywords):
+            raise forms.ValidationError(
+                "Key words should include only lettes and spaces between words")
+        return keywords

@@ -12,10 +12,40 @@
 		<div class="columns small-12 small-centered">
 			<div class="row">
 				<div class="columns small-12 large-9">
-					<br>
-					<div class="fill" id="comment_area" style="padding-left:15px;padding-right:15px;" hidden>
+					<div class="fill" id="comment_area" style="padding-left:15px;padding-right:15px;" {% if comment_form.errors %}{% else %}hidden{% endif %}>
 						<div class="row">
+							{% for field in comment_form %}
+								{% if field.errors %}
+									<h3 style="color:#FF4747;">
+									{{ field.errors }}
+									</h3>
+								{% endif %}
+							{% endfor %}
 							{% include 'stears/comment_form.html' %}
+						</div>
+						<br>
+					</div>
+					<br>
+					<div class="fill" id="keyword_area" style="padding-left:15px;padding-right:15px;" {% if key_words_form.errors %}{% else %}hidden{% endif %}>
+						<div class="row">
+							{% for field in key_words_form %}
+								{% if field.errors %}
+									<h3 style="color:#FF4747;">
+									{{ field.errors }}
+									</h3>
+								{% endif %}
+							{% endfor %}
+							{% if article.keywords %}
+							<h3>
+								Present key words: 
+							</h3>
+							<p>
+								{% for word in article.keywords %}
+								{{ word }}, 
+								{% endfor%}
+							</p>
+							{% endif %}
+							{% include 'stears/keywords_form.html' %}
 						</div>
 						<br>
 					</div>
@@ -205,6 +235,9 @@
 									</div>
 								{% endifequal %}
 							{% endif %}
+							<div class="row">
+								<button id="keyword_area_button" style="border-radius:3px;" class=" fill">View/Edit keywords</button>
+							</div>
 						</div>
 					</div>
 				</div>

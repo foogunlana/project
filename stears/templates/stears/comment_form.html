@@ -1,15 +1,18 @@
 {% if comment_form %}
-	<form method="POST" action="{% url 'stears:comment' %}">
+	<form method="POST" action="{% url 'stears:article_detail' pk=article.article_id %}">
 		{% csrf_token %}
 			<h3>
 			Leave a comment
 			</h3>
-			{{ comment_form }}
-		<button class=" fill comment" type="submit" name="article_id" value="{{ article.article_id }}" >Post comment</button>
+			<h6>
+				Comment below
+			</h6>
+			{{ comment_form.comment }}
+		<button class=" fill comment" type="comment" name="article_id" value="{{ article.article_id }}" >Post comment</button>
 	</form>
 {% else %}
-	<h1>
+	<h3>
 	Oops, we're afraid you can't comment on this Article :-(
 	Please contact your editor
-	</h1>
+	</h3>
 {% endif %}

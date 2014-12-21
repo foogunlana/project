@@ -23,6 +23,11 @@ max-width: initial;
   max-height: 100px;
 }
 
+.tiny_textarea{
+  border-radius: 10px;
+  max-height: 60px;
+}
+
 /*
 button{
   background-color:white;

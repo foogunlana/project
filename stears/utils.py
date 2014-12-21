@@ -6,6 +6,7 @@ from mongoengine.django.auth import User
 from django.core.mail import send_mail
 from writers.settings import EMAIL_HOST_USER as email_host
 
+# import enchant
 import params
 import json
 import time
@@ -213,6 +214,16 @@ def make_comment(username, article_id, comment):
     )
 
 
+def article_key_words(pk, words):
+    articles = mongo_calls('articles')
+    articles.update(
+        {'article_id': pk},
+        {'$pushAll': {'keywords': words}},
+        False,
+        False
+    )
+
+
 def request_to_write(article):
     username = article['writer']
     user = User.objects.get(username=username)
@@ -269,7 +280,8 @@ def migrate_article(article_id):
     try:
         article = articles.find_one(
             {'article_id': article_id, 'type': 'writers_article'})
-        migrations.update(article, article, True)
+        article['visible'] = False
+        migrations.update({'article_id': article_id}, article, True)
         if article_id:
             articles.remove({'article_id': article_id})
     except Exception:
@@ -423,7 +435,7 @@ class NseNews(Singleton):
 
 def drop_everything():
     client = NseNews.client
-    for name in client.stears.collection_names():
+    for name in ['articles', 'user', 'bin', 'migrations', 'nse_news']:
         client.stears[name].drop()
     from stears.utils import do_magic_user
     do_magic_user()

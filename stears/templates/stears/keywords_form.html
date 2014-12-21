@@ -1,0 +1,18 @@
+{% if key_words_form %}
+	<form method="POST" action="{% url 'stears:article_detail' pk=article.article_id %}">
+		{% csrf_token %}
+			<h3>
+			Add key words 
+			</h3>
+			<h6>
+				Only alphabetical characters allowed. These words must be separated by spaces
+			</h6>
+			{{ key_words_form.keywords }}
+		<button class=" fill comment" type="keywords" name="article_id" value="{{ article.article_id }}" >Save key words</button>
+	</form>
+{% else %}
+	<h3>
+	Oops, we're afraid you can't save key words on this Article :-(
+	Please contact your editor
+	</h3>
+{% endif %}

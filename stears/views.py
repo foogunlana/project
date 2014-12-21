@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from stears.forms import LoginForm, RegisterForm, ChoiceForm, ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, NseArticleForm, ChangePasswordForm
+from stears.forms import LoginForm, RegisterForm, KeyWordsForm, ChoiceForm, ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, NseArticleForm, ChangePasswordForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout
 from mongoengine.django.auth import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
-from stears.utils import migrate_article, mongo_calls, make_comment, forgot_password_email, save_writers_article, accept_to_write, request_json, make_url, move_to_trash, suggest_nse_article, update_writers_article, edit_user, make_writer_id, make_writers_article, submit_writers_article
+from stears.utils import article_key_words, migrate_article, mongo_calls, make_comment, forgot_password_email, save_writers_article, accept_to_write, request_json, make_url, move_to_trash, suggest_nse_article, update_writers_article, edit_user, make_writer_id, make_writers_article, submit_writers_article
 from stears.permissions import approved_writer, is_a_boss, writer_can_edit_article
 from mongoengine.queryset import DoesNotExist
 
@@ -183,9 +183,7 @@ def register(request):
 @login_required(login_url='/stears/login')
 def logout_view(request):
     logout(request)
-    login_form = LoginForm()
-    context = {'login_form': login_form}
-    return render(request, 'stears/login.html', context)
+    return HttpResponseRedirect(reverse('stears:writers_write'))
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
@@ -309,12 +307,41 @@ def delete_article(request):
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
-def article_detail(request, pk):
-    comment_form = CommentForm
+def article_detail(request, **kwargs):
+    user = request.user
     article_collection = mongo_calls('articles')
     users = mongo_calls('users')
 
-    article = article_collection.find_one({'article_id': int(pk)})
+    if request.method == 'POST':
+        pk = int(request.POST['article_id'])
+        if 'keywords' in request.POST.keys():
+            key_words_form = KeyWordsForm(
+                request.POST
+            )
+            if key_words_form.is_valid():
+                article_key_words(
+                    pk,
+                    key_words_form.cleaned_data['keywords'].split())
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            else:
+                comment_form = CommentForm()
+        elif 'comment' in request.POST.keys():
+            comment_form = CommentForm(
+                request.POST
+            )
+            if comment_form.is_valid():
+                make_comment(
+                    str(user), pk, comment_form.cleaned_data['comment'])
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            else:
+                key_words_form = KeyWordsForm()
+
+    if request.method == 'GET':
+        pk = int(kwargs.pop('pk'))
+        comment_form = CommentForm()
+        key_words_form = KeyWordsForm()
+
+    article = article_collection.find_one({'article_id': pk})
     if article['type'] == 'writers_article':
         nse_id = article['nse_article_id']
         category = article['category']
@@ -326,7 +353,6 @@ def article_detail(request, pk):
         {'state': 'approved'}).distinct('username')
     suggest_form = SuggestForm(my_arg=approved_writers)
 
-    user = request.user
     locked_fields = ['nse_headlines', 'categories']
 
     if writer_can_edit_article(user, article):
@@ -334,7 +360,7 @@ def article_detail(request, pk):
             writers_article_form = WritersArticleForm(
                 headline=article['headline'],
                 content=article['content'],
-                article_id=int(pk),
+                article_id=pk,
                 initial={'nse_headlines': nse_id,
                          'categories': category},
                 edit=True,
@@ -350,8 +376,9 @@ def article_detail(request, pk):
 
     if not article:
         article = article_collection.find_one(
-            {'article_id': int(pk), 'type': 'nse_article'})
-    context = {'article': article, 'suggest_form': suggest_form,
+            {'article_id': pk, 'type': 'nse_article'})
+
+    context = {'article': article, 'suggest_form': suggest_form, 'key_words_form': key_words_form,
                'writers_article_form': writers_article_form, 'comment_form': comment_form}
     return render(request, 'stears/article_detail.html', context)
 
@@ -428,26 +455,39 @@ def accept_article_category(request):
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
 def pipeline(request):
     if request.method == 'GET':
-        # articles = [article for article in migrations.find()]
+        migrations = mongo_calls('migrations')
+        articles = [article for article in migrations.find()]
         # Articles here cannot be found in the article database and that will
         # cause a few problems!
-        pass
-    context = {}
+    context = {'articles': articles}
     return render(request, 'stears/pipeline.html', context)
 
 
-@user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
-def comment(request):
-    if request.method == 'POST':
-        article_id = int(request.POST.get('article_id', 0))
-        comment_form = CommentForm(
-            request.POST,
-        )
-        if comment_form.is_valid():
-            make_comment(
-                str(request.user), int(article_id), comment_form.cleaned_data['comment'])
+# @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
+# def comment(request):
+#     if request.method == 'POST':
+#         article_id = int(request.POST.get('article_id', 0))
+#         comment_form = CommentForm(
+#             request.POST,
+#         )
+#         if comment_form.is_valid():
+#             make_comment(
+# str(request.user), int(article_id),
+# comment_form.cleaned_data['comment'])
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+#     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+# def add_key_words(request):
+#     if request.method == 'POST':
+#         key_words_form = KeyWordsForm(
+#             request.POST
+#         )
+#         if key_words_form.is_valid():
+#             print key_words_form.cleaned_data['keywords'].split()
+#         else:
+#             print key_words_form.errors, 'error'
+#     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def noaccess(request):

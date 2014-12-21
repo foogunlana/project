@@ -1,15 +1,19 @@
 {% load stears_tags %}
 <div class="row shadowbox article_box" style='{% if article.writer %}{% else %}background-color:#D5EBFE{% endif %}'>
 <div class="columns small-6 ">
-	<a href="{% url 'stears:article_detail' pk=article.article_id %}" >
+	{% ifequal article.visible False%}
 		{{ article.headline }}|
-	</a>
+	{% else %}
+		<a href="{% url 'stears:article_detail' pk=article.article_id %}" >
+			{{ article.headline }}|
+		</a>
+	{% endifequal %}
 </div>
 <div class="columns small-6 medium-3 ">
 	{% ifequal article.visible False%}
-	{{ article.category }}|<font color="red">(Requested)</font>
+		{{ article.category }}|<font color="red">(Requested)</font>
 	{% else %}
-	{{ article.category }}|
+		{{ article.category }}|
 	{% endifequal %}
 </div>
 <div class="columns small-6 medium-3 ">

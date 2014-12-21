@@ -13,6 +13,12 @@ $( document ).ready(function() {
 
 	$('#comment_area_button').click(function() {
 		$('#comment_area').toggle();
+		$('#keyword_area').hide();
+	});
+
+	$('#keyword_area_button').click(function() {
+		$('#keyword_area').toggle();
+		$('#comment_area').hide();
 	});
 
 	$('.comment_body_toggle').on('click',function(){
