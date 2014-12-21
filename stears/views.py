@@ -5,7 +5,7 @@ from django.contrib.auth import login, logout
 from mongoengine.django.auth import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
-from stears.utils import migrate_article, mongo_calls, make_comment, forgot_password_email, save_writers_article, accept_to_write, request_json, make_url, move_to_trash, suggest_nse_article, update_writers_article, edit_user, make_writer_id, make_writers_article, submit_writers_article, client as mclient
+from stears.utils import migrate_article, mongo_calls, make_comment, forgot_password_email, save_writers_article, accept_to_write, request_json, make_url, move_to_trash, suggest_nse_article, update_writers_article, edit_user, make_writer_id, make_writers_article, submit_writers_article
 from stears.permissions import approved_writer, is_a_boss, writer_can_edit_article
 from mongoengine.queryset import DoesNotExist
 

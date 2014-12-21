@@ -1,7 +1,7 @@
 from django import template
 from stears.params import remove_from_date
 from mongoengine.django.auth import User
-from stears.utils import client
+from stears.utils import mongo_calls
 import time
 
 register = template.Library()
@@ -36,10 +36,11 @@ def can_suggest(username, article):
 
 @register.filter("article_array")
 def article_array(pk):
-    nse_article = client.stears.articles.find_one({'article_id': int(pk)})
+    article_collection = mongo_calls('articles')
+    nse_article = article_collection.find_one({'article_id': int(pk)})
     versions = nse_article.get('versions', [])
     articles = []
-    articles = articles + [article for article in client.stears.articles.find(
+    articles = articles + [article for article in article_collection.find(
         {'article_id': {'$in': versions}})]
     return articles
 
@@ -72,7 +73,8 @@ def can_write(username, article):
 
 @register.filter("get_headline")
 def get_headline(pk):
-    article = client.stears.articles.find_one({'article_id': int(pk)})
+    article_collection = mongo_calls('articles')
+    article = article_collection.find_one({'article_id': int(pk)})
     if article:
         return article['headline']
     return None

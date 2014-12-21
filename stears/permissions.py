@@ -1,11 +1,12 @@
-from utils import client
+from utils import mongo_calls
 
 
 def approved_writer(username):
     if username.is_superuser:
         return True
 
-    writer = client.stears.user.find_one({'username': str(username)})
+    users = mongo_calls()
+    writer = users.find_one({'username': str(username)})
     if writer:
         if writer.get('state', "") == 'approved':
             return True

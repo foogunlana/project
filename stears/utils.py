@@ -367,7 +367,7 @@ def available_article_id():
     register = nse_news.find_one({'type': 'register'})
     if not register:
         register = {'type': 'register', 'article_ids': []}
-        client.stears.nse_news.insert(register)
+        nse_news.insert(register)
 
     article_ids = register.get('article_ids', [])
     if article_ids:
@@ -382,12 +382,13 @@ def available_article_id():
 
 # Change the way that the articles are stored inside the database
 def thread_stuff():
+    nse_news = mongo_calls('nse_news')
     while params.thread_running:
         # print 'thread_running'
         URL = make_url(params.glo_trybe_data['news'], False)
         data = request_json(URL)
         data['type'] = 'news'
-        client.stears.nse_news.update({'type': 'news'}, data, True)
+        nse_news.update({'type': 'news'}, data, True)
         organise_new_articles()
         print "sleeping....................................................", threading.enumerate()
         time.sleep(params.nse_period)
@@ -429,4 +430,3 @@ def drop_everything():
 
 
 nse_news_object = NseNews()
-client = NseNews.client
