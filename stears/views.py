@@ -5,7 +5,7 @@ from django.contrib.auth import login, logout
 from mongoengine.django.auth import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
-from stears.utils import migrate_article, make_comment, forgot_password_email, save_writers_article, accept_to_write, get_nse_headlines, request_json, make_url, move_to_trash, suggest_nse_article, update_writers_article, retrieve_values, edit_user, make_writer_id, make_writers_article, submit_writers_article, client as mclient
+from stears.utils import migrate_article, mongo_calls, make_comment, forgot_password_email, save_writers_article, accept_to_write, request_json, make_url, move_to_trash, suggest_nse_article, update_writers_article, edit_user, make_writer_id, make_writers_article, submit_writers_article, client as mclient
 from stears.permissions import approved_writer, is_a_boss, writer_can_edit_article
 from mongoengine.queryset import DoesNotExist
 
@@ -194,20 +194,21 @@ def writers_home_test(request, group):
     editable_fields = ['Headline', 'Content']
     visible_fields = ['headline', 'content', 'reporter', 'state']
     articles = []
+    article_collection = mongo_calls('articles')
 
     writers_article_form = WritersArticleForm()
     if request.method == 'GET':
         if not group:
-            articles = [article for article in mclient.stears.articles.find(
-                {'type': 'writers_article'})] + [article for article in mclient.stears.articles.find({'type': 'nse_article'})]
+            articles = [article for article in article_collection.find(
+                {'type': 'writers_article'})] + [article for article in article_collection.find({'type': 'nse_article'})]
         elif group == 'NSE':
             articles = [
-                article for article in mclient.stears.articles.find({'type': 'nse_article'})]
+                article for article in article_collection.find({'type': 'nse_article'})]
         elif group == 'peers':
-            articles = [article for article in mclient.stears.articles.find(
+            articles = [article for article in article_collection.find(
                 {'type': 'writers_article'})]
         else:
-            articles = [article for article in mclient.stears.articles.find(
+            articles = [article for article in article_collection.find(
                 {'type': 'writers_article', 'category': params.article_categories[group]})]
 
     context = {'editable_fields': editable_fields, "writers_article_form": writers_article_form,
@@ -218,8 +219,9 @@ def writers_home_test(request, group):
 @user_passes_test(lambda u: is_a_boss(u), login_url='/stears/noaccess/')
 def writers_list(request):
     writers = []
+    users = mongo_calls('user')
     if request.method == 'GET':
-        writers = [writer for writer in mclient.stears.user.find()]
+        writers = [writer for writer in users.find()]
 
         writers_article_form = WritersArticleForm()
 
@@ -232,17 +234,19 @@ def writers_list(request):
 def writers_write(request):
     context = {}
     messages = []
+    users = mongo_calls('user')
+    article_collection = mongo_calls('articles')
 
     if request.method == 'GET':
         username = str(request.user)
         # get suggested articles
-        writer = mclient.stears.user.find_one({'username': username})
+        writer = users.find_one({'username': username})
         suggested_articles = writer.get('suggested_articles', [])
-        suggestions = [article for article in mclient.stears.articles.find(
+        suggestions = [article for article in article_collection.find(
             {'article_id': {'$in': suggested_articles}})]
 
         articles = [
-            article for article in mclient.stears.articles.find({'writer': username})]
+            article for article in article_collection.find({'writer': username})]
 
         writers_article_form = WritersArticleForm()
 
@@ -279,7 +283,9 @@ def writers_post(request, nse):
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/stears/noaccess/')
 def writer_detail(request, name):
-    writer = mclient.stears.user.find_one({'username': name})
+    users = mongo_calls('user')
+    article_collection = mongo_calls('articles')
+    writer = users.find_one({'username': name})
     context = {}
     # GET ARTICLE STRAIGHT FROM WRITER
     # FOR NOW get articles by search
@@ -287,7 +293,7 @@ def writer_detail(request, name):
         writers_article_form = WritersArticleForm()
 
         articles = [
-            article for article in mclient.stears.articles.find({'writer': name})]
+            article for article in article_collection.find({'writer': name})]
         context = {'writer': writer, 'articles': articles,
                    'writers_article_form': writers_article_form}
     return render(request, 'stears/writer_detail.html', context)
@@ -305,8 +311,10 @@ def delete_article(request):
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
 def article_detail(request, pk):
     comment_form = CommentForm
+    article_collection = mongo_calls('articles')
+    users = mongo_calls('users')
 
-    article = mclient.stears.articles.find_one({'article_id': int(pk)})
+    article = article_collection.find_one({'article_id': int(pk)})
     if article['type'] == 'writers_article':
         nse_id = article['nse_article_id']
         category = article['category']
@@ -314,8 +322,8 @@ def article_detail(request, pk):
         nse_id = pk
         category = "Tier 1"
 
-    approved_writers = retrieve_values(
-        'username', {'state': 'approved'}, mclient.stears.user)
+    approved_writers = users.find(
+        {'state': 'approved'}).distinct('username')
     suggest_form = SuggestForm(my_arg=approved_writers)
 
     user = request.user
@@ -341,7 +349,7 @@ def article_detail(request, pk):
         writers_article_form = {}
 
     if not article:
-        article = mclient.stears.articles.find_one(
+        article = article_collection.find_one(
             {'article_id': int(pk), 'type': 'nse_article'})
     context = {'article': article, 'suggest_form': suggest_form,
                'writers_article_form': writers_article_form, 'comment_form': comment_form}
@@ -370,10 +378,10 @@ def approve_article(request):
     if request.method == 'POST':
         commit_id = request.POST.get('commit_id', '')
         reject_id = request.POST.get('reject_id', '')
-        articles = mclient.stears.articles
+        article_collection = mongo_calls('articles')
 
         if reject_id:
-            articles.update({
+            article_collection.update({
                 "article_id": int(reject_id)
             }, {'$set': {"state": 'in_progress'}
                 }, False, False
@@ -389,9 +397,10 @@ def approve_article(request):
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/stears/noaccess/')
 def suggest(request):
+    users = mongo_calls('user')
     if request.method == 'POST':
-        approved_writers = retrieve_values(
-            'username', {'state': 'approved'}, mclient.stears.user)
+        approved_writers = users.find(
+            {'state': 'approved'}).distinct('username')
         suggest_form = SuggestForm(request.POST, my_arg=approved_writers)
         if suggest_form.is_valid():
             username = str(suggest_form.cleaned_data.get('user', ''))
@@ -419,7 +428,7 @@ def accept_article_category(request):
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
 def pipeline(request):
     if request.method == 'GET':
-        # articles = [article for article in mclient.stears.migrations.find()]
+        # articles = [article for article in migrations.find()]
         # Articles here cannot be found in the article database and that will
         # cause a few problems!
         pass

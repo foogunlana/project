@@ -2,7 +2,6 @@ from urllib2 import urlopen
 from pymongo import MongoClient
 from threading import Thread, active_count
 import threading
-from datetime import datetime
 from mongoengine.django.auth import User
 from django.core.mail import send_mail
 from writers.settings import EMAIL_HOST_USER as email_host
@@ -26,6 +25,16 @@ def get_mongo_client():
             except Exception as e:
                 print e
                 raise Exception
+
+
+def mongo_calls(collection_name):
+    client = NseNews.client
+    try:
+        collection = client.stears[collection_name]
+    except Exception as e:
+        print e
+        raise Exception
+    return collection
 
 
 def make_url(name, True_for_snapshot):
@@ -53,15 +62,15 @@ def make_url(name, True_for_snapshot):
 
 
 def make_writer_id(writer):
-    collection = client.stears.user
-    ids = collection.distinct('writer_id')
+    users = mongo_calls('user')
+    ids = users.distinct('writer_id')
     if ids and (None not in ids):
         max_id = max(ids)
         writer_id = int(max_id) + 1
     else:
         writer_id = 1
 
-    collection.update({
+    users.update({
         "username": writer
     }, {'$set': {"writer_id": writer_id}
         }, False, False
@@ -69,7 +78,8 @@ def make_writer_id(writer):
 
 
 def edit_user(username, key, item):
-    client.stears.user.update({
+    users = mongo_calls('user')
+    users.update({
         "username": username
     }, {'$set': {key: item}
         }, False, False
@@ -107,7 +117,8 @@ def do_magic_user():
 
 
 def forgot_password_email(email):
-    user = client.stears.user.find_one({"email": email})
+    users = mongo_calls('user')
+    user = users.find_one({"email": email})
     password = str(user['password'])
     username = user['username']
     send_mail('Email verification', 'Hi Stears writer, weve made you a new password: "%s" . Also, your username is "%s" incase you forgot that too' % (password, username), email_host,
@@ -130,29 +141,8 @@ def request_json(URL):
         return {}
 
 
-def unique(username, key):
-    if client.stears.writers.find_one({key: username}):
-        return False
-    return True
-
-
-def nse_time_string(string):
-    bin = ['/Date(', '000+0100)/']
-    for rubbish in bin:
-        string = string.replace(rubbish, '')
-    # return time.asctime(time.localtime(int(num)))
-    return datetime.fromtimestamp(int(string)).strftime('%Y-%m-%d %H:%M:%S')
-
-
-def retrieve_values(key, doc, collection):
-    items = []
-    for user in collection.find(doc):
-        items.append(user.get(key, ''))
-    return items
-
-
 def suggest_nse_article(username, article_id):
-    users = client.stears.user
+    users = mongo_calls('user')
     users.update(
         {'username': username}, {'$push': {'suggested_articles': int(article_id)}}, False)
 
@@ -171,7 +161,7 @@ def update_writers_article(username, form):
 
     article_id = form.cleaned_data['article_id']
 
-    articles = client.stears.articles
+    articles = mongo_calls('articles')
     existing_article = articles.find_one({'article_id': int(article_id)})
     for key, value in article.items():
         if key not in params.persistent:
@@ -183,7 +173,7 @@ def update_writers_article(username, form):
 
 
 def submit_writers_article(article_id):
-    articles = client.stears.articles
+    articles = mongo_calls('articles')
     articles.update({'article_id': int(article_id)},
                     {'$set': {'state': 'submitted'}}, False, False)
 
@@ -214,7 +204,8 @@ def make_comment(username, article_id, comment):
         'writer': username,
         'comment': comment,
     }
-    client.stears.articles.update(
+    articles = mongo_calls('articles')
+    articles.update(
         {'article_id': article_id},
         {'$push': {'comments': comment_body}},
         False,
@@ -233,7 +224,7 @@ def request_to_write(article):
 
 
 def accept_to_write(article_id):
-    articles = client.stears.articles
+    articles = mongo_calls('articles')
     articles.update(
         {
             "article_id": int(article_id),
@@ -246,9 +237,9 @@ def accept_to_write(article_id):
 
 
 def move_to_trash(pk):
-    articles = client.stears.articles
-    bin = client.stears.bin
-    users = client.stears.user
+    articles = mongo_calls('articles')
+    bin = mongo_calls('bin')
+    users = mongo_calls('users')
     article = articles.find_one({'article_id': int(pk)})
     nse_article_id = int(article['nse_article_id'])
 
@@ -272,8 +263,8 @@ def move_to_trash(pk):
 
 
 def migrate_article(article_id):
-    articles = client.stears.articles
-    migrations = client.stears.migrations
+    articles = mongo_calls('articles')
+    migrations = mongo_calls('migrations')
 
     try:
         article = articles.find_one(
@@ -287,11 +278,11 @@ def migrate_article(article_id):
 
 
 def save_writers_article(article):
-    articles = client.stears.articles
+    articles = mongo_calls('articles')
+    users = mongo_calls('users')
     nse_article_id = int(article['nse_article_id'])
     article = add_id_to_dict(article)
     username = article['writer']
-    users = client.stears.user
     article_id = int(article['article_id'])
 
     users.update(
@@ -317,17 +308,17 @@ def save_writers_article(article):
 
 
 def get_nse_headlines():
-    collection = client.stears.articles
+    articles = mongo_calls('articles')
     headlines = []
-    for article in collection.find({'type': 'nse_article'}):
+    for article in articles.find({'type': 'nse_article'}):
         headline_tuple = (article['article_id'], article['headline'])
         headlines.append(headline_tuple)
     return [(0, 'None')] + headlines
 
 
 def organise_new_articles():
-    collection_with_news = client.stears.nse_news
-    articles = client.stears.articles
+    collection_with_news = mongo_calls('nse_news')
+    articles = mongo_calls('articles')
 
     new_bulletins = collection_with_news.find_one({'type': 'news'})
     if new_bulletins:
@@ -361,7 +352,8 @@ def organise_new_articles():
 def add_id_to_dict(article):
     available_id = available_article_id()
     article['article_id'] = available_id
-    client.stears.register.update(
+    nse_news = mongo_calls('nse_news')
+    nse_news.update(
         {'type': 'register'},
         {'$push': {'article_ids': available_id}},
         False,
@@ -371,7 +363,8 @@ def add_id_to_dict(article):
 
 
 def available_article_id():
-    register = client.stears.nse_news.find_one({'type': 'register'})
+    nse_news = mongo_calls('nse_news')
+    register = nse_news.find_one({'type': 'register'})
     if not register:
         register = {'type': 'register', 'article_ids': []}
         client.stears.nse_news.insert(register)
@@ -428,10 +421,9 @@ class NseNews(Singleton):
 
 
 def drop_everything():
-    client.stears.articles.drop()
-    client.stears.nse_news.drop()
-    client.stears.bin.drop()
-    client.stears.user.drop()
+    client = NseNews.client
+    for name in client.stears.collection_names():
+        client.stears[name].drop()
     from stears.utils import do_magic_user
     do_magic_user()
 
