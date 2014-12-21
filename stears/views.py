@@ -101,6 +101,7 @@ def forgot_password(request):
             email = forgot_password_form.cleaned_data['email']
             forgot_password_email(email)
             forgot_password_form = {}
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
     context = {'forgot_password_form': forgot_password_form, 'errors': errors}
     return render(request, 'stears/forgot_password.html', context)
@@ -273,7 +274,7 @@ def writers_post(request, nse):
         else:
             print form.errors
 
-    return HttpResponseRedirect(reverse('stears:writers_write'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/stears/noaccess/')
@@ -359,7 +360,7 @@ def approve_writer(request):
         if username_revoke:
             edit_user(username_revoke, 'state', 'request')
 
-    return HttpResponseRedirect(reverse('stears:writers_list'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/stears/noaccess/')
@@ -397,7 +398,7 @@ def suggest(request):
             article_id = request.POST['article_id']
             suggest_nse_article(username, article_id)
 
-    return HttpResponseRedirect(reverse('stears:writers_home', args=()))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/stears/noaccess/')
@@ -412,7 +413,7 @@ def accept_article_category(request):
         move_to_trash(int(not_accept_id))
         pass
 
-    return HttpResponseRedirect(reverse('stears:writers_home', args=()))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')

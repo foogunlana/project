@@ -135,75 +135,77 @@
 					</div>
 				</div>
 				
-				<div class="columns small-12 medium-6 large-3">
+				<div class="columns small-12 large-3">
 					<br>
-					<div class="home_box">
-						<strong>
-						Options
-						</strong>
-						<br>
-						<br>
-						<div class="row">
-							<button id="comment_area_button" style="border-radius:3px;" class=" fill">Comment</button>
-						</div>
-						{% if user.username|is_editor %}
-							{% if article.writer %}
-								<div class="row">
-									<form action="{% url 'stears:delete_article' %}" method="post" id="delete">
-										{% csrf_token %}
-										<button type="submit" class="fill" name="article_id" value="{{ article.article_id }}">Delete</button>
-									</form>
-								</div>
-							{% endif%}
-						{% endif %}
-						{% if user.username|can_suggest:article %}
+					<div class="row">
+						<div class="home_box columns small-12 small-centered" style="max-width:400px;">
+							<strong>
+							Options
+							</strong>
+							<br>
+							<br>
 							<div class="row">
-								<form action="{% url 'stears:suggest_nse_article' %}" method="post" id="assign">
-									{% csrf_token %}
-									{{ suggest_form }}
-									<button type="submit" class="fill" name="article_id" value="{{ article.article_id }}">Suggest</button>
-								</form>
+								<button id="comment_area_button" style="border-radius:3px;" class=" fill">Comment</button>
 							</div>
-						{% endif %}
-						{% if user.username|is_editor %}
-							{% ifequal article.state 'submitted' %}
-								<div class="row">
-									<form action="{% url 'stears:approve_article' %}" method="post" id="approve">
-										{% csrf_token %}
-										<button type="submit" class="fill" name="commit_id" value="{{ article.article_id }}">Approve</button>
-									</form>
-								</div>
-								<div class="row">
-									<form action="{% url 'stears:approve_article' %}" method="post" id="reject">
-										{% csrf_token %}
-										<button type="submit" class="fill" name="reject_id" value="{{ article.article_id }}">Reject</button>
-									</form>
-								</div>
-							{% endifequal %}
-							{% ifequal article.visible False %}
-								<div class="row">
-									<p>
-									<strong>
-									{{ article.writer }} can write this article as {{ article.category }}?
-									</strong>
-									</p>
-								</div>
-								<div class="row">
-									<div class="columns small-6">
-										<form action="{% url 'stears:accept_article' %}" method="post" id="accept">
+							{% if user.username|is_editor %}
+								{% if article.writer %}
+									<div class="row">
+										<form action="{% url 'stears:delete_article' %}" method="post" id="delete">
 											{% csrf_token %}
-											<button type="submit" class="fill" name="accept_id" value="{{ article.article_id }}">Yes</button>
+											<button type="submit" class="fill" name="article_id" value="{{ article.article_id }}">Delete</button>
 										</form>
 									</div>
-									<div class="columns small-6">
-										<form action="{% url 'stears:accept_article' %}" method="post" id="accept">
+								{% endif%}
+							{% endif %}
+							{% if user.username|can_suggest:article %}
+								<div class="row">
+									<form action="{% url 'stears:suggest_nse_article' %}" method="post" id="assign">
+										{% csrf_token %}
+										{{ suggest_form }}
+										<button type="submit" class="fill" name="article_id" value="{{ article.article_id }}">Suggest</button>
+									</form>
+								</div>
+							{% endif %}
+							{% if user.username|is_editor %}
+								{% ifequal article.state 'submitted' %}
+									<div class="row">
+										<form action="{% url 'stears:approve_article' %}" method="post" id="approve">
 											{% csrf_token %}
-											<button type="submit" class="fill" name="not_accept_id" value="{{ article.article_id }}">No</button>
+											<button type="submit" class="fill" name="commit_id" value="{{ article.article_id }}">Approve</button>
 										</form>
 									</div>
-								</div>
-							{% endifequal %}
-						{% endif %}
+									<div class="row">
+										<form action="{% url 'stears:approve_article' %}" method="post" id="reject">
+											{% csrf_token %}
+											<button type="submit" class="fill" name="reject_id" value="{{ article.article_id }}">Reject</button>
+										</form>
+									</div>
+								{% endifequal %}
+								{% ifequal article.visible False %}
+									<div class="row">
+										<p>
+										<strong>
+										{{ article.writer }} can write this article as {{ article.category }}?
+										</strong>
+										</p>
+									</div>
+									<div class="row">
+										<div class="columns small-6">
+											<form action="{% url 'stears:accept_article' %}" method="post" id="accept">
+												{% csrf_token %}
+												<button type="submit" class="fill" name="accept_id" value="{{ article.article_id }}">Yes</button>
+											</form>
+										</div>
+										<div class="columns small-6">
+											<form action="{% url 'stears:accept_article' %}" method="post" id="accept">
+												{% csrf_token %}
+												<button type="submit" class="fill" name="not_accept_id" value="{{ article.article_id }}">No</button>
+											</form>
+										</div>
+									</div>
+								{% endifequal %}
+							{% endif %}
+						</div>
 					</div>
 				</div>
 				
