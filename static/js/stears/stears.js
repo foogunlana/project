@@ -6,6 +6,12 @@ $( document ).ready(function() {
 			event.preventDefault();
 		};
 	});
+
+	$( ".delete" ).click(function( event ) {
+		if(!confirm( "Are you sure you want to delete this" )){
+			event.preventDefault();
+		};
+	});
 	
 	$('#btn').click(function() {
 		$('#wizard').toggle();

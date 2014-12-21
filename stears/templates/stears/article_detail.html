@@ -182,7 +182,7 @@
 									<div class="row">
 										<form action="{% url 'stears:delete_article' %}" method="post" id="delete">
 											{% csrf_token %}
-											<button type="submit" class="fill" name="article_id" value="{{ article.article_id }}">Delete</button>
+											<button type="submit" class="fill delete" name="article_id" value="{{ article.article_id }}">Delete</button>
 										</form>
 									</div>
 								{% endif%}
