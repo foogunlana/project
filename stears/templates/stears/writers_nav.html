@@ -12,20 +12,17 @@
 				{% if user.is_authenticated %}
 					<li class="divider "></li>
 					<li class=" hide-for-medium">
-						<a href="{% url 'stears:writers_write' %}" style="font-size:18px;color:#6699ff">{{ user.username }}</a>
+						<a href="{% url 'stears:writers_write' %}" style="font-size:15px;color:#6699ff">{{ user.username }}</a>
 					</li>
 				{% endif %}
 			</ul>
 			<ul class="right">
-				<li class="divider "></li>
 				<li>
 					<a href="{% url 'stears:writers_write' %}">Write</a>
 				</li>
-				<li class="divider "></li>
 				<li>
 					<a href="{% url 'stears:articles_group' group='NSE' %}">NSE-data</a>
 				</li>
-				<li class="divider"></li>
 				{% if user|is_editor %}
 					<li class="has-dropdown">
 						<a href="{% url 'stears:writers_list' %}">Writers</a>
@@ -36,7 +33,6 @@
 						</ul>
 					</li>
 				{% endif %}
-				<li class="divider"></li>
 				<li class="has-dropdown">
 					<a href="{% url 'stears:articles_group' group='peers' %}">Articles</a>
 					
@@ -46,13 +42,12 @@
 						<li><a href="{% url 'stears:articles_group' group='col' %}">Columns</a></li>
 					</ul>
 				</li>
-				<li class="divider "></li>
 				<li class="has-form">
 					<div class="row collapse">
 						<div class="large-5 hide-for-small hide-for-medium columns">
 							{% include 'stears/write_quick.html' %}
 						</div>
-						<div class="large-5 small-11  columns">
+						<div class="large-5 small-12  columns">
 							<a class="button fill" href="{% url 'stears:logout' %}" style="border-radius:3px;background-color:#FF4747;">logout</a>
 						</div>
 					</div>

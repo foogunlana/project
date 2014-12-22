@@ -1,5 +1,5 @@
 {% load stears_tags %}
-<div class="row shadowbox article_box" style='{% if article.writer %}{% else %}background-color:#D5EBFE{% endif %}'>
+<div class="row article_box" style='{% if article.writer %}{% else %}background-color:#D5EBFE{% endif %}'>
 <div class="columns small-12 medium-10 ">
 	<div class="comment_summary" id="summary{{ forloop.counter }}">
 		{{ comment.comment|urlize|safe|slice:':20' }}...

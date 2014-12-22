@@ -126,7 +126,7 @@ def login_view(request):
                 if user:
                     request.session.set_expiry(
                         params.SESSION_AGE)  # 1 hour timeout
-                    return HttpResponseRedirect(reverse('stears:writers_write'))
+                    return HttpResponseRedirect(reverse('stears:articles_group',  args=(), kwargs={'group': 'peers'}))
                 else:
                     errors.append('Oops! something went wrong. please refresh')
             else:
