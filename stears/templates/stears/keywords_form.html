@@ -7,7 +7,9 @@
 			<h6>
 				Only alphabetical characters allowed. These words must be separated by spaces
 			</h6>
-			{{ key_words_form.keywords }}
+			<p>
+				{{ key_words_form.keywords }}
+			</p>
 		<button class=" fill comment" type="keywords" name="article_id" value="{{ article.article_id }}" >Save key words</button>
 	</form>
 {% else %}
@@ -16,3 +18,7 @@
 	Please contact your editor
 	</h3>
 {% endif %}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
+<script> $.validate(); </script>

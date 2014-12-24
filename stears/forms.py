@@ -9,8 +9,10 @@ import re
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(label='username', max_length=20)
-    password = forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField(label='username', max_length=20, widget=forms.TextInput(
+        attrs={'data-validation': 'length', 'data-validation-length': 'min1'}))
+    password = forms.CharField(widget=forms.PasswordInput(
+        attrs={'data-validation': 'length', 'data-validation-length': 'min1'}))
 
 # class UserForm(forms.ModelForm):
 #     password = forms.CharField(widget=forms.PasswordInput())
@@ -32,6 +34,8 @@ class ChoiceForm(forms.Form):
 
 
 class RegisterForm(forms.Form):
+    first_name = forms.CharField(max_length=30, required=True)
+    last_name = forms.CharField(max_length=30, required=True)
     name = forms.CharField(label='Your username', max_length=30, required=True)
     email = forms.EmailField(label='Your email', max_length=30, required=True)
     password = forms.CharField(widget=forms.PasswordInput, required=True)
@@ -134,20 +138,17 @@ class NseArticleForm(forms.Form):
 
 class WritersArticleForm(forms.Form):
 
-    headline = forms.CharField(max_length=200)
-    content = forms.CharField(widget=forms.Textarea)
-    article_id = forms.CharField(max_length=30, initial=None, required=False)
+    headline = forms.CharField(max_length=200, widget=forms.TextInput(attrs={
+        'data-validation': 'length',
+        'data-validation-length': 'min5'}))
+    content = forms.CharField(widget=forms.Textarea(attrs={
+        'data-validation': 'length',
+        'data-validation-length': 'min10'}))
+    article_id = forms.CharField(
+        max_length=30, initial=None, required=False)
 
     def __init__(self, *args, **kwargs):
-        edit = False
         lock = False
-
-        if 'edit' in kwargs:
-            headline = kwargs.pop('headline')
-            content = kwargs.pop('content')
-            article_id = kwargs.pop('article_id')
-            kwargs.pop('edit')
-            edit = True
 
         if 'lock' in kwargs:
             lock = kwargs.pop('lock')
@@ -167,14 +168,6 @@ class WritersArticleForm(forms.Form):
             required=False
         )
 
-        if edit:
-            self.fields['headline'] = forms.CharField(
-                max_length=200, initial=headline)
-            self.fields['content'] = forms.CharField(
-                widget=forms.Textarea, initial=content)
-            self.fields['article_id'] = forms.CharField(
-                max_length=30, initial=article_id, required=False)
-
         if lock:
             for field in lock:
                 self.fields[field].widget.attrs = {'disabled': 'disabled'}
@@ -182,15 +175,23 @@ class WritersArticleForm(forms.Form):
 
 class CommentForm(forms.Form):
     comment = forms.CharField(
-        widget=forms.Textarea(attrs={'class': 'small_textarea'}), max_length=300, required=True, error_messages={
+        widget=forms.Textarea(attrs={
+            'class': 'small_textarea',
+            'data-validation': 'length',
+            'data-validation-length': 'min10'
+        }), max_length=300, required=True, error_messages={
             'required': 'You did not enter any comment',
-            'invalid': 'Your comment entry was invalid'
+            'invalid': 'Your comment entry was invalid',
         })
 
 
 class KeyWordsForm(forms.Form):
     keywords = forms.CharField(
-        widget=forms.Textarea(attrs={'class': 'tiny_textarea'}), max_length=200, required=True, error_messages={
+        widget=forms.Textarea(attrs={
+            'class': 'tiny_textarea',
+            'data-validation': 'length',
+            'data-validation-length': 'min2'
+        }), max_length=200, required=True, error_messages={
             'required': 'You did not enter any key words',
             'invalid': 'Your key words were invalid and were not saved, please read the instructions on entering key words'
         })

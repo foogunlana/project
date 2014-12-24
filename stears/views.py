@@ -198,7 +198,8 @@ def writers_home_test(request, group):
     if request.method == 'GET':
         if not group:
             articles = [article for article in article_collection.find(
-                {'type': 'writers_article'})] + [article for article in article_collection.find({'type': 'nse_article'})]
+                {"$or": [{'type': 'writers_article'}, {'type': 'nse_article'}]})]
+
         elif group == 'NSE':
             articles = [
                 article for article in article_collection.find({'type': 'nse_article'})]
@@ -208,6 +209,9 @@ def writers_home_test(request, group):
         else:
             articles = [article for article in article_collection.find(
                 {'type': 'writers_article', 'category': params.article_categories[group]})]
+
+    sorted_articles = sorted(articles, key=lambda article: article['time'])
+    articles = list(reversed(sorted_articles))
 
     context = {'editable_fields': editable_fields, "writers_article_form": writers_article_form,
                'visible_fields': visible_fields, 'articles': articles, 'username': user}
@@ -219,7 +223,8 @@ def writers_list(request):
     writers = []
     users = mongo_calls('user')
     if request.method == 'GET':
-        writers = [writer for writer in users.find()]
+        writers = [writer for writer in users.find(
+            {'$query': {}, '$orderby': {'state': 1}})]
 
         writers_article_form = WritersArticleForm()
 
@@ -244,7 +249,8 @@ def writers_write(request):
             {'article_id': {'$in': suggested_articles}})]
 
         articles = [
-            article for article in article_collection.find({'writer': username})]
+            article for article in article_collection.find(
+                {"$query": {'writer': username}, "$orderby": {"time": -1}})]
 
         writers_article_form = WritersArticleForm()
 
@@ -292,6 +298,7 @@ def writer_detail(request, name):
 
         articles = [
             article for article in article_collection.find({'writer': name})]
+
         context = {'writer': writer, 'articles': articles,
                    'writers_article_form': writers_article_form}
     return render(request, 'stears/writer_detail.html', context)
@@ -358,18 +365,17 @@ def article_detail(request, **kwargs):
     if writer_can_edit_article(user, article):
         if article.get('type', '') == 'writers_article':
             writers_article_form = WritersArticleForm(
-                headline=article['headline'],
-                content=article['content'],
-                article_id=pk,
                 initial={'nse_headlines': nse_id,
-                         'categories': category},
-                edit=True,
+                         'categories': category,
+                         'article_id': pk,
+                         'content': article['content'],
+                         'headline': article['headline']},
                 lock=locked_fields,
             )
 
         elif article['type'] == 'nse_article':
             writers_article_form = NseArticleForm(
-                nse_headlines=nse_id,
+                initial={'nse_headlines': nse_id}
             )
     else:
         writers_article_form = {}
@@ -456,7 +462,8 @@ def accept_article_category(request):
 def pipeline(request):
     if request.method == 'GET':
         migrations = mongo_calls('migrations')
-        articles = [article for article in migrations.find()]
+        articles = [article for article in migrations.find(
+            {'$query': {}, '$orderby': {'state': 1}})]
         # Articles here cannot be found in the article database and that will
         # cause a few problems!
     context = {'articles': articles}

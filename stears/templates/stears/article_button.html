@@ -1,7 +1,7 @@
 {% load stears_tags %}
 <div class="row article_button article_box" style='{% if article.writer %}{% else %}background-color:#D5EBFE{% endif %}'>
 <div class="columns small-6 ">
-	{% ifequal article.visible False%}
+	{% ifequal article.visible False %}
 		{{ article.headline }}|
 	{% else %}
 		<a href="{% url 'stears:article_detail' pk=article.article_id %}" >

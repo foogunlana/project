@@ -78,3 +78,20 @@ def get_headline(pk):
     if article:
         return article['headline']
     return None
+
+
+@register.filter('can_approve')
+def can_approve(username, article):
+    if article['state'] != 'submitted':
+        return False
+    if is_editor(username):
+        return True
+    return False
+
+
+def is_an_editor(username):
+    users = mongo_calls('user')
+    writer = users.find_one({'username': username})
+    if writer['state'] == 'admin':
+        return True
+    return False

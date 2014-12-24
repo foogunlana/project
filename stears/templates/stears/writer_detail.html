@@ -8,8 +8,8 @@
 {% block writers_block %}
 	<hr>
 	<div class="row fill">
-		<div class="columns small-11 small-centered">
-			<div class="row">
+		<div class="columns small-12 small-centered">
+			<div class="row ">
 				<div class="columns small-12 medium-5 large-3">
 					{% if writer.username|is_editor %}
 						<h4 style="color:red">
@@ -28,15 +28,17 @@
 					<br>
 				</div>
 			</div>
-			<div class="row fill">
+			<div class="row">
 				<div class="columns small-12 medium-4">
-					<dl class="accordion" data-accordion>
-						<dd class="accordion-navigation">
-						<a href="#panel2" class="shadowbox article_box" style="display:inline-block;background-color:white;">
+
+						<a id="writers_details" class="article_box toggles_div" >
 							Writer Info/Details
 						</a>
-						<div id="panel2" class="content" style = "background-color:#efefef;padding:0px;">
-							<table>
+						<br>
+						<br>
+						<br>
+						<div class="content writers_details" style = "background-color:#efefef;" hidden>
+							<table class="article_box">
 								{% for attr,value in writer.items %}
 									{% ifnotequal attr 'password' %}
 										<tr>
@@ -51,8 +53,6 @@
 								{% endfor %}
 							</table>
 						</div>
-						</dd>
-					</dl>
 				</div>
 				<div class="columns small-12 large-8">
 					<br>

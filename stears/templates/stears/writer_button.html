@@ -1,15 +1,8 @@
 <div class="row article_box">
-	<div class="columns small-6 medium-4 ">
+	<div class="columns small-12 medium-8 ">
 		{% if writer.username %}
 		<a href="{% url 'stears:writer_detail' name=writer.username %}" >
 			{{ writer.username }}|
-		</a>
-		{% endif %}
-	</div>
-	<div class="columns small-6 medium-4">
-		{% if writer.email %}
-		<a href="mailto:{{ writer.email }}">
-			{{ writer.email }}
 		</a>
 		{% endif %}
 	</div>

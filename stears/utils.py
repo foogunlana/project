@@ -93,6 +93,7 @@ def do_magic_user():
     foo = User()
     foo.username = 'stearsadmin'
     foo.email = 'stears@stears.com'
+    foo.state = 'admin'
     foo.password = params.cheeky_password
     foo.is_superuser = True
     foo.is_staff = True
@@ -105,6 +106,7 @@ def do_magic_user():
     foo.password = params.cheeky_password
     foo.is_superuser = True
     foo.is_staff = True
+    foo.state = 'admin'
     foo.save()
     make_writer_id(foo.username)
 

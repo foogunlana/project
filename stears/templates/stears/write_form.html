@@ -8,7 +8,9 @@
 			<h6>
 			Headline
 			</h6>
-			{{ writers_article_form.headline }}
+			<p>
+				{{ writers_article_form.headline }}
+			</p>
 			<h6>
 			NSE headlines <a href='{% url "stears:articles_group" group="NSE" %}'>more info</a>
 			</h6>
@@ -20,7 +22,9 @@
 			<h6>
 			Content
 			</h6>
-			{{ writers_article_form.content }}
+			<p>
+				{{ writers_article_form.content }}
+			</p>
 			{{ writers_article_form.article_id.as_hidden }}
 		{% else %}
 			<p>
@@ -61,3 +65,9 @@
 	Please contact your editor
 	</h1>
 {% endif %}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
+<script> $.validate();</script>
+
+
