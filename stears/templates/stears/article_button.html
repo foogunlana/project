@@ -1,48 +1,51 @@
 {% load stears_tags %}
-<div class="row article_button article_box" style='{% if article.writer %}{% else %}background-color:#D5EBFE{% endif %}'>
-<div class="columns small-6 ">
-	{% ifequal article.visible False %}
-		{% if user.is_superuser %}
-		<a href="{% url 'stears:article_detail' pk=article.article_id %}" >
-			{{ article.headline }}|
-		</a>
-		{% else %}
-			{{ article.headline }}|
-		{% endif %}
-	{% else %}
-		<a href="{% url 'stears:article_detail' pk=article.article_id %}" >
-			{{ article.headline }}|
-		</a>
-	{% endifequal %}
-</div>
-<div class="columns small-6 medium-3 ">
-	{% ifequal article.visible False%}
-		{{ article.category }}|<font color="red">(Requested)</font>
-	{% else %}
-		{{ article.category }}|
-	{% endifequal %}
-</div>
-<div class="columns small-6 medium-3 ">
-	<strong>
-	{% if article.writer %}
-		{% if user|is_editor %}
-			{% if article.writer %}
-				<a href="{% url 'stears:writer_detail' article.writer %}">
-					{{ article.writer }}
+<div>
+	<br>
+	<div class="row article_button article_box {{ article.state }}" style='{% if article.writer %}{% else %}background-color:#D5EBFE{% endif %}'>
+	<div class="columns small-6 ">
+		{% ifequal article.visible False %}
+			{% if user.is_superuser %}
+				<a href="{% url 'stears:article_detail' pk=article.article_id %}" >
+					{{ article.headline }}|
 				</a>
+			{% else %}
+				{{ article.headline }}|
 			{% endif %}
 		{% else %}
-			{{ article.writer }}
+			<a href="{% url 'stears:article_detail' pk=article.article_id %}" >
+				{{ article.headline }}|
+			</a>
+		{% endifequal %}
+	</div>
+	<div class="columns small-6 medium-3 ">
+		{% ifequal article.visible False%}
+			{{ article.category }}|<font color="red">(Requested)</font>
+		{% else %}
+			{{ article.category }}|
+		{% endifequal %}
+	</div>
+	<div class="columns small-6 medium-3 ">
+		<strong>
+		{% if article.writer %}
+			{% if user|is_editor %}
+				{% if article.writer %}
+					<a href="{% url 'stears:writer_detail' article.writer %}">
+						{{ article.writer }}
+					</a>
+				{% endif %}
+			{% else %}
+				{{ article.writer }}
+			{% endif %}
 		{% endif %}
-	{% endif %}
-	</strong>
-</div>
-<div class="columns medium-6 hide-for-small">
-	{{ article.time|nse_date }}|
-</div>
-<div class="columns small-6">
-	<strong>
-	{{ article.state }}
-	</strong>|
+		</strong>
+	</div>
+	<div class="columns medium-6 hide-for-small">
+		{{ article.time|nse_date }}|
+	</div>
+	<div class="columns small-6">
+		<strong>
+		{{ article.state }}
+		</strong>|
+	</div>
 </div>
 </div>

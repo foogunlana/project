@@ -1,15 +1,32 @@
-
-	{% load stears_tags %}
-
-	<br>
-	<div class="row fill">
-		<div class="columns small-12 small-centered ">
-			{% for article in articles %}
-				{% include 'stears/article_button.html' %}
-				<br>
-				{% if forloop.last %}
-					<hr>
-				{% endif%}
-			{% endfor %}
-		</div>
+{% load stears_tags %}
+<div class="row fill" >
+	<div class="columns small-12 medium-3" style="padding:0px;">
+		<tr>
+			<th>
+				<label for="article_button_sorter">
+					<h5>
+						Show
+					</h5>
+				</label>
+			</th>
+			<td>
+				<select id="article_button_sorter">
+					<option value="all">All</option>
+					<option value="in_progress">In progress</option>
+					<option value="submitted">Submitted</option>
+				</select>
+			</td>
+		</tr>
 	</div>
+</div>
+<div class="row fill">
+	<div class="columns small-12 small-centered ">
+		{% for article in articles %}
+			{% include 'stears/article_button.html' %}
+			{% if forloop.last %}
+				<hr>
+			{% endif%}
+		{% endfor %}
+	</div>
+</div>
+<script src="/static/js/stears/sorts.js"></script>

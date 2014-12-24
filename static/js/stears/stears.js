@@ -32,19 +32,19 @@ $( document ).ready(function() {
 	});
 
 	$('.comment_body_toggle').on('click',function(){
-		var id = $(this).attr('id')
+		var id = $(this).attr('id');
 		$("#summary".concat(id.toString())).toggle();
 		$("#body".concat(id.toString())).toggle();
 		return false;
 	});
 
 	$('.toggles_div').click(function() {
-		var div_class = $(this).attr('id')
+		var div_class = $(this).attr('id');
 		$(".".concat(div_class.toString())).toggle();
 	});
 
 	$('.toggles_on_hover').hover(function() {
-		var div_class = $(this).attr('id')
+		var div_class = $(this).attr('id');
 		$(".".concat(div_class.toString())).toggle();
 	});
 
