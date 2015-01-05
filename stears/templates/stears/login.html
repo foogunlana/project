@@ -17,9 +17,15 @@
             enctype="multipart/form-data">
             {% csrf_token %}
             <p>
+              <h6>
+                Username
+              </h6>
               {{ login_form.username }}
             </p>
             <p>
+              <h6>
+                Password
+              </h6>
               {{ login_form.password }}
             </p>
             <button class="button2 fill" type="submit" name="submit" value="Register" >Login</button>

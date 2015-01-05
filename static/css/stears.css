@@ -28,6 +28,22 @@ max-width: initial;
   max-height: 60px;
 }
 
+.keyword{
+  background-color: white;
+  display:inline-block;
+  border-radius:2px;
+  padding: 8px;
+
+  -moz-box-shadow:    0px 0px 2px  #ccc;
+  -webkit-box-shadow: 0px 0px 2px  #ccc;
+  box-shadow:         0px 0px 5px  #ccc;
+}
+
+.keyword:hover{
+  box-shadow:         0px 0px 5px  #000;
+  position: relative;
+}
+
 /*
 button{
   background-color:white;

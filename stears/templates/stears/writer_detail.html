@@ -8,9 +8,9 @@
 {% block writers_block %}
 	<hr>
 	<div class="row fill">
-		<div class="columns small-12 small-centered">
-			<div class="row ">
-				<div class="columns small-12 medium-5 large-3">
+		<div class="columns small-11 small-centered">
+			<div class="row fill" style="padding:0px">
+				<div class="columns small-12 medium-5 large-3" style="padding:0px">
 					{% if writer.username|is_editor %}
 						<h4 style="color:red">
 						Editor Account
@@ -28,33 +28,31 @@
 					<br>
 				</div>
 			</div>
-			<div class="row">
-				<div class="columns small-12 medium-4">
-
-						<a id="writers_details" class="article_box toggles_div" >
-							Writer Info/Details
-						</a>
-						<br>
-						<br>
-						<br>
-						<div class="content writers_details" style = "background-color:#efefef;" hidden>
-							<table class="article_box">
-								{% for attr,value in writer.items %}
-									{% ifnotequal attr 'password' %}
-										<tr>
-											<td>
-												{{ attr }}
-											</td>
-											<td>
-												{{ value }}
-											</td>
-										</tr>
-									{% endifnotequal %}
-								{% endfor %}
-							</table>
-						</div>
+			<div class="row fill">
+				<div class="columns small-12 large-8" style="padding:0px">
+					<a id="writers_details" class="article_box toggles_div" >
+						Writer Info/Details
+					</a>
+					<br>
+					<br>
+					<div class="content writers_details" style = "background-color:#efefef;" hidden>
+						<table class="article_box">
+							{% for attr,value in writer.items %}
+								{% ifnotequal attr 'password' %}
+									<tr>
+										<td>
+											{{ attr }}
+										</td>
+										<td>
+											{{ value }}
+										</td>
+									</tr>
+								{% endifnotequal %}
+							{% endfor %}
+						</table>
+					</div>
 				</div>
-				<div class="columns small-12 large-8">
+				<div class="columns small-12 large-8" >
 					<br>
 					<h4>
 					{{ writer.username }}'s recent articles

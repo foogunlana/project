@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from stears.forms import LoginForm, RegisterForm, KeyWordsForm, ChoiceForm, ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, NseArticleForm, ChangePasswordForm
+from stears.forms import LoginForm, UploadFileForm, RegisterForm, KeyWordsForm, ChoiceForm, ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, NseArticleForm, ChangePasswordForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout
 from mongoengine.django.auth import User
@@ -8,12 +8,25 @@ from django.http import HttpResponseRedirect, HttpResponse
 from stears.utils import article_key_words, migrate_article, mongo_calls, make_comment, forgot_password_email, save_writers_article, accept_to_write, request_json, make_url, move_to_trash, suggest_nse_article, update_writers_article, edit_user, make_writer_id, make_writers_article, submit_writers_article
 from stears.permissions import approved_writer, is_a_boss, writer_can_edit_article
 from mongoengine.queryset import DoesNotExist
-
+# from stears.utils import handle_uploaded_file
 
 import params
 import json
 
 # ALL NOTIFICATIONS SHOULD RECORD THE TIME AS WELL
+
+# Imaginary function to handle an uploaded file.
+
+
+# def upload_file(request):
+#     if request.method == 'POST':
+#         form = UploadFileForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             handle_uploaded_file(request.FILES['file'])
+#             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+#     else:
+#         form = UploadFileForm()
+#     return render(request, 'upload_picture.html', {'form': form})
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')

@@ -2,15 +2,15 @@
 	<form method="POST" action="{% url 'stears:article_detail' pk=article.article_id %}">
 		{% csrf_token %}
 			<h3>
-			Add key words 
+			Add tags to this article
 			</h3>
 			<h6>
-				Only alphabetical characters allowed. These words must be separated by spaces
+				Only alphabetical characters allowed. And one word at a time
 			</h6>
 			<p>
 				{{ key_words_form.keywords }}
 			</p>
-		<button class=" fill comment" type="keywords" name="article_id" value="{{ article.article_id }}" >Save key words</button>
+		<button class=" fill comment" type="keywords" name="article_id" value="{{ article.article_id }}" >Save tag</button>
 	</form>
 {% else %}
 	<h3>

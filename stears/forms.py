@@ -8,6 +8,11 @@ import re
 # from django.core.validators import email_re
 
 
+class UploadFileForm(forms.Form):
+    title = forms.CharField(max_length=50, required=True)
+    file = forms.FileField()
+
+
 class LoginForm(forms.Form):
     username = forms.CharField(label='username', max_length=20, widget=forms.TextInput(
         attrs={'data-validation': 'length', 'data-validation-length': 'min1'}))
@@ -143,7 +148,10 @@ class WritersArticleForm(forms.Form):
         'data-validation-length': 'min5'}))
     content = forms.CharField(widget=forms.Textarea(attrs={
         'data-validation': 'length',
-        'data-validation-length': 'min10'}))
+        'data-validation-length': 'min10',
+        'class': 'wymeditor',
+        'data-wym-initialized': 'yes',
+    }))
     article_id = forms.CharField(
         max_length=30, initial=None, required=False)
 
@@ -187,18 +195,17 @@ class CommentForm(forms.Form):
 
 class KeyWordsForm(forms.Form):
     keywords = forms.CharField(
-        widget=forms.Textarea(attrs={
-            'class': 'tiny_textarea',
+        widget=forms.TextInput(attrs={
             'data-validation': 'length',
             'data-validation-length': 'min2'
         }), max_length=200, required=True, error_messages={
-            'required': 'You did not enter any key words',
-            'invalid': 'Your key words were invalid and were not saved, please read the instructions on entering key words'
+            'required': 'You did not enter any key word',
+            'invalid': 'Your key word was invalid and was not saved'
         })
 
     def clean_keywords(self):
         keywords = self.cleaned_data['keywords']
-        if not re.match(r'^[a-zA-Z ]+$', keywords):
+        if not re.match(r'^[a-zA-Z]+$', keywords):
             raise forms.ValidationError(
-                "Key words should include only lettes and spaces between words")
+                "Key words should include only letters")
         return keywords

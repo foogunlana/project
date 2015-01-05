@@ -1,4 +1,5 @@
 {% if writers_article_form %}
+
 	<form method="POST" action="{% url 'stears:post' %}">
 		{% csrf_token %}
 		<!-- 	<p style="color:red;">
@@ -55,9 +56,14 @@
 			{{ writers_article_form.content }}
 			{{ writers_article_form.nse_headlines.as_hidden }}
 		{% endif %}
-		
-		<button class="confirm-save button2" type="submit" name="submit" value="save" >Save article</button>
-		<button class="confirm-submission button2" type="submit" name="submit" value="submit" >Post article</button>
+		<div class="row">
+			<div class="columns small-12 medium-6">
+				<button class="confirm-save button2 fill" type="submit" name="submit" value="save" >Save article</button>
+			</div>
+			<div class="columns small-12 medium-6">
+				<button class="confirm-submission button2 fill" type="submit" name="submit" value="submit" >Post article</button>
+			</div>
+		</div>
 	</form>
 {% else %}
 	<h1>
@@ -69,5 +75,9 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script> $.validate();</script>
+<script src="/static/wymeditor/jquery.wymeditor.js"></script>
+<script>
+	$('.wymeditor').wymeditor();
+</script>
 
 
