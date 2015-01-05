@@ -1,15 +1,28 @@
 {% if key_words_form %}
 	<form method="POST" action="{% url 'stears:article_detail' pk=article.article_id %}">
 		{% csrf_token %}
-			<h3>
-			Add tags to this article
-			</h3>
-			<h6>
-				Only alphabetical characters allowed. And one word at a time
-			</h6>
-			<p>
-				{{ key_words_form.keywords }}
-			</p>
+		<h3>
+		Add tags to this article
+		</h3>
+		<h6>
+		Only alphabetical characters allowed. And one word at a time
+		</h6>
+		<table>
+			<tr>
+			<td>
+				<h6>
+					Choose tag
+				</h6>
+				{{ key_words_form.tags }}
+			</td>
+			<td>
+				<h6>
+				{{ key_words_form.other.label }}
+				</h6>
+				{{ key_words_form.other }}
+			</td>
+		</tr>
+		</table>
 		<button class=" fill comment" type="keywords" name="article_id" value="{{ article.article_id }}" >Save tag</button>
 	</form>
 {% else %}
@@ -18,7 +31,14 @@
 	Please contact your editor
 	</h3>
 {% endif %}
-
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
+<script type="text/javascript">
+$(function() {
+$.validator.addMethod("loginRegex", function(value, element) {
+return this.optional(element) || /^[a-z0-9\-]+$/i.test(value);
+}, "Username must contain only letters, numbers, or dashes.");
+$.validate();
+});
+</script>
 <script> $.validate(); </script>

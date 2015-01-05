@@ -216,12 +216,26 @@ def make_comment(username, article_id, comment):
     )
 
 
-def article_key_words(pk, words):
+def article_key_words(pk, word, **kwargs):
     articles = mongo_calls('articles')
+    nse_news = mongo_calls('nse_news')
+
+    other = kwargs.get('other', '')
+    if other and other != 'None':
+        word = other
+    elif word == 'None':
+        return
+
     articles.update(
         {'article_id': pk},
-        {'$pushAll': {'keywords': words}},
+        {'$addToSet': {'keywords': word}},
         False,
+        False
+    )
+    nse_news.update(
+        {'type': 'tags'},
+        {'$addToSet': {'keywords': word}},
+        True,
         False
     )
 

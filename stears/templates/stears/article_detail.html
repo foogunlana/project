@@ -35,18 +35,32 @@
 							</h3>
 						{% endif %}
 					{% endfor %}
-					{% if article.keywords %}
+					<form method="POST" action="{% url 'stears:remove_tag' %}">
+						{% csrf_token %}
+						{% if article.keywords %}
 						<h3>
 						Present tags:
 						</h3>
-						<p>
+						<h6 style="color:red;">
+							Click to delete
+						</h6>
 						{% for word in article.keywords %}
-						<a href="#" class = "keyword">
-							{{ word }}
-						</a>
+							{% if user.username|is_editor %}
+							<div class="tag_wrapper">
+								<button href="#" class = "keyword delete" type="submit" name="data" value="{{ article.article_id }},{{ word }}">
+									{{ word }}
+								</button>
+							</div>, 
+							{% else %}
+							<div class="">
+								<a href="#" class="keyword">
+									{{ word }}
+								</a>
+							</div>, 
+							{% endif %}
 						{% endfor%}
-						</p>
 					{% endif %}
+					</form>
 					<div id="keyword_area" {% if key_words_form.errors %}{% else %}hidden{% endif %}>
 						{% include 'stears/keywords_form.html' %}
 					</div>

@@ -334,14 +334,17 @@ def article_detail(request, **kwargs):
 
     if request.method == 'POST':
         pk = int(request.POST['article_id'])
-        if 'keywords' in request.POST.keys():
+        print request.POST.keys()
+        if 'tags' in request.POST.keys():
             key_words_form = KeyWordsForm(
                 request.POST
             )
             if key_words_form.is_valid():
+                print key_words_form.cleaned_data['other']
                 article_key_words(
                     pk,
-                    key_words_form.cleaned_data['keywords'].split())
+                    key_words_form.cleaned_data['tags'],
+                    other=key_words_form.cleaned_data['other'])
                 return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
             else:
                 comment_form = CommentForm()
@@ -481,6 +484,28 @@ def pipeline(request):
         # cause a few problems!
     context = {'articles': articles}
     return render(request, 'stears/pipeline.html', context)
+
+
+@user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
+def remove_tag(request):
+    if request.method == 'POST':
+        code = request.POST.get('data', None)
+        if not code:
+            print "Error!"
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+        id_and_tag = code.split(',')
+        pk, tag = int(id_and_tag[0]), str(id_and_tag[1])
+
+        articles = mongo_calls('articles')
+        articles.update(
+            {'article_id': pk},
+            {'$pull': {'keywords': tag}},
+            False,
+            False
+        )
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 # @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')

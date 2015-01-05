@@ -7,8 +7,12 @@ $( document ).ready(function() {
 		};
 	});
 
+	$('.standard-choice').click(function() {
+		$('.other-choice').val('None');
+	});
+
 	$( ".delete" ).click(function( event ) {
-		if(!confirm( "Are you sure you want to delete this" )){
+		if(!confirm( "Are you sure you want to delete?" )){
 			event.preventDefault();
 		};
 	});

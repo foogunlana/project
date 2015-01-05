@@ -2,6 +2,7 @@ from django import forms
 # from django.contrib.auth.models import User
 from mongoengine.django.auth import User
 from django.core.exceptions import ValidationError
+from utils import mongo_calls
 import utils
 import params
 import re
@@ -194,18 +195,32 @@ class CommentForm(forms.Form):
 
 
 class KeyWordsForm(forms.Form):
-    keywords = forms.CharField(
+    other = forms.CharField(
         widget=forms.TextInput(attrs={
-            'data-validation': 'length',
-            'data-validation-length': 'min2'
-        }), max_length=200, required=True, error_messages={
-            'required': 'You did not enter any key word',
+            'data-validation': 'alphanumeric', 'class': 'other-choice'
+        }), max_length=200, initial='None', required=True, error_messages={
             'invalid': 'Your key word was invalid and was not saved'
         })
 
+    def __init__(self, *args, **kwargs):
+        super(KeyWordsForm, self).__init__(*args, **kwargs)
+        collection = mongo_calls('nse_news')
+        tag_doc = collection.find_one({'type': 'tags'})
+        # key_words = key_word_doc.get('tags','')
+        if tag_doc:
+            tags = tag_doc.get('keywords', []) + ['None']
+        else:
+            tags = ['None', 'One', 'two', 'three']
+
+        self.fields['tags'] = forms.ChoiceField(
+            widget=forms.Select(attrs={'class': 'standard-choice'}),
+            choices=[(tag, tag) for tag in tags],
+            required=False,
+        )
+
     def clean_keywords(self):
-        keywords = self.cleaned_data['keywords']
-        if not re.match(r'^[a-zA-Z]+$', keywords):
+        other = self.cleaned_data['other']
+        if not re.match(r'^[a-zA-Z0-9]+$', other):
             raise forms.ValidationError(
-                "Key words should include only letters")
-        return keywords
+                "Key words should include only alphanumeric characters")
+        return other

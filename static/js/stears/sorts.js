@@ -1,19 +1,26 @@
 $( document ).ready(function() {
-	$('#article_button_sorter').change(function() {
-		var state = $(this).val();
-		if(state === 'all'){
-			$('.article_button').each(function(){
+	$('.article_button_sorter').change(function() {
+
+		$('.article_button').each(function(){
 				$(this).parent().show();
 			});
-			return false;
-		};
-		$('.article_button').each(function(){
-			if(!$(this).hasClass(state)){
-				$(this).parent().hide();
+
+		var sorts = [];
+		$('.article_button_sorter').each(function(){
+			sorts.push($(this).val());
+		});
+
+		sorts.map(function(sort){
+			console.log(sorts);
+			if(sort==='all'){
+				return false;
 			} else{
-				$(this).parent().show();
-			};
+				$('.article_button').each(function(){
+					if(!$(this).hasClass(sort)){
+						$(this).parent().hide();
+					}
+				});
+			}
 		});
 	});
 });
-

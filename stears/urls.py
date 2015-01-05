@@ -38,6 +38,8 @@ urlpatterns = patterns('',
                            views.article_detail, name='comment'),
                        url(r'^writers/article/keywords$',
                            views.article_detail, name='keywords'),
+                       url(r'^writers/remove_tag$',
+                           views.remove_tag, name='remove_tag'),
 
                        url(r'^noaccess/$', views.noaccess, name='noaccess'),
                        url(r'^register/$', views.register, name='register'),

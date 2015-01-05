@@ -1,7 +1,7 @@
 {% load stears_tags %}
 <div>
 	<br>
-	<div class="row article_button article_box {{ article.state }}" style='{% if article.writer %}{% else %}background-color:#D5EBFE{% endif %}'>
+	<div class="row article_button article_box {{ article.state }} {{ article.category.split|join:"_" }} {{ article.time }}" style='{% if article.writer %}{% else %}background-color:#D5EBFE{% endif %}'>
 	<div class="columns small-6 ">
 		{% ifequal article.visible False %}
 			{% if user.is_superuser %}
