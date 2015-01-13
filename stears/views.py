@@ -210,21 +210,27 @@ def writers_home_test(request, group):
     writers_article_form = WritersArticleForm()
     if request.method == 'GET':
         if not group:
-            articles = [article for article in article_collection.find(
-                {"$or": [{'type': 'writers_article'}, {'type': 'nse_article'}]})]
+            articles = [article for article in article_collection.find({
+                '$query': {"$or": [{'type': 'writers_article'}, {'type': 'nse_article'}]},
+                '$orderby': {'time': -1, 'state': 1}})]
 
         elif group == 'NSE':
             articles = [
                 article for article in article_collection.find({'type': 'nse_article'})]
         elif group == 'peers':
-            articles = [article for article in article_collection.find(
-                {'type': 'writers_article'})]
-        else:
-            articles = [article for article in article_collection.find(
-                {'type': 'writers_article', 'category': params.article_categories[group]})]
+            articles = [article for article in article_collection.find({
+                '$query': {'type': 'writers_article'},
+                '$orderby': {'time': -1, 'state': 1, }})]
 
-    sorted_articles = sorted(articles, key=lambda article: article['time'])
-    articles = list(reversed(sorted_articles))
+        elif group == 'submitted':
+            articles = [article for article in article_collection.find({
+                '$query': {'type': 'writers_article', 'state': 'submitted'},
+                '$orderby': {'time': -1}})]
+        else:
+            articles = [article for article in article_collection.find({
+                '$query': {'type': 'writers_article',
+                           'category': params.article_categories[group]},
+                '$orderby':{'state': 1, 'time': -1}})]
 
     context = {'editable_fields': editable_fields, "writers_article_form": writers_article_form,
                'visible_fields': visible_fields, 'articles': articles, 'username': user}

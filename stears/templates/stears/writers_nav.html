@@ -33,16 +33,12 @@
 							<li><a href="#">Columnists</a></li>
 						</ul>
 					</li>
+					<li>
+						<a href="{% url 'stears:articles_group' group='submitted' %}">Submissions</a>
+					</li>
 				{% endif %}
-				<li class="has-dropdown">
-					<a href="#">Articles</a>
-					
-					<ul class="dropdown">
-						<li><a href="{% url 'stears:articles_group' group='peers' %}">all</a></li>
-						<li><a href="{% url 'stears:articles_group' group='t1' %}">Tier 1</a></li>
-						<li><a href="{% url 'stears:articles_group' group='t2' %}">Tier 2</a></li>
-						<li><a href="{% url 'stears:articles_group' group='col' %}">Columns</a></li>
-					</ul>
+				<li>
+					<a href="{% url 'stears:articles_group' group='peers' %}">Articles</a>
 				</li>
 				<li class="has-form">
 					<div class="row collapse">
