@@ -1,4 +1,5 @@
 from utils import mongo_calls
+from mongoengine.django.auth import User
 
 
 def approved_writer(username):
@@ -17,6 +18,24 @@ def is_a_boss(username):
     if username.is_superuser or username.is_staff:
         return True
     return False
+
+
+def editor(username):
+    writer = User.objects.get(username=str(username))
+    if writer.is_superuser or writer.is_staff:
+        return True
+
+
+def editor2(username):
+    users = mongo_calls('user')
+    writer = users.find_one({'username': username})
+    if writer['state'] == 'admin':
+        return True
+    return False
+
+
+def writer_is_user(username, article):
+    pass
 
 
 def writer_can_edit_article(user, article):

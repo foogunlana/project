@@ -2,6 +2,7 @@ from django import template
 from stears.params import remove_from_date
 from mongoengine.django.auth import User
 from stears.utils import mongo_calls
+from stears.permissions import editor
 import time
 
 register = template.Library()
@@ -14,9 +15,9 @@ def mongo_id(value):
 
 @register.filter("is_editor")
 def is_editor(user):
-    writer = User.objects.get(username=str(user))
-    if writer.is_superuser or writer.is_staff:
+    if editor(user):
         return True
+    return False
     # do the cool stuff
 
 
@@ -28,8 +29,7 @@ def full_category(short):
 @register.filter("can_suggest")
 def can_suggest(username, article):
     writer = article.get('writer', '')
-    user = User.objects.get(username=username)
-    if (user.is_staff or user.is_superuser) and not writer:
+    if editor(username) and not writer:
         return True
     return False
 
@@ -60,14 +60,18 @@ def nse_date(value):
 @register.filter("can_write")
 def can_write(username, article):
     writer = article.get('writer', '')
+    state = article.get('state', '')
 
-    user = User.objects.get(username=username)
-    if user.is_superuser or writer == None:
-        return True
-
-    if (str(username) == str(writer)):
-        if article.get('state', '') != 'submitted':
+    if state == 'in_progress':
+        if (str(username) == str(writer)):
             return True
+        return False
+
+    elif state == 'submitted':
+        if editor(username):
+            return True
+        return False
+
     return False
 
 
@@ -85,13 +89,5 @@ def can_approve(username, article):
     if article['state'] != 'submitted':
         return False
     if is_editor(username):
-        return True
-    return False
-
-
-def is_an_editor(username):
-    users = mongo_calls('user')
-    writer = users.find_one({'username': username})
-    if writer['state'] == 'admin':
         return True
     return False
