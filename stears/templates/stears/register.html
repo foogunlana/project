@@ -1,45 +1,49 @@
-{% extends 'stears/writers_base_test.html' %}
+{% extends 'stears/base.html' %}
 {% block content %}
 	<div class="row" style = "padding-top:10%;">
-		<div class="columns small-12 medium-6 large-4 small-centered">
-			<p>
-				
-			</p>
-			{% if registered %}
-				<strong>Thank you for requesting registration, we will contact you shortly!</strong>
-				<p><a href="{% url 'stears:home' %}">Go to the Stears home</a></p><br />
-				<p><a href="{% url 'stears:writers_home' %}">Go to the Writer's page</a></p><br />
-			{% else %}
-				<strong>Register as a writer</strong><br />
-				<br>
-				{% if errors %}
-				Oops, Something went wrong. 
-				Your email address looks funny	
-				<!-- {% for error in errors%}
-					<p>{{ error }}</p>
-				{% endfor %} -->
-				{% endif %}
-				<form id="register_form" method="post" action="{% url 'stears:register' %}"
-					enctype="multipart/form-data">
-					{% csrf_token %}
-					{{ register_form }}
-					<button class="button2 fill" type="submit" name="submit" value="Register" >Request registration</button>
-				</form>
+		<div class="columns small-12 medium-6 large-5 small-centered">
+			<div class="home_box">
+				<div class="row" style = "padding:5%;">
+					{% if registered %}
+						<strong>Thank you for requesting registration, we will contact you shortly!</strong>
+						<p><a href="{% url 'stears:home' %}">Go to the Stears home</a></p><br />
+						<p><a href="{% url 'stears:writers_home' %}">Go to the Writer's page</a></p><br />
+					{% else %}
+						<strong>Register as a writer</strong><br />
+						<br>
+						{% if errors %}
+							Oops, Something went wrong.
+							Your email address looks funny
+							<!-- {% for error in errors%}
+														<p>{{ error }}</p>
+							{% endfor %} -->
+						{% endif %}
+						<form id="register_form" method="post" action="{% url 'stears:register' %}"
+							enctype="multipart/form-data">
+							{% csrf_token %}
+							{{ register_form }}
+							<button class="button2 fill" type="submit" name="submit" value="Register" >Request registration</button>
+						</form>
+					</div>
+					<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+					<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
+					<script> $.validate(); </script>
+					<div class="row" style = "padding:5%;">
+						<strong>
+						<div>
+							<p>
+							Already registered for a writers account?
+							</p>
+							<p>
+							Please <a href="{% url 'stears:login' %}">Login</a> to view your profile
+							</p>
+						</div>
+						</strong>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="row" style = "padding-top:10px;">
-			<div class="columns small-12 medium-6 large-4 small-centered">
-				<strong>
-		        <div>
-		          <p>
-		            Already registered for a writers account?
-		          </p>
-		          <p>
-		            Please <a href="{% url 'stears:login' %}">Login</a> to view your profile
-		          </p>
-		        </div>
-		      </strong>
-			</div>
-		</div>
+		<br>
+		<br>
 	{% endif %}
 {% endblock %}

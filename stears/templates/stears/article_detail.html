@@ -151,14 +151,26 @@
 							{% if article.writer %}
 								{% if user.username|is_editor %}
 									<a href="{% url 'stears:writer_detail' article.writer %}">
-										{{ article.writer }}
+										{{ article.writer|format_name:'long' }}
 									</a>
 								{% else %}
-									{{ article.writer }}
+									{{ article.writer|format_name:'long' }}
 								{% endif %}
 							{% endif %}
 						</td>
 					</tr>
+					{% if article.writers.others %}
+						<tr>
+						<td>
+							Other writers
+						</td>
+						<td>
+							{% for writer in article.writers.others %}
+								{{ writer }}, 
+							{% endfor %}
+						</td>
+					</tr>
+					{% endif %}
 					<tr>
 						<td>
 							Status
@@ -189,6 +201,28 @@
 						<div class="row">
 							<button id="comment_area_button" style="border-radius:3px;" class=" fill">Comment</button>
 						</div>
+						{% ifequal user.username article.writer %}
+							<div class="row">
+								<form action="{% url 'stears:add_writer' %}" method="post" class="add_writers" hidden>
+									{% csrf_token %}
+									{{ add_writers_form }}
+									<button type="submit" class="fill toggles_div" id="add_writers" name="article_id" value="{{ article.article_id }}">Save writer(s)</button>
+									<button style="background-color:#FF4747;" class="fill toggles_div cancel_button" id="add_writers" >Cancel</button>
+								</form>
+								<button type="submit" class="fill toggles_div add_writers" id="add_writers" >Add writer(s)</button>
+							</div>
+							{% if article.writers.others %}
+							<div class="row">
+								<form action="{% url 'stears:remove_writer' %}" method="post" class="remove_writers" hidden>
+									{% csrf_token %}
+									{{ remove_writers_form }}
+									<button type="submit" class="fill toggles_div" id="remove_writers" name="article_id" value="{{ article.article_id }}">Remove</button>
+									<button style="background-color:#FF4747;" class="fill toggles_div cancel_button" id="remove_writers" >Cancel</button>
+								</form>
+								<button type="submit" class="fill toggles_div remove_writers" id="remove_writers" >Remove writer(s)</button>
+							</div>
+							{% endif %}
+						{% endifequal %}
 						{% if user.username|is_editor %}
 							{% ifequal article.type 'writers_article' %}
 								<div class="row">

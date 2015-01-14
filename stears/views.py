@@ -1,17 +1,19 @@
 from django.shortcuts import render
-from stears.forms import LoginForm, UploadFileForm, RegisterForm, KeyWordsForm, ChoiceForm, ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, NseArticleForm, ChangePasswordForm
+from stears.forms import LoginForm, AddWritersForm, RemoveWritersForm, UploadFileForm, RegisterForm, KeyWordsForm, ChoiceForm, ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, NseArticleForm, ChangePasswordForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout
 from mongoengine.django.auth import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
-from stears.utils import article_key_words, migrate_article, mongo_calls, make_comment, forgot_password_email, save_writers_article, accept_to_write, request_json, make_url, move_to_trash, suggest_nse_article, update_writers_article, edit_user, make_writer_id, make_writers_article, submit_writers_article
+from stears.utils import article_key_words, add_writers, remove_writers, make_username, migrate_article, mongo_calls, make_comment, forgot_password_email, save_writers_article, accept_to_write, request_json, make_url, move_to_trash, suggest_nse_article, update_writers_article, edit_user, make_writer_id, make_writers_article, submit_writers_article
 from stears.permissions import approved_writer, is_a_boss, writer_can_edit_article
 from mongoengine.queryset import DoesNotExist
+
 # from stears.utils import handle_uploaded_file
 
 import params
 import json
+import random
 
 # ALL NOTIFICATIONS SHOULD RECORD THE TIME AS WELL
 
@@ -77,11 +79,11 @@ def change_password(request):
                 user = User.objects.get(username=username)
         # FIX CHECK_PASSWORD FUNCTION if
         # user.check_password(request.POST['password']):
-                if user.password == password:
+                if user.check_password(password):
                     user.backend = params.MONGOENGINE_BACKEND
                     if user:
-                        user.password = str(
-                            change_password_form.cleaned_data['new_password'])
+                        user.set_password(str(
+                            change_password_form.cleaned_data['new_password']))
                         user.save()
                         return HttpResponseRedirect(reverse('stears:login'))
                     else:
@@ -121,18 +123,15 @@ def forgot_password(request):
 
 
 def login_view(request):
-    username = request.POST.get('username', '')
+    email = request.POST.get('email', '')
     password = request.POST.get('password', '')
     errors = []
 
     if request.method == 'POST':
         try:
-            print username
-            user = User.objects.get(username=username)
-            print "got here bro"
-        # FIX CHECK_PASSWORD FUNCTION if
-        # user.check_password(request.POST['password']):
-            if user.password == password:
+            user = User.objects.get(email=email)
+
+            if user.check_password(password):
                 user.backend = params.MONGOENGINE_BACKEND
                 if user.is_active:
                     login(request, user)
@@ -170,9 +169,15 @@ def register(request):
         if register_form.is_valid():
             try:
                 member = User()
-                member.username = register_form.cleaned_data['name']
-                member.email = register_form.cleaned_data['email']
-                member.password = str(register_form.cleaned_data['password'])
+                email = register_form.cleaned_data['email']
+                member.email = email
+                member.first_name = register_form.cleaned_data['first_name']
+                member.last_name = register_form.cleaned_data['last_name']
+                member.username = make_username(
+                    member.first_name, member.last_name)
+                # member.password = str(register_form.cleaned_data['password'])
+                member.set_password(
+                    str(register_form.cleaned_data['password']))
                 member.save()
                 edit_user(member.username, 'state', 'request')
                 # edit_user(member.username,'account','request')
@@ -340,7 +345,6 @@ def article_detail(request, **kwargs):
 
     if request.method == 'POST':
         pk = int(request.POST['article_id'])
-        print request.POST.keys()
         if 'tags' in request.POST.keys():
             key_words_form = KeyWordsForm(
                 request.POST
@@ -384,7 +388,7 @@ def article_detail(request, **kwargs):
 
     locked_fields = ['nse_headlines', 'categories']
 
-    if writer_can_edit_article(user, article):
+    if writer_can_edit_article(str(user), article):
         if article.get('type', '') == 'writers_article':
             writers_article_form = WritersArticleForm(
                 initial={'nse_headlines': nse_id,
@@ -406,8 +410,11 @@ def article_detail(request, **kwargs):
         article = article_collection.find_one(
             {'article_id': pk, 'type': 'nse_article'})
 
-    context = {'article': article, 'suggest_form': suggest_form, 'key_words_form': key_words_form,
-               'writers_article_form': writers_article_form, 'comment_form': comment_form}
+    add_writers_form = AddWritersForm()
+    remove_writers_form = RemoveWritersForm(article_id=pk)
+    context = {'article': article, 'suggest_form': suggest_form, 'remove_writers_form': remove_writers_form, 'key_words_form': key_words_form,
+               'writers_article_form': writers_article_form, 'add_writers_form': add_writers_form, 'comment_form': comment_form}
+
     return render(request, 'stears/article_detail.html', context)
 
 
@@ -477,6 +484,27 @@ def accept_article_category(request):
         move_to_trash(int(not_accept_id))
         pass
 
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
+def add_writer_to_article(request):
+    if request.method == "POST":
+        add_writers_form = AddWritersForm(request.POST)
+        if add_writers_form.is_valid():
+            usernames = add_writers_form.cleaned_data['writers']
+            add_writers(int(request.POST['article_id']), usernames)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
+def remove_writer_from_article(request):
+    if request.method == "POST":
+        remove_writers_form = RemoveWritersForm(
+            request.POST, article_id=request.POST['article_id'])
+        if remove_writers_form.is_valid():
+            usernames = remove_writers_form.cleaned_data['writers']
+            remove_writers(int(request.POST['article_id']), usernames)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 

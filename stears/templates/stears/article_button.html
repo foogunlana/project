@@ -30,11 +30,11 @@
 			{% if user|is_editor %}
 				{% if article.writer %}
 					<a href="{% url 'stears:writer_detail' article.writer %}">
-						{{ article.writer }}
+						{{ article.writer|format_name:'long' }}
 					</a>
 				{% endif %}
 			{% else %}
-				{{ article.writer }}
+				{{ article.writer|format_name:'long' }}
 			{% endif %}
 		{% endif %}
 		</strong>

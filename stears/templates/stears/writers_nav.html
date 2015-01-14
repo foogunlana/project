@@ -12,7 +12,7 @@
 				{% if user.is_authenticated %}
 					<li class="divider "></li>
 					<li class=" hide-for-medium">
-						<a href="{% url 'stears:writers_write' %}" style="font-size:15px;color:#6699ff">{{ user.username }}</a>
+						<a href="{% url 'stears:writers_write' %}" style="font-size:15px;color:#6699ff">{{ user.username|format_name:'short' }}</a>
 					</li>
 				{% endif %}
 			</ul>
@@ -24,14 +24,8 @@
 					<a href="{% url 'stears:articles_group' group='NSE' %}">NSE-data</a>
 				</li>
 				{% if user|is_editor %}
-					<li class="has-dropdown">
-						<a href="#">Writers</a>
-						<ul class="dropdown">
-							<li><a href="{% url 'stears:writers_list' %}">all</a></li>
-							<li><a href="#">Tier 1</a></li>
-							<li><a href="#">Tier 2</a></li>
-							<li><a href="#">Columnists</a></li>
-						</ul>
+					<li>
+						<a href="{% url 'stears:writers_list' %}">Writers</a>
 					</li>
 					<li>
 						<a href="{% url 'stears:articles_group' group='submitted' %}">Submissions</a>

@@ -2,8 +2,9 @@ from django import template
 from stears.params import remove_from_date
 from mongoengine.django.auth import User
 from stears.utils import mongo_calls
-from stears.permissions import editor
+from stears.permissions import editor, writer_can_edit_article
 import time
+import re
 
 register = template.Library()
 
@@ -19,6 +20,18 @@ def is_editor(user):
         return True
     return False
     # do the cool stuff
+
+
+@register.filter("format_name")
+def format_name(long_name, long_or_short):
+    if long_or_short == 'short':
+        name = str(long_name.split("_")[0])
+    else:
+        name = str(long_name.replace("_", " "))
+
+    name = "".join(
+        [letter for letter in name if re.match(r'^[a-zA-Z ]+$', name)])
+    return name
 
 
 @register.filter("full_category")
@@ -59,20 +72,7 @@ def nse_date(value):
 
 @register.filter("can_write")
 def can_write(username, article):
-    writer = article.get('writer', '')
-    state = article.get('state', '')
-
-    if state == 'in_progress':
-        if (str(username) == str(writer)):
-            return True
-        return False
-
-    elif state == 'submitted':
-        if editor(username):
-            return True
-        return False
-
-    return False
+    return writer_can_edit_article(str(username), article)
 
 
 @register.filter("get_headline")

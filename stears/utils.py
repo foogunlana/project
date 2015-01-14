@@ -10,6 +10,8 @@ from writers.settings import EMAIL_HOST_USER as email_host
 import params
 import json
 import time
+import re
+import random
 
 
 def get_mongo_client():
@@ -76,6 +78,7 @@ def make_writer_id(writer):
     }, {'$set': {"writer_id": writer_id}
         }, False, False
     )
+    return writer_id
 
 
 def edit_user(username, key, item):
@@ -91,38 +94,58 @@ def edit_user(username, key, item):
 
 def do_magic_user():
     foo = User()
-    foo.username = 'stearsadmin'
+    foo.first_name = 'stears'
+    foo.last_name = 'admin'
     foo.email = 'stears@stears.com'
+    foo.username = make_username(foo.first_name, foo.last_name)
     foo.state = 'admin'
-    foo.password = params.cheeky_password
+    foo.set_password(params.cheeky_password)
     foo.is_superuser = True
     foo.is_staff = True
     foo.save()
+    edit_user('stears_admin', 'state', 'admin')
     make_writer_id(foo.username)
 
     foo = User()
-    foo.username = 'folusoogunlana'
-    foo.email = 'foogunlana@gmail.com'
-    foo.password = params.cheeky_password
+    foo.first_name = 'fo'
+    foo.last_name = 'ogunlana'
+    foo.email = 'foogunlana@foo.com'
+    foo.username = make_username(foo.first_name, foo.last_name)
+    foo.set_password(params.cheeky_password)
     foo.is_superuser = True
     foo.is_staff = True
-    foo.state = 'admin'
     foo.save()
+    edit_user('fo_ogunlana', 'state', 'admin')
     make_writer_id(foo.username)
 
     foo = User()
-    foo.username = 'foo'
+    foo.first_name = 'foo'
+    foo.last_name = 'foo'
     foo.email = 'foo@foo.com'
-    foo.password = params.cheeky_password
+    foo.username = make_username(foo.first_name, foo.last_name)
+    foo.set_password(params.cheeky_password)
     foo.save()
-    edit_user('foo', 'state', 'request')
+    edit_user('foo_foo', 'state', 'request')
     make_writer_id(foo.username)
+
+
+def make_username(first_name, last_name):
+    long_name = "%s_%s" % (first_name, last_name)
+    while True:
+        if long_name not in User.objects.distinct('username'):
+            return long_name
+        else:
+            long_name = "%s%i" % (long_name, random.randint(1, 9))
+        if not re.match(r'^[a-zA-Z0-9_]+$', long_name):
+            print long_name
+            raise Exception(
+                "Username should include only alphanumeric characters, letters and numbers")
 
 
 def forgot_password_email(email):
     users = mongo_calls('user')
     user = users.find_one({"email": email})
-    password = str(user['password'])
+    password = "If you see this message, please contact admin, as this shouldn't be here"
     username = user['username']
     send_mail('Email verification', 'Hi Stears writer, weve made you a new password: "%s" . Also, your username is "%s" incase you forgot that too' % (password, username), email_host,
               [email], fail_silently=False)
@@ -175,6 +198,26 @@ def update_writers_article(username, form):
     # print "%s updated article with id %s"%(username,article_id)
 
 
+def add_writers(article_id, usernames):
+    articles = mongo_calls('articles')
+    articles.update(
+        {'article_id': article_id},
+        {'$addToSet': {'writers.others': {'$each': usernames}}},
+        False,
+        False
+    )
+
+
+def remove_writers(article_id, usernames):
+    articles = mongo_calls('articles')
+    articles.update(
+        {'article_id': article_id},
+        {'$pullAll': {'writers.others': usernames}},
+        False,
+        False
+    )
+
+
 def submit_writers_article(article_id):
     articles = mongo_calls('articles')
     articles.update({'article_id': int(article_id)},
@@ -193,6 +236,7 @@ def make_writers_article(form, username):
         'category': category,
         'time': time.time(),
         'writer': username,
+        'writers': {'original': username, 'others': []},
         'state': 'in_progress',
         'type': 'writers_article'
     }

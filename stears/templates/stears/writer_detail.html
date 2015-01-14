@@ -19,9 +19,9 @@
 						<form action="{% url 'stears:approve_writer' %}" method="post" id="aprrove">
 							{% csrf_token %}
 							{% ifequal writer.state 'approved' %}
-								<button class="button2 fill" type="submit" name="revoke" value="{{ writer.username }}">Revoke {{ writer.username }}'s account</button>
+								<button class="button2 fill" type="submit" name="revoke" value="{{ writer.username }}">Revoke {{ writer.username|format_name:'short' }}'s account</button>
 							{% else %}
-								<button class="button2 fill" type="submit" name="approve" value="{{ writer.username }}">Verify {{ writer.username }}'s account</button>
+								<button class="button2 fill" type="submit" name="approve" value="{{ writer.username }}">Verify {{ writer.username|format_name:'short' }}'s account</button>
 							{% endifequal %}
 						</form>
 					{% endif %}

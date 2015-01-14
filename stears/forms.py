@@ -15,17 +15,33 @@ class UploadFileForm(forms.Form):
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(label='username', max_length=20, widget=forms.TextInput(
+    email = forms.EmailField(label='Email', max_length=20, widget=forms.TextInput(
         attrs={'data-validation': 'length', 'data-validation-length': 'min1'}))
     password = forms.CharField(widget=forms.PasswordInput(
         attrs={'data-validation': 'length', 'data-validation-length': 'min1'}))
 
-# class UserForm(forms.ModelForm):
-#     password = forms.CharField(widget=forms.PasswordInput())
 
-#     class Meta:
-#         model = User
-#         fields = ('username', 'email', 'password')
+class AddWritersForm(forms.Form):
+    users = mongo_calls('user')
+    writers_list = users.find(
+        {'$or': [{'state': 'approved'}, {'state': 'admin'}]}).distinct('username')
+    writers = forms.MultipleChoiceField(
+        required=True,
+        widget=forms.CheckboxSelectMultiple, choices=[(x, x) for x in writers_list])
+
+
+class RemoveWritersForm(forms.Form):
+
+    def __init__(self, *args, **kwargs):
+        articles = mongo_calls('articles')
+        article_id = int(kwargs.pop('article_id'))
+        article = articles.find_one({'article_id': article_id})
+        super(RemoveWritersForm, self).__init__(*args, **kwargs)
+        writers_list = [(x, x) for x in article['writers']['others']]
+        self.fields['writers'] = forms.MultipleChoiceField(
+            widget=forms.CheckboxSelectMultiple,
+            choices=writers_list,
+        )
 
 
 class ChoiceForm(forms.Form):
@@ -40,21 +56,29 @@ class ChoiceForm(forms.Form):
 
 
 class RegisterForm(forms.Form):
-    first_name = forms.CharField(max_length=30, required=True)
-    last_name = forms.CharField(max_length=30, required=True)
-    name = forms.CharField(label='Your username', max_length=30, required=True)
+    first_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(
+        attrs={'data-validation': 'length', 'data-validation-length': 'min2'}))
+    last_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(
+        attrs={'data-validation': 'length', 'data-validation-length': 'min2'}))
     email = forms.EmailField(label='Your email', max_length=30, required=True)
-    password = forms.CharField(widget=forms.PasswordInput, required=True)
-    confirm = forms.CharField(widget=forms.PasswordInput, required=True)
+    password = forms.CharField(required=True, widget=forms.PasswordInput(
+        attrs={'data-validation': 'length', 'data-validation-length': 'min2'}))
+    confirm = forms.CharField(required=True, widget=forms.PasswordInput(
+        attrs={'data-validation': 'length', 'data-validation-length': 'min2'}))
 
-    def clean_name(self):
-        name = self.cleaned_data['name']
-        if name in User.objects.distinct('username'):
-            raise ValidationError("That username is already taken")
-        if not re.match(r'^[a-zA-Z0-9]+$', name):
+    def clean_first_name(self):
+        first_name = self.cleaned_data['first_name']
+        if not re.match(r'^[a-zA-Z]+$', first_name):
             raise forms.ValidationError(
-                "Username should include only alphanumeric characters, letters and numbers")
-        return name
+                "Name should include only alphanumeric characters, letters and numbers")
+        return first_name
+
+    def clean_last_name(self):
+        last_name = self.cleaned_data['first_name']
+        if not re.match(r'^[a-zA-Z]+$', last_name):
+            raise forms.ValidationError(
+                "Name should include only alphanumeric characters, letters and numbers")
+        return last_name
 
     def clean_email(self):
         email = self.cleaned_data['email']

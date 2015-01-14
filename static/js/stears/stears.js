@@ -4,7 +4,12 @@ $( document ).ready(function() {
 	$( ".confirm-submission" ).click(function( event ) {
 		if(!confirm( "Are you sure you want to post" )){
 			event.preventDefault();
-		};
+		}
+	});
+
+	$(".cancel_button").click(function (e) {
+		event.preventDefault();
+		return false;
 	});
 
 	$('.standard-choice').click(function() {
@@ -14,7 +19,7 @@ $( document ).ready(function() {
 	$( ".delete" ).click(function( event ) {
 		if(!confirm( "Are you sure you want to delete?" )){
 			event.preventDefault();
-		};
+		}
 	});
 	
 	$('#btn').click(function() {

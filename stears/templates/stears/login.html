@@ -18,13 +18,13 @@
             {% csrf_token %}
             <p>
               <h6>
-                Username
+                {{ login_form.email.label }}
               </h6>
-              {{ login_form.username }}
+              {{ login_form.email }}
             </p>
             <p>
               <h6>
-                Password
+                {{ login_form.password.label }}
               </h6>
               {{ login_form.password }}
             </p>
