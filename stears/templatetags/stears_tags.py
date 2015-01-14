@@ -31,7 +31,7 @@ def format_name(long_name, long_or_short):
 
     name = "".join(
         [letter for letter in name if re.match(r'^[a-zA-Z ]+$', name)])
-    return name
+    return name.title()
 
 
 @register.filter("full_category")

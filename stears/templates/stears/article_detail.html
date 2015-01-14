@@ -166,7 +166,7 @@
 						</td>
 						<td>
 							{% for writer in article.writers.others %}
-								{{ writer }}, 
+								<a href="{% url 'stears:writer_detail' writer %}">{{ writer|format_name:'long' }}, </a>
 							{% endfor %}
 						</td>
 					</tr>

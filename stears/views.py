@@ -410,7 +410,7 @@ def article_detail(request, **kwargs):
         article = article_collection.find_one(
             {'article_id': pk, 'type': 'nse_article'})
 
-    add_writers_form = AddWritersForm()
+    add_writers_form = AddWritersForm(article_id=pk)
     remove_writers_form = RemoveWritersForm(article_id=pk)
     context = {'article': article, 'suggest_form': suggest_form, 'remove_writers_form': remove_writers_form, 'key_words_form': key_words_form,
                'writers_article_form': writers_article_form, 'add_writers_form': add_writers_form, 'comment_form': comment_form}
@@ -490,7 +490,8 @@ def accept_article_category(request):
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
 def add_writer_to_article(request):
     if request.method == "POST":
-        add_writers_form = AddWritersForm(request.POST)
+        add_writers_form = AddWritersForm(
+            request.POST, article_id=request.POST['article_id'])
         if add_writers_form.is_valid():
             usernames = add_writers_form.cleaned_data['writers']
             add_writers(int(request.POST['article_id']), usernames)

@@ -22,12 +22,21 @@ class LoginForm(forms.Form):
 
 
 class AddWritersForm(forms.Form):
-    users = mongo_calls('user')
-    writers_list = users.find(
-        {'$or': [{'state': 'approved'}, {'state': 'admin'}]}).distinct('username')
-    writers = forms.MultipleChoiceField(
-        required=True,
-        widget=forms.CheckboxSelectMultiple, choices=[(x, x) for x in writers_list])
+
+    def __init__(self, *args, **kwargs):
+        users = mongo_calls('user')
+        articles = mongo_calls('articles')
+        approved_writers = users.find(
+            {'$or': [{'state': 'approved'}, {'state': 'admin'}]}).distinct('username')
+        article_id = int(kwargs.pop('article_id'))
+        article = articles.find_one({'article_id': article_id})
+        super(AddWritersForm, self).__init__(*args, **kwargs)
+        writers_list = list(
+            set(approved_writers) - set(article['writers']['others']))
+        self.fields['writers'] = forms.MultipleChoiceField(
+            widget=forms.CheckboxSelectMultiple,
+            choices=[(x, x) for x in writers_list],
+        )
 
 
 class RemoveWritersForm(forms.Form):
@@ -60,7 +69,8 @@ class RegisterForm(forms.Form):
         attrs={'data-validation': 'length', 'data-validation-length': 'min2'}))
     last_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(
         attrs={'data-validation': 'length', 'data-validation-length': 'min2'}))
-    email = forms.EmailField(label='Your email', max_length=30, required=True)
+    email = forms.EmailField(
+        label='Your email', max_length=30, required=True)
     password = forms.CharField(required=True, widget=forms.PasswordInput(
         attrs={'data-validation': 'length', 'data-validation-length': 'min2'}))
     confirm = forms.CharField(required=True, widget=forms.PasswordInput(
