@@ -42,7 +42,10 @@
 		</section>
 	</nav>
 	<div class="row">
-		<ul style="float:right;padding-right:10px;">
+		<ul style="float:right;padding-right:10px;padding-left:5px;" class="nav_extra">
+			<li style="display:inline-block;">
+				<a href="#">Notifications</a>
+			</li>
 			{% if user.username|is_editor %}
 			<li style="display:inline-block">
 				| <a href="{% url 'stears:articles_group' group='submitted' %}">Submissions</a>
@@ -51,9 +54,6 @@
 				| <a href="{% url 'stears:pipeline' %}">Pipeline</a>
 			</li>
 			{% endif %}
-			<li style="display:inline-block">
-				| <a href="#">Notifications</a>
-			</li>
 			<li style="display:inline-block">
 				| <a href="#">Bin</a>
 			</li>
