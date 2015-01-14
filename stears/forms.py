@@ -69,8 +69,8 @@ class RegisterForm(forms.Form):
         attrs={'data-validation': 'length', 'data-validation-length': 'min2'}))
     last_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(
         attrs={'data-validation': 'length', 'data-validation-length': 'min2'}))
-    email = forms.EmailField(
-        label='Your email', max_length=30, required=True)
+    email = forms.EmailField(max_length=30, required=True, widget=forms.TextInput(
+        attrs={'data-validation': 'email'}), label="Email Address")
     password = forms.CharField(required=True, widget=forms.PasswordInput(
         attrs={'data-validation': 'length', 'data-validation-length': 'min2'}))
     confirm = forms.CharField(required=True, widget=forms.PasswordInput(
@@ -84,7 +84,7 @@ class RegisterForm(forms.Form):
         return first_name
 
     def clean_last_name(self):
-        last_name = self.cleaned_data['first_name']
+        last_name = self.cleaned_data['last_name']
         if not re.match(r'^[a-zA-Z]+$', last_name):
             raise forms.ValidationError(
                 "Name should include only alphanumeric characters, letters and numbers")

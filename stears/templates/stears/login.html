@@ -17,18 +17,14 @@
             enctype="multipart/form-data">
             {% csrf_token %}
             <p>
-              <h6>
-                {{ login_form.email.label }}
-              </h6>
-              {{ login_form.email }}
+            {{ login_form.email.label }}
+            {{ login_form.email }}
             </p>
             <p>
-              <h6>
-                {{ login_form.password.label }}
-              </h6>
-              {{ login_form.password }}
+            {{ login_form.password.label }}
+            {{ login_form.password }}
             </p>
-            <button class="button2 fill" type="submit" name="submit" value="Register" >Login</button>
+            <button class="button2 fill" type="submit" name="submit" value="login" >Login</button>
           </form>
           <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
           <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>

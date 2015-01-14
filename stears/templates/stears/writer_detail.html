@@ -6,7 +6,7 @@
 	{% include 'stears/writers_nav.html' %}
 {% endblock %}
 {% block writers_block %}
-	<hr>
+	<br>
 	<div class="row fill">
 		<div class="columns small-11 small-centered">
 			<div class="row fill" style="padding:0px">
@@ -29,7 +29,7 @@
 				</div>
 			</div>
 			<div class="row fill">
-				<div class="columns small-12 large-8" style="padding:0px">
+				<div class="columns small-12 large-3" style="padding:0px">
 					<a id="writers_details" class="article_box toggles_div" >
 						Writer Info/Details
 					</a>
@@ -55,7 +55,7 @@
 				<div class="columns small-12 large-8" >
 					<br>
 					<h4>
-					{{ writer.username }}'s recent articles
+					{{ writer.username|format_name:'short' }}'s recent articles
 					</h4>
 					<br>
 					{% include 'stears/list_articles.html' %}

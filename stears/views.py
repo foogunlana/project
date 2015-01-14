@@ -13,7 +13,6 @@ from mongoengine.queryset import DoesNotExist
 
 import params
 import json
-import random
 
 # ALL NOTIFICATIONS SHOULD RECORD THE TIME AS WELL
 
@@ -211,6 +210,7 @@ def writers_home_test(request, group):
     visible_fields = ['headline', 'content', 'reporter', 'state']
     articles = []
     article_collection = mongo_calls('articles')
+    nostates = False
 
     writers_article_form = WritersArticleForm()
     if request.method == 'GET':
@@ -228,6 +228,7 @@ def writers_home_test(request, group):
                 '$orderby': {'time': -1, 'state': 1, }})]
 
         elif group == 'submitted':
+            nostates = True
             articles = [article for article in article_collection.find({
                 '$query': {'type': 'writers_article', 'state': 'submitted'},
                 '$orderby': {'time': -1}})]
@@ -238,7 +239,7 @@ def writers_home_test(request, group):
                 '$orderby':{'state': 1, 'time': -1}})]
 
     context = {'editable_fields': editable_fields, "writers_article_form": writers_article_form,
-               'visible_fields': visible_fields, 'articles': articles, 'username': user}
+               'visible_fields': visible_fields, 'articles': articles, 'username': user, 'nostates': nostates}
     return render(request, 'stears/writers_home_test.html', context)
 
 
@@ -517,7 +518,7 @@ def pipeline(request):
             {'$query': {}, '$orderby': {'state': 1}})]
         # Articles here cannot be found in the article database and that will
         # cause a few problems!
-    context = {'articles': articles}
+    context = {'articles': articles, 'nostates': True}
     return render(request, 'stears/pipeline.html', context)
 
 

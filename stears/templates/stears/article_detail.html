@@ -45,7 +45,7 @@
 							Click to delete
 						</h6>
 						{% for word in article.keywords %}
-							{% if user.username|is_editor %}
+							{% if user.username|can_write:article %}
 							<div class="tag_wrapper">
 								<button href="#" class = "keyword delete" type="submit" name="data" value="{{ article.article_id }},{{ word }}">
 									{{ word }}
@@ -64,7 +64,7 @@
 					<div id="keyword_area" {% if key_words_form.errors %}{% else %}hidden{% endif %}>
 						{% include 'stears/keywords_form.html' %}
 					</div>
-				</div>
+				</div>`
 				<br>
 			</div>
 			<div class="fill" >
@@ -166,7 +166,12 @@
 						</td>
 						<td>
 							{% for writer in article.writers.others %}
+							{% if user.username|is_editor %}
 								<a href="{% url 'stears:writer_detail' writer %}">{{ writer|format_name:'long' }}, </a>
+							{% else %}
+								{{ writer|format_name:'long' }},
+							{% endif %}
+								
 							{% endfor %}
 						</td>
 					</tr>
@@ -281,9 +286,11 @@
 								</div>
 							{% endif %}
 						{% endifequal %}
+						{% if user.username|can_write:article %}
 						<div class="row">
-							<button id="keyword_area_button" style="border-radius:3px;" class=" fill">View/Edit tags</button>
+							<button id="keyword_area_button" style="border-radius:3px;" class=" fill">Edit tags</button>
 						</div>
+						{% endif %}
 					</div>
 				</div>
 			</div>

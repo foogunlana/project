@@ -9,25 +9,46 @@
 						<p><a href="{% url 'stears:home' %}">Go to the Stears home</a></p><br />
 						<p><a href="{% url 'stears:writers_home' %}">Go to the Writer's page</a></p><br />
 					{% else %}
-						<strong>Register as a writer</strong><br />
+						<h4>
+							Register as a writer
+						</h4>
 						<br>
 						{% if errors %}
 							Oops, Something went wrong.
 							Your email address looks funny
 							<!-- {% for error in errors%}
-														<p>{{ error }}</p>
+																<p>{{ error }}</p>
 							{% endfor %} -->
 						{% endif %}
 						<form id="register_form" method="post" action="{% url 'stears:register' %}"
 							enctype="multipart/form-data">
 							{% csrf_token %}
-							{{ register_form }}
-							<button class="button2 fill" type="submit" name="submit" value="Register" >Request registration</button>
+							<p>
+							{{ register_form.first_name.label }}
+							{{ register_form.first_name }}
+							</p>
+							<p>
+							{{ register_form.last_name.label }}
+							{{ register_form.last_name }}
+							</p>
+							<p>
+							{{ register_form.email.label }}
+							{{ register_form.email }}
+							</p>
+							<p>
+							{{ register_form.password.label }}
+							{{ register_form.password }}
+							</p>
+							<p>
+							{{ register_form.confirm.label }}
+							{{ register_form.confirm }}
+							</p>
+							<button class="button2 fill" type="submit" name="submit" value="register" >Request registration</button>
 						</form>
+						<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+						<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
+						<script> $.validate(); </script>
 					</div>
-					<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-					<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
-					<script> $.validate(); </script>
 					<div class="row" style = "padding:5%;">
 						<strong>
 						<div>
