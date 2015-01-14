@@ -27,9 +27,6 @@
 					<li>
 						<a href="{% url 'stears:writers_list' %}">Writers</a>
 					</li>
-					<li>
-						<a href="{% url 'stears:articles_group' group='submitted' %}">Submissions</a>
-					</li>
 				{% endif %}
 				<li>
 					<a href="{% url 'stears:articles_group' group='peers' %}">Articles</a>
@@ -44,4 +41,19 @@
 			</ul>
 		</section>
 	</nav>
+	<div class="row">
+		<ul style="float:right;padding-right:10px;">
+			{% if user.username|is_editor %}
+			<li style="display:inline-block">
+				| <a href="{% url 'stears:articles_group' group='submitted' %}">Submissions</a>
+			</li>
+			<li style="display:inline-block">
+				| <a href="{% url 'stears:pipeline' %}">Pipeline</a>
+			</li>
+			{% endif %}
+			<li style="display:inline-block">
+				| <a href="#">Bin</a>
+			</li>
+		</ul>
+	</div>
 </div>
