@@ -184,8 +184,8 @@ class WritersArticleForm(forms.Form):
     content = forms.CharField(widget=forms.Textarea(attrs={
         'data-validation': 'length',
         'data-validation-length': 'min10',
-        'class': 'wymeditor',
-        'data-wym-initialized': 'yes',
+        # 'class': 'wymeditor',
+        # 'data-wym-initialized': 'yes',
     }))
     article_id = forms.CharField(
         max_length=30, initial=None, required=False)

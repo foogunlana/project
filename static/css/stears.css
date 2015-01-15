@@ -94,6 +94,8 @@ button:hover{
    box-shadow:         inset 0 0 6px #000000;
 }
 
+.wym_skin_default .wym_html textarea      {  height: 500px;  }
+.wym_skin_default .wym_iframe iframe      { height: 500px;  }
 
 .section1{
 	background-color: white;

@@ -73,6 +73,7 @@
 						<div class="row" style="padding-left:15px;padding-right:15px;">
 							<div class="fill article_box" >
 								<a id="article_form_toggle"  style="padding:10px;">Write/Edit article</a>
+								<a href="{% url 'stears:rich_text' article.article_id %}"  style="padding:10px;color:red;">Edit in RTF</a>
 							</div>
 							<div id="hidden_article_form" class="columns small-12" style="padding:0px;" hidden>
 								<br>

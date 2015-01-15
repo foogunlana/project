@@ -84,9 +84,9 @@ def make_writer_id(writer):
 def edit_user(username, key, item):
     users = mongo_calls('user')
     users.update({
-        "username": username
-    }, {'$set': {key: item}
-        }, False, False
+        "username": username},
+        {'$set': {key: item}
+         }, False, False
     )
     # print "%s's %s has been changed from %s to
     # %s"%(username,key,current_item,item)
@@ -233,6 +233,7 @@ def make_writers_article(form, username):
         'nse_article_id': nse_article_id,
         'headline': headline,
         'content': content,
+        'rtf_content': content,
         'category': category,
         'time': time.time(),
         'writer': username,
@@ -243,6 +244,18 @@ def make_writers_article(form, username):
 
     article = request_to_write(article)
     return article
+
+
+def rtf_edit_article(article, rtf_content):
+    articles = mongo_calls('articles')
+
+    r = re.compile('<[^>]*>')
+    content = r.sub('', rtf_content)
+
+    articles.update(
+        {'article_id': article['article_id']},
+        {'$set': {'rtf_content': rtf_content, 'content': content}},
+        False, False)
 
 
 def make_comment(username, article_id, comment):

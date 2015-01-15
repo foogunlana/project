@@ -63,3 +63,23 @@ def writer_can_edit_article(username, article):
         return True
 
     return False
+
+
+def can_edit_article(user, pk):
+    username = str(user)
+    articles = mongo_calls('articles')
+    article = articles.find_one({'article_id': int(pk)})
+
+    if article.get('state', '') == 'submitted':
+        return editor(username)
+
+    if not article.get('writer', ''):
+        return True
+
+    if not article.get('visible', True):
+        return False
+
+    elif (username == article.get('writer', '')) or (username in article['writers']['others']):
+        return True
+
+    return False

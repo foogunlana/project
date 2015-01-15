@@ -5,8 +5,8 @@ from django.contrib.auth import login, logout
 from mongoengine.django.auth import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
-from stears.utils import article_key_words, add_writers, remove_writers, make_username, migrate_article, mongo_calls, make_comment, forgot_password_email, save_writers_article, accept_to_write, request_json, make_url, move_to_trash, suggest_nse_article, update_writers_article, edit_user, make_writer_id, make_writers_article, submit_writers_article
-from stears.permissions import approved_writer, is_a_boss, writer_can_edit_article
+from stears.utils import article_key_words, rtf_edit_article, add_writers, remove_writers, make_username, migrate_article, mongo_calls, make_comment, forgot_password_email, save_writers_article, accept_to_write, request_json, make_url, move_to_trash, suggest_nse_article, update_writers_article, edit_user, make_writer_id, make_writers_article, submit_writers_article
+from stears.permissions import approved_writer, is_a_boss, writer_can_edit_article, can_edit_article
 from mongoengine.queryset import DoesNotExist
 
 # from stears.utils import handle_uploaded_file
@@ -569,6 +569,27 @@ def remove_tag(request):
 #         else:
 #             print key_words_form.errors, 'error'
 #     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+@user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
+def edit_rich_text(request, pk):
+    user = request.user
+    articles = mongo_calls('articles')
+    pk = int(pk)
+    article = articles.find_one({'article_id': pk})
+
+    if not writer_can_edit_article(str(user), article):
+        HttpResponseRedirect(reverse('stears:noacces'))
+
+    if request.method == "POST":
+        rtf_content = request.POST.get('content', '')
+        if not rtf_content:
+            return HttpResponse("There wasn't any content")
+        rtf_edit_article(article, rtf_content)
+        return HttpResponse("Successfully updated")
+
+    context = {'content': article.get(
+        'rtf_content', article['content']), 'article': article}
+    return render(request, 'stears/wym.html', context)
 
 
 def noaccess(request):
