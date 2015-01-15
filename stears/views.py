@@ -578,7 +578,7 @@ def edit_rich_text(request, pk):
     article = articles.find_one({'article_id': pk})
 
     if not writer_can_edit_article(str(user), article):
-        HttpResponseRedirect(reverse('stears:noacces'))
+        return HttpResponseRedirect(reverse('stears:noaccess'))
 
     if request.method == "POST":
         rtf_content = request.POST.get('content', '')
