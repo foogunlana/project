@@ -3,19 +3,27 @@
 	<br>
 	<div class="row article_button article_box {{ article.state }} {{ article.category.split|join:"_" }} {{ article.time }}" style='{% if article.writer %}{% else %}background-color:#D5EBFE{% endif %}'>
 	<div class="columns small-6 ">
-		{% ifequal article.visible False %}
-			{% if user.is_superuser %}
+		{% if article.binned %}
+			{{ article.headline }}|
+			<form action="{% url 'stears:revive' %}" method="post">
+			{% csrf_token %}
+			<button type="submit" style="display:inline-block;padding-botom:2px;" name="article_id" value="{{ article.article_id }}">Revive</button>
+		</form>
+		{% else %}
+			{% ifequal article.visible False %}
+				{% if user.is_superuser %}
+					<a href="{% url 'stears:article_detail' pk=article.article_id %}" >
+						{{ article.headline }}|
+					</a>
+				{% else %}
+					{{ article.headline }}|
+				{% endif %}
+			{% else %}
 				<a href="{% url 'stears:article_detail' pk=article.article_id %}" >
 					{{ article.headline }}|
 				</a>
-			{% else %}
-				{{ article.headline }}|
-			{% endif %}
-		{% else %}
-			<a href="{% url 'stears:article_detail' pk=article.article_id %}" >
-				{{ article.headline }}|
-			</a>
-		{% endifequal %}
+			{% endifequal %}
+		{% endif %}
 	</div>
 	<div class="columns small-6 medium-3 ">
 		{% ifequal article.visible False%}
@@ -48,4 +56,5 @@
 		</strong>|
 	</div>
 </div>
+
 </div>

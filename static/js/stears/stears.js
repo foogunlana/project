@@ -7,6 +7,12 @@ $( document ).ready(function() {
 		}
 	});
 
+	$( ".confirm-revive" ).click(function( event ) {
+		if(!confirm( "Are you sure you want to revive this article" )){
+			event.preventDefault();
+		}
+	});
+
 	$(".cancel_button").click(function (e) {
 		event.preventDefault();
 		return false;

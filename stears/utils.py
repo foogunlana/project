@@ -342,8 +342,36 @@ def move_to_trash(pk):
             False
         )
 
+    article['binned'] = True
     bin.insert(article)
     articles.remove({'article_id': int(pk)})
+
+
+def revive_from_trash(pk):
+    articles = mongo_calls('articles')
+    bin = mongo_calls('bin')
+    users = mongo_calls('users')
+    article = bin.find_one({'article_id': int(pk)})
+    nse_article_id = int(article['nse_article_id'])
+
+    users.update(
+        {'username': article['writer']},
+        {'$push': {'articles': int(pk)}},
+        False,
+        False
+    )
+
+    if nse_article_id:
+        articles.update(
+            {'article_id': int(nse_article_id), 'type': 'nse_article'},
+            {'$push': {'versions': int(pk)}},
+            False,
+            False
+        )
+
+    article['binned'] = False
+    articles.insert(article)
+    bin.remove({'article_id': int(pk)})
 
 
 def migrate_article(article_id):

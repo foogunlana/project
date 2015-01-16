@@ -5,7 +5,11 @@ from django.contrib.auth import login, logout
 from mongoengine.django.auth import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
-from stears.utils import article_key_words, rtf_edit_article, add_writers, remove_writers, make_username, migrate_article, mongo_calls, make_comment, forgot_password_email, save_writers_article, accept_to_write, request_json, make_url, move_to_trash, suggest_nse_article, update_writers_article, edit_user, make_writer_id, make_writers_article, submit_writers_article
+from stears.utils import article_key_words, revive_from_trash, rtf_edit_article, add_writers,\
+    remove_writers, make_username, migrate_article, mongo_calls, make_comment, forgot_password_email,\
+    save_writers_article, accept_to_write, request_json, make_url, move_to_trash, suggest_nse_article, \
+    update_writers_article, edit_user, make_writer_id, make_writers_article, submit_writers_article
+
 from stears.permissions import approved_writer, is_a_boss, writer_can_edit_article, can_edit_article
 from mongoengine.queryset import DoesNotExist
 
@@ -331,9 +335,36 @@ def writer_detail(request, name):
 def delete_article(request):
     # Notify everyone that the article has been deleted
     if request.method == 'POST':
-        pk = int(request.POST.get('article_id', 0))
+        pk = request.POST.get('article_id', None)
+        if not pk:
+            raise Exception('Nothing to delete')
+        pk = int(pk)
         move_to_trash(pk)
     return HttpResponseRedirect(reverse('stears:writers_home'))
+
+
+@user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
+def bin(request):
+    username = str(request.user)
+    bin = mongo_calls('bin')
+    articles = [article for article in bin.find({
+        '$query': {'type': 'writers_article', 'writer': username},
+        '$orderby': {'time': -1, 'state': 1}})]
+
+    context = {'articles': articles}
+    return render(request, 'stears/bin.html', context)
+
+
+@user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
+def revive_article(request):
+    if request.method == 'POST':
+        pk = request.POST.get('article_id', None)
+        if not pk:
+            return HttpResponseRedirect(reverse('stears:noaccess'))
+        pk = int(pk)
+        revive_from_trash(pk)
+
+    return HttpResponseRedirect(reverse('stears:bin'))
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
@@ -374,6 +405,10 @@ def article_detail(request, **kwargs):
         key_words_form = KeyWordsForm()
 
     article = article_collection.find_one({'article_id': pk})
+
+    if not article:
+        return HttpResponseRedirect(reverse('stears:noaccess'))
+
     if article['type'] == 'writers_article':
         nse_id = article['nse_article_id']
         category = article['category']
