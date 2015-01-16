@@ -11,7 +11,6 @@ $( document ).ready(function() {
 		});
 
 		sorts.map(function(sort){
-			console.log(sorts);
 			if(sort==='all'){
 				return false;
 			} else{
