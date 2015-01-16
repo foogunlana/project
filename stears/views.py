@@ -76,8 +76,6 @@ def change_password(request):
 
             try:
                 user = User.objects.get(username=username)
-        # FIX CHECK_PASSWORD FUNCTION if
-        # user.check_password(request.POST['password']):
                 if user.check_password(password):
                     user.backend = params.MONGOENGINE_BACKEND
                     if user:

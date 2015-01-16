@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from stears.forms import LoginForm
+
 
 def home(request):
-	return render(request, 'stears_test.html', {})
+    login_form = LoginForm()
+    return render(request, 'stears/login.html', {'login_form': login_form})
