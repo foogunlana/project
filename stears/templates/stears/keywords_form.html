@@ -1,5 +1,5 @@
 {% if key_words_form %}
-	<form method="POST" action="{% url 'stears:article_detail' pk=article.article_id %}">
+	<form method="POST" action="{% url 'stears:tag' pk=article.article_id %}">
 		{% csrf_token %}
 		<h3>
 		Add tags to this article
@@ -23,7 +23,7 @@
 			</td>
 		</tr>
 		</table>
-		<button class=" fill comment" type="keywords" name="article_id" value="{{ article.article_id }}" >Save tag</button>
+		<button class=" fill comment submit-tags" type="keywords" >Save tag</button>
 	</form>
 {% else %}
 	<h3>

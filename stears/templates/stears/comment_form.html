@@ -1,5 +1,5 @@
 {% if comment_form %}
-	<form method="POST" action="{% url 'stears:article_detail' pk=article.article_id %}">
+	<form method="POST" action="{% url 'stears:comment' pk=article.article_id %}">
 		{% csrf_token %}
 			<h3>
 			Leave a comment
@@ -10,7 +10,7 @@
 			<p>
 				{{ comment_form.comment }}
 			</p>
-		<button class=" fill comment" type="comment" name="article_id" value="{{ article.article_id }}" >Post comment</button>
+		<button class=" fill comment submit-comment" type="comment" >Post comment</button>
 	</form>
 {% else %}
 	<h3>

@@ -373,32 +373,6 @@ def article_detail(request, **kwargs):
     article_collection = mongo_calls('articles')
     users = mongo_calls('users')
 
-    if request.method == 'POST':
-        pk = int(request.POST['article_id'])
-        if 'tags' in request.POST.keys():
-            key_words_form = KeyWordsForm(
-                request.POST
-            )
-            if key_words_form.is_valid():
-                print key_words_form.cleaned_data['other']
-                article_key_words(
-                    pk,
-                    key_words_form.cleaned_data['tags'],
-                    other=key_words_form.cleaned_data['other'])
-                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-            else:
-                comment_form = CommentForm()
-        elif 'comment' in request.POST.keys():
-            comment_form = CommentForm(
-                request.POST
-            )
-            if comment_form.is_valid():
-                make_comment(
-                    str(user), pk, comment_form.cleaned_data['comment'])
-                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-            else:
-                key_words_form = KeyWordsForm()
-
     if request.method == 'GET':
         pk = int(kwargs.pop('pk'))
         comment_form = CommentForm()
@@ -450,6 +424,38 @@ def article_detail(request, **kwargs):
                'writers_article_form': writers_article_form, 'add_writers_form': add_writers_form, 'comment_form': comment_form}
 
     return render(request, 'stears/article_detail.html', context)
+
+
+@user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
+def comment(request, pk):
+    if request.method == 'POST':
+        article_id = int(pk)
+        comment_form = CommentForm(
+            request.POST,
+        )
+        if comment_form.is_valid():
+            make_comment(
+                str(request.user), int(article_id),
+                comment_form.cleaned_data['comment'])
+        else:
+            print "Invalid"
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def add_key_words(request, pk):
+    if request.method == 'POST':
+        key_words_form = KeyWordsForm(
+            request.POST
+        )
+        if key_words_form.is_valid():
+            article_key_words(
+                int(pk),
+                key_words_form.cleaned_data['tags'],
+                other=key_words_form.cleaned_data['other'])
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        else:
+            print "Invalid"
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/stears/noaccess/')
@@ -524,8 +530,11 @@ def accept_article_category(request):
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
 def add_writer_to_article(request):
     if request.method == "POST":
+        article_id = request.POST['article_id']
+        if not article_id:
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         add_writers_form = AddWritersForm(
-            request.POST, article_id=request.POST['article_id'])
+            request.POST, article_id=article_id)
         if add_writers_form.is_valid():
             usernames = add_writers_form.cleaned_data['writers']
             add_writers(int(request.POST['article_id']), usernames)
@@ -576,32 +585,6 @@ def remove_tag(request):
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-
-# @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
-# def comment(request):
-#     if request.method == 'POST':
-#         article_id = int(request.POST.get('article_id', 0))
-#         comment_form = CommentForm(
-#             request.POST,
-#         )
-#         if comment_form.is_valid():
-#             make_comment(
-# str(request.user), int(article_id),
-# comment_form.cleaned_data['comment'])
-
-#     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-
-# def add_key_words(request):
-#     if request.method == 'POST':
-#         key_words_form = KeyWordsForm(
-#             request.POST
-#         )
-#         if key_words_form.is_valid():
-#             print key_words_form.cleaned_data['keywords'].split()
-#         else:
-#             print key_words_form.errors, 'error'
-#     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
 def edit_rich_text(request, pk):

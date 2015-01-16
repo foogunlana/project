@@ -9,25 +9,25 @@
 <div class="results">
 	
 </div>
+<br>
+<br>
+<br>
 <div class="row">
 	<div class="columns small-12">
-		<br>
-		<br>
-		<br>
 		<div class="article_box" style="padding:20px;">
-		<form method="post" >
-			{% csrf_token %}
-			<textarea class="wymeditor" rows="4" cols="50">&lt;p&gt;{{ content }}&lt;/p&gt;</textarea>
-		</form>
-		<br>
-		<div class="row">
-			<div class="columns small-6">
-				<button class="fill wymupdate wym_preview_button">Preview</button>
+			<form method="post" >
+				{% csrf_token %}
+				<textarea class="wymeditor" rows="4" cols="50">&lt;p&gt;{{ content }}&lt;/p&gt;</textarea>
+			</form>
+			<br>
+			<div class="row">
+				<div class="columns small-6">
+					<button class="fill wymupdate wym_preview_button">Preview</button>
+				</div>
+				<div class="columns small-6">
+					<button class="fill wymupdate wym_submit_button">Save</button>
+				</div>
 			</div>
-			<div class="columns small-6">
-				<button class="fill wymupdate wym_submit_button">Save</button>
-			</div>
-		</div>
 		</div>
 		
 	</div>
