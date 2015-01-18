@@ -112,25 +112,23 @@
 					<table class="columns small-12 small-centered article_box">
 						<tr >
 							<td>
-								Headline
+								Title
 							</td>
 							<td>
 								{{ article.headline }}
 							</td>
 						</tr>
 						{% if article.writer %}
+							{% if article.nse_article_id != '0' %}
 							<tr>
 								<td>
-									related NSE article
+									Related NSE article
 								</td>
 								<td>
-									{% if article.nse_article_id != '0' %}
-										<a href="{% url 'stears:article_detail' pk=article.nse_article_id %}">{{ article.nse_article_id|get_headline }}</a>
-									{% else %}
-										No related nse data point
-									{% endif %}
+									<a href="{% url 'stears:article_detail' pk=article.nse_article_id %}">{{ article.nse_article_id|get_headline }}</a>
 								</td>
 							</tr>
+							{% endif %}
 						{% endif %}
 						<tr>
 							<td>
