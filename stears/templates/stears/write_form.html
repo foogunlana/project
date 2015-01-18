@@ -6,21 +6,21 @@
 		</p> -->
 		{% if writers_article_form.categories %}
 			<h6>
-			Headline
+			Title
 			</h6>
 			<p>
 				{{ writers_article_form.headline }}
 			</p>
 			<h6>
-			NSE headlines <a href='{% url "stears:articles_group" group="NSE" %}'>more info</a>
+			NSE headlines <a href='{% url "stears:articles_group" group="NSE" %}'>See all</a>
 			</h6>
 			{{ writers_article_form.nse_headlines }}
 			<h6>
-			Chose a category
+			Category
 			</h6>
 			{{ writers_article_form.categories }}
 			<h6>
-			Content
+			Body
 			</h6>
 			<p>
 				{{ writers_article_form.content }}

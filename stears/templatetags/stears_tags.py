@@ -70,6 +70,18 @@ def nse_date(value):
     return time.asctime(time.localtime(value))
 
 
+@register.filter("nse_date2")
+def nse_date2(value):
+    value = str(value)
+    for item in remove_from_date:
+        value = value.replace(item, '')
+    try:
+        value = int(value)
+    except ValueError:
+        value = float(value)
+    return time.strftime("%a, %d %b, %I:%M%p", time.localtime(value))
+
+
 @register.filter("can_write")
 def can_write(username, article):
     return writer_can_edit_article(str(username), article)

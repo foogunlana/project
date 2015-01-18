@@ -3,7 +3,7 @@
 	<nav class="top-bar " data-topbar role="navigation">
 		<ul class="title-area">
 			<li class="name ">
-				<h1><a href="{% url 'stears:writers_home' %}">WEAL<font style="color:#6699ff;font-size:12"> alpha version</font></a></h1>
+				<h1><a href="{% url 'stears:writers_home' %}">The WEAL<font style="color:#6699ff;font-size:12"> alpha version</font></a></h1>
 			</li>
 			<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
 		</ul>
@@ -12,7 +12,7 @@
 				{% if user.is_authenticated %}
 					<li class="divider "></li>
 					<li class=" hide-for-medium">
-						<a href="{% url 'stears:writers_write' %}" style="font-size:15px;color:#6699ff">{{ user.username|format_name:'short' }}</a>
+						<a href="{% url 'stears:writers_write' %}" style="font-size:15px;">{{ user.username|format_name:'long' }}</a>
 					</li>
 				{% endif %}
 			</ul>
@@ -21,7 +21,7 @@
 					<a href="{% url 'stears:writers_write' %}">Write</a>
 				</li>
 				<li>
-					<a href="{% url 'stears:articles_group' group='NSE' %}">NSE-data</a>
+					<a href="{% url 'stears:articles_group' group='NSE' %}">NSE Data</a>
 				</li>
 				{% if user|is_editor %}
 					<li>
@@ -34,7 +34,7 @@
 				<li class="has-form">
 					<div class="row collapse">
 						<div class=" small-12  columns">
-							<a class="button fill" href="{% url 'stears:logout' %}" style="border-radius:3px;background-color:#FF4747;">logout</a>
+							<a class="button fill" href="{% url 'stears:logout' %}" style="border-radius:3px;background-color:#FF4747;">Sign out</a>
 						</div>
 					</div>
 				</li>
@@ -47,15 +47,15 @@
 				<a href="#">Notifications</a>
 			</li> -->
 			{% if user.username|is_editor %}
-			<li style="display:inline-block">
-				| <a href="{% url 'stears:articles_group' group='submitted' %}">Submissions</a>
+			<li style="display:inline-block;padding-right:15px;">
+				<a href="{% url 'stears:articles_group' group='submitted' %}">Submissions</a>
 			</li>
-			<li style="display:inline-block">
-				| <a href="{% url 'stears:pipeline' %}">Pipeline</a>
+			<li style="display:inline-block;padding-right:15px;">
+				<a href="{% url 'stears:pipeline' %}">Pipeline</a>
 			</li>
 			{% endif %}
-			<li style="display:inline-block">
-				| <a href="{% url 'stears:bin' %}">Bin</a>
+			<li style="display:inline-block;">
+				   <a href="{% url 'stears:bin' %}">Trash</a>
 			</li>
 		</ul>
 	</div>

@@ -3,11 +3,11 @@
 	<div class="columns small-12 medium-8 ">
 		{% if writer.username %}
 		<a href="{% url 'stears:writer_detail' name=writer.username %}" >
-			{{ writer.username|format_name:'long' }}|
+			{{ writer.username|format_name:'long' }}
 		</a>
 		{% endif %}
 	</div>
 	<div class="columns medium-4 hide-for-small">
-			|{{ writer.state }}
+			{{ writer.state }}
 	</div>
 </div>

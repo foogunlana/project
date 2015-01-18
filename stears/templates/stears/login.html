@@ -1,11 +1,13 @@
-{% extends 'stears/base.html' %}
+{% extends 'stears/writers_base_test.html' %}
 {% block title %}Login{% endblock %}
 {% block content %}
   <div class="row" style = "padding-top:10%;">
     <div class="columns small-12 medium-6 large-5 small-centered">
       <div class="home_box">
+        <div>
+          <img src="/static/images/stears/StearsForWeal.png">
+        </div>
         <div class="row" style = "padding:5%;">
-          <h4 style="font-family:'Courier New'">Login to Stears Writers</h4>
           {% if errors %}
             <table>
               {% for error in errors %}
@@ -40,10 +42,7 @@
             Did you <a href="{% url 'stears:forgot_password' %}">forget your password or username?</a>
             </p>
             <p>
-            Dont have a writers account?
-            </p>
-            <p>
-            Please <a href="{% url 'stears:register' %}">Sign Up</a> to request a writers account
+            Dont have a writers account? Please <a href="{% url 'stears:register' %}">Sign in</a> to request one
             </p>
           </div>
           </strong>

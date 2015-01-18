@@ -1086,7 +1086,7 @@ button, .button {
   border-style: solid;
   border-width: 0px;
   cursor: pointer;
-  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  font-family: "Lato", Helvetica, Roboto, Arial, sans-serif;
   font-weight: normal;
   line-height: normal;
   margin: 0 0 1.25rem;
@@ -1787,6 +1787,7 @@ meta.foundation-mq-topbar {
         position: relative;
         top: -1px; } }
   .top-bar .title-area {
+    background-color:#060664; /** Added line to change topbar**/
     position: relative;
     margin: 0; }
   .top-bar .name {
@@ -2034,7 +2035,8 @@ meta.foundation-mq-topbar {
 
 @media only screen and (min-width: 40.063em) {
   .top-bar {
-    background: #333333;
+    background-color:black;
+    /*background: #333333; was default */
     overflow: visible; }
     .top-bar:before, .top-bar:after {
       content: " ";
@@ -2065,6 +2067,7 @@ meta.foundation-mq-topbar {
     transition: none 0 0;
     left: 0 !important; }
     .top-bar-section ul {
+      background-color: black;
       width: auto;
       height: auto !important;
       display: inline; }
@@ -2079,7 +2082,8 @@ meta.foundation-mq-topbar {
     .top-bar-section li:not(.has-form) a:not(.button) {
       padding: 0 15px;
       line-height: 45px;
-      background: #333333; }
+      /*background: #333333;*/
+      background: black;  }
       .top-bar-section li:not(.has-form) a:not(.button):hover {
         background-color: #555555;
         background: #272727; }
@@ -2167,7 +2171,8 @@ meta.foundation-mq-topbar {
       height: 45px;
       width: 0; }
     .top-bar-section .has-form {
-      background: #333333;
+      /*background: #333333;  This was the default*/ 
+      background-color:#FF4747;
       padding: 0 15px;
       height: 45px; }
     .top-bar-section .right li .dropdown {
@@ -2180,6 +2185,9 @@ meta.foundation-mq-topbar {
       left: 0; }
       .top-bar-section .left li .dropdown li .dropdown {
         left: 100%; }
+      .top-bar-section .left li {
+        background-color: black;
+      }
 
   .no-js .top-bar-section ul li:hover > a {
     background-color: #555555;
