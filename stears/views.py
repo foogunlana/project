@@ -388,7 +388,7 @@ def article_detail(request, **kwargs):
         category = article['category']
     else:
         nse_id = pk
-        category = "Tier 1"
+        category = "stearsTier_1"
 
     approved_writers = users.find(
         {'state': 'approved'}).distinct('username')

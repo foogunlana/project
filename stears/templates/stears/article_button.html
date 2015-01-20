@@ -27,9 +27,9 @@
 	</div>
 	<div class="columns small-6 medium-3 ">
 		{% ifequal article.visible False%}
-			{{ article.category }}<font color="red">(Requested)</font>
+			{{ article.category|pretty_category }}<font color="red">(Requested)</font>
 		{% else %}
-			{{ article.category }}
+			{{ article.category|pretty_category }}
 		{% endifequal %}
 	</div>
 	<div class="columns small-6 medium-3 ">

@@ -228,7 +228,7 @@ def make_writers_article(form, username):
     nse_article_id = form.cleaned_data.get('nse_headlines', 0)
     headline = form.cleaned_data['headline']
     content = form.cleaned_data['content']
-    category = form.cleaned_data.get('categories', "Other")
+    category = form.cleaned_data.get('categories', "stearsOther")
     article = {
         'nse_article_id': nse_article_id,
         'headline': headline,

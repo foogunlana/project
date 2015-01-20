@@ -82,6 +82,12 @@ def nse_date2(value):
     return time.strftime("%a, %d %b, %I:%M%p", time.localtime(value))
 
 
+@register.filter("pretty_category")
+def pretty_category(string):
+    string = string.replace('stears', '').replace('_', ' ')
+    return string
+
+
 @register.filter("can_write")
 def can_write(username, article):
     return writer_can_edit_article(str(username), article)
