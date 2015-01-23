@@ -46,7 +46,7 @@ $( document ).ready(function() {
 		$('#comment_area').hide();
 	});
 
-	$('.comment_body_toggle').on('click',function(){
+	$('.comment_body_toggle').click(function(){
 		var id = $(this).attr('id');
 		$("#summary".concat(id.toString())).toggle();
 		$("#body".concat(id.toString())).toggle();
