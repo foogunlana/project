@@ -1,5 +1,5 @@
 {% if key_words_form %}
-	<form method="POST" action="{% url 'stears:tag' pk=article.article_id %}">
+	<form method="POST" id="tag_form" action="{% url 'stears:tag' pk=article.article_id %}">
 		{% csrf_token %}
 		<h3>
 		Add tags to this article
@@ -31,14 +31,18 @@
 	Please contact your editor
 	</h3>
 {% endif %}
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
+<script src="http://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.js"></script>
 <script type="text/javascript">
-$(function() {
-$.validator.addMethod("loginRegex", function(value, element) {
-return this.optional(element) || /^[a-z0-9\-]+$/i.test(value);
-}, "Username must contain only letters, numbers, or dashes.");
-$.validate();
+$(document).ready(function(){
+	$.validator.addMethod("tagRegex", function(value, element) {
+	return this.optional(element) || /^[a-zA-Z\d\-_\s]+$/i.test(value);
+	}, "The answer you gave must contain only letters, numbers, or dashes.")
+
+	$("#tag_form").validate({
+	 rules: {
+	 "other": { tagRegex: true},
+	 }
+	});
 });
 </script>
-<script> $.validate(); </script>

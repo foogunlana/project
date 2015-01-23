@@ -573,6 +573,7 @@ def remove_tag(request):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
         id_and_tag = code.split(',')
+        print id_and_tag
         pk, tag = int(id_and_tag[0]), str(id_and_tag[1])
 
         articles = mongo_calls('articles')

@@ -15,7 +15,7 @@ class UploadFileForm(forms.Form):
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(label='Email', max_length=20, widget=forms.TextInput(
+    email = forms.EmailField(label='Email', max_length=30, widget=forms.TextInput(
         attrs={'data-validation': 'length', 'data-validation-length': 'min1'}))
     password = forms.CharField(widget=forms.PasswordInput(
         attrs={'data-validation': 'length', 'data-validation-length': 'min1'}))
@@ -231,7 +231,7 @@ class CommentForm(forms.Form):
 class KeyWordsForm(forms.Form):
     other = forms.CharField(
         widget=forms.TextInput(attrs={
-            'data-validation': 'alphanumeric', 'class': 'other-choice'
+            'class': 'other-choice'
         }), max_length=200, initial='None', required=True, error_messages={
             'invalid': 'Your key word was invalid and was not saved'
         })
@@ -252,9 +252,9 @@ class KeyWordsForm(forms.Form):
             required=False,
         )
 
-    def clean_keywords(self):
+    def clean_other(self):
         other = self.cleaned_data['other']
-        if not re.match(r'^[a-zA-Z0-9]+$', other):
+        if not re.match(r'^[a-zA-Z\d\-_\s]+$', other):
             raise forms.ValidationError(
-                "Key words should include only alphanumeric characters")
+                "Key words should include only alphanumeric characters and spaces")
         return other

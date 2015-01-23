@@ -252,11 +252,18 @@ def rtf_edit_article(article, rtf_content):
 
     r = re.compile('<[^>]*>')
     content = r.sub('', rtf_content)
+    rtf_content = stears_italics(rtf_content)
 
     articles.update(
         {'article_id': article['article_id']},
         {'$set': {'rtf_content': rtf_content, 'content': content}},
         False, False)
+
+
+def stears_italics(content):
+    content = content.replace(
+        'stears', '<i>stears</i>').replace('Stears', '<i>Stears</i>')
+    return content
 
 
 def make_comment(username, article_id, comment):
