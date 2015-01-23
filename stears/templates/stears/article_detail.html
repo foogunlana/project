@@ -35,158 +35,160 @@
 								</h3>
 							{% endif %}
 						{% endfor %}
-						<form method="POST" action="{% url 'stears:remove_tag' %}">
-							{% csrf_token %}
-							{% if article.keywords %}
-								<h3>
-								Present tags:
-								</h3>
-								<h6 style="color:red;">
-								Click to delete
-								</h6>
-								{% for word in article.keywords %}
-									{% if user.username|can_write:article %}
-										<div class="tag_wrapper">
-											<button href="#" class = "keyword delete" type="submit" name="data" value="{{ article.article_id }},{{ word }}">
-											{{ word }}
-											</button>
-										</div>,
-									{% else %}
-										<div class="" style="display:inline-block">
-											<a href="#" class="keyword">
-												{{ word }}
-											</a>
-										</div>,
-									{% endif %}
-								{% endfor%}
-							{% endif %}
-						</form>
-						<div id="keyword_area" {% if key_words_form.errors %}{% else %}hidden{% endif %}>
-						{% include 'stears/keywords_form.html' %}
 					</div>
-				</div>`
-				<br>
-			</div>
-			<div class="fill" >
-				{% if article.writer %}
-					{% if user.username|can_write:article %}
-						<div class="row" style="padding-left:15px;padding-right:15px;">
-							<div class="fill article_box" >
-								<a id="article_form_toggle"  style="padding:10px;">Write/Edit article</a>
-								<a href="{% url 'stears:rich_text' article.article_id %}"  style="padding:10px;color:red;">Edit in RTF</a>
+					<br>
+				</div>
+				<div class="fill" >
+					{% if article.writer %}
+						{% if user.username|can_write:article %}
+							<div class="row" style="padding-left:15px;padding-right:15px;">
+								<div class="fill article_box" >
+									<a id="article_form_toggle"  style="padding:10px;">Write/Edit article</a>
+									<a href="{% url 'stears:rich_text' article.article_id %}"  style="padding:10px;color:red;">Edit in RTF</a>
+								</div>
+								<div id="hidden_article_form" class="columns small-12" style="padding:0px;" hidden>
+									<br>
+									<div class='home_box' style="background-color:white;padding:30px;">
+										{% include 'stears/write_form.html' %}
+									</div>
+								</div>
 							</div>
-							<div id="hidden_article_form" class="columns small-12" style="padding:0px;" hidden>
+						{% else %}
+							<div class="row" style="padding-left:15px;padding-right:15px;">
+								<div class="home_box">
+									<strong>
+									Sorry, you can't edit this article
+									</strong>
+								</div>
+							</div>
+						{% endif %}
+					{% else %}
+						<div class="row" style="padding-left:15px;padding-right:15px;">
+							<div class="shadowbox article_box" >
+								<a id="article_form_toggle">Write new NSE Tier 1 article</a>
+							</div>
+							<div id="hidden_article_form" class="columns small-11 " hidden>
 								<br>
-								<div class='home_box' style="background-color:white;padding:30px;">
+								<div  class="home_box" style="background-color:white;padding:30px;">
 									{% include 'stears/write_form.html' %}
 								</div>
 							</div>
 						</div>
-					{% else %}
-						<div class="row" style="padding-left:15px;padding-right:15px;">
-							<div class="home_box">
-								<strong>
-								Sorry, you can't edit this article
-								</strong>
-							</div>
-						</div>
+						{% include "stears/nse_versions.html" %}
 					{% endif %}
-				{% else %}
-					<div class="row" style="padding-left:15px;padding-right:15px;">
-						<div class="shadowbox article_box" >
-							<a id="article_form_toggle">Write new NSE Tier 1 article</a>
-						</div>
-						<div id="hidden_article_form" class="columns small-11 " hidden>
-							<br>
-							<div  class="home_box" style="background-color:white;padding:30px;">
-								{% include 'stears/write_form.html' %}
-							</div>
-						</div>
-					</div>
-					{% include "stears/nse_versions.html" %}
-				{% endif %}
-			</div>
-			<br>
-			<div class="fill">
-				<div>
-					<table class="columns small-12 small-centered article_box">
-						<tr >
-							<td>
-								Title
-							</td>
-							<td>
-								{{ article.headline }}
-							</td>
-						</tr>
-						{% if article.writer %}
-							{% if article.nse_article_id != '0' %}
-							<tr>
+				</div>
+				<br>
+				<div class="fill">
+					<div>
+						<table class="columns small-12 small-centered article_box">
+							<tr >
 								<td>
-									Related NSE article
+									Title
 								</td>
 								<td>
-									<a href="{% url 'stears:article_detail' pk=article.nse_article_id %}">{{ article.nse_article_id|get_headline }}</a>
+									{{ article.headline }}
 								</td>
 							</tr>
-							{% endif %}
-						{% endif %}
-						<tr>
-							<td>
-								{{ article.content|linebreaks }}
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Category
-							</td>
-							<td>
-								{{ article.category }}
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Writer
-							</td>
-							<td>
-								{% if article.writer %}
-									{% if user.username|is_editor %}
-										<a href="{% url 'stears:writer_detail' article.writer %}">
-											{{ article.writer|format_name:'long' }}
-										</a>
-									{% else %}
-										{{ article.writer|format_name:'long' }}
-									{% endif %}
+							{% if article.writer %}
+								{% if article.nse_article_id != '0' %}
+									<tr>
+										<td>
+											Related NSE article
+										</td>
+										<td>
+											<a href="{% url 'stears:article_detail' pk=article.nse_article_id %}">{{ article.nse_article_id|get_headline }}</a>
+										</td>
+									</tr>
 								{% endif %}
-							</td>
-						</tr>
-						{% if article.writers.others %}
+							{% endif %}
 							<tr>
 								<td>
-									Other writers
-								</td>
-								<td>
-									{% for writer in article.writers.others %}
-										{% if user.username|is_editor %}
-											<a href="{% url 'stears:writer_detail' writer %}">{{ writer|format_name:'long' }}, </a>
-										{% else %}
-											{{ writer|format_name:'long' }},
-										{% endif %}
-										
-									{% endfor %}
+									{{ article.content|linebreaks }}
 								</td>
 							</tr>
+							<tr>
+								<td>
+									Category
+								</td>
+								<td>
+									{{ article.category }}
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Writer
+								</td>
+								<td>
+									{% if article.writer %}
+										{% if user.username|is_editor %}
+											<a href="{% url 'stears:writer_detail' article.writer %}">
+												{{ article.writer|format_name:'long' }}
+											</a>
+										{% else %}
+											{{ article.writer|format_name:'long' }}
+										{% endif %}
+									{% endif %}
+								</td>
+							</tr>
+							{% if article.writers.others %}
+								<tr>
+									<td>
+										Other writers
+									</td>
+									<td>
+										{% for writer in article.writers.others %}
+											{% if user.username|is_editor %}
+												<a href="{% url 'stears:writer_detail' writer %}">{{ writer|format_name:'long' }}, </a>
+											{% else %}
+												{{ writer|format_name:'long' }},
+											{% endif %}
+											
+										{% endfor %}
+									</td>
+								</tr>
+							{% endif %}
+							<tr>
+								<td>
+									Status
+								</td>
+								<td>
+									<strong>
+									{{ article.state|format_name:'long' }}
+									</strong>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div>
+					<form method="POST" action="{% url 'stears:remove_tag' %}">
+						{% csrf_token %}
+						{% if article.keywords %}
+							<h3>
+							Present tags:
+							</h3>
+							<h6 style="color:red;">
+							Click to delete
+							</h6>
+							{% for word in article.keywords %}
+								{% if user.username|can_write:article %}
+									<div class="tag_wrapper">
+										<button href="#" class = "keyword delete" type="submit" name="data" value="{{ article.article_id }},{{ word }}">
+										{{ word }}
+										</button>
+									</div>,
+								{% else %}
+									<div class="" style="display:inline-block">
+										<a href="#" class="keyword">
+											{{ word }}
+										</a>
+									</div>,
+								{% endif %}
+							{% endfor%}
 						{% endif %}
-						<tr>
-							<td>
-								Status
-							</td>
-							<td>
-								<strong>
-								{{ article.state|format_name:'long' }}
-								</strong>
-							</td>
-						</tr>
-					</table>
+					</form>
+					<div id="keyword_area" {% if key_words_form.errors %}{% else %}hidden{% endif %}>
+					{% include 'stears/keywords_form.html' %}
 				</div>
 			</div>
 		</div>
@@ -210,26 +212,26 @@
 						</div>
 						{% ifequal user.username article.writer %}
 							{% ifequal article.state 'in_progress' %}
-							<div class="row">
-								<form action="{% url 'stears:add_writer' %}" method="post" class="add_writers" hidden>
-									{% csrf_token %}
-									{{ add_writers_form }}
-									<button type="submit" class="fill toggles_div" id="add_writers" name="article_id" value="{{ article.article_id }}">Save writer(s)</button>
-									<button style="background-color:#FF4747;" class="fill toggles_div cancel_button" id="add_writers" >Cancel</button>
-								</form>
-								<button type="submit" class="fill toggles_div add_writers" id="add_writers" >Add writer(s)</button>
-							</div>
-							{% if article.writers.others %}
 								<div class="row">
-									<form action="{% url 'stears:remove_writer' %}" method="post" class="remove_writers" hidden>
+									<form action="{% url 'stears:add_writer' %}" method="post" class="add_writers" hidden>
 										{% csrf_token %}
-										{{ remove_writers_form }}
-										<button type="submit" class="fill toggles_div" id="remove_writers" name="article_id" value="{{ article.article_id }}">Remove</button>
-										<button style="background-color:#FF4747;" class="fill toggles_div cancel_button" id="remove_writers" >Cancel</button>
+										{{ add_writers_form }}
+										<button type="submit" class="fill toggles_div" id="add_writers" name="article_id" value="{{ article.article_id }}">Save writer(s)</button>
+										<button style="background-color:#FF4747;" class="fill toggles_div cancel_button" id="add_writers" >Cancel</button>
 									</form>
-									<button type="submit" class="fill toggles_div remove_writers" id="remove_writers" >Remove writer(s)</button>
+									<button type="submit" class="fill toggles_div add_writers" id="add_writers" >Add writer(s)</button>
 								</div>
-							{% endif %}
+								{% if article.writers.others %}
+									<div class="row">
+										<form action="{% url 'stears:remove_writer' %}" method="post" class="remove_writers" hidden>
+											{% csrf_token %}
+											{{ remove_writers_form }}
+											<button type="submit" class="fill toggles_div" id="remove_writers" name="article_id" value="{{ article.article_id }}">Remove</button>
+											<button style="background-color:#FF4747;" class="fill toggles_div cancel_button" id="remove_writers" >Cancel</button>
+										</form>
+										<button type="submit" class="fill toggles_div remove_writers" id="remove_writers" >Remove writer(s)</button>
+									</div>
+								{% endif %}
 							{% endifequal %}
 						{% endifequal %}
 						{% if user.username|is_editor %}

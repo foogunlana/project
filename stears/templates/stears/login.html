@@ -1,56 +1,56 @@
 {% extends 'stears/writers_base_test.html' %}
 {% block title %}Login{% endblock %}
 {% block content %}
-<br><br>
-
-  <div class="row">
-    <div class="columns small-12 medium-6 large-5 small-centered">
-      <div class="home_box">
-        <div>
-          <img src="/static/images/stears/StearsForWeal.png">
-        </div>
-        <div class="row" style = "padding:5%;">
-          {% if errors %}
-            <table>
-              {% for error in errors %}
-                <tr><td><strong>{{ error }}</strong></td></tr>
-              {% endfor %}
-            </table>
-          {% endif %}
-          <form id="user_form" method="post" action="{% url 'stears:login' %}"
-            enctype="multipart/form-data">
-            {% csrf_token %}
-            <p>
-            {{ login_form.email.label }}
-            {{ login_form.email }}
-            </p>
-            <p>
-            {{ login_form.password.label }}
-            {{ login_form.password }}
-            </p>
-            <button class="button2 fill" type="submit" name="submit" value="login" >Login</button>
-          </form>
-          <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
-          <script> $.validate(); </script>
-        </div>
-        <div class="row" style = "padding:5%;">
-          <strong>
+  <div class="login_page">
+    <br><br>
+    <div class="row">
+      <div class="columns small-12 medium-6 large-5 small-centered">
+        <div class="login_box">
           <div>
-            <p>
-            <a href="{% url 'stears:change_password' %}">Change your password</a>
-            </p>
-            <p>
-            Did you <a href="{% url 'stears:forgot_password' %}">forget your password or username?</a>
-            </p>
-            <p>
-            Dont have a writers account? Please <a href="{% url 'stears:register' %}">Sign in</a> to request one
-            </p>
+            <img src="/static/images/stears/StearsForWeal.png">
           </div>
-          </strong>
+          <div class="row" style = "padding:5%;">
+            {% if errors %}
+              <table>
+                {% for error in errors %}
+                  <tr><td><strong>{{ error }}</strong></td></tr>
+                {% endfor %}
+              </table>
+            {% endif %}
+            <form id="user_form" method="post" action="{% url 'stears:login' %}"
+              enctype="multipart/form-data">
+              {% csrf_token %}
+              <p>
+              {{ login_form.email.label }}
+              {{ login_form.email }}
+              </p>
+              <p>
+              {{ login_form.password.label }}
+              {{ login_form.password }}
+              </p>
+              <button class="button2 fill" type="submit" name="submit" value="login" >Login</button>
+            </form>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
+            <script> $.validate(); </script>
+          </div>
+          <div class="row" style = "padding:5%;">
+            <strong>
+            <div>
+              <p>
+              <a href="{% url 'stears:change_password' %}">Change your password</a>
+              </p>
+              <p>
+              Did you <a href="{% url 'stears:forgot_password' %}">forget your password or username?</a>
+              </p>
+              <p>
+              Dont have a writers account? Please <a href="{% url 'stears:register' %}">Sign in</a> to request one
+              </p>
+            </div>
+            </strong>
+          </div>
         </div>
       </div>
-      
     </div>
+    <br><br>
   </div>
-  <br><br>
 {% endblock %}

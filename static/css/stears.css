@@ -130,6 +130,16 @@ button:hover{
   padding:20px;
 }
 
+.login_box{
+  background-color:rgba(255,255,255,0.9999);
+  opacity:0.7;
+  padding:20px;
+}
+
+.login_page{
+  background-image:url('/static/images/stears/large_data_sets_tokyo.jpg');
+  height:100%;
+}
 
 
 .in-shadow {
