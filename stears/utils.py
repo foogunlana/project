@@ -30,9 +30,9 @@ def get_mongo_client():
                 raise Exception
 
 
-def handle_uploaded_file(filename):
-    with open('/file/name.txt', 'wb+') as destination:
-        for chunk in filename.chunks():
+def handle_uploaded_file(image):
+    with open('media/articleImages/', 'wb+') as destination:
+        for chunk in image.chunks():
             destination.write(chunk)
 
 

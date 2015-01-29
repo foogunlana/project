@@ -9,9 +9,14 @@ import re
 # from django.core.validators import email_re
 
 
-class UploadFileForm(forms.Form):
+class ProfileImageForm(forms.Form):
     title = forms.CharField(max_length=50, required=True)
-    file = forms.FileField()
+    profile_mage = forms.FileField(label="Please select an image")
+
+
+class ArticleImageForm(forms.Form):
+    title = forms.CharField(max_length=50, required=True)
+    article_image = forms.FileField(label="Please select an image")
 
 
 class LoginForm(forms.Form):

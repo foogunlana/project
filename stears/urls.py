@@ -65,6 +65,9 @@ urlpatterns = patterns('',
                        url(r'^writers/rich_text/(?P<pk>[0-9]+)/$', views.edit_rich_text,
                            name='rich_text'),
 
+                       url(r'^writers/photos/$', views.upload_photo,
+                           name='photos'),
+
                        # url(r'^articles/(?P<year>[0-9]{4})/$', views.year_archive),
                        # url(r'^articles/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/$', views.month_archive),
                        # url(r'^articles/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/$', views.day_archive),

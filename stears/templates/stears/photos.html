@@ -1,5 +1,41 @@
-{% extends 'stears/writers_base_test.html' %}
-{% block title %}Photos{% endblock %}
-{% block content %}
-
+{% extends "stears/writers_base_test.html" %}
+{% load stears_tags %}
+{% block page_title_block %}
+{% endblock %}
+{% block nav_block %}
+	{% include 'stears/writers_nav.html' %}
+{% endblock %}
+{% block writers_block %}
+	<div class="row">
+		<div class="columns small-12">
+			{% if photos %}
+				{% for photo in photos %}
+					<div class="article_box" style="width:200px;display:inline-block">
+						<img src="{{ photo.docfile.url }}">
+						<p style="display:inline-block">
+						<!-- {{ photo.docfile.url }} -->
+						</p>
+					</div>
+				{% endfor %}
+		{% else %}
+			<p>No documents.</p>
+		{% endif %}
+	</div>
+</div>
+<div class="row">
+	<div class="columns small-12 medium-6 small-centered">
+		<div class="article_box">
+			<form method="POST" style="padding:30px;" action="{% url 'stears:photos' %}" enctype="multipart/form-data">
+				{% csrf_token %}
+				<p>
+				{{ form.title }}
+				</p>
+				<p>
+				{{ form.article_image }}
+				</p>
+				<button type="submit">upload</button>
+			</form>
+		</div>
+	</div>
+</div>
 {% endblock %}

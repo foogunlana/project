@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from stears.forms import LoginForm, AddWritersForm, RemoveWritersForm, UploadFileForm, RegisterForm, KeyWordsForm, ChoiceForm, ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, NseArticleForm, ChangePasswordForm
+from stears.forms import LoginForm, ArticleImageForm, AddWritersForm, RemoveWritersForm, \
+    RegisterForm, KeyWordsForm, ChoiceForm, ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, \
+    NseArticleForm, ChangePasswordForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout
 from mongoengine.django.auth import User
@@ -12,6 +14,7 @@ from stears.utils import article_key_words, revive_from_trash, rtf_edit_article,
     handle_uploaded_file
 
 from stears.permissions import approved_writer, is_a_boss, writer_can_edit_article
+from stears.models import ArticleImageModel
 from mongoengine.queryset import DoesNotExist
 
 # from stears.utils import handle_uploaded_file
@@ -24,15 +27,24 @@ import json
 # Imaginary function to handle an uploaded file.
 
 
-def upload_file(request):
+@user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
+def upload_photo(request):
     if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
+        form = ArticleImageForm(request.POST, request.FILES)
         if form.is_valid():
-            handle_uploaded_file(request.FILES['file'])
+            # print request.FILES
+            # handle_uploaded_file(request.FILES['article_image'])
+            article_image = ArticleImageModel(
+                docfile=request.FILES['article_image']
+            )
+            article_image.save()
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        else:
+            print "Invalid"
     else:
-        form = UploadFileForm()
-    return render(request, 'photos.html', {'form': form})
+        form = ArticleImageForm()
+    photos = ArticleImageModel.objects.all()
+    return render(request, 'stears/photos.html', {'form': form, 'photos': photos})
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
