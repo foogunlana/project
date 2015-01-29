@@ -1,0 +1,35 @@
+
+<!-- saved from url=(0045)http://f.sgbfjs.info/feedmon/loadfeedmon.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<script type="text/javascript" src="opDom.js"></script>
+<script type="text/javascript" src="dQuery.js"></script>
+<script type="text/javascript" src="skin.js"></script>
+<script type="text/javascript" src="JSONscript.js"></script>
+<script type="text/javascript" src="interopInnerAjax.js"></script>
+<script type="text/javascript">
+DealPly = {};
+getCookie = function(key) {
+            var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+            return keyValue ? keyValue[2] : null;
+ };
+
+
+
+ </script>
+ <script>
+ 	var clkdpid = getCookie("clkdpid");
+ 	clkdpid = "00";
+ 	//if (clkdpid)
+ 	if (window.location.protocol == "https:")
+ 	{
+ 		
+ 		var url = DealPlyOpDom.getStaticfBaseUrl()+'feedmon/FeedConvMon.js';
+ 		DealPlyInteropInner.sendCommand("DealPly.clkdpid='"+clkdpid+"';DealPly.injectScriptFromUrl(document,'"+url+"');");
+ 	}
+ 	 	
+ 	
+ </script>
+ <style type="text/css"></style></head>
+ <body>
+ 
+ </body></html>

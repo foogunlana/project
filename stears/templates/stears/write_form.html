@@ -1,5 +1,5 @@
 {% if writers_article_form %}
-	<form method="POST" action="{% url 'stears:post' %}">
+	<form method="POST" class="article_box" style="padding:30px;" action="{% url 'stears:post' %}">
 		{% csrf_token %}
 		<!-- 	<p style="color:red;">
 		For new articles, please indicate the related NSE article (if any) before saving!

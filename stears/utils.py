@@ -30,6 +30,12 @@ def get_mongo_client():
                 raise Exception
 
 
+def handle_uploaded_file(filename):
+    with open('/file/name.txt', 'wb+') as destination:
+        for chunk in filename.chunks():
+            destination.write(chunk)
+
+
 def mongo_calls(collection_name):
     client = NseNews.client
     try:
@@ -180,7 +186,6 @@ def update_writers_article(username, form):
     article = {
         'headline': headline,
         'content': content,
-        'time': time.time(),
         'state': 'in_progress',
         'type': 'writers_article'
     }

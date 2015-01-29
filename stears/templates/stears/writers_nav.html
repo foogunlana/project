@@ -48,7 +48,7 @@
 			</li> -->
 			{% if user.username|is_editor %}
 			<li style="display:inline-block;padding-right:15px;">
-				<a href="{% url 'stears:articles_group' group='submitted' %}">Submissions</a>
+				<a href="{% url 'stears:submissions' %}">Submissions</a>
 			</li>
 			<li style="display:inline-block;padding-right:15px;">
 				<a href="{% url 'stears:pipeline' %}">Pipeline</a>

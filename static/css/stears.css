@@ -1,7 +1,25 @@
 
+html{
+  
+}
 
 body{
-background-color: #eee;
+  /*background-color:rgba(255,255,255,0.5);*/
+  /*opacity: 0.9;*/
+}
+
+.blur{
+  background-image: url("/static/images/stears/naira5.jpg");
+  margin-top: -100;
+  position:fixed;
+  opacity: 0.4;
+  height:100%;
+  width: 100%;
+  filter:blur(2px);
+  -o-filter:blur(2px);
+  -ms-filter:blur(2px);
+  -moz-filter:blur(2px);
+  -webkit-filter:blur(2px);
 }
 
 *{
@@ -111,8 +129,7 @@ button:hover{
 }
 
 .article_box{
-  background-color:white;
-
+  background-color:rgba(255,255,255,0.7);
   padding:5px;
 
 }
@@ -131,12 +148,13 @@ button:hover{
 }
 
 .login_box{
-  background-color:rgba(255,255,255,0.6);
+  background-color:rgba(255,255,255,0.8);
   padding:20px;
 }
 
 .login_page{
   background-image:url('/static/images/stears/naira5.jpg');
+  opacity:0.99;
   min-height:100%;
 }
 

@@ -41,6 +41,8 @@ urlpatterns = patterns('',
 
                        url(r'^writers/pipeline/$',
                            views.pipeline, name='pipeline'),
+                       url(r'^writers/submissions/$',
+                           views.submissions, name='submissions'),
                        url(r'^writers/bin/$',
                            views.bin, name='bin'),
                        url(r'^writers/article/revive/$',

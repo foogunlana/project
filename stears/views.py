@@ -8,9 +8,10 @@ from django.http import HttpResponseRedirect, HttpResponse
 from stears.utils import article_key_words, revive_from_trash, rtf_edit_article, add_writers,\
     remove_writers, make_username, migrate_article, mongo_calls, make_comment, forgot_password_email,\
     save_writers_article, accept_to_write, request_json, make_url, move_to_trash, suggest_nse_article, \
-    update_writers_article, edit_user, make_writer_id, make_writers_article, submit_writers_article
+    update_writers_article, edit_user, make_writer_id, make_writers_article, submit_writers_article, \
+    handle_uploaded_file
 
-from stears.permissions import approved_writer, is_a_boss, writer_can_edit_article, can_edit_article
+from stears.permissions import approved_writer, is_a_boss, writer_can_edit_article
 from mongoengine.queryset import DoesNotExist
 
 # from stears.utils import handle_uploaded_file
@@ -23,15 +24,15 @@ import json
 # Imaginary function to handle an uploaded file.
 
 
-# def upload_file(request):
-#     if request.method == 'POST':
-#         form = UploadFileForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             handle_uploaded_file(request.FILES['file'])
-#             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-#     else:
-#         form = UploadFileForm()
-#     return render(request, 'upload_picture.html', {'form': form})
+def upload_file(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            handle_uploaded_file(request.FILES['file'])
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    else:
+        form = UploadFileForm()
+    return render(request, 'photos.html', {'form': form})
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
@@ -229,17 +230,6 @@ def writers_home_test(request, group):
                 '$query': {'type': 'writers_article'},
                 '$orderby': {'time': -1, 'state': 1, }})]
 
-        elif group == 'submitted':
-            nostates = True
-            articles = [article for article in article_collection.find({
-                '$query': {'type': 'writers_article', 'state': 'submitted'},
-                '$orderby': {'time': -1}})]
-        else:
-            articles = [article for article in article_collection.find({
-                '$query': {'type': 'writers_article',
-                           'category': params.article_categories[group]},
-                '$orderby':{'state': 1, 'time': -1}})]
-
     context = {'editable_fields': editable_fields, "writers_article_form": writers_article_form,
                'visible_fields': visible_fields, 'articles': articles, 'username': user, 'nostates': nostates}
     return render(request, 'stears/writers_home_test.html', context)
@@ -414,10 +404,6 @@ def article_detail(request, **kwargs):
     else:
         writers_article_form = {}
 
-    if not article:
-        article = article_collection.find_one(
-            {'article_id': pk, 'type': 'nse_article'})
-
     add_writers_form = AddWritersForm(article_id=pk)
     remove_writers_form = RemoveWritersForm(article_id=pk)
     context = {'article': article, 'suggest_form': suggest_form, 'remove_writers_form': remove_writers_form, 'key_words_form': key_words_form,
@@ -557,11 +543,21 @@ def pipeline(request):
     if request.method == 'GET':
         migrations = mongo_calls('migrations')
         articles = [article for article in migrations.find(
-            {'$query': {}, '$orderby': {'state': 1}})]
+            {'$query': {}, '$orderby': {'time': -1}})]
         # Articles here cannot be found in the article database and that will
         # cause a few problems!
     context = {'articles': articles, 'nostates': True}
     return render(request, 'stears/pipeline.html', context)
+
+
+@user_passes_test(lambda u: is_a_boss(u), login_url='/stears/noaccess/')
+def submissions(request):
+    if request.method == 'GET':
+        articles = mongo_calls('articles')
+        submitted_articles = [article for article in articles.find(
+            {'$query': {'state': 'submitted'}, '$orderby': {'time': -1}})]
+    context = {'articles': submitted_articles, 'nostates': True}
+    return render(request, 'stears/submissions.html', context)
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
