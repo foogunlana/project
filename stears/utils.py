@@ -104,12 +104,12 @@ def do_magic_user():
     foo.last_name = 'admin'
     foo.email = 'stears@stears.com'
     foo.username = make_username(foo.first_name, foo.last_name)
-    foo.state = 'admin'
     foo.set_password(params.cheeky_password)
     foo.is_superuser = True
     foo.is_staff = True
     foo.save()
-    edit_user('stears_admin', 'state', 'admin')
+    edit_user(foo.username, 'state', 'admin')
+    edit_user(foo.username, 'reviews', [])
     make_writer_id(foo.username)
 
     foo = User()
@@ -121,7 +121,8 @@ def do_magic_user():
     foo.is_superuser = True
     foo.is_staff = True
     foo.save()
-    edit_user('fo_ogunlana', 'state', 'admin')
+    edit_user(foo.username, 'state', 'admin')
+    edit_user(foo.username, 'reviews', [])
     make_writer_id(foo.username)
 
     foo = User()
@@ -131,7 +132,8 @@ def do_magic_user():
     foo.username = make_username(foo.first_name, foo.last_name)
     foo.set_password(params.cheeky_password)
     foo.save()
-    edit_user('foo_foo', 'state', 'request')
+    edit_user(foo.username, 'state', 'request')
+    edit_user(foo.username, 'reviews', [])
     make_writer_id(foo.username)
 
 
@@ -240,7 +242,7 @@ def put_in_review(article_id):
     print reviewer
 
     users.update(
-        {'username': 'reviewer'},
+        {'username': reviewer},
         {'$addToSet': {'reviews': article_id}},
         False, False
     )
@@ -251,10 +253,11 @@ def put_in_review(article_id):
     )
 
 
-def submit_writers_article(article_id):
+def submit_writers_article(article_id, review):
     articles = mongo_calls('articles')
+    review['time'] = time.time()
     articles.update({'article_id': int(article_id)},
-                    {'$set': {'state': 'submitted'}}, False, False)
+                    {'$set': {'state': 'submitted'}, '$addToSet': {'reviews': review}}, False, False)
 
 
 def make_writers_article(form, username):
@@ -272,7 +275,7 @@ def make_writers_article(form, username):
         'time': time.time(),
         'writer': username,
         'writers': {'original': username, 'others': []},
-        'reviewer': 'reviewer',
+        'reviewer': '',
         'state': 'in_progress',
         'type': 'writers_article'
     }

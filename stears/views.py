@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from stears.forms import LoginForm, ArticleImageForm, AddWritersForm, RemoveWritersForm, \
     RegisterForm, KeyWordsForm, ChoiceForm, ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, \
-    NseArticleForm, ChangePasswordForm
+    NseArticleForm, ChangePasswordForm, ArticleReviewForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout
 from mongoengine.django.auth import User
@@ -187,7 +187,6 @@ def register(request):
                 member.email = email
                 member.first_name = register_form.cleaned_data['first_name']
                 member.last_name = register_form.cleaned_data['last_name']
-                member.reviews = []
                 member.username = make_username(
                     member.first_name, member.last_name)
                 # member.password = str(register_form.cleaned_data['password'])
@@ -195,6 +194,7 @@ def register(request):
                     str(register_form.cleaned_data['password']))
                 member.save()
                 edit_user(member.username, 'state', 'request')
+                edit_user(member.username, 'reviews', [])
                 # edit_user(member.username,'account','request')
                 make_writer_id(member.username)
 
@@ -270,6 +270,8 @@ def writers_write(request):
     users = mongo_calls('user')
     article_collection = mongo_calls('articles')
 
+    # USE group and aggregate to get suggestions and articles and reviews all
+    # together!!
     if request.method == 'GET':
         username = str(request.user)
         # get suggested articles
@@ -282,10 +284,16 @@ def writers_write(request):
             article for article in article_collection.find(
                 {"$query": {'writer': username}, "$orderby": {"time": -1}})]
 
+        reviews = [
+            article for article in article_collection.find(
+                {"$query": {'article_id': {'$in': writer['reviews']}}, "$orderby": {"time": -1}})
+            if article['state'] == 'in_review'
+        ]
+
         writers_article_form = WritersArticleForm()
 
         context = {"writers_article_form": writers_article_form, 'articles':
-                   articles, 'suggestions': suggestions, 'messages': messages}
+                   articles, 'suggestions': suggestions, 'messages': messages, 'reviews': reviews}
 
     return render(request, 'stears/writers_write.html', context)
 
@@ -524,6 +532,25 @@ def accept_article_category(request):
         pass
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
+def review_article(request, pk):
+    username = str(request.user)
+    pk = int(pk)
+    articles = mongo_calls('articles')
+    article = articles.find_one({'article_id': pk})
+    if (not article.get('reviewer', '') == username) or article['state'] != 'in_review':
+        return HttpResponseRedirect(reverse('stears:noaccess'))
+    if request.method == "POST":
+        article_review_form = ArticleReviewForm(request.POST)
+        if article_review_form.is_valid():
+            submit_writers_article(pk, article_review_form.cleaned_data)
+        else:
+            print "Invalid"
+        return HttpResponseRedirect(reverse('stears:submissions'))
+    article_review_form = ArticleReviewForm()
+    return render(request, 'stears/review_article.html', {'article': article, 'article_review_form': article_review_form})
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')

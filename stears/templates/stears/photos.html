@@ -7,10 +7,11 @@
 {% endblock %}
 {% block writers_block %}
 	<div class="row">
-		<div class="columns small-12 medium-6 small-centered">
-			<div class="article_box toggles_div" id="upload_doc_toggle" style="padding:30px;" >
+		<div class="columns small-12 small-centered">
+			<div class="article_box toggles_div" id="upload_doc_toggle" style="padding-left:30px;" >
 				<a href="#">Upload a new picture?</a>
 			</div>
+			<br>
 			<div class="article_box upload_doc_toggle" hidden>
 				<form method="POST" style="padding:30px;" action="{% url 'stears:photos' %}" enctype="multipart/form-data">
 					{% csrf_token %}
@@ -20,13 +21,13 @@
 					<p>
 						{{ form.title }}
 					</p>
-					<p>
+					<p style="display:inline-block">
 						{{ form.article_image.label }}
 					</p>
-					<p>
+					<p style="display:inline-block;">
 					{{ form.article_image }}
 					</p>
-					<button type="submit">upload</button>
+					<button class="fill" type="submit">upload</button>
 				</form>
 			</div>
 		</div>

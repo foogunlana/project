@@ -1,0 +1,51 @@
+{% extends "stears/writers_base_test.html" %}
+{% load stears_tags %}
+{% block page_title_block %}
+	<br>
+	<br>
+	<div class="row fill">
+		<div class="columns small-10 small-centered">
+			<h1>{{ title }} Review this article</h1>
+		</div>
+	</div>
+{% endblock %}
+{% block nav_block %}
+	{% include 'stears/writers_nav.html' %}
+{% endblock %}
+{% block writers_block %}
+	<div class="row fill">
+		<div class="columns small-12 medium-10 small-centered">
+			<div class="row fill">
+				<div class="columns small-12 medium-8">
+					<br>
+					<div class="fill article_box" style="width:100%;">
+						{% autoescape off %}
+						{{ article.rtf_content }}
+						{% endautoescape %}
+					</div>
+				</div>
+				<div class="columns small-12 medium-4" >
+					<br>
+					<div>
+						<div class="article_box toggles_div" id="review_options" >
+							<a id="article_form_toggle" style="padding:10px;">Review</a>
+						</div>
+						<br>
+						<div class="article_box review_options" style="padding:10px;">
+							<form action="{% url 'stears:review' pk=article.article_id %}" method="post">
+								{% csrf_token %}
+								{{ article_review_form }}
+								<button type="submit" class="fill">Done Reviewing</button>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div id="hidden_article_form" class="columns small-12 " hidden>
+					<br>
+					{% include 'stears/write_form.html' %}
+				</div>
+			</div>
+			<br>
+		</div>
+	</div>
+{% endblock %}

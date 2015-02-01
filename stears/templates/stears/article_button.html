@@ -23,14 +23,21 @@
 					{{ article.headline }}
 				</a>
 			{% endifequal %}
+			{% ifequal article.state 'in_review' %}
+			{% ifequal article.reviewer user %}
+				<a href="{% url 'stears:review' pk=article.article_id %}" style="padding-left:10px;color:red;">
+					Review?
+				</a>
+			{% endifequal %}
+			{% endifequal %}
 		{% endif %}
 	</div>
 	<div class="columns small-6 medium-3 ">
-		{% ifequal article.visible False%}
+		<!-- {% ifequal article.visible False%}
 			{{ article.category|pretty_category }}<font color="red">(Requested)</font>
-		{% else %}
+		{% else %} 
+			{% endifequal %}-->
 			{{ article.category|pretty_category }}
-		{% endifequal %}
 	</div>
 	<div class="columns small-6 medium-3 ">
 		<strong>

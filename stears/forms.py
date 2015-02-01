@@ -16,7 +16,7 @@ class ProfileImageForm(forms.Form):
 
 class ArticleImageForm(forms.Form):
     title = forms.CharField(max_length=50, required=True)
-    article_image = forms.FileField(label="Please select an image")
+    article_image = forms.FileField(label="Please select an image: ")
 
 
 class LoginForm(forms.Form):
@@ -24,6 +24,45 @@ class LoginForm(forms.Form):
         attrs={'data-validation': 'length', 'data-validation-length': 'min1'}))
     password = forms.CharField(widget=forms.PasswordInput(
         attrs={'data-validation': 'length', 'data-validation-length': 'min1'}))
+
+
+class ArticleReviewForm(forms.Form):
+    trust = forms.ChoiceField(
+        widget=forms.Select(attrs={'class': 'standard-choice'}),
+        choices=[('None', None), ('a', 'a'), ('b', 'b'), ('c', 'c')],
+        required=True,
+    )
+
+    simplicity = forms.ChoiceField(
+        widget=forms.Select(attrs={'class': 'standard-choice'}),
+        choices=[('None', None), ('a', 'a'), ('b', 'b'), ('c', 'c')],
+        required=True,
+    )
+
+    intelligence = forms.ChoiceField(
+        widget=forms.Select(attrs={'class': 'standard-choice'}),
+        choices=[('None', None), ('a', 'a'), ('b', 'b'), ('c', 'c')],
+        required=True,
+    )
+
+    better_FEC_agents = forms.ChoiceField(
+        widget=forms.Select(attrs={'class': 'standard-choice'}),
+        choices=[('None', None), ('a', 'a'), ('b', 'b'), ('c', 'c')],
+        required=True,
+    )
+
+    personality = forms.ChoiceField(
+        widget=forms.Select(attrs={'class': 'standard-choice'}),
+        choices=[('None', None), ('a', 'a'), ('b', 'b'), ('c', 'c')],
+        required=True,
+    )
+
+    def clean(self):
+        for field in self.fields:
+            if not self.cleaned_data[field] or self.cleaned_data[field] == 'None':
+                raise ValidationError("All fields are required")
+        else:
+            return self.cleaned_data
 
 
 class AddWritersForm(forms.Form):

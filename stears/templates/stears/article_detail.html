@@ -25,6 +25,16 @@
 					</div>
 					<br>
 				</div>
+				<div class="fill review_toggle" style="padding-left:15px;padding-right:15px;" hidden>
+					<div class="row">
+						{% for review in article.reviews %}
+						{{ review }}
+						{% empty %}
+						No reviews
+						{% endfor %}
+					</div>
+					<br>
+				</div>
 				<div class="fill" >
 					{% if article.writer %}
 						{% if user.username|can_write:article %}
@@ -40,7 +50,7 @@
 							</div>
 						{% else %}
 							<div class="row" style="padding-left:15px;padding-right:15px;">
-								<div class="home_box">
+								<div class="article_box">
 									<strong>
 									Sorry, you can't edit this article
 									</strong>
@@ -290,7 +300,21 @@
 						{% endifequal %}
 						{% if user.username|can_write:article %}
 							<div class="row">
-								<button id="keyword_area_button" style="border-radius:3px;" class=" fill">Edit tags</button>
+								<button id="keyword_area_button"  class=" fill">Edit tags</button>
+							</div>
+						{% endif %}
+						{% ifequal article.state 'in_review' %}
+							{% ifequal article.reviewer user.username %}
+							<div class="row">
+								<form method="get" action="{% url 'stears:review' pk=article.article_id %}">
+									<button class="fill" type="submit">Review</button>
+								</form>
+							</div>
+							{% endifequal %}
+						{% endifequal %}
+						{% if user.username|is_editor %}
+							<div class="row">
+								<button class="fill toggles_div" id="review_toggle">View reviews</button>
 							</div>
 						{% endif %}
 					</div>

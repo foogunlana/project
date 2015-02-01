@@ -38,6 +38,8 @@ urlpatterns = patterns('',
                            views.add_key_words, name='tag'),
                        url(r'^writers/remove_tag/$',
                            views.remove_tag, name='remove_tag'),
+                       url(r'^writers/article/review/(?P<pk>[0-9]+)/$', views.review_article,
+                           name='review'),
 
                        url(r'^writers/pipeline/$',
                            views.pipeline, name='pipeline'),
@@ -67,6 +69,7 @@ urlpatterns = patterns('',
 
                        url(r'^writers/photos/$', views.upload_photo,
                            name='photos'),
+
 
                        # url(r'^articles/(?P<year>[0-9]{4})/$', views.year_archive),
                        # url(r'^articles/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/$', views.month_archive),
