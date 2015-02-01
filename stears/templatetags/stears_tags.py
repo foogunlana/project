@@ -1,6 +1,5 @@
 from django import template
 from stears.params import remove_from_date
-from mongoengine.django.auth import User
 from stears.utils import mongo_calls
 from stears.permissions import editor, writer_can_edit_article
 import time
@@ -16,9 +15,7 @@ def mongo_id(value):
 
 @register.filter("is_editor")
 def is_editor(user):
-    if editor(user):
-        return True
-    return False
+    return editor(str(user))
     # do the cool stuff
 
 
@@ -106,6 +103,4 @@ def get_headline(pk):
 def can_approve(username, article):
     if article['state'] != 'submitted':
         return False
-    if is_editor(username):
-        return True
-    return False
+    return editor(username)

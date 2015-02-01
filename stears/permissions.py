@@ -50,16 +50,20 @@ def writer_is_user(username, article):
 
 
 def writer_can_edit_article(username, article):
-    if article.get('state', '') == 'submitted':
+    state = article['state']
+    writer = article.get('writer', '')
+    if state == 'in_review':
+        return False
+    elif state == 'submitted':
         return editor(username)
 
-    if not article.get('writer', ''):
+    if not writer:
         return True
 
     if not article.get('visible', True):
         return False
 
-    elif (username == article.get('writer', '')) or (username in article['writers']['others']):
+    elif (username == writer) or (username in article['writers']['others']):
         return True
 
     return False

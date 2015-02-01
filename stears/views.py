@@ -11,7 +11,7 @@ from stears.utils import article_key_words, revive_from_trash, rtf_edit_article,
     remove_writers, make_username, migrate_article, mongo_calls, make_comment, forgot_password_email,\
     save_writers_article, accept_to_write, request_json, make_url, move_to_trash, suggest_nse_article, \
     update_writers_article, edit_user, make_writer_id, make_writers_article, submit_writers_article, \
-    handle_uploaded_file
+    handle_uploaded_file, put_in_review
 
 from stears.permissions import approved_writer, is_a_boss, writer_can_edit_article
 from stears.models import ArticleImageModel
@@ -187,6 +187,7 @@ def register(request):
                 member.email = email
                 member.first_name = register_form.cleaned_data['first_name']
                 member.last_name = register_form.cleaned_data['last_name']
+                member.reviews = []
                 member.username = make_username(
                     member.first_name, member.last_name)
                 # member.password = str(register_form.cleaned_data['password'])
@@ -306,8 +307,8 @@ def writers_post(request, nse):
             else:
                 new_article = make_writers_article(form, writer)
                 article_id = save_writers_article(new_article)
-            if request.POST.get('submit', '') == 'submit':
-                submit_writers_article(article_id)
+            if request.POST.get('submit', '') == 'review':
+                put_in_review(article_id)
         else:
             print form.errors
 

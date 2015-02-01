@@ -222,6 +222,34 @@ def remove_writers(article_id, usernames):
         False
     )
 
+# Pretty damn inefficient!!!!!!
+
+
+def put_in_review(article_id):
+    article_id = int(article_id)
+    articles = mongo_calls('articles')
+    article = articles.find_one({'article_id': article_id})
+    writers = article['writers']['others']
+    writers.append(article['writers']['original'])
+
+    print writers
+    users = mongo_calls('user')
+    reviewers = users.find(
+        {'username': {'$nin': writers}}).distinct('username')
+    reviewer = random.choice(reviewers)
+    print reviewer
+
+    users.update(
+        {'username': 'reviewer'},
+        {'$addToSet': {'reviews': article_id}},
+        False, False
+    )
+    articles.update(
+        {'article_id': article_id},
+        {'$set': {'state': 'in_review', 'reviewer': reviewer}},
+        False, False
+    )
+
 
 def submit_writers_article(article_id):
     articles = mongo_calls('articles')
@@ -244,6 +272,7 @@ def make_writers_article(form, username):
         'time': time.time(),
         'writer': username,
         'writers': {'original': username, 'others': []},
+        'reviewer': 'reviewer',
         'state': 'in_progress',
         'type': 'writers_article'
     }

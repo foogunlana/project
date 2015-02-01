@@ -142,6 +142,18 @@
 									</strong>
 								</td>
 							</tr>
+							{% if article.reviewer %}
+							<tr>
+								<td>
+									Reviewer
+								</td>
+								<td>
+									<strong>
+									{{ article.reviewer }}
+									</strong>
+								</td>
+							</tr>
+							{% endif %}
 						</table>
 					</div>
 				</div>
