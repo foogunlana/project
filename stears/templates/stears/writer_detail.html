@@ -16,6 +16,7 @@
 						Editor Account
 						</h4>
 					{% else %}
+					{% if user.username|is_editor %}
 						<form action="{% url 'stears:approve_writer' %}" method="post" id="aprrove">
 							{% csrf_token %}
 							{% ifequal writer.state 'approved' %}
@@ -24,6 +25,7 @@
 								<button class="button2 fill" type="submit" name="approve" value="{{ writer.username }}">Verify {{ writer.username|format_name:'short' }}'s account</button>
 							{% endifequal %}
 						</form>
+					{% endif %}
 					{% endif %}
 					<br>
 				</div>

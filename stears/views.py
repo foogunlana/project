@@ -11,7 +11,7 @@ from stears.utils import article_key_words, revive_from_trash, rtf_edit_article,
     remove_writers, make_username, migrate_article, mongo_calls, make_comment, forgot_password_email,\
     save_writers_article, accept_to_write, request_json, make_url, move_to_trash, suggest_nse_article, \
     update_writers_article, edit_user, make_writer_id, make_writers_article, submit_writers_article, \
-    handle_uploaded_file, put_in_review
+    handle_uploaded_file, put_in_review, new_member
 
 from stears.permissions import approved_writer, is_a_boss, writer_can_edit_article
 from stears.models import ArticleImageModel
@@ -181,33 +181,36 @@ def register(request):
         register_form = RegisterForm(request.POST)
 
         if register_form.is_valid():
-            try:
-                member = User()
-                email = register_form.cleaned_data['email']
-                member.email = email
-                member.first_name = register_form.cleaned_data['first_name']
-                member.last_name = register_form.cleaned_data['last_name']
-                member.username = make_username(
-                    member.first_name, member.last_name)
-                # member.password = str(register_form.cleaned_data['password'])
-                member.set_password(
-                    str(register_form.cleaned_data['password']))
-                member.save()
-                edit_user(member.username, 'state', 'request')
-                edit_user(member.username, 'reviews', [])
-                # edit_user(member.username,'account','request')
-                make_writer_id(member.username)
 
-                registered = True
-                # Notify boss that a new member has registered and is seeking
-                # approval
+            member = User()
+            email = register_form.cleaned_data['email']
+            member.email = email
+            member.first_name = register_form.cleaned_data['first_name']
+            member.last_name = register_form.cleaned_data['last_name']
+            member.username = make_username(
+                member.first_name, member.last_name)
+            # member.password = str(register_form.cleaned_data['password'])
+            member.set_password(
+                str(register_form.cleaned_data['password']))
+            member.save()
+            new_member(register_form)
+            make_writer_id(member.username)
 
-                return HttpResponseRedirect(reverse('stears:writers_write'))
+            registered = True
+            # Notify boss that a new member has registered and is seeking
+            # approval
 
-            except Exception as e:
-                errors.append(str(e))
-                return render(request, 'stears/register.html', {
-                    'register_form': register_form, 'errors': errors})
+            return HttpResponseRedirect(reverse('stears:writers_write'))
+
+            # except Exception as e:
+            #     errors.append(str(e))
+            #     print e
+            #     return render(request, 'stears/register.html', {
+            #         'register_form': register_form, 'errors': errors})
+        else:
+            errors.append(register_form.errors)
+            return render(request, 'stears/register.html', {
+                'register_form': register_form, 'errors': errors})
 
     context = {'register_form': register_form, 'registered': registered}
     return render(request, 'stears/register.html', context)
@@ -248,7 +251,7 @@ def writers_home_test(request, group):
     return render(request, 'stears/writers_home_test.html', context)
 
 
-@user_passes_test(lambda u: is_a_boss(u), login_url='/stears/noaccess/')
+@user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
 def writers_list(request):
     writers = []
     users = mongo_calls('user')
@@ -323,7 +326,7 @@ def writers_post(request, nse):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-@user_passes_test(lambda u: is_a_boss(u), login_url='/stears/noaccess/')
+@user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
 def writer_detail(request, name):
     users = mongo_calls('user')
     article_collection = mongo_calls('articles')

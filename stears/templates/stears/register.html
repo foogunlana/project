@@ -15,10 +15,9 @@
 						<br>
 						{% if errors %}
 							Oops, Something went wrong.
-							Your email address looks funny
-							<!-- {% for error in errors%}
-																<p>{{ error }}</p>
-							{% endfor %} -->
+							{% for error in errors%}
+								<p>{{ error }}</p>
+							{% endfor %}
 						{% endif %}
 						<form id="register_form" method="post" action="{% url 'stears:register' %}"
 							enctype="multipart/form-data">

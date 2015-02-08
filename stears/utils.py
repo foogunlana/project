@@ -110,6 +110,7 @@ def do_magic_user():
     foo.save()
     edit_user(foo.username, 'state', 'admin')
     edit_user(foo.username, 'reviews', [])
+    edit_user(foo.username, 'role', 'stearsColumnist')
     make_writer_id(foo.username)
 
     foo = User()
@@ -123,6 +124,7 @@ def do_magic_user():
     foo.save()
     edit_user(foo.username, 'state', 'admin')
     edit_user(foo.username, 'reviews', [])
+    edit_user(foo.username, 'role', 'stearsColumnist')
     make_writer_id(foo.username)
 
     foo = User()
@@ -134,7 +136,27 @@ def do_magic_user():
     foo.save()
     edit_user(foo.username, 'state', 'request')
     edit_user(foo.username, 'reviews', [])
+    edit_user(foo.username, 'role', 'stearsColumnist')
     make_writer_id(foo.username)
+
+
+def new_member(form):
+    new_member = {}
+    for field in form.cleaned_data:
+        if field not in ['password', 'confirm']:
+            new_member[field] = str(form.cleaned_data[field])
+
+    new_member['state'] = 'request'
+    new_member['reviews'] = []
+
+    writers = mongo_calls('user')
+    writers.update(
+        {'email': form.cleaned_data['email']},
+        {'$set': new_member},
+        False,
+        False
+    )
+    return True
 
 
 def make_username(first_name, last_name):

@@ -1,13 +1,16 @@
 {% load stears_tags %}
 <div class="row article_box">
-	<div class="columns small-12 medium-8 ">
+	<div class="columns small-6 ">
 		{% if writer.username %}
 		<a href="{% url 'stears:writer_detail' name=writer.username %}" >
 			{{ writer.username|format_name:'long' }}
 		</a>
 		{% endif %}
 	</div>
-	<div class="columns medium-4 hide-for-small">
+	<div class="columns small-4 medium-3">
+			{{ writer.role|pretty_category }}
+	</div>
+	<div class="columns medium-3 hide-for-small">
 			{{ writer.state }}
 	</div>
 </div>

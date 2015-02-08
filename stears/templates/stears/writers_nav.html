@@ -23,11 +23,11 @@
 				<li>
 					<a href="{% url 'stears:articles_group' group='NSE' %}">NSE Data</a>
 				</li>
-				{% if user|is_editor %}
+
 					<li>
 						<a href="{% url 'stears:writers_list' %}">Writers</a>
 					</li>
-				{% endif %}
+
 				<li>
 					<a href="{% url 'stears:articles_group' group='peers' %}">Articles</a>
 				</li>
