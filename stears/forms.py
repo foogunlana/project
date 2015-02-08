@@ -1,4 +1,5 @@
 from django import forms
+from django.forms.extras.widgets import SelectDateWidget
 # from django.contrib.auth.models import User
 from mongoengine.django.auth import User
 from django.core.exceptions import ValidationError
@@ -7,6 +8,8 @@ import utils
 import params
 import re
 # from django.core.validators import email_re
+
+BIRTH_YEAR_CHOICES = ('1991', '1992', '1993')
 
 
 class ProfileImageForm(forms.Form):
@@ -27,35 +30,26 @@ class LoginForm(forms.Form):
 
 
 class ArticleReviewForm(forms.Form):
-    trust = forms.ChoiceField(
-        widget=forms.Select(attrs={'class': 'standard-choice'}),
-        choices=[('None', None), ('a', 'a'), ('b', 'b'), ('c', 'c')],
-        required=True,
-    )
 
-    simplicity = forms.ChoiceField(
-        widget=forms.Select(attrs={'class': 'standard-choice'}),
-        choices=[('None', None), ('a', 'a'), ('b', 'b'), ('c', 'c')],
-        required=True,
-    )
-
-    intelligence = forms.ChoiceField(
-        widget=forms.Select(attrs={'class': 'standard-choice'}),
-        choices=[('None', None), ('a', 'a'), ('b', 'b'), ('c', 'c')],
-        required=True,
-    )
-
-    better_FEC_agents = forms.ChoiceField(
-        widget=forms.Select(attrs={'class': 'standard-choice'}),
-        choices=[('None', None), ('a', 'a'), ('b', 'b'), ('c', 'c')],
-        required=True,
-    )
-
-    personality = forms.ChoiceField(
-        widget=forms.Select(attrs={'class': 'standard-choice'}),
-        choices=[('None', None), ('a', 'a'), ('b', 'b'), ('c', 'c')],
-        required=True,
-    )
+    def __init__(self, *args, **kwargs):
+        super(ArticleReviewForm, self).__init__(*args, **kwargs)
+        for field in params.review_statements:
+            field_dict = params.review_statements[field]
+            self.fields[field] = forms.ChoiceField(
+                widget=forms.Select(attrs={
+                    'class': 'standard-choice',
+                    'title': '<p><h6 style="color:white">%s</h6>%s</p>'
+                    '<p><h6 style="color:white">%s</h6>%s</p>'
+                    '<p><h6 style="color:white">%s</h6>%s</p>'
+                    % (field_dict['a'][0], field_dict['a'][1],
+                        field_dict['b'][0], field_dict['b'][1],
+                        field_dict['c'][0], field_dict['c'][1])
+                }),
+                choices=[
+                    ('None', None), ('a', field_dict['a'][0]), ('b', field_dict['b'][0]), ('c', field_dict['c'][0])],
+                required=True,
+                label=field
+            )
 
     def clean(self):
         for field in self.fields:
@@ -108,6 +102,10 @@ class ChoiceForm(forms.Form):
         )
 
 
+class DateForm(forms.Form):
+    dob = forms.DateField(required=True)
+
+
 class RegisterForm(forms.Form):
     first_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(
         attrs={'data-validation': 'length', 'data-validation-length': 'min2'}))
@@ -119,6 +117,36 @@ class RegisterForm(forms.Form):
         attrs={'data-validation': 'length', 'data-validation-length': 'min2'}))
     confirm = forms.CharField(required=True, widget=forms.PasswordInput(
         attrs={'data-validation': 'length', 'data-validation-length': 'min2'}))
+
+    # EXTRAS
+
+    dob = forms.DateField(
+        required=True, widget=forms.DateInput(attrs={'data-validation': 'required'}))
+    study = forms.CharField(max_length=50, required=True, widget=forms.TextInput(
+        attrs={'data-validation': 'required'}))
+    occupation = forms.CharField(max_length=50, required=True, widget=forms.TextInput(
+        attrs={'data-validation': 'required'}))
+    interests = forms.CharField(
+        required=True,
+        label="Intellectual interests",
+        widget=forms.Textarea(attrs={
+            'data-validation': 'length',
+            'data-validation-length': 'min10',
+            'style': 'height:100px;'
+        }))
+
+    def __init__(self, *args, **kwargs):
+        super(RegisterForm, self).__init__(*args, **kwargs)
+        self.fields['role'] = forms.ChoiceField(
+            choices=params.writer_category_tuples,
+            label='Your role in Stears',
+            required=True,
+        )
+        self.fields['sex'] = forms.ChoiceField(
+            choices=[('M', 'Male'), ('F', 'Female')],
+            label='Sex',
+            required=True,
+        )
 
     def clean_first_name(self):
         first_name = self.cleaned_data['first_name']

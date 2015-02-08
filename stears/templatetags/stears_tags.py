@@ -19,6 +19,12 @@ def is_editor(user):
     # do the cool stuff
 
 
+@register.filter("format_underscore")
+def format_underscore(value):
+    value = str(value.replace("_", " "))
+    return value
+
+
 @register.filter("format_name")
 def format_name(long_name, long_or_short):
     if long_or_short == 'short':

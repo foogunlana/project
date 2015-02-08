@@ -548,7 +548,7 @@ def review_article(request, pk):
             submit_writers_article(pk, article_review_form.cleaned_data)
         else:
             print "Invalid"
-        return HttpResponseRedirect(reverse('stears:submissions'))
+        return HttpResponseRedirect(reverse('stears:writers_write'))
     article_review_form = ArticleReviewForm()
     return render(request, 'stears/review_article.html', {'article': article, 'article_review_form': article_review_form})
 

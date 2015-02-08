@@ -8,6 +8,8 @@
 			<h1>{{ title }} Review this article</h1>
 		</div>
 	</div>
+	<script type="text/javascript" src="/static/js/stears/tooltip.js">
+	</script>
 {% endblock %}
 {% block nav_block %}
 	{% include 'stears/writers_nav.html' %}
@@ -21,31 +23,37 @@
 					<div class="fill article_box" style="width:100%;">
 						{% autoescape off %}
 						{{ article.rtf_content }}
-						{% endautoescape %}
-					</div>
-				</div>
-				<div class="columns small-12 medium-4" >
-					<br>
-					<div>
-						<div class="article_box toggles_div" id="review_options" >
-							<a id="article_form_toggle" style="padding:10px;">Review</a>
-						</div>
-						<br>
-						<div class="article_box review_options" style="padding:10px;">
-							<form action="{% url 'stears:review' pk=article.article_id %}" method="post">
-								{% csrf_token %}
-								{{ article_review_form }}
-								<button type="submit" class="fill">Done Reviewing</button>
-							</form>
-						</div>
-					</div>
-				</div>
-				<div id="hidden_article_form" class="columns small-12 " hidden>
-					<br>
-					{% include 'stears/write_form.html' %}
+					{% endautoescape %}
 				</div>
 			</div>
-			<br>
+			<div class="columns small-12 medium-4" >
+				<br>
+				<div>
+					<div class="article_box toggles_div" id="review_options" >
+						<a style="padding:10px;">Review</a>
+					</div>
+					<br>
+					<div class="article_box review_options" style="padding:10px;">
+						<form action="{% url 'stears:review' pk=article.article_id %}" method="post">
+							{% csrf_token %}
+							{% for field in article_review_form %}
+							<p style="display:inline-block">
+								{{ field.label|format_underscore }} 
+								<a href="#" class="masterTooltip" id="id_{{ field.label }}_stearsTips" title="Bla bla title"><img style="height:20px;width:20px;" src="/static/images/stears/info.png" alt=""></a>
+							</p>
+							{{ field }}
+							{% endfor %}
+							<button type="submit" class="fill">Done Reviewing</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div id="hidden_article_form" class="columns small-12 " hidden>
+				<br>
+				{% include 'stears/write_form.html' %}
+			</div>
 		</div>
+		<br>
 	</div>
+</div>
 {% endblock %}

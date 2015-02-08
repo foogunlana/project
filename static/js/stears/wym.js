@@ -21,11 +21,12 @@ $(document).ready(function() {
     });
 
     $('.wym_preview_button').click(function(){
-        var wym = $.wymeditors(0);
-        wym.update();
-        var w = window.open();
-        var html = $('.wym_html_val').val();
-        $(w.document.body).html(html);
+        // var wym = $.wymeditors(0);
+        // wym.update();
+        // var w = window.open();
+        // var html = $('.wym_html_val').val();
+        // $(w.document.body).html(html);
+        $('a[name="Preview"]').click();
     });
 
 });
