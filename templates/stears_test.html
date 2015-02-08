@@ -1,0 +1,30 @@
+{% extends 'stears/writers_base_test.html' %}
+{% block content %}
+
+	<div class="row">
+		<div class="columns small-12 medium-6 large-4 small-centered">
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<div class="home_box" style="">
+				<form action="{% url 'test' %}" method="post">
+					{% csrf_token %}
+					
+					<p>
+					{{ date_form.dob.label }}
+					<input type="date" id="id_dob" name="dob" class="date_picker">
+					</p>
+					
+					<button class="button2 fill" type="submit" name="submit" value="register" >Register</button>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -6,6 +6,7 @@ from writers import settings
 urlpatterns = patterns('',
                        # Examples:
                        url(r'^$', 'writers.views.home', name='home'),
+                       url(r'^test/$', 'writers.views.test', name='test'),
                        # url(r'^blog/', include('blog.urls')),
 
                        # url(r'^admin/', include(admin.site.urls)),
