@@ -113,32 +113,6 @@ def do_magic_user():
     edit_user(foo.username, 'role', 'stearsColumnist')
     make_writer_id(foo.username)
 
-    foo = User()
-    foo.first_name = 'fo'
-    foo.last_name = 'ogunlana'
-    foo.email = 'foogunlana@foo.com'
-    foo.username = make_username(foo.first_name, foo.last_name)
-    foo.set_password(params.cheeky_password)
-    foo.is_superuser = True
-    foo.is_staff = True
-    foo.save()
-    edit_user(foo.username, 'state', 'admin')
-    edit_user(foo.username, 'reviews', [])
-    edit_user(foo.username, 'role', 'stearsColumnist')
-    make_writer_id(foo.username)
-
-    foo = User()
-    foo.first_name = 'foo'
-    foo.last_name = 'foo'
-    foo.email = 'foo@foo.com'
-    foo.username = make_username(foo.first_name, foo.last_name)
-    foo.set_password(params.cheeky_password)
-    foo.save()
-    edit_user(foo.username, 'state', 'request')
-    edit_user(foo.username, 'reviews', [])
-    edit_user(foo.username, 'role', 'stearsColumnist')
-    make_writer_id(foo.username)
-
 
 def new_member(form):
     new_member = {}
@@ -209,7 +183,7 @@ def update_writers_article(username, form):
 
     article = {
         'headline': headline,
-        'content': content,
+        'content': stears_italics(content),
         'state': 'in_progress',
         'type': 'writers_article'
     }
@@ -291,8 +265,7 @@ def make_writers_article(form, username):
     article = {
         'nse_article_id': nse_article_id,
         'headline': headline,
-        'content': content,
-        'rtf_content': content,
+        'content': stears_italics(content),
         'category': category,
         'time': time.time(),
         'writer': username,
@@ -306,17 +279,17 @@ def make_writers_article(form, username):
     return article
 
 
-def rtf_edit_article(article, rtf_content):
-    articles = mongo_calls('articles')
+# def rtf_edit_article(article, rtf_content):
+#     articles = mongo_calls('articles')
 
-    r = re.compile('<[^>]*>')
-    content = r.sub('', rtf_content)
-    rtf_content = stears_italics(rtf_content)
+#     r = re.compile('<[^>]*>')
+#     content = r.sub('', rtf_content)
+#     rtf_content = stears_italics(rtf_content)
 
-    articles.update(
-        {'article_id': article['article_id']},
-        {'$set': {'rtf_content': rtf_content, 'content': content}},
-        False, False)
+#     articles.update(
+#         {'article_id': article['article_id']},
+#         {'$set': {'rtf_content': rtf_content, 'content': content}},
+#         False, False)
 
 
 def stears_italics(content):

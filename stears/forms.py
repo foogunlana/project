@@ -3,7 +3,9 @@ from django.forms.extras.widgets import SelectDateWidget
 # from django.contrib.auth.models import User
 from mongoengine.django.auth import User
 from django.core.exceptions import ValidationError
+from django.template.defaultfilters import filesizeformat
 from utils import mongo_calls
+from writers import settings
 import utils
 import params
 import re
@@ -14,12 +16,23 @@ BIRTH_YEAR_CHOICES = ('1991', '1992', '1993')
 
 class ProfileImageForm(forms.Form):
     title = forms.CharField(max_length=50, required=True)
-    profile_mage = forms.FileField(label="Please select an image")
+    profile_image = forms.FileField(label="Please select an image")
 
 
 class ArticleImageForm(forms.Form):
     title = forms.CharField(max_length=50, required=True)
     article_image = forms.FileField(label="Please select an image: ")
+
+    def clean_article_image(self):
+        image = self.cleaned_data['article_image']
+        if image.content_type in settings.CONTENT_TYPES:
+            if image._size > settings.MAX_UPLOAD_SIZE:
+                raise forms.ValidationError('Please keep filesize under %s. Current filesize %s' % (
+                    filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(image._size)))
+        else:
+            raise forms.ValidationError(
+                'Not supported, image must be jpeg or png')
+        return image
 
 
 class LoginForm(forms.Form):
@@ -121,8 +134,10 @@ class RegisterForm(forms.Form):
     # EXTRAS
 
     dob = forms.DateField(
-        required=True, widget=forms.DateInput(attrs={'data-validation': 'required'}))
-    study = forms.CharField(max_length=50, required=True, widget=forms.TextInput(
+        required=True,
+        label='Date of birth',
+        widget=forms.DateInput(attrs={'data-validation': 'required'}))
+    study = forms.CharField(max_length=50, label="University degree", required=True, widget=forms.TextInput(
         attrs={'data-validation': 'required'}))
     occupation = forms.CharField(max_length=50, required=True, widget=forms.TextInput(
         attrs={'data-validation': 'required'}))
@@ -139,12 +154,12 @@ class RegisterForm(forms.Form):
         super(RegisterForm, self).__init__(*args, **kwargs)
         self.fields['role'] = forms.ChoiceField(
             choices=params.writer_category_tuples,
-            label='Your role in Stears',
+            label='Role',
             required=True,
         )
         self.fields['sex'] = forms.ChoiceField(
             choices=[('M', 'Male'), ('F', 'Female')],
-            label='Sex',
+            label='Gender',
             required=True,
         )
 
@@ -260,7 +275,7 @@ class WritersArticleForm(forms.Form):
         # 'data-wym-initialized': 'yes',
     }))
     article_id = forms.CharField(
-        max_length=30, initial=None, required=False)
+        max_length=30, initial=0, required=False)
 
     def __init__(self, *args, **kwargs):
         lock = False

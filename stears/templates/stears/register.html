@@ -1,7 +1,7 @@
 {% extends 'stears/writers_base_test.html' %}
 {% block content %}
 	<div class="row" style = "padding-top:10%;">
-		<div class="columns small-12 medium-6 large-5 small-centered">
+		<div class="columns small-12 large-10 small-centered">
 			<div class="home_box">
 				<div class="row" style = "padding:5%;">
 					{% if registered %}
@@ -10,7 +10,7 @@
 						<p><a href="{% url 'stears:writers_home' %}">Go to the Writer's page</a></p><br />
 					{% else %}
 						<h4>
-							Register as a writer
+						Register as a writer
 						</h4>
 						<br>
 						{% if errors %}
@@ -22,71 +22,84 @@
 						<form id="register_form" method="post" action="{% url 'stears:register' %}"
 							enctype="multipart/form-data">
 							{% csrf_token %}
-							<p>
-							{{ register_form.first_name.label }}
-							{{ register_form.first_name }}
-							</p>
-							<p>
-							{{ register_form.last_name.label }}
-							{{ register_form.last_name }}
-							</p>
-							<p>
-							{{ register_form.dob.label }}
-							<input type="date" id="id_dob" name="dob">
-							</p>
-							<p>
-							{{ register_form.sex.label }}
-							{{ register_form.sex }}
-							</p>
-							<p>
-							{{ register_form.email.label }}
-							{{ register_form.email }}
-							</p>
-							<p>
-							{{ register_form.study.label }}
-							{{ register_form.study }}
-							</p>
-							<p>
-							{{ register_form.occupation.label }}
-							{{ register_form.occupation }}
-							</p>
-							<p>
-							{{ register_form.role.label }}
-							{{ register_form.role }}
-							</p>
-							<p>
-							{{ register_form.interests.label }}
-							{{ register_form.interests }}
-							</p>
-							<p>
-							{{ register_form.password.label }}
-							{{ register_form.password }}
-							</p>
-							<p>
-							{{ register_form.confirm.label }}
-							{{ register_form.confirm }}
-							</p>
+							<div class="row">
+								<div class="columns small-12 medium-6">
+									{{ register_form.first_name.label }}
+									{{ register_form.first_name }}
+								</div>
+								<div class="columns small-12 medium-6">
+									{{ register_form.last_name.label }}
+									{{ register_form.last_name }}
+								</div>
+							</div>
+							<div class="row">
+								<div class="columns small-12 medium-6">
+									{{ register_form.dob.label }}
+									<input type="date" id="id_dob" name="dob">
+								</div>
+								<div class="columns small-12 medium-6">
+									{{ register_form.sex.label }}
+									{{ register_form.sex }}
+								</div>
+								<div class="columns small-4"></div>
+							</div>
+							<div class="row">
+								<div class="columns small-12">
+									{{ register_form.email.label }}
+									{{ register_form.email }}
+								</div>
+							</div>
+							<div class="row">
+								<div class="columns small-12 medium-4">
+									{{ register_form.study.label }}
+									{{ register_form.study }}
+								</div>
+								<div class="columns small-12 medium-4">
+									{{ register_form.occupation.label }}
+									{{ register_form.occupation }}
+								</div>
+								<div class="columns small-12 medium-4">
+									{{ register_form.role.label }}
+									{{ register_form.role }}
+								</div>
+							</div>
+							<div class="row">
+								<div class="columns small-12">
+									{{ register_form.interests.label }}
+									{{ register_form.interests }}
+								</div>
+							</div>
+							<div class="row">
+								<div class="columns small-12 medium-6">
+									{{ register_form.password.label }}
+									{{ register_form.password }}
+								</div>
+								<div class="columns small-12 medium-6">
+									{{ register_form.confirm.label }}
+									{{ register_form.confirm }}
+								</div>
+							</div>
+							
 							<button class="button2 fill" type="submit" name="submit" value="register" >Register</button>
 						</form>
 						<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 						<script> $.validate(); </script>
-					</div>
-					<div class="row" style = "padding:5%;">
-						<strong>
-						<div>
-							<p>
-							Already registered for a writers account?
-							</p>
-							<p>
-							Please <a href="{% url 'stears:login' %}">Login</a> to view your profile
-							</p>
+						<div class="row">
+							<div class="columns small-12">
+								<strong>
+								<p>
+								Already registered for a writers account?
+								</p>
+								<p>
+								Please <a href="{% url 'stears:login' %}">Login</a> to view your profile
+								</p>
+								</strong>
+							</div>
 						</div>
-						</strong>
 					</div>
 				</div>
 			</div>
 		</div>
-		<br>
 		<br>
 	{% endif %}
 {% endblock %}

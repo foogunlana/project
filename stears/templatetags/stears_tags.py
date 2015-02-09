@@ -2,6 +2,7 @@ from django import template
 from stears.params import remove_from_date
 from stears.utils import mongo_calls
 from stears.permissions import editor, writer_can_edit_article
+from stears import params
 import time
 import re
 
@@ -23,6 +24,16 @@ def is_editor(user):
 def format_underscore(value):
     value = str(value.replace("_", " "))
     return value
+
+
+@register.filter("get_long_tip")
+def get_long_tip(category, letter):
+    return params.review_statements[category][letter][1]
+
+
+@register.filter("get_short_tip")
+def get_short_tip(category, letter):
+    return params.review_statements[category][letter][0]
 
 
 @register.filter("format_name")

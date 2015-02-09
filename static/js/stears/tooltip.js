@@ -8,6 +8,7 @@ $(document).ready(function() {
 
 	$('.masterTooltip').hover(function(){
 	// Hover over code
+
 		var title = $(this).attr('title');
 		$(this).data('tipText', title).removeAttr('title');
 		$('<div class="tooltip"></div>')

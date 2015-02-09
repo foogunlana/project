@@ -64,7 +64,7 @@ urlpatterns = patterns('',
                            name='add_writer'),
                        url(r'^writers/article/remove/$', views.remove_writer_from_article,
                            name='remove_writer'),
-                       url(r'^writers/rich_text/(?P<pk>[0-9]+)/$', views.edit_rich_text,
+                       url(r'^writers/rich_text/$', views.edit_rich_text,
                            name='rich_text'),
 
                        url(r'^writers/photos/$', views.upload_photo,

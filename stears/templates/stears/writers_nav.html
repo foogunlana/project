@@ -8,14 +8,14 @@
 			<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
 		</ul>
 		<section class="top-bar-section">
-			<ul class="left">
-				{% if user.is_authenticated %}
-					<li class="divider "></li>
-					<li class=" hide-for-medium">
-						<a href="{% url 'stears:writers_write' %}" style="font-size:15px;">{{ user.username|format_name:'long' }}</a>
-					</li>
-				{% endif %}
-			</ul>
+			<!-- <ul class="left">
+					{% if user.is_authenticated %}
+							<li class="divider "></li>
+							<li class=" hide-for-medium">
+									<a href="{% url 'stears:writers_write' %}" style="font-size:15px;">{{ user.username|format_name:'long' }}</a>
+							</li>
+					{% endif %}
+			</ul> -->
 			<ul class="right">
 				<li>
 					<a href="{% url 'stears:writers_write' %}">Write</a>
@@ -23,13 +23,25 @@
 				<li>
 					<a href="{% url 'stears:articles_group' group='NSE' %}">NSE Data</a>
 				</li>
-
-					<li>
-						<a href="{% url 'stears:writers_list' %}">Writers</a>
-					</li>
-
+				<li>
+					<a href="{% url 'stears:writers_list' %}">Writers</a>
+				</li>
 				<li>
 					<a href="{% url 'stears:articles_group' group='peers' %}">Articles</a>
+				</li>
+				{% if user.username|is_editor %}
+					<li >
+						<a href="{% url 'stears:submissions' %}">Submissions</a>
+					</li>
+					<li >
+						<a href="{% url 'stears:pipeline' %}">Pipeline</a>
+					</li>
+				{% endif %}
+				<li >
+					<a href="{% url 'stears:bin' %}">Trash</a>
+				</li>
+				<li >
+					<a href="{% url 'stears:photos' %}">Photos</a>
 				</li>
 				<li class="has-form">
 					<div class="row collapse">
@@ -44,22 +56,9 @@
 	<div class="row">
 		<ul style="float:right;padding-right:10px;padding-left:5px;" class="nav_extra">
 			<!-- <li style="display:inline-block;">
-				<a href="#">Notifications</a>
+					<a href="#">Notifications</a>
 			</li> -->
-			{% if user.username|is_editor %}
-			<li style="display:inline-block;padding-right:15px;">
-				<a href="{% url 'stears:submissions' %}">Submissions</a>
-			</li>
-			<li style="display:inline-block;padding-right:15px;">
-				<a href="{% url 'stears:pipeline' %}">Pipeline</a>
-			</li>
-			{% endif %}
-			<li style="display:inline-block;padding-right:15px;">
-				<a href="{% url 'stears:bin' %}">Trash</a>
-			</li>
-			<li style="display:inline-block;">
-				<a href="{% url 'stears:photos' %}">Photos</a>
-			</li>
+			
 		</ul>
 	</div>
 </div>

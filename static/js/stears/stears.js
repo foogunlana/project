@@ -4,6 +4,7 @@ $( document ).ready(function() {
 	$( ".confirm-submission" ).click(function( event ) {
 		if(!confirm( "Are you sure you want to post" )){
 			event.preventDefault();
+			console.log('prevent');
 		}
 	});
 
@@ -13,8 +14,9 @@ $( document ).ready(function() {
 		}
 	});
 
-	$(".cancel_button").click(function (e) {
+	$(".cancel_button").click(function (event) {
 		event.preventDefault();
+		ajax = $.ajax().abort();
 		return false;
 	});
 

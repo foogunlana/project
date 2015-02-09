@@ -3,7 +3,7 @@ from mongoengine.django.auth import User
 
 
 def approved_writer(username):
-    if username.is_superuser:
+    if username.is_superuser or username.is_staff:
         return True
 
     users = mongo_calls('user')
@@ -12,16 +12,6 @@ def approved_writer(username):
         if writer.get('state', "") == 'approved':
             return True
     return False
-
-
-# def approved_writer(username):
-#     users = mongo_calls('user')
-#     writer = users.find_one({'username': str(username)})
-#     if writer:
-#         state = writer.get('state', "")
-#         if (state == 'approved') or (state == 'admin'):
-#             return True
-#     return False
 
 
 def is_a_boss(username):

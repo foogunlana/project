@@ -7,7 +7,7 @@ from django.contrib.auth import login, logout
 from mongoengine.django.auth import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
-from stears.utils import article_key_words, revive_from_trash, rtf_edit_article, add_writers,\
+from stears.utils import article_key_words, revive_from_trash, add_writers,\
     remove_writers, make_username, migrate_article, mongo_calls, make_comment, forgot_password_email,\
     save_writers_article, accept_to_write, request_json, make_url, move_to_trash, suggest_nse_article, \
     update_writers_article, edit_user, make_writer_id, make_writers_article, submit_writers_article, \
@@ -40,7 +40,8 @@ def upload_photo(request):
             article_image.save()
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
-            print "Invalid"
+            photos = ArticleImageModel.objects.all()
+            return render(request, 'stears/photos.html', {'form': form, 'photos': photos})
     else:
         form = ArticleImageForm()
     photos = ArticleImageModel.objects.all()
@@ -292,6 +293,7 @@ def writers_write(request):
                 {"$query": {'article_id': {'$in': writer['reviews']}}, "$orderby": {"time": -1}})
             if article['state'] == 'in_review'
         ]
+        print reviews
 
         writers_article_form = WritersArticleForm()
 
@@ -299,31 +301,6 @@ def writers_write(request):
                    articles, 'suggestions': suggestions, 'messages': messages, 'reviews': reviews}
 
     return render(request, 'stears/writers_write.html', context)
-
-
-@user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
-def writers_post(request, nse):
-    # Notify the boss that a writer has submitted/saved an article and what
-    # article it is
-    writer = str(request.user)
-
-    if request.method == 'POST':
-        form = WritersArticleForm(
-            request.POST,
-        )
-        if form.is_valid():
-            article_id = form.cleaned_data.get('article_id', 0)
-            if article_id:
-                update_writers_article(writer, form)
-            else:
-                new_article = make_writers_article(form, writer)
-                article_id = save_writers_article(new_article)
-            if request.POST.get('submit', '') == 'review':
-                put_in_review(article_id)
-        else:
-            print form.errors
-
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
@@ -387,10 +364,9 @@ def article_detail(request, **kwargs):
     article_collection = mongo_calls('articles')
     users = mongo_calls('users')
 
-    if request.method == 'GET':
-        pk = int(kwargs.pop('pk'))
-        comment_form = CommentForm()
-        key_words_form = KeyWordsForm()
+    pk = int(kwargs.pop('pk'))
+    comment_form = CommentForm()
+    key_words_form = KeyWordsForm()
 
     article = article_collection.find_one({'article_id': pk})
 
@@ -477,6 +453,15 @@ def approve_writer(request):
 
         if username_approve:
             edit_user(username_approve, 'state', 'approved')
+            writers = mongo_calls('user')
+            writer = writers.find_one({'username': username_approve})
+            if writer['role'].lower() == 'editor':
+                writers.update(
+                    {'username': username_approve},
+                    {'$set': {'state': 'admin', 'is_staff': True}},
+                    False,
+                    False)
+
         if username_revoke:
             edit_user(username_revoke, 'state', 'request')
 
@@ -627,25 +612,55 @@ def remove_tag(request):
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
-def edit_rich_text(request, pk):
-    user = request.user
-    articles = mongo_calls('articles')
-    pk = int(pk)
-    article = articles.find_one({'article_id': pk})
+def writers_post(request, nse):
+    # Notify the boss that a writer has submitted/saved an article and what
+    # article it is
+    writer = str(request.user)
+    print request.POST
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-    if not writer_can_edit_article(str(user), article):
-        return HttpResponseRedirect(reverse('stears:noaccess'))
+    if request.method == 'POST':
+        form = WritersArticleForm(
+            request.POST,
+        )
+        if form.is_valid():
+            article_id = form.cleaned_data.get('article_id', 0)
+            if article_id:
+                update_writers_article(writer, form)
+            else:
+                new_article = make_writers_article(form, writer)
+                article_id = save_writers_article(new_article)
+            if request.POST.get('submit', '') == 'review':
+                put_in_review(article_id)
+        else:
+            print form.errors
 
-    if request.method == "POST":
-        rtf_content = request.POST.get('content', '')
-        if not rtf_content:
-            return HttpResponse("There wasn't any content")
-        rtf_edit_article(article, rtf_content)
-        return HttpResponse("Successfully updated")
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-    context = {'content': article.get(
-        'rtf_content', article['content']), 'article': article}
-    return render(request, 'stears/wym.html', context)
+
+@user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
+def edit_rich_text(request):
+    writer = str(request.user)
+
+    if request.method == 'POST':
+        form = WritersArticleForm(
+            request.POST,
+        )
+        if form.is_valid():
+            article_id = int(form.cleaned_data.get('article_id', 0))
+            if article_id:
+                update_writers_article(writer, form)
+                print request.POST.get('save_or_review', '')
+            else:
+                new_article = make_writers_article(form, writer)
+                article_id = save_writers_article(new_article)
+            if request.POST.get('save_or_review', '') == 'review':
+                put_in_review(article_id)
+                return HttpResponse("reload")
+            return HttpResponse("Your article has been saved")
+        else:
+            return HttpResponse("Please fill required fields")
+    return HttpResponse("Error")
 
 
 def noaccess(request):

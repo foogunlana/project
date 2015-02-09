@@ -1,9 +1,9 @@
 {% if writers_article_form %}
-	<form method="POST" class="article_box" style="padding:30px;" action="{% url 'stears:post' %}">
-		{% csrf_token %}
+	<form method="post" id="article_form" class="article_box" style="padding:30px;" >
 		<!-- 	<p style="color:red;">
 		For new articles, please indicate the related NSE article (if any) before saving!
 		</p> -->
+		{% csrf_token %}
 		{% if writers_article_form.categories %}
 			<h6>
 			Title
@@ -20,11 +20,6 @@
 			</h6>
 			{{ writers_article_form.categories }}
 			<h6>
-			Body
-			</h6>
-			<p>
-				{{ writers_article_form.content }}
-			</p>
 			{{ writers_article_form.article_id.as_hidden }}
 		{% else %}
 			<p>
@@ -49,28 +44,54 @@
 			<strong>Tier 1</strong>
 			<!-- Potentially use categories as article.category but this means setting nse to default tier 1 -->
 			</p>
-			<h6>
-			Content:
-			</h6>
-			{{ writers_article_form.content }}
-			{{ writers_article_form.nse_headlines.as_hidden }}
+			{{ writers_article_form.article_id.as_hidden }}
 		{% endif %}
+
+			<script type="text/javascript" src="/static/wymeditor/jquery.wymeditor.min.js"></script>
+			<script type="text/javascript" src="/static/js/stears/wym.js"></script>
+			<link rel="stylesheet" href="/static/wymeditor/skins/default/skin.css">
+
+		<textarea class="wymeditor" rows="4" cols="50">&lt;p&gt;{{ article.content }}&lt;/p&gt;</textarea>
+
+		<br>
 		<div class="row">
-			{% ifequal user.username article.writer %}
-			<div class="columns small-12 medium-6">
-				<button class="confirm-save button2 fill" type="submit" name="submit" value="save" >Save article</button>
-			</div>
-			<div class="columns small-12 medium-6">
-				<button class="confirm-submission button2 fill" type="submit" name="submit" value="review" >Post article</button>
-			</div>
-			{% else %}
 			<div class="columns small-12">
-				<button class="confirm-save button2 fill" type="submit" name="submit" value="save" >Save article</button>
+				{% ifequal user.username article.writer %}
+					<div class="row">
+						<div class="columns small-12 medium-6">
+							<button type="submit" name="submit" value="save" class="fill wymupdate button2 wym_submit_button">Save article</button>
+						</div>
+						<div class="columns small-12 medium-6">
+							<button class="wym_submit_button confirm-submission wymupdate button2 fill" type="submit" name="submit" value="review" >Post article</button>
+						</div>
+					</div>
+				{% else %}
+					{% if article.writer %}
+						<div class="columns small-12">
+							<button type="submit" name="submit" value="save" class="fill wymupdate button2 wym_submit_button">Save</button>
+						</div>
+					{% else %}
+						<div class="row">
+							<div class="columns small-12 medium-6">
+								<button type="submit" name="submit" value="save" class="fill wymupdate button2 wym_submit_button">Save</button>
+							</div>
+							<div class="columns small-12 medium-6">
+								<button class="wym_submit_button confirm-submission wymupdate button2 fill" type="submit" name="submit" value="review" >Post article</button>
+							</div>
+						</div>
+					{% endif %}
+				{% endifequal %}
 			</div>
-			{% endifequal %}
 		</div>
-	</form>
-	<br>
+
+		<script type="text/javascript">
+		$.ajaxSetup({
+		url: "{% url 'stears:rich_text' %}",
+		data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
+		})
+		</script>
+
+
 {% else %}
 	<h1>
 	Oops, we're afraid you can't edit this Article :-(
