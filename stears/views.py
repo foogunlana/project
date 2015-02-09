@@ -648,13 +648,15 @@ def edit_rich_text(request):
         )
         if form.is_valid():
             article_id = int(form.cleaned_data.get('article_id', 0))
+            sor = request.POST.get('save_or_review', '')
             if article_id:
                 update_writers_article(writer, form)
-                print request.POST.get('save_or_review', '')
             else:
                 new_article = make_writers_article(form, writer)
                 article_id = save_writers_article(new_article)
-            if request.POST.get('save_or_review', '') == 'review':
+                if sor == 'save':
+                    return HttpResponse("reload")
+            if sor == 'review':
                 put_in_review(article_id)
                 return HttpResponse("reload")
             return HttpResponse("Your article has been saved")

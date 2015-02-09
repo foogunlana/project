@@ -1,16 +1,18 @@
 $(document).ready(function() {
+    $('button.wym_submit_button[type="submit"]').click(function(){
+        save_or_review = $(this).val();
+    });
     
     $('.wymeditor').wymeditor();
 
     $('#article_form').submit(function(event){
         var wym = $.wymeditors(0);
-        var save_or_review = $(this).attr('value');
         wym.update();
         if(save_or_review === 'review'){
-            if(!confirm( "Are you sure you want to post" )){
-            event.preventDefault();
-            console.log('prevent');
-            return false;
+            if(!confirm( "Are you sure you want to post, you won't be able to edit this article without editor priviledges!" )){
+                event.preventDefault();
+                console.log('prevent');
+                return false;
             }
         }
 

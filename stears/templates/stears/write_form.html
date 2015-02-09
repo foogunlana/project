@@ -1,5 +1,5 @@
 {% if writers_article_form %}
-	<form method="post" id="article_form" class="article_box" style="padding:30px;" >
+	<form method="post" id="article_form" id="write_form" class="article_box" style="padding:30px;" >
 		<!-- 	<p style="color:red;">
 		For new articles, please indicate the related NSE article (if any) before saving!
 		</p> -->
@@ -62,21 +62,21 @@
 							<button type="submit" name="submit" value="save" class="fill wymupdate button2 wym_submit_button">Save article</button>
 						</div>
 						<div class="columns small-12 medium-6">
-							<button class="wym_submit_button confirm-submission wymupdate button2 fill" type="submit" name="submit" value="review" >Post article</button>
+							<button class="wym_submit_button wymupdate button2 fill" type="submit" name="submit" value="review" >Post article</button>
 						</div>
 					</div>
 				{% else %}
 					{% if article.writer %}
 						<div class="columns small-12">
-							<button type="submit" name="submit" value="save" class="fill wymupdate button2 wym_submit_button">Save</button>
+							<button type="submit" name="submit" value="save" class="fill wymupdate button2 wym_submit_button">Save article</button>
 						</div>
 					{% else %}
 						<div class="row">
 							<div class="columns small-12 medium-6">
-								<button type="submit" name="submit" value="save" class="fill wymupdate button2 wym_submit_button">Save</button>
+								<button type="submit" name="submit" value="save" class="fill wymupdate button2 wym_submit_button">Save article</button>
 							</div>
 							<div class="columns small-12 medium-6">
-								<button class="wym_submit_button confirm-submission wymupdate button2 fill" type="submit" name="submit" value="review" >Post article</button>
+								<button class="wym_submit_button wymupdate button2 fill" type="submit" name="submit" value="review" >Post article</button>
 							</div>
 						</div>
 					{% endif %}
