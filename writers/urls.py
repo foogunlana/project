@@ -12,6 +12,8 @@ urlpatterns = patterns('',
                        # url(r'^admin/', include(admin.site.urls)),
                        url(r'^stears/',
                            include('stears.urls', namespace='stears')),
+                       url(r'^news/',
+                           include('news.urls', namespace='news')),
                        )
 
 urlpatterns += staticfiles_urlpatterns()
