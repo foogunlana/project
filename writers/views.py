@@ -10,6 +10,19 @@ def home(request):
 
 
 def test(request):
+    import urllib2
+    import re
+
+    site = urllib2.urlopen('http://www.cenbank.org/').read()
+
+    pat = r'dtb">\s*\b(.*)\s*</div>\s*<div\s*class="dtbR">\s*[&#8358;]*(.*\W?\d+)</div>'
+
+    m = re.findall(pat, site)
+
+    site = {}
+    for group in m:
+        site[group[0]] = group[1]
+
     if request.method == "POST":
         form = DateForm(request.POST)
         if form.is_valid():
@@ -19,4 +32,4 @@ def test(request):
             print form.errors
         return HttpResponseRedirect(reverse('test'))
     date_form = DateForm()
-    return render(request, 'stears_test.html', {'date_form': date_form})
+    return render(request, 'stears_test.html', {'date_form': date_form, 'site': site})
