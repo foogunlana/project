@@ -1,0 +1,365 @@
+/* ==========================================================================
+   Start of custom Webflow CSS
+   ========================================================================== */
+body {
+  border-bottom-width: 1px;
+  border-bottom-color: black;
+  background-color: #f8f8f8;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  color: #333;
+  font-size: 14px;
+  line-height: 20px;
+}
+h1 {
+  display: inline-block;
+  width: 50%;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-left: 7.75%;
+  padding-left: 10px;
+  font-size: 38px;
+  line-height: 44px;
+  font-weight: 700;
+}
+h2 {
+  margin-bottom: 10px;
+  font-size: 32px;
+  line-height: 36px;
+  font-weight: 700;
+}
+h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 700;
+}
+h4 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+}
+h5 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+}
+h6 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 700;
+}
+p {
+  width: 50%;
+  margin-bottom: 0%;
+  margin-left: 7.75%;
+  padding-bottom: 28px;
+  padding-left: 10px;
+  border-bottom: 1px solid #ccc;
+  font-size: 16px;
+  line-height: 23px;
+}
+.button {
+  display: inline-block;
+  padding: 4px 15px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+}
+.top-nav {
+  display: block;
+  height: 50px;
+  margin-right: auto;
+  margin-left: auto;
+  border-top: 6px solid #f05042;
+  background-color: white;
+}
+.nav {
+  height: 80px;
+  margin-bottom: 5%;
+  border-top: 0px none #e2e2e2;
+  border-bottom: 1px solid #e2e2e2;
+  background-color: white;
+}
+.nav-border {
+  height: 1px;
+  margin-right: 7.75%;
+  margin-left: 20.25%;
+  background-color: #e2e2e2;
+}
+.social-icons {
+  height: 45px;
+}
+.top-nav-search {
+  height: 44px;
+  padding-left: 20.25%;
+}
+.top-nav-social {
+  height: 44px;
+  padding-right: 7.75%;
+  border-left: 1px solid #e2e2e2;
+}
+.search-bar {
+  display: inline;
+  width: 433px;
+  margin-top: 4px;
+  float: none;
+  border: 1px solid white;
+}
+.social {
+  font-family: Typicons, sans-serif;
+}
+.facebook-icon {
+  margin-top: 15px;
+  margin-left: 16px;
+}
+.social-media-icon {
+  margin-top: 14px;
+}
+.twitter-icon {
+  margin-top: 15px;
+  margin-left: 20px;
+}
+.linkedin-icon {
+  margin-top: 13px;
+  margin-left: 18px;
+}
+.search-icon {
+  display: inline;
+  padding-top: 0px;
+  padding-bottom: 6px;
+}
+.rss-icon {
+  margin-top: 15px;
+  margin-left: 18px;
+}
+.nav-links {
+  width: 57%;
+  height: 60px;
+  margin-top: 10px;
+  margin-left: 0px;
+  padding-top: 18px;
+  padding-right: 7.75%;
+  padding-left: 14px;
+  float: right;
+}
+.nav-text {
+  margin-left: 19px;
+  float: right;
+  color: #4a4a4a;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+}
+.null {
+  display: block;
+  width: 43.7%;
+  height: auto;
+  padding-right: 7.75%;
+  background-color: black;
+}
+.main-article {
+  display: inline-block;
+  width: 51%;
+  height: 380px;
+  margin-top: 7%;
+  margin-right: auto;
+  margin-left: 7.75%;
+  padding-left: 0%;
+  float: none;
+  background-color: #2e2e2e;
+}
+.row-1 {
+  width: auto;
+  height: auto;
+  margin-top: 10%;
+}
+.market-snapshot {
+  display: inline-block;
+  width: 34%;
+  height: 380px;
+  margin-top: 7%;
+  margin-right: 6%;
+  margin-left: 5px;
+  border: 1px solid #515151;
+  background-color: #434343;
+}
+.market-snapshot.indices-snapshot {
+  width: 42.5%;
+}
+.widget-header {
+  height: 50px;
+  border-bottom: 1px solid #515151;
+}
+.market-snapshot-col {
+  height: 330px;
+  padding-right: 0px;
+  padding-left: 0px;
+  border-right: 1px solid #515151;
+}
+.market-snapshot-row-x1 {
+  height: 41.25px;
+  border-bottom: 1px solid #515151;
+}
+.market-snapshot-row-x3 {
+  height: 123.75px;
+  border-bottom: 1px solid #515151;
+}
+.market-snapshot-row-x2 {
+  height: 82.5px;
+  border-bottom: 1px solid #515151;
+}
+.gainers-widget {
+  display: inline-block;
+  overflow-x: visible;
+  overflow-y: visible;
+  width: 34%;
+  height: 350px;
+  margin-top: 20px;
+  margin-right: 6.75%;
+  margin-left: 5px;
+  float: right;
+  clear: none;
+  border-top: 5px solid #70a65a;
+  background-color: white;
+}
+.gainers-header {
+  height: 60px;
+  border-bottom: 1px solid #f2f2f2;
+}
+.gainers-row {
+  height: 52px;
+  border-bottom: 1px solid #f2f2f2;
+}
+.gainers-stock-title {
+  height: 51px;
+  padding-top: 15px;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-weight: 700;
+}
+.gainers-stock-price {
+  height: 51px;
+  padding-top: 15px;
+  color: #70a65a;
+  text-align: right;
+}
+.secondary-article {
+  width: 51%;
+  height: 200px;
+  margin-right: auto;
+  margin-bottom: 5px;
+  margin-left: 7.75%;
+  padding-top: 5px;
+  border-bottom: 1px solid #ccc;
+}
+.secondary-article-img {
+  height: 190px;
+  background-color: #707070;
+}
+.secondary-article-text {
+  position: static;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  display: inline-block;
+  height: 116px;
+  min-height: 0px;
+}
+.third-article-row {
+  width: 100%;
+}
+.third-article-row-col1 {
+  height: 190px;
+  padding-right: 0px;
+  padding-left: 0px;
+  border-right: 1px solid #ccc;
+}
+.third-article-row-col2 {
+  height: 190px;
+}
+.third-article-section {
+  width: 51%;
+  margin-top: -6px;
+  margin-left: 7.75%;
+}
+.all-text-article {
+  width: 98.9%;
+}
+.all-text-article-p {
+  width: auto;
+  margin-left: 0%;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  clear: none;
+  font-size: 13px;
+  line-height: 17px;
+}
+.markets-news-section {
+  width: 100%;
+  height: 270px;
+  padding-top: 10px;
+  border-bottom: 1px solid #e7e7e7;
+  background-color: #f7f7f7;
+}
+.market-news-section-byline {
+  margin-top: -14px;
+  margin-right: 6%;
+  margin-left: 7.75%;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  border-bottom: 1px solid #e7e7e7;
+}
+.market-news-segments {
+  margin-right: 6%;
+  margin-left: 7.75%;
+}
+.market-news-column {
+  height: 135px;
+  padding-right: 20px;
+  padding-left: 0px;
+}
+.markets-graph-section {
+  display: inline-block;
+  width: 42.5%;
+  height: 380px;
+  margin-left: 7.75%;
+}
+.article-image {
+  height: 350px;
+  margin-right: 6%;
+  margin-bottom: 5%;
+  margin-left: 7.75%;
+  background-color: #4a4a4a;
+}
+.article-content {
+  margin-right: 6%;
+  margin-left: 7.75%;
+}
+.article-header {
+  margin-left: 0%;
+}
+.article-paragraph {
+  width: auto;
+  margin-left: 0%;
+}
+.article-author {
+  text-align: right;
+}
+.article-category {
+  text-align: right;
+}
+.article-information {
+  padding-top: 20px;
+}
+@font-face {
+  font-family: 'Typicons';
+  src: url('https://daks2k3a4ib2z.cloudfront.net/54d15d04624a64834599eee8/54d21aedbba289360a8cc07c_typicons.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
