@@ -184,7 +184,6 @@ def update_writers_article(username, form):
     article = {
         'headline': headline,
         'content': stears_italics(content),
-        'state': 'in_progress',
         'type': 'writers_article'
     }
 
@@ -195,7 +194,6 @@ def update_writers_article(username, form):
     for key, value in article.items():
         if key not in params.persistent:
             existing_article[key] = value
-    existing_article['state'] = 'in_progress'
 
     articles.save(existing_article)
     # print "%s updated article with id %s"%(username,article_id)

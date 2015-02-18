@@ -56,7 +56,7 @@ class ArticleReviewForm(forms.Form):
                     '<p><h6 style="color:white">%s</h6>%s</p>'
                     % (field_dict['a'][0], field_dict['a'][1],
                         field_dict['b'][0], field_dict['b'][1],
-                        field_dict['c'][0], field_dict['c'][1])
+                        field_dict['c'][0], field_dict['c'][1]),
                 }),
                 choices=[
                     ('None', None), ('a', field_dict['a'][0]), ('b', field_dict['b'][0]), ('c', field_dict['c'][0])],

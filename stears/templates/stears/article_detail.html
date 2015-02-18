@@ -173,17 +173,19 @@
 									</strong>
 								</td>
 							</tr>
-							{% if article.reviewer %}
-								<tr>
-									<td>
-										Reviewer
-									</td>
-									<td>
-										<strong>
-										{{ article.reviewer }}
-										</strong>
-									</td>
-								</tr>
+							{% if user|is_editor %}
+								{% if article.reviewer %}
+									<tr>
+										<td>
+											Reviewer
+										</td>
+										<td>
+											<strong>
+											{{ article.reviewer }}
+											</strong>
+										</td>
+									</tr>
+								{% endif %}
 							{% endif %}
 						</table>
 					</div>

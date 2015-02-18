@@ -92,7 +92,7 @@ input#search-input:focus{
 }
 
 .article-markets{
-	padding:5px;
+	padding:2px;
 }
 
 .main-article{
@@ -106,7 +106,7 @@ input#search-input:focus{
 	display: inline-block;
 	border-top: 5px solid #70a65a;
 	background-color: white;
-	padding:10px;
+	padding:0px;
 }
 
 .market-snapshot{
@@ -117,13 +117,18 @@ input#search-input:focus{
 
 .gainers-row{
 	border-top: 1px #efefef solid;
-	padding: 5px 15px 5px 15px;
+	padding: 15px 10px 15px 10px;
 	vertical-align: middle;
 	font-size: 13px;
 }
 
 .gainers-stock-price{
+	color: #70a65a;
+	text-align: right;
+}
 
+.gainers-header{
+	padding-left: 10px;
 }
 
 @media screen and (max-width: 641px) {

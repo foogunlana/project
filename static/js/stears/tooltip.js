@@ -1,8 +1,8 @@
 $(document).ready(function() {
 // Tooltip only Text
 	$('.standard-choice').each(function(){
-		tipId = "#" + $(this).attr('id') + "_stearsTips";
-		$(tipId).attr('title',$(this).attr('title'));
+		tipId = $(this).attr('id') + "_stearsTips";
+		$( document.getElementById( tipId ) ).attr('title',$(this).attr('title'));
 		$(this).removeAttr('title');
 	});
 
