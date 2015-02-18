@@ -43,8 +43,7 @@ border-right: 1px solid #e2e2e2;
 
 .news-search-bar {
 display: inline;
-max-width: 340px;
-
+max-width: 433px;
 margin:0;
 border:none;
 display:inline-block;
@@ -75,7 +74,6 @@ display: inline-block;
 }
 
 input#search-input{
-	min-width:100%;
 	border:transparent;
 	border-width: 0px;
 	box-shadow: 0px 0px 0px 0px #e2e2e2;
@@ -88,11 +86,15 @@ input#search-input:focus{
 
 .news-photo-section{
 	padding-top: 80px;
+<<<<<<< HEAD
 	padding-bottom: 0px;
 }
 
 .article-markets{
 	padding:2px;
+=======
+	padding-bottom: 20px;
+>>>>>>> parent of 1b365a8... More news page edits
 }
 
 .main-article{
@@ -102,6 +104,7 @@ input#search-input:focus{
 	padding:5px;
 }
 
+<<<<<<< HEAD
 .gainers-card {
 	display: inline-block;
 	border-top: 5px solid #70a65a;
@@ -109,10 +112,13 @@ input#search-input:focus{
 	padding:0px;
 }
 
+=======
+>>>>>>> parent of 1b365a8... More news page edits
 .market-snapshot{
 	background: #515151;
 	width: 100%;
 	min-height: 380px;
+<<<<<<< HEAD
 }
 
 .gainers-row{
@@ -129,6 +135,9 @@ input#search-input:focus{
 
 .gainers-header{
 	padding-left: 10px;
+=======
+	padding:5px;
+>>>>>>> parent of 1b365a8... More news page edits
 }
 
 @media screen and (max-width: 641px) {
@@ -143,15 +152,10 @@ input#search-input:focus{
 	.news-nav-text{
 		font-size: 12px;
 	}
-
 }
 
-@media screen and (min-width: 641px){
+@media screen and (max-width: 1025px) and (min-width: 641px){
 	.news-nav-text{
 		font-size: 13px;
-	}
-
-	.news-search-bar {
-		min-width: 90%;
 	}
 }
