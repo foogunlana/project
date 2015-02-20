@@ -30,6 +30,7 @@ $(document).ready(function() {
                     $(wym._box)
                     .find('li.wym_tools_word_count a').click(function() {
                         //do something
+                        wym.update();
                         word_count = wordCount($('.wym_html_val').val());
 
                         alert(word_count);
