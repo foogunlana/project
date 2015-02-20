@@ -35,15 +35,14 @@ def editor2(username):
     return False
 
 
-def writer_is_user(username, article):
-    pass
-
-
 def writer_can_edit_article(username, article):
     state = article['state']
     writer = article.get('writer', '')
-    if (state == 'in_review') or (state == 'submitted'):
+    if (state == 'submitted'):
         return editor(username)
+
+    if (state == 'in_review'):
+        return False
 
     if not writer:
         return True
@@ -57,21 +56,21 @@ def writer_can_edit_article(username, article):
     return False
 
 
-def can_edit_article(user, pk):
-    username = str(user)
-    articles = mongo_calls('articles')
-    article = articles.find_one({'article_id': int(pk)})
+def writer_can_view_article(username, article):
+    state = article['state']
+    writer = article.get('writer', '')
+    others = article.get('writers', '')['others']
 
-    if article.get('state', '') == 'submitted':
+    if not writer:
+        return True
+
+    elif (state == 'in_progress'):
+        return ((writer == username) or (writer in others))
+
+    elif (state == 'in_review'):
+        return True
+
+    elif (state == 'submitted'):
         return editor(username)
-
-    if not article.get('writer', ''):
-        return True
-
-    if not article.get('visible', True):
-        return False
-
-    elif (username == article.get('writer', '')) or (username in article['writers']['others']):
-        return True
 
     return False

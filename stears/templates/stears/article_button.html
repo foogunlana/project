@@ -10,19 +10,14 @@
 			<button type="submit" style="display:inline-block;padding-botom:2px;" name="article_id" value="{{ article.article_id }}">Revive</button>
 		</form>
 		{% else %}
-			{% ifequal article.visible False %}
-				{% if user.is_superuser %}
-					<a href="{% url 'stears:article_detail' pk=article.article_id %}" >
-						{{ article.headline }}
-					</a>
-				{% else %}
-					{{ article.headline }}
-				{% endif %}
-			{% else %}
+			{% if user.username|writer_can_see:article %}
 				<a href="{% url 'stears:article_detail' pk=article.article_id %}" >
 					{{ article.headline }}
 				</a>
-			{% endifequal %}
+			{% else %}
+					{{ article.headline }}
+			{% endif %}
+
 			{% ifequal article.state 'in_review' %}
 			{% ifequal article.reviewer user %}
 				<a href="{% url 'stears:review' pk=article.article_id %}" style="padding-left:10px;color:red;">
@@ -30,6 +25,7 @@
 				</a>
 			{% endifequal %}
 			{% endifequal %}
+			
 		{% endif %}
 	</div>
 	<div class="columns small-6 medium-3 ">

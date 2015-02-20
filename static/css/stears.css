@@ -4,22 +4,18 @@ html{
 }
 
 body{
-  /*background-color:rgba(255,255,255,0.5);*/
-  /*opacity: 0.9;*/
+  background: url('/static/images/stears/naira7.jpg') no-repeat fixed;
+
 }
 
 .blur{
-  background: url('/static/images/stears/naira7.jpg');
-  background-size: 100%;
-  margin-top: -100;
+  background-color:rgba(255,255,255,0.7);
+  margin-top:-20px;
   position:fixed;
+
   height:120%;
-  width: 100%;
-  filter:blur(10px);
-  -o-filter:blur(10px);
-  -ms-filter:blur(10px);
-  -moz-filter:blur(10px);
-  -webkit-filter:blur(10px);
+  width: 120%;
+  
 }
 
 .a_indicator{

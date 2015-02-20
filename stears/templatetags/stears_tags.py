@@ -1,7 +1,7 @@
 from django import template
 from stears.params import remove_from_date
 from stears.utils import mongo_calls
-from stears.permissions import editor, writer_can_edit_article
+from stears.permissions import editor, writer_can_edit_article, writer_can_view_article
 from stears import params
 import time
 import re
@@ -18,6 +18,11 @@ def mongo_id(value):
 def is_editor(user):
     return editor(str(user))
     # do the cool stuff
+
+
+@register.filter("writer_can_see")
+def writer_can_see(username, article):
+    return writer_can_view_article(str(username), article)
 
 
 @register.filter("format_underscore")

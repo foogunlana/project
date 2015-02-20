@@ -419,7 +419,7 @@ def migrate_article(article_id):
     try:
         article = articles.find_one(
             {'article_id': article_id, 'type': 'writers_article'})
-        article['visible'] = False
+        article['state'] = 'On_site'
         migrations.update({'article_id': article_id}, article, True)
         if article_id:
             articles.remove({'article_id': article_id})

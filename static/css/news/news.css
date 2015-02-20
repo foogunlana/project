@@ -86,19 +86,14 @@ input#search-input:focus{
 
 .news-photo-section{
 	padding-top: 80px;
-<<<<<<< HEAD
-<<<<<<< HEAD
 	padding-bottom: 0px;
 }
 
 .article-markets{
 	padding:2px;
-=======
 	padding-bottom: 20px;
->>>>>>> parent of 1b365a8... More news page edits
-=======
 	padding-bottom: 20px;
->>>>>>> parent of 1b365a8... More news page edits
+
 }
 
 .main-article{
@@ -108,8 +103,6 @@ input#search-input:focus{
 	padding:5px;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 .gainers-card {
 	display: inline-block;
 	border-top: 5px solid #70a65a;
@@ -117,16 +110,10 @@ input#search-input:focus{
 	padding:0px;
 }
 
-=======
->>>>>>> parent of 1b365a8... More news page edits
-=======
->>>>>>> parent of 1b365a8... More news page edits
 .market-snapshot{
 	background: #515151;
 	width: 100%;
 	min-height: 380px;
-<<<<<<< HEAD
-<<<<<<< HEAD
 }
 
 .gainers-row{
@@ -143,12 +130,8 @@ input#search-input:focus{
 
 .gainers-header{
 	padding-left: 10px;
-=======
 	padding:5px;
->>>>>>> parent of 1b365a8... More news page edits
-=======
 	padding:5px;
->>>>>>> parent of 1b365a8... More news page edits
 }
 
 @media screen and (max-width: 641px) {

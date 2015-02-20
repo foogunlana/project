@@ -15,9 +15,9 @@ $(document).ready(function() {
                 html: '<p>Hello, World!<\/p>',
                 postInit: function(wym) {
                     //construct the button's html
-                    var html = "<li class='wym_tools_word_count' style='padding-top:3px;padding-left:5px;'>"
-                             + "<a name='Word count' title='Word count' href='#'"
-                             + " style='background: url(\"/static/images/stears/word_count2.png\") no-repeat;'>"
+                    var html = "<li class='wym_tools_word_count'>"
+                             + "<a name='WordCount' href='#'"
+                             + " style='background: url(\"/static/images/stears/word_count2.png\") no-repeat; height:30px;'>"
                              + "Do something"
                              + "</a></li>";
 

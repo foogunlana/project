@@ -1,11 +1,28 @@
-{% extends 'stears/base.html' %}
+{% extends 'stears/writers_base_test.html' %}
 
-{% block content %}
-
-<div style="padding:300px;">
-	<p><strong>You don't have permission to view that page yet. Please wait for an email link indicating you have access</strong></p>
-	<h2><p><a href="{% url 'stears:logout' %}">Login</a> with different account?</p></h2>
-	<h2><p>If you haven't registered as a writer, you can do that <a href="{% url 'stears:register' %}">here</a>. If you have, we will contact you shortly</p></h2>
+{% block writers_block %}
+<div class="row">
+	<div class="columns small-11 medium-6 medium-offset-3">
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<div class="article_box" style="padding:40px;">
+			<h4>You don't have permission to view that page yet. Please wait for approval from your editor</h4>
+			<br>
+			<br>
+			<h2><p><a href="{% url 'stears:logout' %}">Login</a> with different account?</p></h2>
+			<h2><p>If you haven't registered as a writer, you can do that <a href="{% url 'stears:register' %}">here</a>. If you have, we will contact you shortly</p></h2>
+		</div>		
+	</div>
 </div>
+
 
 {% endblock %}
