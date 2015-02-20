@@ -2,8 +2,7 @@ $(document).ready(function() {
     function wordCount( val ){
         return 'Characters excluding spaces: '+ val.replace(/\s+/g, '').length.toString()
                 +'\nCharacters including spaces: '+val.length
-                + '\nWords :'+val.match(/\S+/g).length
-                + '\nLines :'+val.split(/\r*\n/).length;
+                + '\nWords :'+val.match(/\S+/g).length;
         }
 
 
