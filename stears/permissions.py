@@ -65,7 +65,7 @@ def writer_can_view_article(username, article):
         return True
 
     elif (state == 'in_progress'):
-        return ((writer == username) or (writer in others) or (editor(writer)))
+        return ((writer == username) or (writer in others) or (editor(username)))
 
     elif (state == 'in_review'):
         return True
