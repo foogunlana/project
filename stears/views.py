@@ -317,12 +317,12 @@ def writer_detail(request, name):
             'username': writer['username'],
             'first_name': writer['first_name'],
             'last_name': writer['last_name'],
-            'dob': writer['dob'],
-            'study': writer['study'],
-            'interests': writer['interests'],
-            'role': writer['role'],
-            'occupation': writer['occupation'],
-            'sex': writer['sex'],
+            'dob': writer.get('dob', 'None'),
+            'study': writer.get('study', 'None'),
+            'interests': writer.get('interests', 'None'),
+            'role': writer.get('role', 'None'),
+            'occupation': writer('occupation', 'None'),
+            'sex': writer('sex', 'None'),
             'email': writer['email'],
             'new_email': writer['email']
         }
