@@ -309,6 +309,12 @@ def writer_detail(request, name):
     article_collection = mongo_calls('articles')
     writer = users.find_one({'username': name})
     context = {}
+
+    username = str(request.user)
+    register_form = None
+    if username == name:
+        register_form = RegisterForm(writer)
+
     # GET ARTICLE STRAIGHT FROM WRITER
     # FOR NOW get articles by search
     if request.method == 'GET':
@@ -317,7 +323,7 @@ def writer_detail(request, name):
         articles = [
             article for article in article_collection.find({'writer': name})]
 
-        context = {'writer': writer, 'articles': articles,
+        context = {'writer': writer, 'articles': articles, 'register_form': register_form,
                    'writers_article_form': writers_article_form}
     return render(request, 'stears/writer_detail.html', context)
 

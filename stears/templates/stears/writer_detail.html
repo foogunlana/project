@@ -16,42 +16,108 @@
 						Editor Account
 						</h4>
 					{% else %}
-					{% if user.username|is_editor %}
-						<form action="{% url 'stears:approve_writer' %}" method="post" id="aprrove">
-							{% csrf_token %}
-							{% ifequal writer.state 'approved' %}
-								<button class="button2 fill" type="submit" name="revoke" value="{{ writer.username }}">Revoke {{ writer.username|format_name:'short' }}'s account</button>
-							{% else %}
-								<button class="button2 fill" type="submit" name="approve" value="{{ writer.username }}">Verify {{ writer.username|format_name:'short' }}'s account</button>
-							{% endifequal %}
-						</form>
-					{% endif %}
+						{% if user.username|is_editor %}
+							<form action="{% url 'stears:approve_writer' %}" method="post" id="aprrove">
+								{% csrf_token %}
+								{% ifequal writer.state 'approved' %}
+									<button class="button2 fill" type="submit" name="revoke" value="{{ writer.username }}">Revoke {{ writer.username|format_name:'short' }}'s account</button>
+								{% else %}
+									<button class="button2 fill" type="submit" name="approve" value="{{ writer.username }}">Verify {{ writer.username|format_name:'short' }}'s account</button>
+								{% endifequal %}
+							</form>
+						{% endif %}
 					{% endif %}
 					<br>
 				</div>
 			</div>
 			<div class="row fill">
 				<div class="columns small-12 large-3" style="padding:0px">
-					<a id="writers_details" class="article_box toggles_div" >
-						Writer Info/Details
-					</a>
 					<br>
 					<br>
-					<div class="content writers_details" style = "background-color:#efefef;" hidden>
-						<table class="article_box">
-							{% for attr,value in writer.items %}
-								{% ifnotequal attr 'password' %}
-									<tr>
-										<td>
-											{{ attr }}
-										</td>
-										<td>
-											{{ value }}
-										</td>
-									</tr>
-								{% endifnotequal %}
-							{% endfor %}
-						</table>
+					<div class="article_box writer_details" style="padding:20px;">
+						<div class="row">
+							<div class="columns small-6">
+								<strong>Name:</strong>
+							</div>
+							<div class="columns small-6">
+								{{ writer.first_name|title }}, {{ writer.last_name|title }}
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="columns small-6">
+								<strong>Role:</strong>
+							</div>
+							<div class="columns small-6">
+								{{ writer.role|pretty_category }}
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="columns small-12">
+								<strong>Email:</strong> {{ writer.email }}
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="columns small-12">
+								<strong>Date of birth:</strong> {{ writer.dob }}
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="columns small-6">
+								<strong>Gender:</strong> {{ writer.sex }}
+							</div>
+							<div class="columns small-6">
+								<strong>Field of study:</strong> {{ writer.study }}
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="columns small-6">
+								<strong>Occupation:</strong> {{ writer.occupation }}
+							</div>
+							<div class="columns small-6">
+								<strong>Interests:</strong> {{ writer.interests }}
+							</div>
+						</div>
+						<br>
+						{% ifequal writer.username user.username %}
+							<br>
+							<br>
+							<div class="row">
+								<form action="" method="get">
+								</form>
+								<button class="fill toggles_div" id="writer_details">
+								Edit details
+								</button>
+							</div>
+						{% endifequal %}
+					</div>
+					<div class="article_box writer_details" style="padding:20px;" hidden>
+						<form action="" method="post">
+								{% csrf_token %}
+								<p>{{ register_form.first_name }}</p>
+								<p>{{ register_form.last_name }}</p>
+								<p>{{ register_form.email }}</p>
+								<p>{{ register_form.dob }}</p>
+								<p>{{ register_form.sex }}</p>
+								<p>{{ register_form.study }}</p>
+								<p>{{ register_form.occupation }}</p>
+								<p>{{ register_form.interests }}</p>
+								<br>
+								<br>
+								<div class="row">
+									<button class="fill toggles_div cancel_button" type="cancel" id="writer_details">
+									Cancel
+									</button>
+									<button class="fill toggles_div" type="submit" id="writer_details">
+									Save edits
+									</button>
+								</div>
+						</form>
+						<br>
 					</div>
 				</div>
 				<div class="columns small-12 large-8" >

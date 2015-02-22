@@ -18,6 +18,10 @@ body{
   
 }
 
+.cancel_button{
+  background-color:#FF4747;
+}
+
 .a_indicator{
   background-color: green;
   display:inline-block;
