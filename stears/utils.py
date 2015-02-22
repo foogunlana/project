@@ -133,6 +133,20 @@ def new_member(form):
     return True
 
 
+def edit_writer_registration_details(form):
+    writers = mongo_calls('user')
+    updated_writer = {}
+    for field in form.cleaned_data:
+        updated_writer[field] = str(form.cleaned_data[field])
+    writers.update(
+        {'username': form.cleaned_data['username']},
+        {'$set': updated_writer},
+        False,
+        False
+    )
+    return True
+
+
 def make_username(first_name, last_name):
     long_name = "%s_%s" % (first_name, last_name)
     while True:

@@ -115,10 +115,6 @@ class ChoiceForm(forms.Form):
         )
 
 
-class DateForm(forms.Form):
-    dob = forms.DateField(required=True)
-
-
 class RegisterForm(forms.Form):
     first_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(
         attrs={'data-validation': 'length', 'data-validation-length': 'min2'}))
@@ -190,6 +186,79 @@ class RegisterForm(forms.Form):
         if confirm != self.cleaned_data['password']:
             raise ValidationError("Sorry, the passwords did not match")
         return confirm
+
+
+class DateForm(forms.Form):
+    dob = forms.DateField(required=True)
+
+
+class EditWriterForm(forms.Form):
+    username = forms.CharField(max_length=30, required=True, widget=forms.TextInput(
+        attrs={'data-validation': 'length', 'data-validation-length': 'min2'}))
+    first_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(
+        attrs={'data-validation': 'length', 'data-validation-length': 'min2'}))
+    last_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(
+        attrs={'data-validation': 'length', 'data-validation-length': 'min2'}))
+    email = forms.EmailField(max_length=30, required=True, widget=forms.TextInput(
+        attrs={'data-validation': 'email'}), label="Email Address")
+    new_email = forms.EmailField(max_length=30, required=True, widget=forms.TextInput(
+        attrs={'data-validation': 'email'}), label="Email Address")
+
+    # EXTRAS
+
+    dob = forms.DateField(
+        required=True,
+        label='Date of birth',
+        widget=forms.DateInput(attrs={'data-validation': 'required'}))
+    study = forms.CharField(max_length=50, label="University degree", required=True, widget=forms.TextInput(
+        attrs={'data-validation': 'required'}))
+    occupation = forms.CharField(max_length=50, required=True, widget=forms.TextInput(
+        attrs={'data-validation': 'required'}))
+    interests = forms.CharField(
+        required=True,
+        label="Intellectual interests",
+        widget=forms.Textarea(attrs={
+            'data-validation': 'length',
+            'data-validation-length': 'min10',
+            'style': 'height:100px;'
+        }))
+
+    def __init__(self, *args, **kwargs):
+        super(EditWriterForm, self).__init__(*args, **kwargs)
+        self.fields['role'] = forms.ChoiceField(
+            choices=params.writer_category_tuples,
+            label='Role',
+            required=True,
+        )
+        self.fields['sex'] = forms.ChoiceField(
+            choices=[('M', 'Male'), ('F', 'Female')],
+            label='Gender',
+            required=True,
+        )
+
+    def clean_first_name(self):
+        first_name = self.cleaned_data['first_name']
+        if not re.match(r'^[a-zA-Z]+$', first_name):
+            raise forms.ValidationError(
+                "Name should include only letters ")
+        return first_name
+
+    def clean_last_name(self):
+        last_name = self.cleaned_data['last_name']
+        if not re.match(r'^[a-zA-Z]+$', last_name):
+            raise forms.ValidationError(
+                "Name should include only letters ")
+        return last_name
+
+    def clean_new_email(self):
+        new_email = self.cleaned_data['new_email']
+        if new_email == self.cleaned_data['email']:
+            return new_email
+        elif new_email in User.objects.distinct('email'):
+            raise ValidationError("That email address is already registered")
+        # if not email_re.match(email):
+        #   raise ValidationError("That email address is not valid")
+        return new_email
 
 
 class RequestForm(forms.Form):

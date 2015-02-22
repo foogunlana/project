@@ -96,16 +96,19 @@
 						{% endifequal %}
 					</div>
 					<div class="article_box writer_details" style="padding:20px;" hidden>
-						<form action="" method="post">
+						<form action="{% url 'stears:edit_writer_detail' %}" method="post">
 								{% csrf_token %}
-								<p>{{ register_form.first_name }}</p>
-								<p>{{ register_form.last_name }}</p>
-								<p>{{ register_form.email }}</p>
-								<p>{{ register_form.dob }}</p>
-								<p>{{ register_form.sex }}</p>
-								<p>{{ register_form.study }}</p>
-								<p>{{ register_form.occupation }}</p>
-								<p>{{ register_form.interests }}</p>
+								<p>{{ edit_writer_form.first_name }}</p>
+								<p>{{ edit_writer_form.last_name }}</p>
+								<p>{{ edit_writer_form.new_email }}</p>
+								<p hidden>{{ edit_writer_form.email }}</p>
+								<p hidden>{{ edit_writer_form.username }}</p>
+								<p>{{ edit_writer_form.role }}</p>
+								<p>{{ edit_writer_form.dob }}</p>
+								<p>{{ edit_writer_form.sex }}</p>
+								<p>{{ edit_writer_form.study }}</p>
+								<p>{{ edit_writer_form.occupation }}</p>
+								<p>{{ edit_writer_form.interests }}</p>
 								<br>
 								<br>
 								<div class="row">

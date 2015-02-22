@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from stears.forms import LoginForm, ArticleImageForm, AddWritersForm, RemoveWritersForm, \
     RegisterForm, KeyWordsForm, ChoiceForm, ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, \
-    NseArticleForm, ChangePasswordForm, ArticleReviewForm
+    NseArticleForm, ChangePasswordForm, ArticleReviewForm, EditWriterForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout
 from mongoengine.django.auth import User
@@ -11,7 +11,7 @@ from stears.utils import article_key_words, revive_from_trash, add_writers,\
     remove_writers, make_username, migrate_article, mongo_calls, make_comment, forgot_password_email,\
     save_writers_article, accept_to_write, request_json, make_url, move_to_trash, suggest_nse_article, \
     update_writers_article, edit_user, make_writer_id, make_writers_article, submit_writers_article, \
-    handle_uploaded_file, put_in_review, new_member
+    handle_uploaded_file, put_in_review, new_member, edit_writer_registration_details
 
 from stears.permissions import approved_writer, is_a_boss, writer_can_edit_article
 from stears.models import ArticleImageModel
@@ -311,9 +311,22 @@ def writer_detail(request, name):
     context = {}
 
     username = str(request.user)
-    register_form = None
+    edit_writer_form = None
     if username == name:
-        register_form = RegisterForm(writer)
+        writer_data = {
+            'username': writer['username'],
+            'first_name': writer['first_name'],
+            'last_name': writer['last_name'],
+            'dob': writer['dob'],
+            'study': writer['study'],
+            'interests': writer['interests'],
+            'role': writer['role'],
+            'occupation': writer['occupation'],
+            'sex': writer['sex'],
+            'email': writer['email'],
+            'new_email': writer['email']
+        }
+        edit_writer_form = EditWriterForm(writer_data)
 
     # GET ARTICLE STRAIGHT FROM WRITER
     # FOR NOW get articles by search
@@ -323,9 +336,28 @@ def writer_detail(request, name):
         articles = [
             article for article in article_collection.find({'writer': name})]
 
-        context = {'writer': writer, 'articles': articles, 'register_form': register_form,
+        context = {'writer': writer, 'articles': articles, 'edit_writer_form': edit_writer_form,
                    'writers_article_form': writers_article_form}
     return render(request, 'stears/writer_detail.html', context)
+
+
+@user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
+def edit_writer_detail(request):
+    if request.method == 'POST':
+        edit_writer_form = EditWriterForm(request.POST)
+        if edit_writer_form.is_valid():
+            username = request.POST['username']
+            if username != str(request.user):
+                return HttpResponseRedirect(reverse('stears:writer_detail', args=(), kwargs={'name': username}))
+
+            edit_writer_registration_details(edit_writer_form)
+            return HttpResponseRedirect(reverse('stears:writer_detail', args=(), kwargs={'name': username}))
+        else:
+            # Do error message
+            print edit_writer_form.errors
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/stears/noaccess/')
