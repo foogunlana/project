@@ -93,8 +93,8 @@
 					</div>
 					<br>
 					<div class="fill">
-						<div>
-							<table class="columns small-12 small-centered article_box">
+						<div class="columns small-12 small-centered article_box">
+							<table >
 								<tr >
 									<td>
 										Title
@@ -115,13 +115,13 @@
 										</tr>
 									{% endif %}
 								{% endif %}
-								<tr>
-									<td>
-										{% autoescape off %}
-										{{ article.content|linebreaks }}
-									{% endautoescape %}
-								</td>
-							</tr>
+							</table>
+							<div class="article_box">
+								{% autoescape off %}
+								{{ article.content|linebreaks }}
+							{% endautoescape %}
+						</div>
+						<table>
 							<tr>
 								<td>
 									Category
