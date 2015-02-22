@@ -19,6 +19,7 @@ from mongoengine.queryset import DoesNotExist
 
 # from stears.utils import handle_uploaded_file
 
+import datetime
 import params
 import json
 
@@ -317,7 +318,7 @@ def writer_detail(request, name):
             'username': writer['username'],
             'first_name': writer['first_name'],
             'last_name': writer['last_name'],
-            'dob': writer.get('dob', 'None'),
+            'dob': writer.get('dob', datetime.datetime.now()),
             'study': writer.get('study', 'None'),
             'interests': writer.get('interests', 'None'),
             'role': writer.get('role', 'None'),
