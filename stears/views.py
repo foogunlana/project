@@ -321,8 +321,8 @@ def writer_detail(request, name):
             'study': writer.get('study', 'None'),
             'interests': writer.get('interests', 'None'),
             'role': writer.get('role', 'None'),
-            'occupation': writer('occupation', 'None'),
-            'sex': writer('sex', 'None'),
+            'occupation': writer.get('occupation', 'None'),
+            'sex': writer.get('sex', 'None'),
             'email': writer['email'],
             'new_email': writer['email']
         }
