@@ -309,7 +309,7 @@ class CommentForm(forms.Form):
             'class': 'small_textarea',
             'data-validation': 'length',
             'data-validation-length': 'min10'
-        }), max_length=300, required=True, error_messages={
+        }), required=True, error_messages={
             'required': 'You did not enter any comment',
             'invalid': 'Your comment entry was invalid',
         })

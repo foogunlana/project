@@ -228,12 +228,18 @@ def put_in_review(article_id):
     writers = article['writers']['others']
     writers.append(article['writers']['original'])
 
-    print writers
+    if article['category'] == 'stearsTutorial':
+        articles.update(
+            {'article_id': article_id},
+            {'$set': {'state': 'submitted', 'reviewer': 'No reviewer'}},
+            False, False
+        )
+        return False
+
     users = mongo_calls('user')
     reviewers = users.find(
         {'username': {'$nin': writers}}).distinct('username')
     reviewer = random.choice(reviewers)
-    print reviewer
 
     users.update(
         {'username': reviewer},
