@@ -11,7 +11,7 @@ $(document).ready(function() {
     });
     
     $('.wymeditor').wymeditor({
-                html: '<p>Hello, World!<\/p>',
+                html: $('textarea.wymeditor').val(),
                 postInit: function(wym) {
                     //construct the button's html
                     var html = "<li class='wym_tools_word_count' style='padding-top:3px;padding-left:5px;'>"
@@ -20,7 +20,7 @@ $(document).ready(function() {
                              + "Do something"
                              + "</a></li>";
 
-                    //add the button to the tools box
+                    //add the button to box
                     $(wym._box)
                     .find(wym._options.toolsSelector + wym._options.toolsListSelector)
                     .append(html);
