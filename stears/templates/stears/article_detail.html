@@ -127,7 +127,7 @@
 									Category
 								</td>
 								<td>
-									{{ article.category }}
+									{{ article.category|pretty_category }}
 								</td>
 							</tr>
 							<tr>
@@ -301,7 +301,7 @@
 							<div class="row">
 								<p>
 								<strong>
-								{{ article.writer }} can write this article as {{ article.category }}?
+								{{ article.writer }} can write this article as {{ article.category|pretty_category }}?
 								</strong>
 								</p>
 							</div>
