@@ -38,11 +38,8 @@ def editor2(username):
 def writer_can_edit_article(username, article):
     state = article['state']
     writer = article.get('writer', '')
-    if (state == 'submitted'):
+    if (state == 'submitted') or (state == 'in_review'):
         return editor(username)
-
-    if (state == 'in_review'):
-        return False
 
     if not writer:
         return True
