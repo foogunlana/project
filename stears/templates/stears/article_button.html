@@ -4,7 +4,7 @@
 	<div class="row article_button article_box {{ article.state }} {{ article.category.split|join:"_" }} {{ article.time }}" style='{% if article.writer %}{% else %}background-color:#D5EBFE{% endif %}'>
 	<div class="columns small-6 ">
 		{% if article.binned %}
-			{{ article.headline }}
+			<font {% ifequal article.category 'stearsTutorial' %}style="color:#6CBC36;"{% endifequal %}>{{ article.headline }}</font>
 			<form action="{% url 'stears:revive' %}" method="post">
 			{% csrf_token %}
 			<button type="submit" style="display:inline-block;padding-botom:2px;" name="article_id" value="{{ article.article_id }}">Revive</button>
@@ -12,10 +12,10 @@
 		{% else %}
 			{% if user.username|writer_can_see:article %}
 				<a href="{% url 'stears:article_detail' pk=article.article_id %}" >
-					{{ article.headline }}
+					<font {% ifequal article.category 'stearsTutorial' %}style="color:#6CBC36;"{% endifequal %}>{{ article.headline }}</font>
 				</a>
 			{% else %}
-					{{ article.headline }}
+					<font {% ifequal article.category 'stearsTutorial' %}style="color:#6CBC36;"{% endifequal %}>{{ article.headline }}</font>
 			{% endif %}
 
 			{% ifequal article.state 'in_review' %}
