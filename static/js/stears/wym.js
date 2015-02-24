@@ -63,8 +63,10 @@ $(document).ready(function() {
                 if(responseData === "reload"){
                     location.reload();
                 }else{
-                    alert(responseData);
+                    alert("Your article has been saved");
                     $('.wym_html_val').val(responseData);
+                    $('#ajax_article_content').html(responseData);
+                    $('#hidden_article_form').hide();
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {

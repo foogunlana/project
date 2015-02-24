@@ -3,6 +3,8 @@
 		<!-- 	<p style="color:red;">
 		For new articles, please indicate the related NSE article (if any) before saving!
 		</p> -->
+		<p style="color:red;">Please do not paste directly from word. Use the paste button as explained in the <a href="{% url 'stears:article_detail' pk=26 %}">PASTING FROM WORD</a> tutorial</p>
+
 		{% csrf_token %}
 		{% if writers_article_form.categories %}
 			<h6>

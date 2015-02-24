@@ -414,7 +414,7 @@ def article_detail(request, **kwargs):
 
     if article['type'] == 'writers_article':
         nse_id = article['nse_article_id']
-        category = article['category']
+        category = article['category'].replace('stears', '').replace('_', ' ')
     else:
         nse_id = pk
         category = "stearsTier_1"
@@ -435,6 +435,8 @@ def article_detail(request, **kwargs):
                          'headline': article['headline']},
                 lock=locked_fields,
             )
+
+            print category
 
         elif article['type'] == 'nse_article':
             writers_article_form = NseArticleForm(
@@ -698,7 +700,7 @@ def edit_rich_text(request):
             if sor == 'review':
                 put_in_review(article_id)
                 return HttpResponse("reload")
-            return HttpResponse("Your article has been saved")
+            return HttpResponse(request.POST['content'])
         else:
             return HttpResponse("Please fill required fields")
     return HttpResponse("Error")
