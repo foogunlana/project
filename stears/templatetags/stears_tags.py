@@ -41,6 +41,11 @@ def get_short_tip(category, letter):
     return params.review_statements[category][letter][0]
 
 
+@register.filter("get_value")
+def get_value(dictionary, key):
+    return dictionary.get(key)
+
+
 @register.filter("format_name")
 def format_name(long_name, long_or_short):
     if long_or_short == 'short':

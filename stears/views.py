@@ -22,6 +22,7 @@ from mongoengine.queryset import DoesNotExist
 import datetime
 import params
 import json
+import time
 
 # ALL NOTIFICATIONS SHOULD RECORD THE TIME AS WELL
 
@@ -234,19 +235,22 @@ def writers_home_test(request, group):
     nostates = False
 
     writers_article_form = WritersArticleForm()
+
     if request.method == 'GET':
         if not group:
             articles = [article for article in article_collection.find({
-                '$query': {"$or": [{'type': 'writers_article'}, {'type': 'nse_article'}]},
+                '$query': {'writer': 1, 'time': 1, 'headline': 1, 'category': 1, 'state': 1, '_id': 0},
                 '$orderby': {'time': -1, 'state': 1}})]
 
         elif group == 'NSE':
             articles = [
                 article for article in article_collection.find({'type': 'nse_article'})]
         elif group == 'peers':
+            start_time = time.time()
             articles = [article for article in article_collection.find({
                 '$query': {'type': 'writers_article'},
-                '$orderby': {'time': -1, 'state': 1, }})]
+                '$orderby': {'time': -1, 'state': -1, }}, params.article_button_items)]
+            print time.time() - start_time, 'Home page'
 
     context = {'editable_fields': editable_fields, "writers_article_form": writers_article_form,
                'visible_fields': visible_fields, 'articles': articles, 'username': user, 'nostates': nostates}
@@ -277,6 +281,7 @@ def writers_write(request):
 
     # USE group and aggregate to get suggestions and articles and reviews all
     # together!!
+
     if request.method == 'GET':
         username = str(request.user)
         # get suggested articles
@@ -285,16 +290,17 @@ def writers_write(request):
         suggestions = [article for article in article_collection.find(
             {'article_id': {'$in': suggested_articles}})]
 
+        start_time = time.time()
         articles = [
             article for article in article_collection.find(
                 {"$query": {'writer': username}, "$orderby": {"time": -1}})]
+        print time.time() - start_time, 'personal page'
 
         reviews = [
             article for article in article_collection.find(
                 {"$query": {'article_id': {'$in': writer['reviews']}}, "$orderby": {"time": -1}})
             if article['state'] == 'in_review'
         ]
-        print reviews
 
         writers_article_form = WritersArticleForm()
 
@@ -407,7 +413,9 @@ def article_detail(request, **kwargs):
     comment_form = CommentForm()
     key_words_form = KeyWordsForm()
 
+    start_time = time.time()
     article = article_collection.find_one({'article_id': pk})
+    print time.time() - start_time, 'article page'
 
     if not article:
         return HttpResponseRedirect(reverse('stears:noaccess'))
