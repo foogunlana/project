@@ -227,33 +227,29 @@ def logout_view(request):
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
 def writers_home_test(request, group):
-    user = request.user
-    editable_fields = ['Headline', 'Content']
-    visible_fields = ['headline', 'content', 'reporter', 'state']
     articles = []
     article_collection = mongo_calls('articles')
     nostates = False
 
     writers_article_form = WritersArticleForm()
 
-    if request.method == 'GET':
-        if not group:
-            articles = [article for article in article_collection.find({
-                '$query': {'writer': 1, 'time': 1, 'headline': 1, 'category': 1, 'state': 1, '_id': 0},
-                '$orderby': {'time': -1, 'state': 1}})]
+    start_time = time.time()
 
-        elif group == 'NSE':
+    if request.method == 'GET':
+        if group == 'NSE':
             articles = [
                 article for article in article_collection.find({'type': 'nse_article'})]
-        elif group == 'peers':
-            start_time = time.time()
+
+        # elif group == 'peers':
+        else:
             articles = [article for article in article_collection.find({
                 '$query': {'type': 'writers_article'},
-                '$orderby': {'time': -1, 'state': -1, }}, params.article_button_items)]
-            print time.time() - start_time, 'Home page'
+                '$orderby': {'time': -1, 'state': 1, }}, params.article_button_items).limit(50)]
 
-    context = {'editable_fields': editable_fields, "writers_article_form": writers_article_form,
-               'visible_fields': visible_fields, 'articles': articles, 'username': user, 'nostates': nostates}
+    context = {"writers_article_form": writers_article_form,
+               'articles': articles, 'nostates': nostates}
+
+    print time.time() - start_time, 'Home page'
     return render(request, 'stears/writers_home_test.html', context)
 
 
@@ -282,24 +278,29 @@ def writers_write(request):
     # USE group and aggregate to get suggestions and articles and reviews all
     # together!!
 
+    start_time = time.time()
+
     if request.method == 'GET':
         username = str(request.user)
         # get suggested articles
-        writer = users.find_one({'username': username})
+        writer = users.find_one(
+            {'username': username},
+            {'suggested_articles': 1, 'reviews': 1, '_id': 0})
+
         suggested_articles = writer.get('suggested_articles', [])
         suggestions = [article for article in article_collection.find(
-            {'article_id': {'$in': suggested_articles}})]
+            {'article_id': {'$in': suggested_articles}},
+            params.article_button_items)]
 
-        start_time = time.time()
         articles = [
             article for article in article_collection.find(
-                {"$query": {'writer': username}, "$orderby": {"time": -1}})]
-        print time.time() - start_time, 'personal page'
+                {"$query": {'writer': username}, "$orderby": {"time": -1}},
+                params.article_button_items)]
 
         reviews = [
-            article for article in article_collection.find(
-                {"$query": {'article_id': {'$in': writer['reviews']}}, "$orderby": {"time": -1}})
-            if article['state'] == 'in_review'
+            article for article in article_collection.find({
+                "$query": {'article_id': {'$in': writer['reviews']}, 'state':'in_review'},
+                "$orderby": {"time": -1}}, params.article_button_items)
         ]
 
         writers_article_form = WritersArticleForm()
@@ -307,6 +308,7 @@ def writers_write(request):
         context = {"writers_article_form": writers_article_form, 'articles':
                    articles, 'suggestions': suggestions, 'messages': messages, 'reviews': reviews}
 
+    print time.time() - start_time, 'personal page'
     return render(request, 'stears/writers_write.html', context)
 
 
@@ -341,7 +343,9 @@ def writer_detail(request, name):
         writers_article_form = WritersArticleForm()
 
         articles = [
-            article for article in article_collection.find({'writer': name})]
+            article for article in article_collection.find({
+                "$query": {'writer': name},
+                "$orderby": {"time": -1}}, params.article_button_items)]
 
         context = {'writer': writer, 'articles': articles, 'edit_writer_form': edit_writer_form,
                    'writers_article_form': writers_article_form}

@@ -191,6 +191,7 @@ def suggest_nse_article(username, article_id):
         {'username': username}, {'$push': {'suggested_articles': int(article_id)}}, False)
 
 
+# Optimize query here
 def update_writers_article(username, form):
     headline = form.cleaned_data['headline']
     content = form.cleaned_data['content']
@@ -238,7 +239,8 @@ def remove_writers(article_id, usernames):
 def put_in_review(article_id):
     article_id = int(article_id)
     articles = mongo_calls('articles')
-    article = articles.find_one({'article_id': article_id})
+    article = articles.find_one(
+        {'article_id': article_id}, {'_id': 0, 'category': 1, 'writers': 1})
     writers = article['writers']['others']
     writers.append(article['writers']['original'])
 
@@ -481,7 +483,7 @@ def save_writers_article(article):
 def get_nse_headlines():
     articles = mongo_calls('articles')
     headlines = []
-    for article in articles.find({'type': 'nse_article'}):
+    for article in articles.find({'type': 'nse_article'}, {'article_id': 1, 'headline': 1, '_id': 0}):
         headline_tuple = (article['article_id'], article['headline'])
         headlines.append(headline_tuple)
     return [(0, 'None')] + headlines
@@ -533,6 +535,7 @@ def add_id_to_dict(article):
     return article
 
 
+# Can be further optimised
 def available_article_id():
     nse_news = mongo_calls('nse_news')
     register = nse_news.find_one({'type': 'register'})
