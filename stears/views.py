@@ -417,9 +417,7 @@ def article_detail(request, **kwargs):
     comment_form = CommentForm()
     key_words_form = KeyWordsForm()
 
-    start_time = time.time()
     article = article_collection.find_one({'article_id': pk})
-    print time.time() - start_time, 'article page'
 
     if not article:
         return HttpResponseRedirect(reverse('stears:noaccess'))

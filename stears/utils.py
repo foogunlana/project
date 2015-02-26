@@ -244,7 +244,9 @@ def put_in_review(article_id):
     writers = article['writers']['others']
     writers.append(article['writers']['original'])
 
-    if article['category'] == 'stearsTutorial':
+    category = article['category']
+
+    if (category == 'stearsTutorial') or (category == 'stearsColumn'):
         articles.update(
             {'article_id': article_id},
             {'$set': {'state': 'submitted', 'reviewer': 'No reviewer'}},
