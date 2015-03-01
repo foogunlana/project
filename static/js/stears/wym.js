@@ -1,3 +1,5 @@
+
+
 $(document).ready(function() {
     function wordCount( val ){
         return 'Characters excluding spaces: '+ val.replace(/\s+/g, '').length.toString()
@@ -5,6 +7,17 @@ $(document).ready(function() {
                 + '\nWords :'+val.match(/\S+/g).length;
         }
 
+    function clean_article_content(sData) {
+     if(sData.search(new RegExp(new_line, "g")) != -1) {
+        //split the data, using newlines as the separator
+        // console.log(new_line);
+        var aP = sData.split(new_line);
+        sData = '';
+        for(x = aP.length - 1; x >= 0; x--) {
+           sData += "<p>" + aP[x] + "</p>";
+        }
+     }
+     return sData;}
 
     $('button.wym_submit_button[type="submit"]').click(function(){
         save_or_review = $(this).val();
@@ -13,6 +26,9 @@ $(document).ready(function() {
     $('.wymeditor').wymeditor({
                 html: $('textarea.wymeditor').val(),
                 postInit: function(wym) {
+                    // $(wym._doc.body).click( function() {
+                        //wym.sbCatchPaste();
+                    // });
                     //construct the button's html
                     var html = "<li class='wym_tools_word_count' style='padding-top:3px;padding-left:5px;'>"
                              + "<a name='Word count' title='Word count' href='#'"
@@ -47,6 +63,13 @@ $(document).ready(function() {
                 event.preventDefault();
                 return false;
             }
+        }
+
+        try {
+            console.log(clean_article_content($('.wym_html_val').val()));
+        }
+        catch(err) {
+            console.log(err.message);
         }
 
         $.ajax({
