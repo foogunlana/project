@@ -20,16 +20,20 @@ def is_a_boss(username):
     return False
 
 
-def editor(username):
+def editor2(username):
     writer = User.objects.get(username=str(username))
+    if not writer:
+        return False
     if writer.is_superuser or writer.is_staff:
         return True
     return False
 
 
-def editor2(username):
+def editor(username):
     users = mongo_calls('user')
-    writer = users.find_one({'username': username})
+    writer = users.find_one({'username': str(username)})
+    if not writer:
+        return False
     if writer['state'] == 'admin':
         return True
     return False
