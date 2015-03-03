@@ -56,12 +56,32 @@ $(document).ready(function() {
             });
 
     $('#article_form').submit(function(event){
+
         var wym = $.wymeditors(0);
         wym.update();
         if(save_or_review === 'review'){
-            if(!confirm( "Are you sure you want to post, you won't be able to edit this article without editor priviledges!" )){
+            var tag_count = 0;
+            $('.tag_button').each(function(){
+                tag_count+=1;
+            });
+
+            if(!tag_count){
+                alert('You forgot to add tags!');
                 event.preventDefault();
+                $('#keyword_area').show();
+                $('#id_tags').focus();
                 return false;
+            }else{
+                if(confirm('Do you wish to add any more tags first?')){
+                    $('#keyword_area').show();
+                    $('#id_tags').focus();
+                    save_or_review = 'save';
+                }else{
+                    if(!confirm( "Are you sure you want to post, you won't be able to continue editing this article without editor priviledges!" )){
+                        event.preventDefault();
+                        return false;
+                    }
+                }
             }
         }
 
@@ -70,12 +90,6 @@ $(document).ready(function() {
         }
         catch(err) {
             console.log(err.message);
-        }
-
-        tags = $('#tag_count').val();
-        if(!tags){
-            alert('You forgot to add tags!');
-            return 0;
         }
 
         $.ajax({
