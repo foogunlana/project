@@ -242,7 +242,7 @@ def writers_home_test(request, group):
         else:
             articles = [article for article in article_collection.find({
                 '$query': {'type': 'writers_article'},
-                '$orderby': {'time': -1, 'state': 1, }}, params.article_button_items).limit(50)]
+                '$orderby': {'time': -1}}, params.article_button_items).limit(50)]
 
     context = {"writers_article_form": writers_article_form,
                'articles': articles, 'nostates': nostates}
@@ -387,7 +387,7 @@ def bin(request):
     bin = mongo_calls('bin')
     articles = [article for article in bin.find({
         '$query': {'type': 'writers_article', 'writer': username},
-        '$orderby': {'time': -1, 'state': 1}})]
+        '$orderby': {'time': -1}}, params.article_button_items)]
 
     context = {'articles': articles}
     return render(request, 'stears/bin.html', context)
