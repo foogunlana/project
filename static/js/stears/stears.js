@@ -50,6 +50,7 @@ $( document ).ready(function() {
 
 	$('#comment_area_button').click(function() {
 		$('#comment_area').toggle();
+		$('#id_comment').focus();
 		$('#keyword_area').hide();
 	});
 
@@ -59,6 +60,7 @@ $( document ).ready(function() {
 
 	$('#keyword_area_button').click(function() {
 		$('#keyword_area').toggle();
+		$('#id_tags').focus();
 		$('#comment_area').hide();
 	});
 
