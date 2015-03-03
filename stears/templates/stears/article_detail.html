@@ -203,13 +203,13 @@
 							{% for word in article.keywords %}
 								{% if user.username|can_write:article %}
 									<div class="tag_wrapper" >
-										<button href="#" class = "keyword delete" type="submit" name="data" value="{{ article.article_id }},{{ word }}">
+										<a href="#"  class = "button2 tag_button" data-tag="{{ article.article_id }},{{ word }}" data-url="{% url 'stears:remove_tag' %}">
 										{{ word }}
-										</button>
-									</div>,
+										</a>,
+									</div>
 								{% else %}
 									<div class="" style="display:inline-block">
-										<a href="#" class="keyword">
+										<a href="#" class="tag_button">
 											{{ word }}
 										</a>
 									</div>,
@@ -217,8 +217,10 @@
 							{% endfor%}
 						{% endif %}
 					</form>
+					<input type="hidden" id="tag_count" value="{{ article.keywords|count_it }}" >
 					<div id="keyword_area" {% if key_words_form.errors %}{% else %}hidden{% endif %}>
 					{% include 'stears/keywords_form.html' %}
+					<script src="/static/js/stears/articletags.js"></script>
 				</div>
 			</div>
 		</div>

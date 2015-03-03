@@ -82,6 +82,11 @@ def article_array(pk):
     return articles
 
 
+@register.filter("count_it")
+def count_it(array):
+    return len(array)
+
+
 @register.filter("nse_date")
 def nse_date(value):
     value = str(value)

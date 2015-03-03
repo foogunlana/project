@@ -645,10 +645,9 @@ def remove_tag(request):
         code = request.POST.get('data', None)
         if not code:
             print "Error!"
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            return HttpResponse('No tag specified')
 
         id_and_tag = code.split(',')
-        print id_and_tag
         pk, tag = int(id_and_tag[0]), str(id_and_tag[1])
 
         articles = mongo_calls('articles')
@@ -659,7 +658,7 @@ def remove_tag(request):
             False
         )
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponse('%s was deleted!' % (tag))
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')

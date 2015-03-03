@@ -72,6 +72,12 @@ $(document).ready(function() {
             console.log(err.message);
         }
 
+        tags = $('#tag_count').val();
+        if(!tags){
+            alert('You forgot to add tags!');
+            return 0;
+        }
+
         $.ajax({
             type: "post",
             data: {
