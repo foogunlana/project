@@ -11,7 +11,7 @@
 		</form>
 		{% else %}
 			{% if user.username|writer_can_see:article %}
-				<a href="{% url 'stears:article_detail' pk=article.article_id %}" >
+				<a {% ifequal article.state 'on_site' %}href="{% url 'stears:preview' pk=article.article_id %}"{% else %}href="{% url 'stears:article_detail' pk=article.article_id %}"{% endifequal %}  >
 					<font {% ifequal article.category 'stearsTutorial' %}style="color:#6CBC36;"{% endifequal %}>{{ article.headline }}</font>
 				</a>
 			{% else %}
@@ -19,20 +19,15 @@
 			{% endif %}
 
 			{% ifequal article.state 'in_review' %}
-			{% ifequal article.reviewer user %}
-				<a href="{% url 'stears:review' pk=article.article_id %}" style="padding-left:10px;color:red;">
-					Review?
-				</a>
+				{% ifequal article.reviewer user %}
+					<a href="{% url 'stears:review' pk=article.article_id %}" style="padding-left:10px;color:red;">
+						Review?
+					</a>
+				{% endifequal %}
 			{% endifequal %}
-			{% endifequal %}
-			
 		{% endif %}
 	</div>
 	<div class="columns small-6 medium-3 ">
-		<!-- {% ifequal article.visible False%}
-			{{ article.category|pretty_category }}<font color="red">(Requested)</font>
-		{% else %} 
-			{% endifequal %}-->
 			{{ article.category|pretty_category }}
 	</div>
 	<div class="columns small-6 medium-3 ">

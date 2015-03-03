@@ -67,8 +67,6 @@ def gts(request):
 
         if form.is_valid():
             choice = form.cleaned_data['choice']
-            # print choice
-            # print choices
             URL = make_url(params.glo_trybe_data[choice], False)
             j_array = request_json(URL)
             site = json.dumps(j_array)
@@ -622,11 +620,23 @@ def pipeline(request):
     if request.method == 'GET':
         migrations = mongo_calls('migrations')
         articles = [article for article in migrations.find(
-            {'$query': {}, '$orderby': {'time': -1}})]
+            {'$query': {}, '$orderby': {'time': -1}}, params.article_button_items)]
         # Articles here cannot be found in the article database and that will
         # cause a few problems!
     context = {'articles': articles, 'nostates': True}
     return render(request, 'stears/pipeline.html', context)
+
+
+@user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
+def preview_article(request, pk):
+    print "Got to article"
+    if request.method == 'GET':
+        pk = int(pk)
+        migrations = mongo_calls('migrations')
+        article = migrations.find_one(
+            {'article_id': pk}, {'content': 1, '_id': 0, 'headline': 1, 'writers': 1})
+    context = {'article': article, 'writers': article['writers']}
+    return render(request, 'stears/preview_article.html', context)
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/stears/noaccess/')

@@ -1,0 +1,78 @@
+
+	<head><meta charset="utf-8"><title>Articles - Stears</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Webflow">
+		<link rel="stylesheet" type="text/css" href="/static/css/news/webflow.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/news/strs.webflow.css">
+		<style type="text/css"></style>
+	</head>
+	<body >
+		<div class="top-nav">
+			<div class="w-row">
+				<div class="w-col w-col-8 top-nav-search">
+					<div class="w-form">
+						<form id="search-form" name="search-form" data-name="Search Form">
+							<img class="search-icon" src="http://uploads.webflow.com/54d15d04624a64834599eee8/54d27522bba289360a8cc876_search19.svg" width="22" alt="54d27522bba289360a8cc876_search19.svg">
+							<input class="w-input search-bar" id="name" type="text" placeholder="Enter your search term here" name="name" data-name="Name">
+						</form>
+					</div>
+				</div>
+				<div class="w-col w-col-4 top-nav-social" style="float:right;">
+					<img class="facebook-icon" src="http://uploads.webflow.com/54d15d04624a64834599eee8/54d264eda59e05340ae1fb74_facebook12.svg" width="6" alt="54d264eda59e05340ae1fb74_facebook12.svg">
+					<img class="twitter-icon" src="http://uploads.webflow.com/54d15d04624a64834599eee8/54d265fa0d5fbeb671afe3f1_social19.svg" width="12" alt="54d265fa0d5fbeb671afe3f1_social19.svg">
+					<img class="linkedin-icon" src="http://uploads.webflow.com/54d15d04624a64834599eee8/54d26e39a59e05340ae1fe23_linkedin11.svg" width="14" alt="54d26e39a59e05340ae1fe23_linkedin11.svg">
+					<img class="rss-icon" src="http://uploads.webflow.com/54d15d04624a64834599eee8/54d27c22a59e05340ae1ffce_social23.svg" width="12" alt="54d27c22a59e05340ae1ffce_social23.svg">
+				</div>
+			</div>
+		</div>
+		<div class="w-clearfix nav">
+			<div class="w-clearfix nav-links">
+				<a class="nav-text" href="#">
+					<strong>Home</strong>
+				</a>
+				<a class="nav-text" href="#">
+					<strong>Markets</strong>
+				</a>
+				<a class="nav-text" href="#">
+					<strong>Companies</strong>
+				</a>
+				<a class="nav-text" href="#">
+					<strong>Economy</strong>
+				</a>
+				<a class="nav-text" href="#">
+					<strong>StearsTalk</strong>
+				</a>
+			</div>
+		</div>
+		<div class="article-image">
+			
+		</div>
+		<div class="w-row article-content">
+			<div class="w-col w-col-9 article">
+				<h1 class="article-header">Heading</h1>
+				<p class="article-paragraph">
+					{% autoescape off %}
+					{{ article.content }}
+					{% endautoescape %}
+				</p >
+			</div>
+			<div class="w-col w-col-3 article-information">
+				<div class="article-author">Author Name</div>
+				{{ writers.original }}
+				<div class="article-category">Category</div>
+				{{ article.category }}
+			</div>
+		</div>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</body>
+
+</html>

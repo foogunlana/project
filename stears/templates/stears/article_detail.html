@@ -323,7 +323,8 @@
 						{% endif %}
 					{% endifequal %}
 					{% if user.username|can_write:article %}
-						<div class="row">keyword_area_button"  class=" fill">Edit tags</button>
+						<div class="row">
+							<button id="keyword_area_button"  class="fill">Edit tags</button>
 						</div>
 					{% endif %}
 					{% ifequal article.state 'in_review' %}

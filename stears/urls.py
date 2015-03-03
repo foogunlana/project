@@ -51,6 +51,8 @@ urlpatterns = patterns('',
                            views.bin, name='bin'),
                        url(r'^writers/article/revive/$',
                            views.revive_article, name='revive'),
+                       url(r'^writers/article/preview/(?P<pk>[0-9]+)/$',
+                           views.preview_article, name='preview'),
 
                        url(r'^noaccess/$', views.noaccess, name='noaccess'),
                        url(r'^register/$', views.register, name='register'),
