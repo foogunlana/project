@@ -202,7 +202,7 @@
 							</h6>
 							{% for word in article.keywords %}
 								{% if user.username|can_write:article %}
-									<div class="tag_wrapper">
+									<div class="tag_wrapper" >
 										<button href="#" class = "keyword delete" type="submit" name="data" value="{{ article.article_id }},{{ word }}">
 										{{ word }}
 										</button>

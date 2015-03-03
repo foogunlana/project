@@ -143,23 +143,9 @@ top-bar-section .has-form {
 }
 
 
-
-
-/*
-button{
-  background-color:white;
-  border-radius: 20px;
-  color:blue;
-    padding:15px;
-  -moz-box-shadow:    0px 0px 5px  #ccc;
-  -webkit-box-shadow: 0px 0px 5px  #ccc;
-  box-shadow:         0px 0px 5px 2px #ccc;
-}*/
-
 button{
 background-color:#060664;
 max-height: 40px;
-max-width: 100px;
 text-align: center;
 border-radius: 3px;
 padding: 10px;

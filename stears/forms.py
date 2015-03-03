@@ -388,7 +388,7 @@ class KeyWordsForm(forms.Form):
     other = forms.CharField(
         widget=forms.TextInput(attrs={
             'class': 'other-choice'
-        }), max_length=200, initial='None', required=True, error_messages={
+        }), max_length=40, initial='None', required=True, error_messages={
             'invalid': 'Your key word was invalid and was not saved'
         })
 
