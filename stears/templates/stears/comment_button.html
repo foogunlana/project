@@ -11,15 +11,15 @@
 			<strong>
 			Author
 			</strong>
-			{% if article.writer %}
+			{% if comment.writer %}
 				{% if user|is_editor %}
-					{% if article.writer %}
+					{% if comment.writer %}
 						<a href="{% url 'stears:writer_detail' article.writer %}">
-							{{ article.writer }}
+							{{ comment.writer }}
 						</a>|
 					{% endif %}
 				{% else %}
-					{{ article.writer }}
+					{{ comment.writer }}
 				{% endif %}
 			{% endif %}
 		</div>
