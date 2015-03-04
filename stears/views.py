@@ -138,11 +138,12 @@ def forgot_password(request):
 
 
 def login_view(request):
-    email = request.POST.get('email', '')
-    password = request.POST.get('password', '')
     errors = []
 
     if request.method == 'POST':
+        email = request.POST.get('email', '')
+        password = request.POST.get('password', '')
+        next = request.POST.get('next', '')
         try:
             user = User.objects.get(email=email)
 
@@ -153,7 +154,10 @@ def login_view(request):
                 if user:
                     request.session.set_expiry(
                         params.SESSION_AGE)  # 1 hour timeout
-                    return HttpResponseRedirect(reverse('stears:articles_group',  args=(), kwargs={'group': 'peers'}))
+                    if next:
+                        return HttpResponseRedirect(next)
+                    else:
+                        return HttpResponseRedirect(reverse('stears:articles_group',  args=(), kwargs={'group': 'peers'}))
                 else:
                     errors.append('Oops! something went wrong. please refresh')
             else:
@@ -727,10 +731,11 @@ def edit_rich_text(request):
 
 def noaccess(request):
     user = request.user
+    next = request.GET.get('next', '')
     if user.is_authenticated():
         return render(request, 'stears/noaccess.html', {})
     login_form = LoginForm()
-    context = {'login_form': login_form}
+    context = {'login_form': login_form, 'next': next}
     return render(request, 'stears/login.html', context)
 
 
