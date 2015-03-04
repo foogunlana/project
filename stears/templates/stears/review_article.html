@@ -46,18 +46,19 @@
 							<button type="submit" class="fill">Done Reviewing</button>
 						</form>
 						<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
-						<script>
+						<script src="http://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.js"></script>
+						<script type="text/javascript">
 						$(document).ready(function(){
-							var form = $("#article_review_form");
-							console.log(form);
-							form.validate({
-								rules: {Personality:{ valueNotEquals: "None" }},
-								messages: { Personality: { valueNotEquals: "Please select an item!" }},
-								submitHandler: function (form) { 
-						            alert('valid form');
-						            return false;
-						        }
+
+							$.validator.addMethod("ChooseOne", function(value, element) {
+							return this.optional(element) || (value != 'None');}, "Please enter a valid rating");
+
+							$("#article_review_form").validate();
+
+							$(".standard-choice").each(function(){
+								$(this).rules('add',{ChooseOne:true});
 							});
+							
 						});
 						</script>
 					</div>

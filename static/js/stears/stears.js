@@ -73,7 +73,9 @@ $( document ).ready(function() {
 
 	$('.toggles_div').click(function() {
 		var div_class = $(this).attr('id');
-		$(".".concat(div_class.toString())).toggle();
+		var the_div = ".".concat(div_class.toString());
+		$(the_div).toggle();
+		$('html, body').animate({ scrollTop: $(the_div).offset().top - 100}, 'fast');
 	});
 
 	$('.toggles_on_hover').hover(function() {

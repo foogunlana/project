@@ -36,13 +36,13 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$.validator.addMethod("tagRegex", function(value, element) {
-	return this.optional(element) || /^[a-zA-Z\d\-_\s]+$/i.test(value);
-	}, "The answer you gave must contain only letters, numbers, or dashes.")
+	return ($('#id_tags').val() != 'None') || (/^\w[\w\-\s]+$/i.test(value) && (value != 'None'));
+	}, "Please choose a tag, or create one");
 
 	$("#tag_form").validate({
 	 rules: {
-	 "other": { tagRegex: true},
-	 }
+	 	"other": { tagRegex: true},
+	 },
 	});
 });
 </script>

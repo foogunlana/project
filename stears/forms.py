@@ -66,7 +66,8 @@ class ArticleReviewForm(forms.Form):
 
     def clean(self):
         for field in self.fields:
-            if not self.cleaned_data[field] or self.cleaned_data[field] == 'None':
+            print field, self.cleaned_data
+            if (not self.cleaned_data[field]) or (self.cleaned_data[field] == 'None'):
                 raise ValidationError("All fields are required")
         else:
             return self.cleaned_data
@@ -395,12 +396,12 @@ class KeyWordsForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(KeyWordsForm, self).__init__(*args, **kwargs)
         collection = mongo_calls('nse_news')
-        tag_doc = collection.find_one({'type': 'tags'})
-        # key_words = key_word_doc.get('tags','')
+        tag_doc = collection.find_one(
+            {'type': 'tags'}, {'keywords': 1, '_id': 0})
         if tag_doc:
             tags = tag_doc.get('keywords', []) + ['None']
         else:
-            tags = ['None', 'One', 'two', 'three']
+            tags = ['None']
 
         self.fields['tags'] = forms.ChoiceField(
             widget=forms.Select(attrs={'class': 'standard-choice'}),
