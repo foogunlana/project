@@ -70,14 +70,21 @@ def make_url(name, True_for_snapshot):
     return link
 
 
+def first_missing_number(taken_numbers):
+    if taken_numbers:
+        max_id = max(taken_numbers)
+    else:
+        max_id = 1
+
+    all_numbers = set(range(1, max_id + 2))
+    available = all_numbers - set(taken_numbers)
+    return min(available)
+
+
 def make_writer_id(writer):
     users = mongo_calls('user')
     ids = users.distinct('writer_id')
-    if ids and (None not in ids):
-        max_id = max(ids)
-        writer_id = int(max_id) + 1
-    else:
-        writer_id = 1
+    writer_id = first_missing_number(ids)
 
     users.update({
         "username": writer
@@ -155,7 +162,6 @@ def make_username(first_name, last_name):
         else:
             long_name = "%s%i" % (long_name, random.randint(1, 9))
         if not re.match(r'^[a-zA-Z0-9_]+$', long_name):
-            print long_name
             raise Exception(
                 "Username should include only alphanumeric characters, letters and numbers")
 
@@ -181,7 +187,6 @@ def request_json(URL):
         return json.loads(website.read())
 
     except Exception:
-        # print e
         return {}
 
 
@@ -299,19 +304,6 @@ def make_writers_article(form, username):
 
     article = request_to_write(article)
     return article
-
-
-# def rtf_edit_article(article, rtf_content):
-#     articles = mongo_calls('articles')
-
-#     r = re.compile('<[^>]*>')
-#     content = r.sub('', rtf_content)
-#     rtf_content = stears_italics(rtf_content)
-
-#     articles.update(
-#         {'article_id': article['article_id']},
-#         {'$set': {'rtf_content': rtf_content, 'content': content}},
-#         False, False)
 
 
 def stears_italics(content):
@@ -544,23 +536,13 @@ def available_article_id():
     if not register:
         register = {'type': 'register', 'article_ids': []}
         nse_news.insert(register)
-
     article_ids = register.get('article_ids', [])
-    if article_ids:
-        max_id = max(article_ids)
-    else:
-        max_id = 1
-
-    all_numbers = set([number for number in range(1, max_id + 2)])
-    available = all_numbers - set(article_ids)
-    return int(min(available))
+    return first_missing_number(article_ids)
 
 
-# Change the way that the articles are stored inside the database
 def thread_stuff():
     nse_news = mongo_calls('nse_news')
     while params.thread_running:
-        # print 'thread_running'
         URL = make_url(params.glo_trybe_data['news'], False)
         data = request_json(URL)
         data['type'] = 'news'

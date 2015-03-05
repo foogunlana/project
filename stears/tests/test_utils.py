@@ -3,46 +3,61 @@ from pymongo import MongoClient
 
 import unittest
 import mock
+import random
 
-client = MongoClient()
+# client = MongoClient()
 
 
 def mock_mongo_calls(collection_name):
-    # collection = client.test[collection_name]
-    # return collection
-    print "bla"
-    return "Bla"
+    return "Mongo collection %s from database" % (collection_name)
 
 
 utils.mongo_calls = mock.Mock(return_value=mock_mongo_calls)
 
 
-class TestMakeWriterId(unittest.TestCase):
+class TestFirstMissingNumber(unittest.TestCase):
 
-    def set_up(self):
-        client.test.user.drop()
-        self.users = utils.mongo_calls('user')
-        self.foo = {
-            u'_cls': u'User',
-            u'articles': [4, 6],
-            u'is_staff': True,
-            u'is_superuser': True,
-            u'password': u'foo',
-            u'username': u'foo',
-            u'writer_id': 1
-        }
-        self.users.insert(self.foo)
-
-    def test_database(self):
-        self.foo_check = client.test.user.find_one()
-        assert(self.foo_check != None)
-        assert(self.foo['username'] == self.foo_check['username'])
-
-    def test_make_writer_id(self):
+    def setUp(self):
         pass
 
-    def test_basic_2(self):
+    def test_first_missing_found(self):
+        for i in range(1, 20):
+            missing_numbers = {random.randint(1, 10), random.randint(1, 10)}
+            all_numbers = set(range(1, 10)) - missing_numbers
+            first_missing_number = utils.first_missing_number(all_numbers)
+            self.assertEqual(
+                min(missing_numbers), first_missing_number)
+
+    def test_first_number_empty_list(self):
+        all_numbers = []
+        first_missing_number = utils.first_missing_number(all_numbers)
+        self.assertEqual(first_missing_number, 1)
+
+    def test_first_number_full_list(self):
+        all_numbers = range(1, 20)
+        first_missing_number = utils.first_missing_number(all_numbers)
+        self.assertNotIn(20, range(1, 20))
+        self.assertEqual(first_missing_number, 20)
+
+    def tearDown(self):
         pass
 
-    def tear_down(self):
+
+class TestMakeUsername(unittest.TestCase):
+
+    def setUp(self):
+        self.first_name = 'myfirstname'
+        self.last_name = 'mylastname'
+        self.invalid_name = 'invalidname%2#'
+        self.username = 'myfirstname_mylastname'
+
+    def test_username_generation(self):
+        self.assertEquals(
+            utils.make_username(self.first_name, self.last_name), self.username)
+
+    def test_username_invalidation(self):
+        self.assertRaises(
+            Exception, utils.make_username(self.invalid_name, self.last_name))
+
+    def tearDown(self):
         pass
