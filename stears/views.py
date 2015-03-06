@@ -280,8 +280,6 @@ def writers_write(request):
     # USE group and aggregate to get suggestions and articles and reviews all
     # together!!
 
-    start_time = time.time()
-
     if request.method == 'GET':
         username = str(request.user)
         # get suggested articles
@@ -310,7 +308,6 @@ def writers_write(request):
         context = {"writers_article_form": writers_article_form, 'articles':
                    articles, 'suggestions': suggestions, 'messages': messages, 'reviews': reviews}
 
-    print time.time() - start_time, 'personal page'
     return render(request, 'stears/writers_write.html', context)
 
 
