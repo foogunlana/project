@@ -33,7 +33,7 @@
 </div>
 <script type="text/javascript">
 $.ajaxSetup({
-url: "{% url 'stears:rich_text' article.article_id %}",
+url: "{% url 'stears:submit' article.article_id %}",
 data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
 })
 </script>

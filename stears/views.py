@@ -194,7 +194,6 @@ def register(request):
             member.last_name = register_form.cleaned_data['last_name']
             member.username = make_username(
                 member.first_name, member.last_name)
-            # member.password = str(register_form.cleaned_data['password'])
             member.set_password(
                 str(register_form.cleaned_data['password']))
             member.save()
@@ -207,11 +206,6 @@ def register(request):
 
             return HttpResponseRedirect(reverse('stears:writers_write'))
 
-            # except Exception as e:
-            #     errors.append(str(e))
-            #     print e
-            #     return render(request, 'stears/register.html', {
-            #         'register_form': register_form, 'errors': errors})
         else:
             errors.append(register_form.errors)
             return render(request, 'stears/register.html', {
@@ -353,21 +347,26 @@ def writer_detail(request, name):
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
 def edit_writer_detail(request):
+    username = str(request.POST['username'])
+    print "I'm in the function"
+    print username
     if request.method == 'POST':
+        print "It's a post"
+        print username
         edit_writer_form = EditWriterForm(request.POST)
         if edit_writer_form.is_valid():
-            username = request.POST['username']
             if username != str(request.user):
                 return HttpResponseRedirect(reverse('stears:writer_detail', args=(), kwargs={'name': username}))
-
+            print "It was valid"
+            print username
             edit_writer_registration_details(edit_writer_form)
-            return HttpResponseRedirect(reverse('stears:writer_detail', args=(), kwargs={'name': username}))
         else:
+            print "It's not valid"
+            print username
             # Do error message
             print edit_writer_form.errors
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(reverse('stears:writer_detail', args=(), kwargs={'name': username}))
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/stears/noaccess/')
@@ -388,7 +387,7 @@ def bin(request):
     bin = mongo_calls('bin')
     articles = [article for article in bin.find({
         '$query': {'type': 'writers_article', 'writer': username},
-        '$orderby': {'time': -1}}, params.article_button_items)]
+        '$orderby': {'time': -1}}, dict(params.article_button_items, **{'binned': 1}))]
 
     context = {'articles': articles}
     return render(request, 'stears/bin.html', context)
@@ -464,8 +463,8 @@ def article_detail(request, **kwargs):
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
 def comment(request, pk):
+    article_id = int(pk)
     if request.method == 'POST':
-        article_id = int(pk)
         comment_form = CommentForm(
             request.POST,
         )
@@ -475,23 +474,24 @@ def comment(request, pk):
                 comment_form.cleaned_data['comment'])
         else:
             print "Invalid"
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(reverse('stears:article_detail', args=(), kwargs={'pk': pk}))
 
 
-def add_key_words(request, pk):
+@user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
+def add_tag(request, pk):
+    pk = int(pk)
     if request.method == 'POST':
         key_words_form = KeyWordsForm(
             request.POST
         )
         if key_words_form.is_valid():
             article_key_words(
-                int(pk),
+                pk,
                 key_words_form.cleaned_data['tags'],
                 other=key_words_form.cleaned_data['other'])
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
             print "Invalid"
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(reverse('stears:article_detail', args=(), kwargs={'pk': pk}))
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/stears/noaccess/')
@@ -502,6 +502,7 @@ def approve_writer(request):
         username_revoke = request.POST.get('revoke', '')
 
         if username_approve:
+            username = username_approve
             edit_user(username_approve, 'state', 'approved')
             writers = mongo_calls('user')
             writer = writers.find_one({'username': username_approve})
@@ -513,9 +514,10 @@ def approve_writer(request):
                     False)
 
         if username_revoke:
+            username = username_revoke
             edit_user(username_revoke, 'state', 'request')
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(reverse('stears:writer_detail', args=(), kwargs={'name': username}))
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/stears/noaccess/')
@@ -537,7 +539,7 @@ def approve_article(request):
         elif commit_id:
             migrate_article(int(commit_id))
 
-    return HttpResponseRedirect(reverse('stears:articles_group', args=(), kwargs={'group': 'peers'}))
+    return HttpResponseRedirect(reverse('stears:submissions'))
 
 # Notify writer that an article has been suggested and by whom
 
@@ -545,16 +547,18 @@ def approve_article(request):
 @user_passes_test(lambda u: is_a_boss(u), login_url='/stears/noaccess/')
 def suggest(request):
     users = mongo_calls('user')
+    article_id = request.POST['article_id']
     if request.method == 'POST':
         approved_writers = users.find(
             {'state': 'approved'}).distinct('username')
         suggest_form = SuggestForm(request.POST, my_arg=approved_writers)
         if suggest_form.is_valid():
             username = str(suggest_form.cleaned_data.get('user', ''))
-            article_id = request.POST['article_id']
             suggest_nse_article(username, article_id)
+    else:
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(reverse('stears:article_detail', args=(), kwargs={'pk': article_id}))
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/stears/noaccess/')
@@ -565,11 +569,12 @@ def accept_article_category(request):
 
     if accept_id:
         accept_to_write(int(accept_id))
+        article_id = accept_id
     elif not_accept_id:
         move_to_trash(int(not_accept_id))
-        pass
+        article_id = not_accept_id
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(reverse('stears:article_detail', args=(), kwargs={'pk': article_id}))
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
@@ -593,6 +598,7 @@ def review_article(request, pk):
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
 def add_writer_to_article(request):
+    article_id = int(request.POST['article_id'])
     if request.method == "POST":
         article_id = request.POST['article_id']
         if not article_id:
@@ -601,19 +607,20 @@ def add_writer_to_article(request):
             request.POST, article_id=article_id)
         if add_writers_form.is_valid():
             usernames = add_writers_form.cleaned_data['writers']
-            add_writers(int(request.POST['article_id']), usernames)
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            add_writers(article_id, usernames)
+    return HttpResponseRedirect(reverse('stears:article_detail', args=(), kwargs={'pk': article_id}))
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
 def remove_writer_from_article(request):
+    article_id = int(request.POST['article_id'])
     if request.method == "POST":
         remove_writers_form = RemoveWritersForm(
             request.POST, article_id=request.POST['article_id'])
         if remove_writers_form.is_valid():
             usernames = remove_writers_form.cleaned_data['writers']
-            remove_writers(int(request.POST['article_id']), usernames)
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            remove_writers(article_id, usernames)
+    return HttpResponseRedirect(reverse('stears:article_detail', args=(), kwargs={'pk': article_id}))
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
@@ -673,34 +680,7 @@ def remove_tag(request):
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
-def writers_post(request, nse):
-    # Notify the boss that a writer has submitted/saved an article and what
-    # article it is
-    writer = str(request.user)
-    print request.POST
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-    if request.method == 'POST':
-        form = WritersArticleForm(
-            request.POST,
-        )
-        if form.is_valid():
-            article_id = form.cleaned_data.get('article_id', 0)
-            if article_id:
-                update_writers_article(writer, form)
-            else:
-                new_article = make_writers_article(form, writer)
-                article_id = save_writers_article(new_article)
-            if request.POST.get('submit', '') == 'review':
-                put_in_review(article_id)
-        else:
-            print form.errors
-
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-
-@user_passes_test(lambda u: approved_writer(u), login_url='/stears/noaccess/')
-def edit_rich_text(request):
+def submit_article(request):
     writer = str(request.user)
 
     if request.method == 'POST':
@@ -734,7 +714,3 @@ def noaccess(request):
     login_form = LoginForm()
     context = {'login_form': login_form, 'next': next}
     return render(request, 'stears/login.html', context)
-
-
-def home(request):
-    return render(request, 'stears/home.html', {})

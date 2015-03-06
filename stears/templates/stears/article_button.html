@@ -6,9 +6,9 @@
 		{% if article.binned %}
 			<font {% ifequal article.category 'stearsTutorial' %}style="color:#6CBC36;"{% endifequal %}>{{ article.headline }}</font>
 			<form action="{% url 'stears:revive' %}" method="post">
-			{% csrf_token %}
-			<button type="submit" style="display:inline-block;padding-botom:2px;" name="article_id" value="{{ article.article_id }}">Revive</button>
-		</form>
+				{% csrf_token %}
+				<button type="submit" style="display:inline-block;padding-botom:2px;" name="article_id" value="{{ article.article_id }}">Revive</button>
+			</form>
 		{% else %}
 			{% if user.username|writer_can_see:article %}
 				<a {% ifequal article.state 'on_site' %}href="{% url 'stears:preview' pk=article.article_id %}"{% else %}href="{% url 'stears:article_detail' pk=article.article_id %}"{% endifequal %}  >

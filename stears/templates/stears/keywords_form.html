@@ -23,7 +23,7 @@
 			</td>
 		</tr>
 		</table>
-		<button class=" fill comment submit-tags" type="keywords" >Save tag</button>
+		<button class=" fill comment" type="keywords" >Save tag</button>
 	</form>
 {% else %}
 	<h3>
@@ -36,7 +36,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$.validator.addMethod("tagRegex", function(value, element) {
-	return ($('#id_tags').val() != 'None') || (/^\w[\w\-\s]+$/i.test(value) && (value != 'None'));
+	return this.optional(element) || ($('#id_tags').val() != 'None') || (/^\w[\w\-\s]+$/i.test(value) && (value != 'None'));
 	}, "Please choose a tag, or create one");
 
 	$("#tag_form").validate({
