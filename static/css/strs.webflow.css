@@ -1270,7 +1270,9 @@ p {
 
 @font-face {
   font-family: 'Typicons';
-  src: url('../fonts/typicons.ttf') format('truetype');
+  src: url('/static/fonts/typicons.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
+
+
