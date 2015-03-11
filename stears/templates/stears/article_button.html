@@ -5,13 +5,13 @@
 	<div class="columns small-6 ">
 		{% if article.binned %}
 			<font {% ifequal article.category 'stearsTutorial' %}style="color:#6CBC36;"{% endifequal %}>{{ article.headline }}</font>
-			<form action="{% url 'stears:revive' %}" method="post">
+			<form action="{% url 'weal:revive' %}" method="post">
 				{% csrf_token %}
 				<button type="submit" style="display:inline-block;padding-botom:2px;" name="article_id" value="{{ article.article_id }}">Revive</button>
 			</form>
 		{% else %}
 			{% if user.username|writer_can_see:article %}
-				<a {% ifequal article.state 'on_site' %}href="{% url 'stears:preview' pk=article.article_id %}"{% else %}href="{% url 'stears:article_detail' pk=article.article_id %}"{% endifequal %}  >
+				<a {% ifequal article.state 'on_site' %}href="{% url 'weal:preview' pk=article.article_id %}"{% else %}href="{% url 'weal:article_detail' pk=article.article_id %}"{% endifequal %}  >
 					<font {% ifequal article.category 'stearsTutorial' %}style="color:#6CBC36;"{% endifequal %}>{{ article.headline }}</font>
 				</a>
 			{% else %}
@@ -20,7 +20,7 @@
 
 			{% ifequal article.state 'in_review' %}
 				{% ifequal article.reviewer user %}
-					<a href="{% url 'stears:review' pk=article.article_id %}" style="padding-left:10px;color:red;">
+					<a href="{% url 'weal:review' pk=article.article_id %}" style="padding-left:10px;color:red;">
 						Review?
 					</a>
 				{% endifequal %}
@@ -35,7 +35,7 @@
 		{% if article.writers|get_value:'original' %}
 			{% if user|is_editor %}
 				{% if article.writers|get_value:'original' %}
-					<a href="{% url 'stears:writer_detail' article.writers.original %}">
+					<a href="{% url 'weal:writer_detail' article.writers.original %}">
 						{{ article.writers|get_value:'original'|format_name:'long' }}
 					</a>
 				{% endif %}

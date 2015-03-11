@@ -3,7 +3,7 @@
 		<!-- 	<p style="color:red;">
 		For new articles, please indicate the related NSE article (if any) before saving!
 		</p> -->
-		<p style="color:red;">Please do not paste directly from word. Use the paste button as explained in the <a href="{% url 'stears:article_detail' pk=26 %}">PASTING FROM WORD</a> tutorial</p>
+		<p style="color:red;">Please do not paste directly from word. Use the paste button as explained in the <a href="{% url 'weal:article_detail' pk=26 %}">PASTING FROM WORD</a> tutorial</p>
 
 		{% csrf_token %}
 		{% if writers_article_form.categories %}
@@ -14,7 +14,7 @@
 				{{ writers_article_form.headline }}
 			</p>
 			<h6>
-			NSE headlines <a href='{% url "stears:articles_group" group="NSE" %}'>See all</a>
+			NSE headlines <a href='{% url "weal:articles_group" group="NSE" %}'>See all</a>
 			</h6>
 			{{ writers_article_form.nse_headlines }}
 			<h6>
@@ -36,7 +36,7 @@
 			</h6>
 			<strong>{{ article.headline }}</strong>
 			<p>
-				<a href='{% url "stears:articles_group" group="NSE" %}'>... more info about NSE headlines</a>
+				<a href='{% url "weal:articles_group" group="NSE" %}'>... more info about NSE headlines</a>
 			</p>
 			</p>
 			<p>
@@ -89,7 +89,7 @@
 
 		<script type="text/javascript">
 		$.ajaxSetup({
-		url: "{% url 'stears:submit' %}",
+		url: "{% url 'weal:submit' %}",
 		data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
 		})
 		</script>

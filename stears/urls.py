@@ -4,7 +4,8 @@ from stears import views
 urlpatterns = patterns('',
 
                        # Basic URLs for main page and others:
-
+                       url(r'^$', views.writers_home_test,
+                           {'group': None}, name='home'),
                        url(r'^articles/$', views.writers_home_test,
                            {'group': None}, name='writers_home'),
                        url(r'^articlelist/(?P<group>[a-zA-Z0-9]+)/$',

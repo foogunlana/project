@@ -40,14 +40,14 @@
 {% if article %}
 	<script type="text/javascript">
 	$.ajaxSetup({
-	url: "{% url 'stears:submit' article.article_id %}",
+	url: "{% url 'weal:submit' article.article_id %}",
 	data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
 	})
 	</script>
 {% else %}
 	<script type="text/javascript">
 	$.ajaxSetup({
-	url: "{% url 'stears:submit' 0 %}",
+	url: "{% url 'weal:submit' 0 %}",
 	data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
 	})
 	</script>

@@ -110,7 +110,7 @@
 												Related NSE article
 											</td>
 											<td>
-												<a href="{% url 'stears:article_detail' pk=article.nse_article_id %}">{{ article.nse_article_id|get_headline }}</a>
+												<a href="{% url 'weal:article_detail' pk=article.nse_article_id %}">{{ article.nse_article_id|get_headline }}</a>
 											</td>
 										</tr>
 									{% endif %}
@@ -137,7 +137,7 @@
 								<td>
 									{% if article.writer %}
 										{% if user.username|is_editor %}
-											<a href="{% url 'stears:writer_detail' article.writer %}">
+											<a href="{% url 'weal:writer_detail' article.writer %}">
 												{{ article.writer|format_name:'long' }}
 											</a>
 										{% else %}
@@ -154,7 +154,7 @@
 									<td>
 										{% for writer in article.writers.others %}
 											{% if user.username|is_editor %}
-												<a href="{% url 'stears:writer_detail' writer %}">{{ writer|format_name:'long' }}, </a>
+												<a href="{% url 'weal:writer_detail' writer %}">{{ writer|format_name:'long' }}, </a>
 											{% else %}
 												{{ writer|format_name:'long' }},
 											{% endif %}
@@ -191,7 +191,7 @@
 					</div>
 				</div>
 				<div>
-					<form method="POST" action="{% url 'stears:remove_tag' %}">
+					<form method="POST" action="{% url 'weal:remove_tag' %}">
 						{% csrf_token %}
 						{% if article.keywords %}
 							<h3>
@@ -203,7 +203,7 @@
 								</h6>
 								{% for word in article.keywords %}
 									<div class="tag_wrapper" >
-										<a href="#"  class = "button2 tag_button tag_button_view" data-tag="{{ article.article_id }},{{ word }}" data-url="{% url 'stears:remove_tag' %}">
+										<a href="#"  class = "button2 tag_button tag_button_view" data-tag="{{ article.article_id }},{{ word }}" data-url="{% url 'weal:remove_tag' %}">
 											{{ word }}
 										</a>,
 									</div>
@@ -245,7 +245,7 @@
 					{% ifequal user.username article.writer %}
 						{% ifequal article.state 'in_progress' %}
 							<div class="row">
-								<form action="{% url 'stears:add_writer' %}" method="post" class="add_writers" hidden>
+								<form action="{% url 'weal:add_writer' %}" method="post" class="add_writers" hidden>
 									{% csrf_token %}
 									{{ add_writers_form }}
 									<button type="submit" class="fill toggles_div" id="add_writers" name="article_id" value="{{ article.article_id }}">Save writer(s)</button>
@@ -255,7 +255,7 @@
 							</div>
 							{% if article.writers.others %}
 								<div class="row">
-									<form action="{% url 'stears:remove_writer' %}" method="post" class="remove_writers" hidden>
+									<form action="{% url 'weal:remove_writer' %}" method="post" class="remove_writers" hidden>
 										{% csrf_token %}
 										{{ remove_writers_form }}
 										<button type="submit" class="fill toggles_div" id="remove_writers" name="article_id" value="{{ article.article_id }}">Remove</button>
@@ -269,7 +269,7 @@
 					{% if user.username|is_editor %}
 						{% ifequal article.type 'writers_article' %}
 							<div class="row">
-								<form action="{% url 'stears:delete_article' %}" method="post" id="delete">
+								<form action="{% url 'weal:delete_article' %}" method="post" id="delete">
 									{% csrf_token %}
 									<button type="submit" class="fill delete" name="article_id" value="{{ article.article_id }}">Delete</button>
 								</form>
@@ -278,7 +278,7 @@
 					{% endif %}
 					{% if user.username|can_suggest:article %}
 						<div class="row">
-							<form action="{% url 'stears:suggest_nse_article' %}" method="post" id="assign">
+							<form action="{% url 'weal:suggest_nse_article' %}" method="post" id="assign">
 								{% csrf_token %}
 								{{ suggest_form }}
 								<button type="submit" class="fill" name="article_id" value="{{ article.article_id }}">Suggest</button>
@@ -287,13 +287,13 @@
 					{% endif %}
 					{% if user.username|can_approve:article %}
 						<div class="row">
-							<form action="{% url 'stears:approve_article' %}" method="post" id="approve">
+							<form action="{% url 'weal:approve_article' %}" method="post" id="approve">
 								{% csrf_token %}
 								<button type="submit" class="fill" name="commit_id" value="{{ article.article_id }}">Approve</button>
 							</form>
 						</div>
 						<div class="row">
-							<form action="{% url 'stears:approve_article' %}" method="post" id="reject">
+							<form action="{% url 'weal:approve_article' %}" method="post" id="reject">
 								{% csrf_token %}
 								<button type="submit" class="fill" name="reject_id" value="{{ article.article_id }}">Reject</button>
 							</form>
@@ -310,13 +310,13 @@
 							</div>
 							<div class="row">
 								<div class="columns small-6">
-									<form action="{% url 'stears:accept_article' %}" method="post" id="accept">
+									<form action="{% url 'weal:accept_article' %}" method="post" id="accept">
 										{% csrf_token %}
 										<button type="submit" class="fill" name="accept_id" value="{{ article.article_id }}">Yes</button>
 									</form>
 								</div>
 								<div class="columns small-6">
-									<form action="{% url 'stears:accept_article' %}" method="post" id="accept">
+									<form action="{% url 'weal:accept_article' %}" method="post" id="accept">
 										{% csrf_token %}
 										<button type="submit" class="fill" name="not_accept_id" value="{{ article.article_id }}">No</button>
 									</form>
@@ -332,7 +332,7 @@
 					{% ifequal article.state 'in_review' %}
 						{% ifequal article.reviewer user.username %}
 							<div class="row">
-								<form method="get" action="{% url 'stears:review' pk=article.article_id %}">
+								<form method="get" action="{% url 'weal:review' pk=article.article_id %}">
 									<button class="fill" type="submit">Review</button>
 								</form>
 							</div>

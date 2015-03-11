@@ -3,42 +3,42 @@
 	<nav class="top-bar " data-topbar role="navigation">
 		<ul class="title-area">
 			<li class="name ">
-				<h1><a href="{% url 'stears:writers_home' %}">The WEAL<font style="color:#6699ff;font-size:12"> Beta version</font></a></h1>
+				<h1><a href="{% url 'weal:writers_home' %}">The WEAL<font style="color:#6699ff;font-size:12"> Beta version</font></a></h1>
 			</li>
 			<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
 		</ul>
 		<section class="top-bar-section">
 			<ul class="right">
 				<li>
-					<a href="{% url 'stears:writers_write' %}">Write</a>
+					<a href="{% url 'weal:writers_write' %}">Write</a>
 				</li>
 				<li>
-					<a href="{% url 'stears:articles_group' group='NSE' %}">NSE Data</a>
+					<a href="{% url 'weal:articles_group' group='NSE' %}">NSE Data</a>
 				</li>
 				<li>
-					<a href="{% url 'stears:writers_list' %}">Writers</a>
+					<a href="{% url 'weal:writers_list' %}">Writers</a>
 				</li>
 				<li>
-					<a href="{% url 'stears:articles_group' group='peers' %}">Articles</a>
+					<a href="{% url 'weal:articles_group' group='peers' %}">Articles</a>
 				</li>
 				{% if user.username|is_editor %}
 					<li >
-						<a href="{% url 'stears:submissions' %}">Submissions</a>
+						<a href="{% url 'weal:submissions' %}">Submissions</a>
 					</li>
 					<li >
-						<a href="{% url 'stears:pipeline' %}">Pipeline</a>
+						<a href="{% url 'weal:pipeline' %}">Pipeline</a>
 					</li>
 				{% endif %}
 				<li >
-					<a href="{% url 'stears:bin' %}">Trash</a>
+					<a href="{% url 'weal:bin' %}">Trash</a>
 				</li>
 				<li >
-					<a href="{% url 'stears:photos' %}">Photos</a>
+					<a href="{% url 'weal:photos' %}">Photos</a>
 				</li>
 				<li class="has-form">
 					<div class="row collapse">
 						<div class=" small-12  columns">
-							<a class="button fill" href="{% url 'stears:logout' %}" style="border-radius:3px;background-color:#FF4747;">Sign out</a>
+							<a class="button fill" href="{% url 'weal:logout' %}" style="border-radius:3px;background-color:#FF4747;">Sign out</a>
 						</div>
 					</div>
 				</li>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!-- This site was created in Webflow. http://www.webflow.com-->
-<!-- Last Published: Sun Mar 01 2015 17:45:08 GMT+0000 (UTC) -->
+<!-- Last Published: Sun Mar 08 2015 23:59:23 GMT+0000 (UTC) -->
+
 <html data-wf-site="54d15d04624a64834599eee8" data-wf-page="54d15d04624a64834599eee9">
 <head>
   <meta charset="utf-8">
@@ -8,25 +9,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="generator" content="Webflow">
   <link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/news/webflow.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/news/strs.webflow.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/webflow.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/strs.webflow.css">
   <script type="text/javascript" src="https://use.typekit.net/rzv6vwe.js"></script>
   <script type="text/javascript">
     try{Typekit.load();}catch(e){}
   </script>
-  <script type="text/javascript" src="/static/js/vendor/modernizr.js"></script>
-  <link rel="shortcut icon" type="image/x-icon" href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico">
+  <script type="text/javascript" src="/static/js/modernizr.js"></script>
+  <link rel="shortcut icon" type="/static/images/x-icon" href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico">
   <link rel="apple-touch-icon" href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png">
 </head>
-
 <body class="w-clearfix">
-  <div class="w-nav nav-bar" data-collapse="small" data-animation="default" data-duration="400" data-contain="1">
+  <div class="w-nav w-hidden-small w-hidden-tiny nav-bar" data-collapse="small" data-animation="default" data-duration="400" data-contain="1">
     <div class="w-section top-nav">
       <div class="w-row">
-        <div class="w-col w-col-8 top-nav-search">
+        <div class="w-col w-col-7 top-nav-search">
           <div class="w-form">
             <form id="email-form" name="email-form" data-name="Email Form"><img class="search-icon" src="/static/images/search19.svg" width="22" alt="54d27522bba289360a8cc876_search19.svg">
-              <input class="w-input search-bar" id="name" type="text" placeholder="Enter your search term here" name="name" data-name="Name">
+              <input class="w-input search-bar" id="name-2" type="text" placeholder="Enter your search term here" name="name-2" data-name="Name 2">
             </form>
             <div class="w-form-done">
               <p>Thank you! Your submission has been received!</p>
@@ -36,22 +36,44 @@
             </div>
           </div>
         </div>
-        <div class="w-col w-col-4 w-hidden-small w-hidden-tiny top-nav-social"><img class="facebook-icon" src="/static/images/facebook12.svg" width="6" alt="54d264eda59e05340ae1fb74_facebook12.svg"><img class="twitter-icon" src="/static/images/social19.svg" width="12" alt="54d265fa0d5fbeb671afe3f1_social19.svg"><img class="linkedin-icon" src="/static/images/linkedin11.svg" width="14" alt="54d26e39a59e05340ae1fe23_linkedin11.svg"><img class="rss-icon" src="/static/images/social23.svg" width="12" alt="54d27c22a59e05340ae1ffce_social23.svg">
+        <div class="w-col w-col-5 w-hidden-small w-hidden-tiny top-nav-social">
+          <div class="follow-us">Follow Us</div><img class="facebook-icon" src="/static/images/facebook12.svg" width="6" alt="54d264eda59e05340ae1fb74_facebook12.svg"><img class="twitter-icon" src="/static/images/social19.svg" width="12" alt="54d265fa0d5fbeb671afe3f1_social19.svg"><img class="linkedin-icon" src="/static/images/linkedin11.svg" width="14" alt="54d26e39a59e05340ae1fe23_linkedin11.svg"><img class="rss-icon" src="/static/images/social23.svg" width="12" alt="54d27c22a59e05340ae1ffce_social23.svg">
         </div>
       </div>
     </div><img class="stears-logo" src="/static/images/StearsLogoTransForSite.png" width="217" alt="54f34f3f3bc4fd5b7ac52c01_StearsLogoTransForSite.png">
     <div class="w-container nav-area">
-      <nav class="w-nav-menu" role="navigation"><a class="w-nav-link nav-text" href="#">Home</a><a class="w-nav-link nav-text" href="#">Markets</a><a class="w-nav-link nav-text" href="#">Companies</a><a class="w-nav-link nav-text" href="#">Economy</a><a class="w-nav-link nav-text" href="#">StearsTalk</a>
+      <nav class="w-nav-menu" role="navigation"><a class="w-nav-link nav-text" href="#">Home</a><a class="w-nav-link nav-text" href="#">Markets</a><a class="w-nav-link nav-text" href="#">Companies</a><a class="w-nav-link nav-text" href="#">Economy</a><a class="w-nav-link nav-text" href="#">Stears Talk</a>
       </nav>
-      <div class="w-nav-button">
+      <div class="w-nav-button hamburger-icon">
+        <div class="w-icon-nav-menu"></div>
+      </div>
+    </div>
+  </div>
+  <div class="w-nav w-hidden-main w-hidden-medium" data-collapse="small" data-animation="default" data-duration="400" data-contain="1">
+    <div class="w-container mobile-nav">
+      <a class="w-nav-brand mobile-logo" href="#"><img src="/static/images/StearsLogoTransForSite.png" width="75" alt="54f34f3f3bc4fd5b7ac52c01_StearsLogoTransForSite.png">
+      </a>
+      <div class="w-form mobile-search-wrapper">
+        <form class="mobile-search" id="email-form" name="email-form" data-name="Email Form"><img class="search-icon" src="/static/images/search19.svg" width="22" alt="54d27522bba289360a8cc876_search19.svg">
+          <input class="w-input search-bar" id="name" type="text" placeholder="Enter your search term here" name="name" data-name="Name">
+        </form>
+        <div class="w-form-done">
+          <p>Thank you! Your submission has been received!</p>
+        </div>
+        <div class="w-form-fail">
+          <p>Oops! Something went wrong while submitting the form :(</p>
+        </div>
+      </div>
+      <nav class="w-nav-menu w-clearfix mobile-nav-menu" role="navigation"><a class="w-nav-link mobile-nav-link" href="#">Home</a><a class="w-nav-link mobile-nav-link" href="#">Companies</a><a class="w-nav-link mobile-nav-link" href="#">Economy</a><a class="w-nav-link mobile-nav-link" href="#">Stears Talk</a>
+      </nav>
+      <div class="w-nav-button hamburger-icon">
         <div class="w-icon-nav-menu"></div>
       </div>
     </div>
   </div>
   <div class="w-section w-hidden-small w-hidden-tiny main-article">
     <div class="w-section main-article-content">
-      <div class="main-article-category">Category</div>
-      <h1 class="main-article-h1">An Introspective look at&nbsp;something interesting to talk about</h1>
+      <h1 class="main-article-h1">GEJ wins&nbsp;&nbsp;presidential election</h1>
       <div class="article-author">Author Name</div>
     </div>
   </div>
@@ -364,7 +386,7 @@
     </div>
   </div>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script type="text/javascript" src="/static/js/news/webflow.js"></script>
+  <script type="text/javascript" src="/static/js/webflow.js"></script>
   <!--[if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
 </body>
 </html>

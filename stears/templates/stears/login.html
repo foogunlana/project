@@ -17,7 +17,7 @@
                 {% endfor %}
               </table>
             {% endif %}
-            <form id="user_form" method="post" action="{% url 'stears:login' %}"
+            <form id="user_form" method="post" action="{% url 'weal:login' %}"
               enctype="multipart/form-data">
               {% csrf_token %}
               <p>
@@ -38,13 +38,13 @@
             <strong>
             <div>
               <p>
-              <a href="{% url 'stears:change_password' %}">Change your password</a>
+              <a href="{% url 'weal:change_password' %}">Change your password</a>
               </p>
               <p>
-              Did you <a href="{% url 'stears:forgot_password' %}">forget your password or username?</a>
+              Did you <a href="{% url 'weal:forgot_password' %}">forget your password or username?</a>
               </p>
               <p>
-              Dont have a writers account? Please <a href="{% url 'stears:register' %}">register</a> to request one
+              Dont have a writers account? Please <a href="{% url 'weal:register' %}">register</a> to request one
               </p>
               <p>
                 Click here for the <a href="{% url 'test' %}">test environment</a>

@@ -1,5 +1,5 @@
 {% if key_words_form %}
-	<form method="POST" id="tag_form" action="{% url 'stears:tag' pk=article.article_id %}">
+	<form method="POST" id="tag_form" action="{% url 'weal:tag' pk=article.article_id %}">
 		{% csrf_token %}
 		<h3>
 		Add tags to this article

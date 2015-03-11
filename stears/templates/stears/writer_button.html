@@ -2,7 +2,7 @@
 <div class="row article_box">
 	<div class="columns small-6 ">
 		{% if writer.username %}
-		<a href="{% url 'stears:writer_detail' name=writer.username %}" >
+		<a href="{% url 'weal:writer_detail' name=writer.username %}" >
 			{{ writer.username|format_name:'long' }}
 		</a>
 		{% endif %}

@@ -6,8 +6,8 @@
 				<div class="row" style = "padding:5%;">
 					{% if registered %}
 						<strong>Thank you for requesting registration, we will contact you shortly!</strong>
-						<p><a href="{% url 'stears:home' %}">Go to the Stears home</a></p><br />
-						<p><a href="{% url 'stears:writers_home' %}">Go to the Writer's page</a></p><br />
+						<p><a href="{% url 'weal:home' %}">Go to the Stears home</a></p><br />
+						<p><a href="{% url 'weal:writers_home' %}">Go to the Writer's page</a></p><br />
 					{% else %}
 						<h4>
 						Register as a writer
@@ -19,7 +19,7 @@
 								<p>{{ error }}</p>
 							{% endfor %}
 						{% endif %}
-						<form id="register_form" method="post" action="{% url 'stears:register' %}"
+						<form id="register_form" method="post" action="{% url 'weal:register' %}"
 							enctype="multipart/form-data">
 							{% csrf_token %}
 							<div class="row">
@@ -91,7 +91,7 @@
 								Already registered for a writers account?
 								</p>
 								<p>
-								Please <a href="{% url 'stears:login' %}">Login</a> to view your profile
+								Please <a href="{% url 'weal:login' %}">Login</a> to view your profile
 								</p>
 								</strong>
 							</div>

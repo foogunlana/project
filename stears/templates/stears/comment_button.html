@@ -14,7 +14,7 @@
 			{% if comment.writer %}
 				{% if user|is_editor %}
 					{% if comment.writer %}
-						<a href="{% url 'stears:writer_detail' article.writer %}">
+						<a href="{% url 'weal:writer_detail' article.writer %}">
 							{{ comment.writer }}
 						</a>
 					{% endif %}

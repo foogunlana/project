@@ -1,5 +1,5 @@
 {% if comment_form %}
-	<form method="POST" action="{% url 'stears:comment' pk=article.article_id %}">
+	<form method="POST" action="{% url 'weal:comment' pk=article.article_id %}">
 		{% csrf_token %}
 			<h3>
 			Leave a comment

@@ -34,7 +34,7 @@
 					</div>
 					<br>
 					<div class="article_box review_options" style="padding:10px;">
-						<form id="article_review_form" action="{% url 'stears:review' pk=article.article_id %}" method="post">
+						<form id="article_review_form" action="{% url 'weal:review' pk=article.article_id %}" method="post">
 							{% csrf_token %}
 							{% for field in article_review_form %}
 								<p style="display:inline-block">

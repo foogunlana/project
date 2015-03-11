@@ -14,7 +14,7 @@
 			</div>
 			<br>
 			<div class="article_box upload_doc_toggle" hidden>
-				<form method="POST" style="padding:30px;" action="{% url 'stears:photos' %}" enctype="multipart/form-data">
+				<form method="POST" style="padding:30px;" action="{% url 'weal:photos' %}" enctype="multipart/form-data">
 					{% csrf_token %}
 					<p>
 						{{ form.title.label }}

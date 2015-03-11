@@ -17,7 +17,7 @@
 						</h4>
 					{% else %}
 						{% if user.username|is_editor %}
-							<form action="{% url 'stears:approve_writer' %}" method="post" id="aprrove">
+							<form action="{% url 'weal:approve_writer' %}" method="post" id="aprrove">
 								{% csrf_token %}
 								{% ifequal writer.state 'approved' %}
 									<button class="button2 fill" type="submit" name="revoke" value="{{ writer.username }}">Revoke {{ writer.username|format_name:'short' }}'s account</button>
@@ -96,7 +96,7 @@
 						{% endifequal %}
 					</div>
 					<div class="article_box writer_details" style="padding:20px;" hidden>
-						<form action="{% url 'stears:edit_writer_detail' %}" method="post">
+						<form action="{% url 'weal:edit_writer_detail' %}" method="post">
 								{% csrf_token %}
 								<p>{{ edit_writer_form.first_name }}</p>
 								<p>{{ edit_writer_form.last_name }}</p>
