@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from stears.forms import LoginForm, ArticleImageForm, AddWritersForm, RemoveWritersForm, \
-    RegisterForm, KeyWordsForm, ChoiceForm, ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, \
+from stears.forms import LoginForm, ArticleImageForm, AddWritersForm, \
+    RemoveWritersForm, RegisterForm, KeyWordsForm, ChoiceForm, \
+    ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, \
     NseArticleForm, ChangePasswordForm, ArticleReviewForm, EditWriterForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout
@@ -8,25 +9,25 @@ from mongoengine.django.auth import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from stears.utils import article_key_words, revive_from_trash, add_writers,\
-    remove_writers, make_username, migrate_article, mongo_calls, make_comment, forgot_password_email,\
-    save_writers_article, accept_to_write, request_json, make_url, move_to_trash, suggest_nse_article, \
-    update_writers_article, edit_user, make_writer_id, make_writers_article, submit_writers_article, \
-    handle_uploaded_file, put_in_review, new_member, edit_writer_registration_details
+    remove_writers, make_username, migrate_article, mongo_calls, \
+    make_comment, forgot_password_email, save_writers_article, \
+    accept_to_write, request_json, make_url, move_to_trash, \
+    suggest_nse_article, update_writers_article, edit_user, \
+    make_writer_id, make_writers_article, submit_writers_article, \
+    put_in_review, new_member, \
+    edit_writer_registration_details
 
-from stears.permissions import approved_writer, is_a_boss, writer_can_edit_article
+from stears.permissions import approved_writer, is_a_boss, \
+    writer_can_edit_article
+
 from stears.models import ArticleImageModel
 from mongoengine.queryset import DoesNotExist
 
-# from stears.utils import handle_uploaded_file
 
 import datetime
 import params
 import json
-import time
 
-# ALL NOTIFICATIONS SHOULD RECORD THE TIME AS WELL
-
-# Imaginary function to handle an uploaded file.
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
@@ -34,8 +35,6 @@ def upload_photo(request):
     if request.method == 'POST':
         form = ArticleImageForm(request.POST, request.FILES)
         if form.is_valid():
-            # print request.FILES
-            # handle_uploaded_file(request.FILES['article_image'])
             article_image = ArticleImageModel(
                 docfile=request.FILES['article_image']
             )
@@ -43,11 +42,13 @@ def upload_photo(request):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
             photos = ArticleImageModel.objects.all()
-            return render(request, 'stears/photos.html', {'form': form, 'photos': photos})
+            return render(request, 'stears/photos.html',
+                          {'form': form, 'photos': photos})
     else:
         form = ArticleImageForm()
     photos = ArticleImageModel.objects.all()
-    return render(request, 'stears/photos.html', {'form': form, 'photos': photos})
+    return render(request, 'stears/photos.html',
+                  {'form': form, 'photos': photos})
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
@@ -55,7 +56,9 @@ def research(request):
     choices = [key for key in params.glo_trybe_data]
     form = ChoiceForm(choices=choices)
     writers_article_form = WritersArticleForm()
-    return render(request, 'stears/research.html', {'form': form, 'writers_article_form': writers_article_form})
+    return render(request, 'stears/research.html',
+                    {'form': form, 
+                    'writers_article_form': writers_article_form})
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
@@ -70,8 +73,6 @@ def gts(request):
             URL = make_url(params.glo_trybe_data[choice], False)
             j_array = request_json(URL)
             site = json.dumps(j_array)
-            print URL
-            print j_array
 
     return render(request, 'stears/gts.html', {'site': site})
 
@@ -113,7 +114,6 @@ def change_password(request):
 
     context = {'change_password_form': change_password_form, 'errors': errors}
     return render(request, 'stears/change_password.html', context)
-    # Return an 'invalid login' error message.
 
 
 def forgot_password(request):
@@ -153,13 +153,16 @@ def login_view(request):
                     login(request, user)
                 if user:
                     request.session.set_expiry(
-                        params.SESSION_AGE)  # 1 hour timeout
+                        params.SESSION_AGE)  
                     if next:
                         return HttpResponseRedirect(next)
                     else:
-                        return HttpResponseRedirect(reverse('weal:articles_group',  args=(), kwargs={'group': 'peers'}))
+                        return HttpResponseRedirect(
+                            reverse('weal:articles_group',
+                              args=(), kwargs={'group': 'peers'}))
                 else:
-                    errors.append('Oops! something went wrong. please refresh')
+                    errors.append(
+                        'Oops! something went wrong. please refresh')
             else:
                 errors.append('Invalid login')
         except DoesNotExist:
@@ -170,7 +173,6 @@ def login_view(request):
     login_form = LoginForm()
     context = {'login_form': login_form, 'errors': errors}
     return render(request, 'stears/login.html', context)
-    # Return an 'invalid login' error message.
 
 
 def register(request):
@@ -201,8 +203,6 @@ def register(request):
             make_writer_id(member.username)
 
             registered = True
-            # Notify boss that a new member has registered and is seeking
-            # approval
 
             return HttpResponseRedirect(reverse('weal:writers_write'))
 
@@ -231,14 +231,13 @@ def writers_home_test(request, group):
 
     if request.method == 'GET':
         if group == 'NSE':
-            articles = [
-                article for article in article_collection.find({'type': 'nse_article'})]
-
-        # elif group == 'peers':
+            articles = list(article_collection.find(
+                {'type': 'nse_article'}))
         else:
-            articles = [article for article in article_collection.find({
+            articles = list(article_collection.find({
                 '$query': {'type': 'writers_article'},
-                '$orderby': {'time': -1}}, params.article_button_items).limit(50)]
+                '$orderby': {'time': -1}}, 
+                params.article_button_items).limit(50))
 
     context = {"writers_article_form": writers_article_form,
                'articles': articles, 'nostates': nostates}
@@ -251,8 +250,8 @@ def writers_list(request):
     writers = []
     users = mongo_calls('user')
     if request.method == 'GET':
-        writers = [writer for writer in users.find(
-            {'$query': {}, '$orderby': {'state': 1}})]
+        writers = list(users.find(
+            {'$query': {}, '$orderby': {'state': 1}}))
 
         writers_article_form = WritersArticleForm()
 
@@ -268,36 +267,31 @@ def writers_write(request):
     users = mongo_calls('user')
     article_collection = mongo_calls('articles')
 
-    # USE group and aggregate to get suggestions and articles and reviews all
-    # together!!
-
     if request.method == 'GET':
         username = str(request.user)
-        # get suggested articles
         writer = users.find_one(
             {'username': username},
             {'suggested_articles': 1, 'reviews': 1, '_id': 0})
 
         suggested_articles = writer.get('suggested_articles', [])
-        suggestions = [article for article in article_collection.find(
+        suggestions = list(article_collection.find(
             {'article_id': {'$in': suggested_articles}},
-            params.article_button_items)]
+            params.article_button_items))
 
-        articles = [
-            article for article in article_collection.find(
+        articles = list(article_collection.find(
                 {"$query": {'writer': username}, "$orderby": {"time": -1}},
-                params.article_button_items)]
+                params.article_button_items))
 
-        reviews = [
-            article for article in article_collection.find({
-                "$query": {'article_id': {'$in': writer['reviews']}, 'state':'in_review'},
-                "$orderby": {"time": -1}}, params.article_button_items)
-        ]
+        reviews = list(article_collection.find({
+                "$query": {'article_id': {'$in': writer['reviews']},
+                 'state':'in_review'},
+                "$orderby": {"time": -1}}, params.article_button_items))
 
         writers_article_form = WritersArticleForm()
 
         context = {"writers_article_form": writers_article_form, 'articles':
-                   articles, 'suggestions': suggestions, 'messages': messages, 'reviews': reviews}
+                   articles, 'suggestions': suggestions, 'messages': messages,
+                    'reviews': reviews}
 
     return render(request, 'stears/writers_write.html', context)
 
@@ -327,48 +321,37 @@ def writer_detail(request, name):
         }
         edit_writer_form = EditWriterForm(writer_data)
 
-    # GET ARTICLE STRAIGHT FROM WRITER
-    # FOR NOW get articles by search
     if request.method == 'GET':
         writers_article_form = WritersArticleForm()
 
-        articles = [
-            article for article in article_collection.find({
+        articles = list(article_collection.find({
                 "$query": {'writer': name},
-                "$orderby": {"time": -1}}, params.article_button_items)]
+                "$orderby": {"time": -1}}, params.article_button_items))
 
-        context = {'writer': writer, 'articles': articles, 'edit_writer_form': edit_writer_form,
-                   'writers_article_form': writers_article_form}
+        context = {'writer': writer, 'articles': articles, 
+        'edit_writer_form': edit_writer_form,'writers_article_form': writers_article_form}
     return render(request, 'stears/writer_detail.html', context)
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
 def edit_writer_detail(request):
     username = str(request.POST['username'])
-    print "I'm in the function"
-    print username
     if request.method == 'POST':
-        print "It's a post"
-        print username
         edit_writer_form = EditWriterForm(request.POST)
         if edit_writer_form.is_valid():
             if username != str(request.user):
-                return HttpResponseRedirect(reverse('weal:writer_detail', args=(), kwargs={'name': username}))
-            print "It was valid"
-            print username
+                return HttpResponseRedirect(reverse(
+                    'weal:writer_detail', args=(), kwargs={'name': username}))
             edit_writer_registration_details(edit_writer_form)
         else:
-            print "It's not valid"
-            print username
-            # Do error message
             print edit_writer_form.errors
 
-    return HttpResponseRedirect(reverse('weal:writer_detail', args=(), kwargs={'name': username}))
+    return HttpResponseRedirect(reverse(
+        'weal:writer_detail', args=(), kwargs={'name': username}))
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
 def delete_article(request):
-    # Notify everyone that the article has been deleted
     if request.method == 'POST':
         pk = request.POST.get('article_id', None)
         if not pk:
@@ -382,9 +365,10 @@ def delete_article(request):
 def bin(request):
     username = str(request.user)
     bin = mongo_calls('bin')
-    articles = [article for article in bin.find({
+    articles = list(bin.find({
         '$query': {'type': 'writers_article', 'writer': username},
-        '$orderby': {'time': -1}}, dict(params.article_button_items, **{'binned': 1}))]
+        '$orderby': {'time': -1}}, 
+        dict(params.article_button_items, **{'binned': 1})))
 
     context = {'articles': articles}
     return render(request, 'stears/bin.html', context)
@@ -441,8 +425,6 @@ def article_detail(request, **kwargs):
                 lock=locked_fields,
             )
 
-            print category
-
         elif article['type'] == 'nse_article':
             writers_article_form = NseArticleForm(
                 initial={'nse_headlines': nse_id}
@@ -452,8 +434,12 @@ def article_detail(request, **kwargs):
 
     add_writers_form = AddWritersForm(article_id=pk)
     remove_writers_form = RemoveWritersForm(article_id=pk)
-    context = {'article': article, 'suggest_form': suggest_form, 'remove_writers_form': remove_writers_form, 'key_words_form': key_words_form,
-               'writers_article_form': writers_article_form, 'add_writers_form': add_writers_form, 'comment_form': comment_form}
+
+    context = {'article': article, 'suggest_form': suggest_form,
+     'remove_writers_form': remove_writers_form, 
+     'key_words_form': key_words_form,
+     'writers_article_form': writers_article_form, 
+     'add_writers_form': add_writers_form, 'comment_form': comment_form}
 
     return render(request, 'stears/article_detail.html', context)
 
@@ -471,7 +457,8 @@ def comment(request, pk):
                 comment_form.cleaned_data['comment'])
         else:
             print "Invalid"
-    return HttpResponseRedirect(reverse('weal:article_detail', args=(), kwargs={'pk': pk}))
+    return HttpResponseRedirect(reverse(
+        'weal:article_detail', args=(), kwargs={'pk': pk}))
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
@@ -488,12 +475,12 @@ def add_tag(request, pk):
                 other=key_words_form.cleaned_data['other'])
         else:
             print "Invalid"
-    return HttpResponseRedirect(reverse('weal:article_detail', args=(), kwargs={'pk': pk}))
+    return HttpResponseRedirect(reverse(
+        'weal:article_detail', args=(), kwargs={'pk': pk}))
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
 def approve_writer(request):
-    # Notify boss and the writer that a new writer has been approved
     if request.method == 'POST':
         username_approve = request.POST.get('approve', '')
         username_revoke = request.POST.get('revoke', '')
@@ -519,8 +506,6 @@ def approve_writer(request):
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
 def approve_article(request):
-    # Notify everyone that a new article has been committed or notify writer
-    # that article was rejected
     if request.method == 'POST':
         commit_id = request.POST.get('commit_id', '')
         reject_id = request.POST.get('reject_id', '')
@@ -555,12 +540,12 @@ def suggest(request):
     else:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-    return HttpResponseRedirect(reverse('weal:article_detail', args=(), kwargs={'pk': article_id}))
+    return HttpResponseRedirect(reverse(
+        'weal:article_detail', args=(), kwargs={'pk': article_id}))
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
 def accept_article_category(request):
-    # Notify writer that he is now allowed to go ahead and write this article
     accept_id = request.POST.get('accept_id', '')
     not_accept_id = request.POST.get('not_accept_id', '')
 
@@ -571,7 +556,8 @@ def accept_article_category(request):
         move_to_trash(int(not_accept_id))
         article_id = not_accept_id
 
-    return HttpResponseRedirect(reverse('weal:article_detail', args=(), kwargs={'pk': article_id}))
+    return HttpResponseRedirect(reverse(
+        'weal:article_detail', args=(), kwargs={'pk': article_id}))
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
@@ -590,7 +576,8 @@ def review_article(request, pk):
             print "Invalid"
         return HttpResponseRedirect(reverse('weal:writers_write'))
     article_review_form = ArticleReviewForm()
-    return render(request, 'stears/review_article.html', {'article': article, 'article_review_form': article_review_form})
+    return render(request, 'stears/review_article.html', 
+        {'article': article, 'article_review_form': article_review_form})
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
@@ -605,7 +592,8 @@ def add_writer_to_article(request):
         if add_writers_form.is_valid():
             usernames = add_writers_form.cleaned_data['writers']
             add_writers(article_id, usernames)
-    return HttpResponseRedirect(reverse('weal:article_detail', args=(), kwargs={'pk': article_id}))
+    return HttpResponseRedirect(reverse(
+        'weal:article_detail', args=(), kwargs={'pk': article_id}))
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
@@ -617,17 +605,18 @@ def remove_writer_from_article(request):
         if remove_writers_form.is_valid():
             usernames = remove_writers_form.cleaned_data['writers']
             remove_writers(article_id, usernames)
-    return HttpResponseRedirect(reverse('weal:article_detail', args=(), kwargs={'pk': article_id}))
+    return HttpResponseRedirect(reverse(
+        'weal:article_detail', args=(), kwargs={'pk': article_id}))
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
 def pipeline(request):
     if request.method == 'GET':
         migrations = mongo_calls('migrations')
-        articles = [article for article in migrations.find(
-            {'$query': {}, '$orderby': {'time': -1}}, params.article_button_items)]
-        # Articles here cannot be found in the article database and that will
-        # cause a few problems!
+        articles = list(migrations.find(
+            {'$query': {}, '$orderby': {'time': -1}}, 
+            params.article_button_items))
+
     context = {'articles': articles, 'nostates': True}
     return render(request, 'stears/pipeline.html', context)
 
@@ -639,7 +628,9 @@ def preview_article(request, pk):
         pk = int(pk)
         migrations = mongo_calls('migrations')
         article = migrations.find_one(
-            {'article_id': pk}, {'content': 1, '_id': 0, 'headline': 1, 'writers': 1})
+            {'article_id': pk},
+            {'content': 1, '_id': 0, 'headline': 1, 'writers': 1})
+
     context = {'article': article, 'writers': article['writers']}
     return render(request, 'stears/preview_article.html', context)
 
@@ -648,8 +639,8 @@ def preview_article(request, pk):
 def submissions(request):
     if request.method == 'GET':
         articles = mongo_calls('articles')
-        submitted_articles = [article for article in articles.find(
-            {'$query': {'state': 'submitted'}, '$orderby': {'time': -1}})]
+        submitted_articles = list(articles.find(
+            {'$query': {'state': 'submitted'}, '$orderby': {'time': -1}}))
     context = {'articles': submitted_articles, 'nostates': True}
     return render(request, 'stears/submissions.html', context)
 
