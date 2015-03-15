@@ -11,8 +11,8 @@ def articles(request):
     return render(request, 'news/articles.html')
 
 @user_passes_test(lambda u: editor(u), login_url='/weal/')
-def companies(request):
-	return render(request, 'news/companies.html')
+def business(request):
+	return render(request, 'news/business.html')
 
 @user_passes_test(lambda u: editor(u), login_url='/weal/')
 def index(request):
