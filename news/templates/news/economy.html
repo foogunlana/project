@@ -1,11 +1,10 @@
 {% extends 'news/news_base.html' %}
 
-{% block title %}Companies{% endblock %}
+{% block title %}Economy{% endblock %}
 
 {% block body %}
 <body>
   {% include 'news/news_nav.html' %}
-  
   <div class="w-form">
     <form id="email-form" name="email-form" data-name="Email Form">
       <select class="w-select w-hidden-main w-hidden-medium sub-category-drop-down" id="Sub-Category" name="Sub-Category" data-name="Sub-Category">
@@ -26,6 +25,29 @@
       <p>Oops! Something went wrong while submitting the form :(</p>
     </div>
   </div>
+  <div class="w-section w-clearfix economic-snapshot">
+    <div class="w-clearfix economic-snapshot-title">
+      <h4>Economic<br>Snapshot</h4>
+    </div>
+    <div class="w-row economic-figures">
+      <div class="w-col w-col-3 data-segment">
+        <div>Inflation</div>
+        <div class="data-figures">3.4%</div>
+      </div>
+      <div class="w-col w-col-3 data-segment">
+        <div>NIBOR</div>
+        <div class="data-figures">3.4%</div>
+      </div>
+      <div class="w-col w-col-3 data-segment">
+        <div>Unemployment</div>
+        <div class="data-figures">3.4%</div>
+      </div>
+      <div class="w-col w-col-3">
+        <div>GDP Growth</div>
+        <div class="data-figures">3.4%</div>
+      </div>
+    </div>
+  </div>
   <div class="w-row companies-row-1">
     <div class="w-col w-col-7 featured-post featured-post-image"></div>
     <div class="w-col w-col-3 featured-post-text">
@@ -34,7 +56,7 @@
       <div class="featured-post-category">Category</div>
       <p class="w-hidden-small w-hidden-tiny featured-post-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh.</p>
     </div>
-    <div class="w-col w-col-2 w-hidden-small w-hidden-tiny category-sidebar">
+    <div class="w-col w-col-2 w-hidden-small w-hidden-tiny w-clearfix category-sidebar">
       <h4>Sub-Category</h4>
       <ul class="w-list-unstyled">
         <li>Finance</li>
@@ -94,7 +116,7 @@
     </div>
   </div>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script type="text/javascript" src="/static/js/webflow.js"></script>
+  <script type="text/javascript" src="js/webflow.js"></script>
   <!--[if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
 </body>
 {% endblock %}

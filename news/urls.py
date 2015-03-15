@@ -5,4 +5,5 @@ urlpatterns = patterns('',
                        url(r'^$', views.index, name='index'),
                        url(r'^articles/$', views.articles, name='articles'),
                        url(r'^companies/$', views.companies, name='companies'),
+                       url(r'^economy/$', views.economy, name='economy'),
                        )

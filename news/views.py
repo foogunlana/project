@@ -17,3 +17,7 @@ def companies(request):
 @user_passes_test(lambda u: editor(u), login_url='/weal/')
 def index(request):
 	return render(request, 'news/index.html')
+
+@user_passes_test(lambda u: editor(u), login_url='/weal/')
+def economy(request):
+	return render(request, 'news/economy.html')
