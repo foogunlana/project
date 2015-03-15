@@ -41,7 +41,7 @@ def upload_photo(request):
             article_image.save()
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
-            photos = {}
+            photos = ArticleImageModel.objects.all()
             return render(request, 'stears/photos.html',
                           {'form': form, 'photos': photos})
     else:
