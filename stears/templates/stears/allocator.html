@@ -16,7 +16,25 @@
 {% block content %}
 	<div class="row">
 		<div class="columns small-11 small-centered">
-
+			<a href="{% url 'weal:preview' pk=pk %}">View WEAL template</a>
+			<a href="{% url 'weal:preview' pk=pk %}">Preview article to be allocated</a>
+			<div class="row">
+				<div class="columns small-12 medium-6 large-4">
+					<div class="article_box">
+						
+					</div>
+				</div>
+				<div class="columns small-12 medium-6 large-4">
+					<div class="article_box">
+						
+					</div>
+				</div>
+				<div class="columns small-12 medium-6 large-4">
+					<div class="article_box">
+						
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock %}
