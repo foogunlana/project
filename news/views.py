@@ -9,8 +9,8 @@ Article
 
 
 @user_passes_test(lambda u: editor(u), login_url='/weal/')
-def articles(request):
-    return render(request, 'news/articles.html')
+def article(request):
+    return render(request, 'news/article.html')
 
 @user_passes_test(lambda u: editor(u), login_url='/weal/')
 def business(request):

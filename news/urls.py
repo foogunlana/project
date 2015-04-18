@@ -3,7 +3,7 @@ from news import views
 
 urlpatterns = patterns('',
                        url(r'^$', views.index, name='index'),
-                       url(r'^articles/$', views.articles, name='articles'),
+                       url(r'^article/$', views.article, name='article'),
                        url(r'^business/$', views.business, name='business'),
                        url(r'^economy/$', views.economy, name='economy'),
                        )

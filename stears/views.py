@@ -632,7 +632,7 @@ def preview_article(request, pk):
             {'content': 1, '_id': 0, 'headline': 1, 'writers': 1})
 
     context = {'article': article, 'writers': article['writers']}
-    return render(request, 'stears/preview_article.html', context)
+    return render(request, 'news/article.html', context)
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
