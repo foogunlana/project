@@ -623,7 +623,6 @@ def pipeline(request):
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
 def preview_article(request, pk):
-    print "Got to article"
     if request.method == 'GET':
         pk = int(pk)
         migrations = mongo_calls('migrations')
@@ -633,6 +632,15 @@ def preview_article(request, pk):
 
     context = {'article': article, 'writers': article['writers']}
     return render(request, 'news/article.html', context)
+
+
+@user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
+def allocate_articles(request, pk):
+    if request.method == 'GET':
+        pk = int(pk)
+
+    context = {'pk': pk}
+    return render(request, 'stears/allocator.html', context)
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
