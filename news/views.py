@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from stears.permissions import editor
 from django.contrib.auth.decorators import user_passes_test
+from utils import HomePage, BusinessPage, EconomyPage, \
+Article
 
 # Create your views here.
 

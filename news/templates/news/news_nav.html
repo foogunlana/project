@@ -1,59 +1,38 @@
-<div class="w-nav w-hidden-small w-hidden-tiny nav-bar" data-collapse="small" data-animation="default" data-duration="400" data-contain="1">
-  <div class="w-section top-nav">
-    <div class="w-row">
-      <div class="w-col w-col-7 top-nav-search">
-        <div class="w-form">
-          <form id="email-form" name="email-form" data-name="Email Form"><img class="search-icon" src="/static/images/search19.svg" width="22" alt="54d27522bba289360a8cc876_search19.svg">
-            <input class="w-input search-bar" id="name-2" type="text" placeholder="Enter your search term here" name="name-2" data-name="Name 2">
-          </form>
-          <div class="w-form-done">
-            <p>Thank you! Your submission has been received!</p>
-          </div>
-          <div class="w-form-fail">
-            <p>Oops! Something went wrong while submitting the form :(</p>
-          </div>
-        </div>
+<div class="w-nav w-hidden-main w-hidden-medium mobile-navspace" data-collapse="small" data-animation="default" data-duration="400">
+  <div class="w-nav w-hidden-main w-hidden-medium mobile-nav" data-collapse="small" data-animation="default" data-duration="400" data-contain="1">
+    <div class="w-container">
+      <a class="w-nav-brand mobile-logo" href="{% url 'news:index' %}"><img src="/static/images/StearsLogoTransForSite.png" width="75" alt="54f34f3f3bc4fd5b7ac52c01_StearsLogoTransForSite.png">
+      </a>
+      <nav class="w-nav-menu w-clearfix mobile-nav-menu" role="navigation">
+        <a class="w-nav-link mobile-nav-link" href="{% url 'news:index' %}">Home</a>
+        <a class="w-nav-link mobile-nav-link" href="{% url 'news:business' %}">Business</a>
+        <a class="w-nav-link mobile-nav-link" href="{% url 'news:economy' %}">Economy</a>
+      </nav>
+      <div class="w-nav-button mobile-menu-button">
+        <div class="w-icon-nav-menu hamburger-icon"></div>
       </div>
-      <div class="w-col w-col-5 w-hidden-small w-hidden-tiny top-nav-social">
+      <div class="nav-title">Menu</div>
+    </div>
+  </div>
+</div>
+<div class="w-nav w-hidden-small w-hidden-tiny" data-collapse="small" data-animation="default" data-duration="400">
+  <div class="w-section w-clearfix navigation">
+    <div class="w-clearfix top-half"><img src="/static/images/StearsLogoTransForSite.png" width="125" alt="54f34f3f3bc4fd5b7ac52c01_StearsLogoTransForSite.png">
+      <div class="nav-social">
         <div class="follow-us">Follow Us</div><img class="facebook-icon" src="/static/images/facebook12.svg" width="6" alt="54d264eda59e05340ae1fb74_facebook12.svg"><img class="twitter-icon" src="/static/images/social19.svg" width="12" alt="54d265fa0d5fbeb671afe3f1_social19.svg"><img class="linkedin-icon" src="/static/images/linkedin11.svg" width="14" alt="54d26e39a59e05340ae1fe23_linkedin11.svg"><img class="rss-icon" src="/static/images/social23.svg" width="12" alt="54d27c22a59e05340ae1ffce_social23.svg">
       </div>
     </div>
-  </div>
-  <a href="{% url 'news:index' %}">
-    <img class="stears-logo" src="/static/images/StearsLogoTransForSite.png" width="217" alt="54f34f3f3bc4fd5b7ac52c01_StearsLogoTransForSite.png">
-  </a>
-  <div class="w-container nav-area">
-    <nav class="w-nav-menu" role="navigation">
+    <nav class="w-nav-menu nav-content" role="navigation">
       <a class="w-nav-link nav-text" href="{% url 'news:index' %}">Home</a>
-      <!-- <a class="w-nav-link nav-text" href="#">Markets</a> -->
       <a class="w-nav-link nav-text" href="{% url 'news:business' %}">Business</a>
       <a class="w-nav-link nav-text" href="{% url 'news:economy' %}">Economy</a>
-      <!-- <a class="w-nav-link nav-text" href="#">Stears Talk</a> -->
     </nav>
-    <div class="w-nav-button hamburger-icon">
-      <div class="w-icon-nav-menu"></div>
+    <div class="nav-stock">
+      <div class="nav-stockticker">
+        <div class="ticker-title">NGSEINDX :</div>
+      </div>
+      <div class="ticker-price">13,456</div>
+      <div class="ticker-price percentage-change">(2.4%&nbsp;&nbsp;283)</div>
     </div>
   </div>
-</div>
-<div class="w-nav w-hidden-main w-hidden-medium" data-collapse="small" data-animation="default" data-duration="400" data-contain="1">
-  <div class="w-container mobile-nav">
-    <a class="w-nav-brand mobile-logo" href="#"><img src="/static/images/StearsLogoTransForSite.png" width="75" alt="54f34f3f3bc4fd5b7ac52c01_StearsLogoTransForSite.png">
-    </a>
-    <div class="w-form mobile-search-wrapper">
-      <form class="mobile-search" id="email-form" name="email-form" data-name="Email Form"><img class="search-icon" src="/static/images/search19.svg" width="22" alt="54d27522bba289360a8cc876_search19.svg">
-        <input class="w-input search-bar" id="name" type="text" placeholder="Enter your search term here" name="name" data-name="Name">
-      </form>
-      <div class="w-form-done">
-        <p>Thank you! Your submission has been received!</p>
-      </div>
-      <div class="w-form-fail">
-        <p>Oops! Something went wrong while submitting the form :(</p>
-      </div>
-    </div>
-    <nav class="w-nav-menu w-clearfix mobile-nav-menu" role="navigation"><a class="w-nav-link mobile-nav-link" href="#">Home</a><a class="w-nav-link mobile-nav-link" href="#">Business</a><a class="w-nav-link mobile-nav-link" href="#">Economy</a><a class="w-nav-link mobile-nav-link" href="#">Stears Talk</a>
-  </nav>
-  <div class="w-nav-button hamburger-icon">
-    <div class="w-icon-nav-menu"></div>
-  </div>
-</div>
 </div>

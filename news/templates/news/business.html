@@ -6,10 +6,10 @@
 <body>
   {% include 'news/news_nav.html' %}
   
-  <div class="w-form">
+    <div class="w-form">
     <form id="email-form" name="email-form" data-name="Email Form">
       <select class="w-select w-hidden-main w-hidden-medium sub-category-drop-down" id="Sub-Category" name="Sub-Category" data-name="Sub-Category">
-        <option value="">Choose Sub-Category</option>
+        <option value="">Choose Section</option>
         <option value="">News In Brief</option>
         <option value="Finance">Finance</option>
         <option value="Energy">Energy </option>
@@ -35,7 +35,7 @@
       <p class="w-hidden-small w-hidden-tiny featured-post-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh.</p>
     </div>
     <div class="w-col w-col-2 w-hidden-small w-hidden-tiny category-sidebar">
-      <h4>Sub-Category</h4>
+      <h4>Section</h4>
       <ul class="w-list-unstyled">
         <li>Finance</li>
         <li>Energy</li>
@@ -50,49 +50,50 @@
     </div>
   </div>
   <div class="w-row category-row">
-    <div class="w-col w-col-3 w-col-small-6 w-col-tiny-6 article-segment">
+    <div class="w-col w-col-3 article-segment">
       <h3>Heading</h3>
       <div>Author</div>
       <div class="w-section article-thumbnail"></div>
     </div>
-    <div class="w-col w-col-3 w-col-small-6 w-col-tiny-6 article-segment">
+    <div class="w-col w-col-3 article-segment">
       <h3>Heading</h3>
       <div>Author</div>
       <div class="w-section article-thumbnail"></div>
     </div>
-    <div class="w-col w-col-3 w-col-small-6 w-col-tiny-6 article-segment">
+    <div class="w-col w-col-3 article-segment">
       <h3>Heading</h3>
       <div>Author</div>
       <div class="w-section article-thumbnail"></div>
     </div>
-    <div class="w-col w-col-3 w-col-small-6 w-col-tiny-6 article-segment">
+    <div class="w-col w-col-3 article-segment">
       <h3>Heading</h3>
       <div>Author</div>
       <div class="w-section article-thumbnail"></div>
     </div>
   </div>
   <div class="w-row category-row">
-    <div class="w-col w-col-3 w-col-small-6 w-col-tiny-6 article-segment">
+    <div class="w-col w-col-3 article-segment">
       <h3>Heading</h3>
       <div>Author</div>
       <div class="w-section article-thumbnail"></div>
     </div>
-    <div class="w-col w-col-3 w-col-small-6 w-col-tiny-6 article-segment">
+    <div class="w-col w-col-3 article-segment">
       <h3>Heading</h3>
       <div>Author</div>
       <div class="w-section article-thumbnail"></div>
     </div>
-    <div class="w-col w-col-3 w-col-small-6 w-col-tiny-6 article-segment">
+    <div class="w-col w-col-3 article-segment">
       <h3>Heading</h3>
       <div>Author</div>
       <div class="w-section article-thumbnail"></div>
     </div>
-    <div class="w-col w-col-3 w-col-small-6 w-col-tiny-6 article-segment">
+    <div class="w-col w-col-3 article-segment">
       <h3>Heading</h3>
       <div>Author</div>
       <div class="w-section article-thumbnail"></div>
     </div>
   </div>
+  {% include 'news/footer.html' %}
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script type="text/javascript" src="/static/js/webflow.js"></script>
   <!--[if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->

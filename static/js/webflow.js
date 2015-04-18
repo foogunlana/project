@@ -52,7 +52,7 @@ module.exports = function($, _) {
   // Module methods
 
   api.ready = function() {
-    var doBranding = $html.attr("data-wf-status") && location.href.match(/webflow.com|webflowtest.com/);
+    var doBranding = $html.attr("data-wf-status") && location.href.match(/webflow.com/);
 
     if (doBranding) {
       var $branding = $('<div></div>');
@@ -571,7 +571,7 @@ module.exports = function($, _) {
   }
 
   var disconnected = _.debounce(function() {
-    alert('Oops! This page has a form that is powered by Webflow, but important code was removed that is required to make the form work. Please contact support@webflow.com to fix this issue.');
+    alert('Oops! This page has improperly configured forms. Please contact your website administrator to fix this issue.');
   }, 100);
 
   // Export module

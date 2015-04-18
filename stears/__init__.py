@@ -1,8 +1,8 @@
-from stears.utils import nse_news_object, mongo_calls
+from stears.utils import mongo_calls
 
 import pymongo
 
-nse_news_object.startThread()
+# nse_news_object.startThread()
 
 articles = mongo_calls('articles')
 
