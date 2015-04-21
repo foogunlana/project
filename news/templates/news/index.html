@@ -5,7 +5,178 @@
 {% block body %}
 <body class="w-clearfix">
   {% include 'news/news_nav.html' %}
-
+  <div class="w-tabs w-hidden-main w-hidden-medium mobile-homepage" data-duration-in="300" data-duration-out="100">
+    <div class="w-tab-menu">
+      <a class="w-tab-link w--current w-inline-block news-tab" data-w-tab="Tab 1">
+        <div>News</div>
+      </a>
+      <a class="w-tab-link w-inline-block market-tab" data-w-tab="Tab 2">
+        <div>Market Data</div>
+      </a>
+    </div>
+    <div class="w-tab-content mobile-homepage-content">
+      <div class="w-tab-pane w--tab-active w-clearfix" data-w-tab="Tab 1">
+        <div class="w-section main-article">
+          <div class="w-section main-article-content">
+            <div class="main-article-category">Category</div>
+            <h1 class="main-article-h1">An Introspective look at&nbsp;something interesting to talk about</h1>
+            <div class="article-author">Author Name</div>
+          </div>
+        </div>
+        <div class="w-section secondary-article">
+          <div class="w-row">
+            <div class="w-col w-col-5 w-col-medium-6 secondary-article-text">
+              <div class="article-category">Category</div>
+              <h2>Here is another title for use</h2>
+              <div class="article-author">Author Name</div>
+            </div>
+            <div class="w-col w-col-7 w-col-medium-6 secondary-article-img"></div>
+          </div>
+        </div>
+        <div class="w-section third-article-section">
+          <div class="w-row third-article-segment">
+            <div class="w-col w-col-7 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col1">
+              <div class="w-section all-text-article">
+                <div class="article-category">Category</div>
+                <h3>A quick one for the art value</h3>
+                <div class="article-author">Author Name</div>
+                <p class="all-text-article-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim</p>
+              </div>
+            </div>
+            <div class="w-col w-col-5 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col1">
+              <div class="w-section mini-article-segment">
+                <div class="article-category mini-article-category">Category</div>
+                <h4>A quick one for the art value</h4>
+                <div class="article-author mini-article-author">Author Name</div>
+              </div>
+              <div class="w-section mini-segment-horizontal-border"></div>
+              <div class="w-section mini-article-segment">
+                <div class="article-category mini-article-category">Category</div>
+                <h4>Just two lines here</h4>
+                <div class="article-author mini-article-author">Author Name</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-row w-hidden-main w-hidden-medium other-posts">
+          <div class="w-col w-col-6 w-col-small-6 w-col-tiny-6">
+            <div class="article-category mini-article-category">Category</div>
+            <h4>Naira plunge, Security key issues</h4>
+            <div class="article-author mini-article-author">Author Name</div>
+            <div class="other-post-image"></div>
+          </div>
+          <div class="w-col w-col-6 w-col-small-6 w-col-tiny-6">
+            <div class="article-category mini-article-category">Category</div>
+            <h4>Naira plunge, Security key issues</h4>
+            <div class="article-author mini-article-author">Author Name</div>
+            <div class="other-post-image"></div>
+          </div>
+        </div>
+      </div>
+      <div class="w-tab-pane" data-w-tab="Tab 2">
+        <div class="w-section market-snapshot">
+          <div class="w-section widget-header"></div>
+          <div class="w-row">
+            <div class="w-col w-col-5 w-col-medium-6 w-col-small-6 w-col-tiny-6 market-snapshot-col">
+              <div class="w-section market-snapshot-row-x3"></div>
+              <div class="w-section market-snapshot-row-x1"></div>
+              <div class="w-section market-snapshot-row-x2"></div>
+              <div class="w-section market-snapshot-row-x2"></div>
+            </div>
+            <div class="w-col w-col-7 w-col-medium-6 w-col-small-6 w-col-tiny-6 market-snapshot-col">
+              <div class="w-section market-snapshot-row-x1"></div>
+              <div class="w-section market-snapshot-row-x2"></div>
+              <div class="w-section market-snapshot-row-x2"></div>
+              <div class="w-section market-snapshot-row-x1"></div>
+              <div class="w-row">
+                <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4"></div>
+                <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4"></div>
+                <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-section gainers-segment">
+          <div class="top-5-title">Top 5</div>
+          <h3 class="gainers-h3" id="gainers-h3">Gainers</h3>
+          <div class="gainers-stock">
+            <div class="gainers-stock-h1">Dangote
+              <br>Corp</div>
+            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
+            <div class="gainers-price">13096.02</div>
+            <div class="gainers-percentage-change">(0.73%)</div>
+          </div>
+          <div class="gainers-stock">
+            <div class="gainers-stock-h1">Dangote
+              <br>Corp</div>
+            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
+            <div class="gainers-price">13096.02</div>
+            <div class="gainers-percentage-change">(0.73%)</div>
+          </div>
+          <div class="gainers-stock">
+            <div class="gainers-stock-h1">Dangote
+              <br>Corp</div>
+            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
+            <div class="gainers-price">13096.02</div>
+            <div class="gainers-percentage-change">(0.73%)</div>
+          </div>
+          <div class="gainers-stock">
+            <div class="gainers-stock-h1">Dangote
+              <br>Corp</div>
+            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
+            <div class="gainers-price">13096.02</div>
+            <div class="gainers-percentage-change">(0.73%)</div>
+          </div>
+          <div class="gainers-stock">
+            <div class="gainers-stock-h1">Dangote
+              <br>Corp</div>
+            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
+            <div class="gainers-price">13096.02</div>
+            <div class="gainers-percentage-change">(0.73%)</div>
+          </div>
+        </div>
+        <div class="w-section gainers-segment losers-segment">
+          <div class="top-5-title">Top 5</div>
+          <h3 class="losers-h3" id="gainers-h3">Losers</h3>
+          <div class="gainers-stock">
+            <div class="gainers-stock-h1">Dangote
+              <br>Corp</div>
+            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
+            <div class="losers-price">13096.02</div>
+            <div class="losers-percentage-change">(0.73%)</div>
+          </div>
+          <div class="gainers-stock">
+            <div class="gainers-stock-h1">Dangote
+              <br>Corp</div>
+            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
+            <div class="losers-price">13096.02</div>
+            <div class="losers-percentage-change">(0.73%)</div>
+          </div>
+          <div class="gainers-stock">
+            <div class="gainers-stock-h1">Dangote
+              <br>Corp</div>
+            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
+            <div class="losers-price">13096.02</div>
+            <div class="losers-percentage-change">(0.73%)</div>
+          </div>
+          <div class="gainers-stock">
+            <div class="gainers-stock-h1">Dangote
+              <br>Corp</div>
+            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
+            <div class="losers-price">13096.02</div>
+            <div class="losers-percentage-change">(0.73%)</div>
+          </div>
+          <div class="gainers-stock">
+            <div class="gainers-stock-h1">Dangote
+              <br>Corp</div>
+            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
+            <div class="gainers-price losers-price">13096.02</div>
+            <div class="losers-percentage-change">(0.73%)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="w-section w-hidden-small w-hidden-tiny main-article">
     <div class="w-section main-article-content">
       <h1 class="main-article-h1">GEJ wins&nbsp;&nbsp;presidential election</h1>
@@ -76,40 +247,38 @@
     <div class="article-author">Micheal Famaroti</div>
   </div>
   <div class="w-section horizontal-border"></div>
-  <div class="w-row w-hidden-small w-hidden-tiny gainers-widget">
-    <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 gainers-title">
-      <div class="top-5-title">Top 5</div>
-      <h3 class="gainers-h3" id="gainers-h3">Gainers</h3>
-    </div>
-    <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 gainers-stock">
+  <div class="w-section w-hidden-small w-hidden-tiny gainers-segment">
+    <div class="top-5-title">Top 5</div>
+    <h3 class="gainers-h3" id="gainers-h3">Gainers</h3>
+    <div class="gainers-stock">
       <div class="gainers-stock-h1">Dangote
         <br>Corp</div>
       <div class="gainers-initials gainers-stock-h1">(DGC)</div>
       <div class="gainers-price">13096.02</div>
       <div class="gainers-percentage-change">(0.73%)</div>
     </div>
-    <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 gainers-stock">
+    <div class="gainers-stock">
       <div class="gainers-stock-h1">Dangote
         <br>Corp</div>
       <div class="gainers-initials gainers-stock-h1">(DGC)</div>
       <div class="gainers-price">13096.02</div>
       <div class="gainers-percentage-change">(0.73%)</div>
     </div>
-    <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 gainers-stock">
+    <div class="gainers-stock">
       <div class="gainers-stock-h1">Dangote
         <br>Corp</div>
       <div class="gainers-initials gainers-stock-h1">(DGC)</div>
       <div class="gainers-price">13096.02</div>
       <div class="gainers-percentage-change">(0.73%)</div>
     </div>
-    <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 gainers-stock">
+    <div class="gainers-stock">
       <div class="gainers-stock-h1">Dangote
         <br>Corp</div>
       <div class="gainers-initials gainers-stock-h1">(DGC)</div>
       <div class="gainers-price">13096.02</div>
       <div class="gainers-percentage-change">(0.73%)</div>
     </div>
-    <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 gainers-stock">
+    <div class="gainers-stock">
       <div class="gainers-stock-h1">Dangote
         <br>Corp</div>
       <div class="gainers-initials gainers-stock-h1">(DGC)</div>
@@ -117,209 +286,60 @@
       <div class="gainers-percentage-change">(0.73%)</div>
     </div>
   </div>
-  <div class="w-row w-hidden-small w-hidden-tiny gainers-widget">
-    <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 w-clearfix losers-title">
-      <div class="top-5-title">Top 5</div>
-      <h3 class="losers-h3" id="gainers-h3">Losers</h3>
+  <div class="w-row w-hidden-small w-hidden-tiny other-posts">
+    <div class="w-col w-col-6">
+      <div class="article-category mini-article-category">Category</div>
+      <h4>Naira plunge, Security key issues</h4>
+      <div class="article-author mini-article-author">Author Name</div>
+      <div class="other-post-image"></div>
     </div>
-    <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 gainers-stock">
+    <div class="w-col w-col-6">
+      <div class="article-category mini-article-category">Category</div>
+      <h4>Naira plunge, Security key issues</h4>
+      <div class="article-author mini-article-author">Author Name</div>
+      <div class="other-post-image"></div>
+    </div>
+  </div>
+  <div class="w-section w-hidden-small w-hidden-tiny gainers-segment losers-segment">
+    <div class="top-5-title">Top 5</div>
+    <h3 class="losers-h3" id="gainers-h3">Losers</h3>
+    <div class="gainers-stock">
       <div class="gainers-stock-h1">Dangote
         <br>Corp</div>
       <div class="gainers-initials gainers-stock-h1">(DGC)</div>
       <div class="losers-price">13096.02</div>
       <div class="losers-percentage-change">(0.73%)</div>
     </div>
-    <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 gainers-stock">
+    <div class="gainers-stock">
       <div class="gainers-stock-h1">Dangote
         <br>Corp</div>
       <div class="gainers-initials gainers-stock-h1">(DGC)</div>
       <div class="losers-price">13096.02</div>
       <div class="losers-percentage-change">(0.73%)</div>
     </div>
-    <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 gainers-stock">
+    <div class="gainers-stock">
       <div class="gainers-stock-h1">Dangote
         <br>Corp</div>
       <div class="gainers-initials gainers-stock-h1">(DGC)</div>
       <div class="losers-price">13096.02</div>
       <div class="losers-percentage-change">(0.73%)</div>
     </div>
-    <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 gainers-stock">
+    <div class="gainers-stock">
       <div class="gainers-stock-h1">Dangote
         <br>Corp</div>
       <div class="gainers-initials gainers-stock-h1">(DGC)</div>
       <div class="losers-price">13096.02</div>
       <div class="losers-percentage-change">(0.73%)</div>
     </div>
-    <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 gainers-stock">
+    <div class="gainers-stock">
       <div class="gainers-stock-h1">Dangote
         <br>Corp</div>
       <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-      <div class="losers-price">13096.02</div>
+      <div class="gainers-price losers-price">13096.02</div>
       <div class="losers-percentage-change">(0.73%)</div>
     </div>
   </div>
-  <div class="w-tabs w-hidden-main w-hidden-medium mobile-homepage" data-duration-in="300" data-duration-out="100">
-    <div class="w-tab-menu">
-      <a class="w-tab-link w--current w-inline-block news-tab" data-w-tab="Tab 1" style="width:49%;"><!-- This is a hack! Webflow didn't work out-->
-        <div>News</div>
-      </a>
-      <a class="w-tab-link w-inline-block market-tab" data-w-tab="Tab 2">
-        <div>Market Data</div>
-      </a>
-    </div>
-    <div class="w-tab-content mobile-homepage-content">
-      <div class="w-tab-pane w--tab-active w-clearfix" data-w-tab="Tab 1">
-        <div class="w-section main-article">
-          <div class="w-section main-article-content">
-            <div class="main-article-category">Category</div>
-            <h1 class="main-article-h1">An Introspective look at&nbsp;something interesting to talk about</h1>
-            <div class="article-author">Author Name</div>
-          </div>
-        </div>
-        <div class="w-section secondary-article">
-          <div class="w-row">
-            <div class="w-col w-col-5 w-col-medium-6 secondary-article-text">
-              <div class="article-category">Category</div>
-              <h2>Here is another title for use</h2>
-              <div class="article-author">Author Name</div>
-            </div>
-            <div class="w-col w-col-7 w-col-medium-6 secondary-article-img"></div>
-          </div>
-        </div>
-        <div class="w-section third-article-section">
-          <div class="w-row third-article-segment">
-            <div class="w-col w-col-7 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col1">
-              <div class="w-section all-text-article">
-                <div class="article-category">Category</div>
-                <h3>A quick one for the art value</h3>
-                <div class="article-author">Author Name</div>
-                <p class="all-text-article-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim</p>
-              </div>
-            </div>
-            <div class="w-col w-col-5 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col1">
-              <div class="w-section mini-article-segment">
-                <div class="article-category mini-article-category">Category</div>
-                <h4>A quick one for the art value</h4>
-                <div class="article-author mini-article-author">Author Name</div>
-              </div>
-              <div class="w-section mini-segment-horizontal-border"></div>
-              <div class="w-section mini-article-segment">
-                <div class="article-category mini-article-category">Category</div>
-                <h4>Just two lines here</h4>
-                <div class="article-author mini-article-author">Author Name</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="w-tab-pane" data-w-tab="Tab 2">
-        <div class="w-section market-snapshot">
-          <div class="w-section widget-header"></div>
-          <div class="w-row">
-            <div class="w-col w-col-5 w-col-medium-6 w-col-small-6 w-col-tiny-6 market-snapshot-col">
-              <div class="w-section market-snapshot-row-x3"></div>
-              <div class="w-section market-snapshot-row-x1"></div>
-              <div class="w-section market-snapshot-row-x2"></div>
-              <div class="w-section market-snapshot-row-x2"></div>
-            </div>
-            <div class="w-col w-col-7 w-col-medium-6 w-col-small-6 w-col-tiny-6 market-snapshot-col">
-              <div class="w-section market-snapshot-row-x1"></div>
-              <div class="w-section market-snapshot-row-x2"></div>
-              <div class="w-section market-snapshot-row-x2"></div>
-              <div class="w-section market-snapshot-row-x1"></div>
-              <div class="w-row">
-                <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4"></div>
-                <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4"></div>
-                <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="w-row gainers-widget">
-          <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 gainers-title">
-            <div class="top-5-title">Top 5</div>
-            <h3 class="gainers-h3" id="gainers-h3">Gainers</h3>
-          </div>
-          <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 gainers-stock">
-            <div class="gainers-stock-h1">Dangote
-              <br>Corp</div>
-            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-            <div class="gainers-price">13096.02</div>
-            <div class="gainers-percentage-change">(0.73%)</div>
-          </div>
-          <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 gainers-stock">
-            <div class="gainers-stock-h1">Dangote
-              <br>Corp</div>
-            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-            <div class="gainers-price">13096.02</div>
-            <div class="gainers-percentage-change">(0.73%)</div>
-          </div>
-          <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 gainers-stock">
-            <div class="gainers-stock-h1">Dangote
-              <br>Corp</div>
-            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-            <div class="gainers-price">13096.02</div>
-            <div class="gainers-percentage-change">(0.73%)</div>
-          </div>
-          <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 gainers-stock">
-            <div class="gainers-stock-h1">Dangote
-              <br>Corp</div>
-            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-            <div class="gainers-price">13096.02</div>
-            <div class="gainers-percentage-change">(0.73%)</div>
-          </div>
-          <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 gainers-stock">
-            <div class="gainers-stock-h1">Dangote
-              <br>Corp</div>
-            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-            <div class="gainers-price">13096.02</div>
-            <div class="gainers-percentage-change">(0.73%)</div>
-          </div>
-        </div>
-        <div class="w-row gainers-widget">
-          <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 w-clearfix losers-title">
-            <div class="top-5-title">Top 5</div>
-            <h3 class="losers-h3" id="gainers-h3">Losers</h3>
-          </div>
-          <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 gainers-stock">
-            <div class="gainers-stock-h1">Dangote
-              <br>Corp</div>
-            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-            <div class="losers-price">13096.02</div>
-            <div class="losers-percentage-change">(0.73%)</div>
-          </div>
-          <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 gainers-stock">
-            <div class="gainers-stock-h1">Dangote
-              <br>Corp</div>
-            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-            <div class="losers-price">13096.02</div>
-            <div class="losers-percentage-change">(0.73%)</div>
-          </div>
-          <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 gainers-stock">
-            <div class="gainers-stock-h1">Dangote
-              <br>Corp</div>
-            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-            <div class="losers-price">13096.02</div>
-            <div class="losers-percentage-change">(0.73%)</div>
-          </div>
-          <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 gainers-stock">
-            <div class="gainers-stock-h1">Dangote
-              <br>Corp</div>
-            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-            <div class="losers-price">13096.02</div>
-            <div class="losers-percentage-change">(0.73%)</div>
-          </div>
-          <div class="w-col w-col-2 w-col-small-4 w-col-tiny-6 gainers-stock">
-            <div class="gainers-stock-h1">Dangote
-              <br>Corp</div>
-            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-            <div class="losers-price">13096.02</div>
-            <div class="losers-percentage-change">(0.73%)</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  
   {% include 'news/footer.html' %}
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script type="text/javascript" src="/static/js/webflow.js"></script>

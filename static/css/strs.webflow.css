@@ -42,8 +42,8 @@ h4 {
   margin-top: 0px;
   float: none;
   font-family: freight-display-pro, sans-serif;
-  font-size: 18px;
-  line-height: 17px;
+  font-size: 15px;
+  line-height: 20px;
   font-weight: 700;
   letter-spacing: 0.6px;
 }
@@ -887,7 +887,7 @@ p {
   display: inline-block;
   width: 100%;
   margin-bottom: 2%;
-  padding-bottom: 2%;
+  padding-bottom: 5%;
   padding-left: 0%;
   float: left;
   border-bottom: 1px solid #ccc;
@@ -902,11 +902,9 @@ p {
   float: left;
   border-right: 1px none #ccc;
   font-family: nimbus-sans, sans-serif;
-  color: black;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0px;
-  text-decoration: none;
 }
 .footer-social {
   display: inline-block;
