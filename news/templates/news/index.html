@@ -1,4 +1,5 @@
 {% extends 'news/news_base.html' %}
+{% load stears_tags %}
 
 {% block title %}Stears{% endblock %}
 
@@ -18,17 +19,17 @@
       <div class="w-tab-pane w--tab-active w-clearfix" data-w-tab="Tab 1">
         <div class="w-section main-article">
           <div class="w-section main-article-content">
-            <div class="main-article-category">Category</div>
-            <h1 class="main-article-h1">An Introspective look at&nbsp;something interesting to talk about</h1>
-            <div class="article-author">Author Name</div>
+            <div class="main-article-category">{{ main_feature.category|pretty_category }}</div>
+            <h1 class="main-article-h1">{{ main_feature.headline }}</h1>
+            <div class="article-author">{{ main_feature.writer }}</div>
           </div>
         </div>
         <div class="w-section secondary-article">
           <div class="w-row">
             <div class="w-col w-col-5 w-col-medium-6 secondary-article-text">
-              <div class="article-category">Category</div>
-              <h2>Here is another title for use</h2>
-              <div class="article-author">Author Name</div>
+              <div class="article-category">{{ secondary.category|pretty_category }}</div>
+              <h2>{{ secondary.headline }}</h2>
+              <div class="article-author">{{ secondary.writer }}</div>
             </div>
             <div class="w-col w-col-7 w-col-medium-6 secondary-article-img"></div>
           </div>
@@ -37,38 +38,38 @@
           <div class="w-row third-article-segment">
             <div class="w-col w-col-7 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col1">
               <div class="w-section all-text-article">
-                <div class="article-category">Category</div>
-                <h3>A quick one for the art value</h3>
-                <div class="article-author">Author Name</div>
+                <div class="article-category">{{ daily_column.category|pretty_category }}</div>
+                <h3>{{ daily_column.headline }}</h3>
+                <div class="article-author">{{ daily_column.writer }}</div>
                 <p class="all-text-article-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim</p>
               </div>
             </div>
             <div class="w-col w-col-5 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col1">
               <div class="w-section mini-article-segment">
-                <div class="article-category mini-article-category">Category</div>
-                <h4>A quick one for the art value</h4>
-                <div class="article-author mini-article-author">Author Name</div>
+                <div class="article-category mini-article-category">{{ tertiaries.0.category|pretty_category }}</div>
+                <h4>{{ tertiaries.0.headline }}</h4>
+                <div class="article-author mini-article-author">{{ tertiaries.0.writer }}</div>
               </div>
               <div class="w-section mini-segment-horizontal-border"></div>
               <div class="w-section mini-article-segment">
-                <div class="article-category mini-article-category">Category</div>
-                <h4>Just two lines here</h4>
-                <div class="article-author mini-article-author">Author Name</div>
+                <div class="article-category mini-article-category">{{ tertiaries.1.category|pretty_category }}</div>
+                <h4>{{ tertiaries.1.headline }}</h4>
+                <div class="article-author mini-article-author">{{ tertiaries.1.headline }}</div>
               </div>
             </div>
           </div>
         </div>
         <div class="w-row w-hidden-main w-hidden-medium other-posts">
           <div class="w-col w-col-6 w-col-small-6 w-col-tiny-6">
-            <div class="article-category mini-article-category">Category</div>
-            <h4>Naira plunge, Security key issues</h4>
-            <div class="article-author mini-article-author">Author Name</div>
+            <div class="article-category mini-article-category">{{ extras.0.category|pretty_category }}</div>
+            <h4>{{ extras.0.headline }}</h4>
+            <div class="article-author mini-article-author">{{ extras.0.writer }}</div>
             <div class="other-post-image"></div>
           </div>
           <div class="w-col w-col-6 w-col-small-6 w-col-tiny-6">
-            <div class="article-category mini-article-category">Category</div>
-            <h4>Naira plunge, Security key issues</h4>
-            <div class="article-author mini-article-author">Author Name</div>
+            <div class="article-category mini-article-category">{{ extras.1.category|pretty_category }}</div>
+            <h4>{{ extras.1.headline }}</h4>
+            <div class="article-author mini-article-author">{{ extras.1.writer }}</div>
             <div class="other-post-image"></div>
           </div>
         </div>
@@ -96,48 +97,25 @@
             </div>
           </div>
         </div>
+
+        <!-- Market Snapshot goes here -->
         <div class="w-section gainers-segment">
           <div class="top-5-title">Top 5</div>
           <h3 class="gainers-h3" id="gainers-h3">Gainers</h3>
-          <div class="gainers-stock">
-            <div class="gainers-stock-h1">Dangote
-              <br>Corp</div>
-            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-            <div class="gainers-price">13096.02</div>
-            <div class="gainers-percentage-change">(0.73%)</div>
-          </div>
-          <div class="gainers-stock">
-            <div class="gainers-stock-h1">Dangote
-              <br>Corp</div>
-            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-            <div class="gainers-price">13096.02</div>
-            <div class="gainers-percentage-change">(0.73%)</div>
-          </div>
-          <div class="gainers-stock">
-            <div class="gainers-stock-h1">Dangote
-              <br>Corp</div>
-            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-            <div class="gainers-price">13096.02</div>
-            <div class="gainers-percentage-change">(0.73%)</div>
-          </div>
-          <div class="gainers-stock">
-            <div class="gainers-stock-h1">Dangote
-              <br>Corp</div>
-            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-            <div class="gainers-price">13096.02</div>
-            <div class="gainers-percentage-change">(0.73%)</div>
-          </div>
-          <div class="gainers-stock">
-            <div class="gainers-stock-h1">Dangote
-              <br>Corp</div>
-            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-            <div class="gainers-price">13096.02</div>
-            <div class="gainers-percentage-change">(0.73%)</div>
-          </div>
+          {% for i in '12345' %}
+            <div class="gainers-stock">
+              <div class="gainers-stock-h1">Dangote
+                <br>Corp</div>
+              <div class="gainers-initials gainers-stock-h1">(DGC)</div>
+              <div class="gainers-price">13096.02</div>
+              <div class="gainers-percentage-change">(0.73%)</div>
+            </div>
+          {% endfor %}
         </div>
         <div class="w-section gainers-segment losers-segment">
           <div class="top-5-title">Top 5</div>
           <h3 class="losers-h3" id="gainers-h3">Losers</h3>
+          {% for i in '12345' %}
           <div class="gainers-stock">
             <div class="gainers-stock-h1">Dangote
               <br>Corp</div>
@@ -145,42 +123,17 @@
             <div class="losers-price">13096.02</div>
             <div class="losers-percentage-change">(0.73%)</div>
           </div>
-          <div class="gainers-stock">
-            <div class="gainers-stock-h1">Dangote
-              <br>Corp</div>
-            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-            <div class="losers-price">13096.02</div>
-            <div class="losers-percentage-change">(0.73%)</div>
-          </div>
-          <div class="gainers-stock">
-            <div class="gainers-stock-h1">Dangote
-              <br>Corp</div>
-            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-            <div class="losers-price">13096.02</div>
-            <div class="losers-percentage-change">(0.73%)</div>
-          </div>
-          <div class="gainers-stock">
-            <div class="gainers-stock-h1">Dangote
-              <br>Corp</div>
-            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-            <div class="losers-price">13096.02</div>
-            <div class="losers-percentage-change">(0.73%)</div>
-          </div>
-          <div class="gainers-stock">
-            <div class="gainers-stock-h1">Dangote
-              <br>Corp</div>
-            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-            <div class="gainers-price losers-price">13096.02</div>
-            <div class="losers-percentage-change">(0.73%)</div>
-          </div>
+          {% endfor %}
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Main feature goes here -->
   <div class="w-section w-hidden-small w-hidden-tiny main-article">
     <div class="w-section main-article-content">
-      <h1 class="main-article-h1">GEJ wins&nbsp;&nbsp;presidential election</h1>
-      <div class="article-author">Author Name</div>
+      <h1 class="main-article-h1">{{ main_feature.headline }}</h1>
+      <div class="article-author">{{ main_feature.writer }}</div>
     </div>
   </div>
   <div class="w-section w-hidden-small w-hidden-tiny market-snapshot">
@@ -209,9 +162,9 @@
   <div class="w-section w-hidden-small w-hidden-tiny secondary-article">
     <div class="w-row">
       <div class="w-col w-col-5 w-col-medium-6 secondary-article-text">
-        <div class="article-category">Category</div>
-        <h2>Here is another title for use</h2>
-        <div class="article-author">Author Name</div>
+        <div class="article-category">{{ secondary.category|pretty_category }}</div>
+        <h2>{{ secondary.headline }}</h2>
+        <div class="article-author">{{ secondary.writer }}</div>
       </div>
       <div class="w-col w-col-7 w-col-medium-6 secondary-article-img"></div>
     </div>
@@ -220,36 +173,37 @@
     <div class="w-row third-article-segment">
       <div class="w-col w-col-7 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col1">
         <div class="w-section all-text-article">
-          <div class="article-category">Category</div>
-          <h3>A quick one for the art value</h3>
-          <div class="article-author">Author Name</div>
+          <div class="article-category">{{ daily_column.category|pretty_category }}</div>
+          <h3>{{ daily_column.headline }}</h3>
+          <div class="article-author">{{ daily_column.writer }}</div>
           <p class="all-text-article-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim</p>
         </div>
       </div>
       <div class="w-col w-col-5 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col1">
         <div class="w-section mini-article-segment">
-          <div class="article-category mini-article-category">Category</div>
-          <h4>A quick one for the art value</h4>
-          <div class="article-author mini-article-author">Author Name</div>
+          <div class="article-category mini-article-category">{{ tertiaries.0.category|pretty_category }}</div>
+          <h4>{{ tertiaries.0.headline }}</h4>
+          <div class="article-author mini-article-author">{{ tertiaries.0.writer }}</div>
         </div>
         <div class="w-section mini-segment-horizontal-border"></div>
         <div class="w-section mini-article-segment">
-          <div class="article-category mini-article-category">Category</div>
-          <h4>Just two lines here</h4>
-          <div class="article-author mini-article-author">Author Name</div>
+          <div class="article-category mini-article-category">{{ tertiaries.1.category|pretty_category }}</div>
+          <h4>{{ tertiaries.1.headline }}</h4>
+          <div class="article-author mini-article-author">{{ tertiaries.1.writer }}</div>
         </div>
       </div>
     </div>
   </div>
   <div class="w-section horizontal-border"></div>
   <div class="w-section quote-section">
-    <h2 class="quote-h2">Don't listen to Wale. Your WSJ subscription is as valid as his Economics degree.</h2>
-    <div class="article-author">Micheal Famaroti</div>
+    <h2 class="quote-h2">{{ quote }}</h2>
+    <div class="article-author">Quote Author</div>
   </div>
   <div class="w-section horizontal-border"></div>
   <div class="w-section w-hidden-small w-hidden-tiny gainers-segment">
     <div class="top-5-title">Top 5</div>
     <h3 class="gainers-h3" id="gainers-h3">Gainers</h3>
+    {% for i in '12345' %}
     <div class="gainers-stock">
       <div class="gainers-stock-h1">Dangote
         <br>Corp</div>
@@ -257,52 +211,26 @@
       <div class="gainers-price">13096.02</div>
       <div class="gainers-percentage-change">(0.73%)</div>
     </div>
-    <div class="gainers-stock">
-      <div class="gainers-stock-h1">Dangote
-        <br>Corp</div>
-      <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-      <div class="gainers-price">13096.02</div>
-      <div class="gainers-percentage-change">(0.73%)</div>
-    </div>
-    <div class="gainers-stock">
-      <div class="gainers-stock-h1">Dangote
-        <br>Corp</div>
-      <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-      <div class="gainers-price">13096.02</div>
-      <div class="gainers-percentage-change">(0.73%)</div>
-    </div>
-    <div class="gainers-stock">
-      <div class="gainers-stock-h1">Dangote
-        <br>Corp</div>
-      <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-      <div class="gainers-price">13096.02</div>
-      <div class="gainers-percentage-change">(0.73%)</div>
-    </div>
-    <div class="gainers-stock">
-      <div class="gainers-stock-h1">Dangote
-        <br>Corp</div>
-      <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-      <div class="gainers-price">13096.02</div>
-      <div class="gainers-percentage-change">(0.73%)</div>
-    </div>
+    {% endfor %}
   </div>
   <div class="w-row w-hidden-small w-hidden-tiny other-posts">
     <div class="w-col w-col-6">
-      <div class="article-category mini-article-category">Category</div>
-      <h4>Naira plunge, Security key issues</h4>
-      <div class="article-author mini-article-author">Author Name</div>
+      <div class="article-category mini-article-category">{{ extras.0.category|pretty_category }}</div>
+      <h4>{{ extras.0.headline }}</h4>
+      <div class="article-author mini-article-author">{{ extras.0.writer }}</div>
       <div class="other-post-image"></div>
     </div>
     <div class="w-col w-col-6">
-      <div class="article-category mini-article-category">Category</div>
-      <h4>Naira plunge, Security key issues</h4>
-      <div class="article-author mini-article-author">Author Name</div>
+      <div class="article-category mini-article-category">{{ extras.1.category|pretty_category }}</div>
+      <h4>{{ extras.1.headline }}</h4>
+      <div class="article-author mini-article-author">{{ extras.1.writer }}</div>
       <div class="other-post-image"></div>
     </div>
   </div>
   <div class="w-section w-hidden-small w-hidden-tiny gainers-segment losers-segment">
     <div class="top-5-title">Top 5</div>
     <h3 class="losers-h3" id="gainers-h3">Losers</h3>
+    {% for i in '12345' %}
     <div class="gainers-stock">
       <div class="gainers-stock-h1">Dangote
         <br>Corp</div>
@@ -310,36 +238,8 @@
       <div class="losers-price">13096.02</div>
       <div class="losers-percentage-change">(0.73%)</div>
     </div>
-    <div class="gainers-stock">
-      <div class="gainers-stock-h1">Dangote
-        <br>Corp</div>
-      <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-      <div class="losers-price">13096.02</div>
-      <div class="losers-percentage-change">(0.73%)</div>
-    </div>
-    <div class="gainers-stock">
-      <div class="gainers-stock-h1">Dangote
-        <br>Corp</div>
-      <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-      <div class="losers-price">13096.02</div>
-      <div class="losers-percentage-change">(0.73%)</div>
-    </div>
-    <div class="gainers-stock">
-      <div class="gainers-stock-h1">Dangote
-        <br>Corp</div>
-      <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-      <div class="losers-price">13096.02</div>
-      <div class="losers-percentage-change">(0.73%)</div>
-    </div>
-    <div class="gainers-stock">
-      <div class="gainers-stock-h1">Dangote
-        <br>Corp</div>
-      <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-      <div class="gainers-price losers-price">13096.02</div>
-      <div class="losers-percentage-change">(0.73%)</div>
-    </div>
+    {% endfor %}    
   </div>
-  
   {% include 'news/footer.html' %}
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script type="text/javascript" src="/static/js/webflow.js"></script>
