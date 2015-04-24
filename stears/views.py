@@ -44,6 +44,7 @@ def upload_photo(request):
             try:
                 photos = ArticleImageModel.objects.all()
             except Exception as e:
+                photos = []
                 print e
                 print "*********** COULDN'T LOAD PICTURES *************"
             return render(request, 'stears/photos.html',
@@ -53,6 +54,7 @@ def upload_photo(request):
     try:
         photos = ArticleImageModel.objects.all()
     except Exception as e:
+        photos = []
         print e
         print "*********** COULDN'T LOAD PICTURES *************"
     return render(request, 'stears/photos.html',
