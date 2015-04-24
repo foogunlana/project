@@ -748,9 +748,11 @@ p {
   font-weight: 300;
   text-align: center;
 }
+
+/** EDITS HERE **/
 .gainers-stock {
   display: inline-block;
-  width: 20%;
+  width: 19.5%;
   height: auto;
   padding: 1% 2% 2%;
   border-top: 1px solid #e6e6e6;
@@ -892,7 +894,11 @@ p {
   float: left;
   border-bottom: 1px solid #ccc;
 }
+
+/** EDITS HERE **/
 .footer-links {
+  text-decoration: none;
+  color: #4a4a4a;
   position: static;
   left: 0px;
   top: 0px;
@@ -905,6 +911,10 @@ p {
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0px;
+}
+
+.footer-links:hover{
+  text-decoration: underline;
 }
 .footer-social {
   display: inline-block;
