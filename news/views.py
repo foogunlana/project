@@ -5,7 +5,9 @@ from django.contrib.auth.decorators import user_passes_test
 from utils import HomePage, BusinessPage, EconomyPage, \
 Article
 
+
 # Create your views here.
+
 
 @user_passes_test(lambda u: editor(u), login_url='/weal/')
 def article(request):
