@@ -54,9 +54,11 @@
 			</strong>
 		</div>
 	</div>
-	{% if user|is_editor %}
-	<div>
-		<a href="{% url 'weal:allocate' pk=article.article_id %}">Allocate on site</a>
-	</div>
+	{% ifequal article.state 'on_site' %}
+		{% if user|is_editor %}
+		<div>
+			<a href="{% url 'weal:allocate' pk=article.article_id %}">Allocate on site</a>
+		</div>
 	{% endif %}
+	{% endifequal %}
 </div>
