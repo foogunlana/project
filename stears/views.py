@@ -644,6 +644,16 @@ def allocate_articles(request, pk):
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
+def allocator(request):
+    onsite = mongo_calls('onsite')
+    pages = list(onsite.find({'active': True}))
+    context = {}
+    for item in pages:
+        context[item['page']] = item
+    return render(request, 'stears/allocator2.html', context)
+
+
+@user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
 def submissions(request):
     if request.method == 'GET':
         articles = mongo_calls('articles')

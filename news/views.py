@@ -14,17 +14,20 @@ def article(request):
 
 @user_passes_test(lambda u: editor(u), login_url='/weal/')
 def business(request):
-    return render(request, 'news/business.html')
+    onsite = mongo_calls('onsite')
+    context = onsite.find_one({'page': 'business'})
+    return render(request, 'news/business.html', context)
 
 
 @user_passes_test(lambda u: editor(u), login_url='/weal/')
 def economy(request):
-    return render(request, 'news/economy.html')
+    onsite = mongo_calls('onsite')
+    context = onsite.find_one({'page': 'economy'})
+    return render(request, 'news/economy.html', context)
 
 
 @user_passes_test(lambda u: editor(u), login_url='/weal/')
 def index(request):
     onsite = mongo_calls('onsite')
-    home_page = onsite.find_one({'page': 'home'})
-    context = home_page
+    context = onsite.find_one({'page': 'home'})
     return render(request, 'news/index.html', context)

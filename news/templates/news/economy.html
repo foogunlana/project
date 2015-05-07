@@ -51,9 +51,9 @@
   <div class="w-row companies-row-1">
     <div class="w-col w-col-7 featured-post featured-post-image"></div>
     <div class="w-col w-col-3 featured-post-text">
-      <div class="featured-post-author">Author</div>
-      <h2>I believe we need a title here</h2>
-      <div class="featured-post-category">Category</div>
+      <div class="featured-post-author">{{ main_feature.writer }}</div>
+      <h2>{{ main_feature.headline }}</h2>
+      <div class="featured-post-category">{{ main_feature.category }}</div>
       <p class="w-hidden-small w-hidden-tiny featured-post-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh.</p>
     </div>
     <div class="w-col w-col-2 w-hidden-small w-hidden-tiny w-clearfix category-sidebar">
@@ -72,48 +72,13 @@
     </div>
   </div>
   <div class="w-row category-row">
+    {% for article in economy_posts %}
     <div class="w-col w-col-3 w-col-small-6 w-col-tiny-6 article-segment">
-      <h3>Heading</h3>
-      <div>Author</div>
+      <h3>{{ article.headline }}</h3>
+      <div>{{ article.writer }}</div>
       <div class="w-section article-thumbnail"></div>
     </div>
-    <div class="w-col w-col-3 w-col-small-6 w-col-tiny-6 article-segment">
-      <h3>Heading</h3>
-      <div>Author</div>
-      <div class="w-section article-thumbnail"></div>
-    </div>
-    <div class="w-col w-col-3 w-col-small-6 w-col-tiny-6 article-segment">
-      <h3>Heading</h3>
-      <div>Author</div>
-      <div class="w-section article-thumbnail"></div>
-    </div>
-    <div class="w-col w-col-3 w-col-small-6 w-col-tiny-6 article-segment">
-      <h3>Heading</h3>
-      <div>Author</div>
-      <div class="w-section article-thumbnail"></div>
-    </div>
-  </div>
-  <div class="w-row category-row">
-    <div class="w-col w-col-3 w-col-small-6 w-col-tiny-6 article-segment">
-      <h3>Heading</h3>
-      <div>Author</div>
-      <div class="w-section article-thumbnail"></div>
-    </div>
-    <div class="w-col w-col-3 w-col-small-6 w-col-tiny-6 article-segment">
-      <h3>Heading</h3>
-      <div>Author</div>
-      <div class="w-section article-thumbnail"></div>
-    </div>
-    <div class="w-col w-col-3 w-col-small-6 w-col-tiny-6 article-segment">
-      <h3>Heading</h3>
-      <div>Author</div>
-      <div class="w-section article-thumbnail"></div>
-    </div>
-    <div class="w-col w-col-3 w-col-small-6 w-col-tiny-6 article-segment">
-      <h3>Heading</h3>
-      <div>Author</div>
-      <div class="w-section article-thumbnail"></div>
-    </div>
+    {% endfor %}
   </div>
   {% include 'news/footer.html' %}
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

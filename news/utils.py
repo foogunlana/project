@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from stears.utils import mongo_calls
 
-from stears import params
+import copy
 
 
 class StearsPage(object):
@@ -94,7 +94,7 @@ def obj_dict_recursive(obj):
     return obj_dict
 
 
-def random_home(collection):
+def populate_site(collection):
     # ids = [12, 17, 21, 27, 5, 22, 23]
     article_collection = mongo_calls(collection)
     items = {
@@ -108,6 +108,8 @@ def random_home(collection):
     articles = [article for article in article_collection.find({
         '$query': {},
         '$orderby': {'time': -1}}, items).limit(7)]
+
+    article_list = copy.copy(articles)
 
     home_page = HomePage(
         main_feature=Article(**articles.pop()),
@@ -123,15 +125,41 @@ def random_home(collection):
         happen in 2015, by the grace of God, the dog and \
         the baboon will all be soaked in blood.' - Buhari")
 
-    return home_page
+    business_page = BusinessPage(
+        main_feature=Article(**article_list[0]),
+        business_posts=[Article(**article) for article in article_list])
 
+    economy_page = EconomyPage(
+        main_feature=Article(**article_list[2]),
+        economy_posts=[Article(**article) for article in article_list])
 
-def populate_home():
-    return
-    page = random_home('migrations')
-    page_dict = obj_dict_recursive(page)
-    page_dict['active'] = True
-    page_dict['page'] = 'home'
+    home = obj_dict_recursive(home_page)
+    business = obj_dict_recursive(business_page)
+    economy = obj_dict_recursive(economy_page)
+
+    home['page'] = 'home'
+    business['page'] = 'business'
+    economy['page'] = 'economy'
+
+    home['active'] = True
+    business['active'] = True
+    economy['active'] = True
+
     onsite = mongo_calls('onsite')
-    onsite.update({'active': True},
-                  page_dict, True, False)
+    onsite.update({'active': True, 'page': 'home'},
+                  home, True, False)
+    onsite.update({'active': True, 'page': 'business'},
+                  business, True, False)
+    onsite.update({'active': True, 'page': 'economy'},
+                  economy, True, False)
+
+
+# def populate_home():
+#     return
+#     page = random_home('migrations')
+#     page_dict = obj_dict_recursive(page)
+#     page_dict['active'] = True
+#     page_dict['page'] = 'home'
+#     onsite = mongo_calls('onsite')
+#     onsite.update({'active': True},
+#                   page_dict, True, False)
