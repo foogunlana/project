@@ -56,6 +56,12 @@ $(document).ready(function() {
             });
 
     $('#article_form').submit(function(event){
+        var headline = !$('#id_headline').val();
+        if(headline.length < 5){
+            event.preventDefault();
+            alert('Please enter a valid headline! You cannot save this without one');
+            return false;
+        }
 
         var wym = $.wymeditors(0);
         wym.update();
@@ -91,7 +97,6 @@ $(document).ready(function() {
         catch(err) {
             console.log(err.message);
         }
-        alert($('.wym_html_val').val());
 
         $.ajax({
             type: "post",
