@@ -56,7 +56,7 @@ $(document).ready(function() {
             });
 
     $('#article_form').submit(function(event){
-        var headline = !$('#id_headline').val();
+        var headline = $('#id_headline').val();
         if(headline.length < 5){
             event.preventDefault();
             alert('Please enter a valid headline! You cannot save this without one');
@@ -89,13 +89,6 @@ $(document).ready(function() {
                     }
                 }
             }
-        }
-
-        try {
-            console.log(clean_article_content($('.wym_html_val').val()));
-        }
-        catch(err) {
-            console.log(err.message);
         }
 
         $.ajax({
