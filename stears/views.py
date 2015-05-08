@@ -465,10 +465,11 @@ def comment(request, pk):
             make_comment(
                 str(request.user), int(article_id),
                 comment_form.cleaned_data['comment'])
+            return HttpResponse('reload')
         else:
-            print "Invalid"
-    return HttpResponseRedirect(reverse(
-        'weal:article_detail', args=(), kwargs={'pk': pk}))
+            return HttpResponse("Sorry, comment could not be saved! \
+                Please alert the aministrator")
+    return HttpResponse('reload')
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')

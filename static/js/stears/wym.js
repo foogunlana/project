@@ -23,7 +23,7 @@ $(document).ready(function() {
         save_or_review = $(this).val();
     });
     
-    $('.wymeditor').wymeditor({
+    $('.wymeditor.article_editor').wymeditor({
                 html: $('textarea.wymeditor').val(),
                 postInit: function(wym) {
                     // $(wym._doc.body).click( function() {
@@ -91,6 +91,7 @@ $(document).ready(function() {
         catch(err) {
             console.log(err.message);
         }
+        alert($('.wym_html_val').val());
 
         $.ajax({
             type: "post",

@@ -1,5 +1,5 @@
 {% if comment_form %}
-	<form method="POST" action="{% url 'weal:comment' pk=article.article_id %}">
+	<form method="POST" id="comment_form" action="{% url 'weal:comment' pk=article.article_id %}">
 		{% csrf_token %}
 			<h3>
 			Leave a comment
@@ -7,11 +7,19 @@
 			<h6>
 				Comment below
 			</h6>
-			<p>
-				{{ comment_form.comment }}
-			</p>
-		<button class=" fill comment submit-comment" type="comment" >Post comment</button>
+
+		<script type="text/javascript" src="/static/js/stears/wym_comment.js"></script>
+		<textarea class="wymeditor comment_editor" rows="4" cols="50"></textarea>
+
+		<button class=" fill comment submit-comment" data-url="{% url 'weal:comment' pk=article.article_id %}" type="submit" >Post comment</button>
 	</form>
+
+	<script type="text/javascript">
+		$.ajaxSetup({
+			data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
+		})
+	</script>
+
 {% else %}
 	<h3>
 	Oops, we're afraid you can't comment on this Article :-(
