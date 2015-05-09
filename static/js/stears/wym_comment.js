@@ -2,6 +2,12 @@
 var default_entry = '<p> Please enter your comment here...</p>';
 
 $(document).ready(function() {
+    function wordCount( val ){
+        return 'Characters excluding spaces: '+ val.replace(/\s+/g, '').length.toString()
+                +'\nCharacters including spaces: '+val.length
+                + '\nWords :'+val.match(/\S+/g).length;
+        }
+
     $('.wymeditor.comment_editor').wymeditor({
                 html: default_entry,
                 postInit: function(wym) {
@@ -35,7 +41,13 @@ $(document).ready(function() {
             });
 
     $('#comment_form').submit(function(event){
+        event.preventDefault();
+
         var wym = $.wymeditors(1);
+        if(!wym){
+            wym = $.wymeditors(0);
+        }
+
         wym.update();
         var comment = $('#comment_form').find('.wym_html_val').val();
 

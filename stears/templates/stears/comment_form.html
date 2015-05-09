@@ -2,7 +2,6 @@
 	<script type="text/javascript" src="/static/wymeditor/jquery.wymeditor.min.js"></script>
 	<script type="text/javascript" src="/static/js/stears/wym_catch_paste.js"></script>
 	<link rel="stylesheet" href="/static/wymeditor/skins/default/skin.css">
-	<script type="text/javascript" src="/static/js/stears/wym_comment.js"></script>
 </head>
 
 {% if comment_form %}
@@ -14,7 +13,8 @@
 			<h6>
 				Comment below
 			</h6>
-
+		
+		<script type="text/javascript" src="/static/js/stears/wym_comment.js"></script>
 		<textarea class="wymeditor comment_editor" rows="4" cols="50"></textarea>
 
 		<button class=" fill comment submit-comment" data-url="{% url 'weal:comment' pk=article.article_id %}" type="submit" >Post comment</button>

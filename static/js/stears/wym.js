@@ -55,6 +55,10 @@ $(document).ready(function() {
                 }
             });
 
+    $('.wym_preview_button').click(function(){
+        $('a[name="Preview"]').click();
+    });
+
     $('#article_form').submit(function(event){
         var headline = $('#id_headline').val();
         var content = $('.wym_html_val').val();
@@ -124,10 +128,6 @@ $(document).ready(function() {
             }
         });
         return false;
-    });
-
-    $('.wym_preview_button').click(function(){
-        $('a[name="Preview"]').click();
     });
 
 });
