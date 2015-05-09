@@ -240,7 +240,7 @@
 				</div>
 				<div class="article_options">
 					<div class="row">
-						<button id="comment_area_button" style="border-radius:3px;" class=" fill">Comment</button>
+						<button id="comment_area" class="toggles_div fill" style="border-radius:3px;" >Comment</button>
 					</div>
 					{% ifequal user.username article.writer %}
 						{% ifequal article.state 'in_progress' %}
@@ -349,7 +349,7 @@
 	</div>
 	<div class="row">
 		<div class="columns small-12 large-9">
-			<div class="fill" id="comment_area" style="padding-left:15px;padding-right:15px;" {% if comment_form.errors %}{% else %}hidden{% endif %}>
+			<div  class="comment_area fill" style="padding-left:15px;padding-right:15px;" {% if comment_form.errors %}{% else %}hidden{% endif %}>
 			<div class="row">
 				{% for field in comment_form %}
 					{% if field.errors %}
@@ -369,7 +369,7 @@
 				Comments
 				</h3>
 				<br>
-				{% for comment in article.comments %}
+				{% for comment in article.comments reversed %}
 					{% include 'stears/comment_button.html' %}
 					<br>
 				{% endfor %}

@@ -42,7 +42,6 @@ $(document).ready(function() {
         if((comment===default_entry)||(comment.length < 20)){
             event.preventDefault();
             alert('You have not entered a long enough comment');
-            alert(comment);
             return false;
         }
 
