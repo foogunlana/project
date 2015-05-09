@@ -57,9 +57,17 @@ $(document).ready(function() {
 
     $('#article_form').submit(function(event){
         var headline = $('#id_headline').val();
+        var content = $('.wym_html_val').val();
+
         if(headline.length < 5){
             event.preventDefault();
             alert('Please enter a valid headline! You cannot save this without one');
+            return false;
+        }
+
+        if(content.length < 20){
+            event.preventDefault();
+            alert('Who is going to want to read an article that short? ;)');
             return false;
         }
 
@@ -95,7 +103,7 @@ $(document).ready(function() {
             type: "post",
             data: {
                 'headline':$('#id_headline').val(),
-                'content':$('.wym_html_val').val(),
+                'content':content,
                 'article_id':$('#id_article_id').val(),
                 'nse_headlines':$('#id_nse_headlines').val(),
                 'categories':$('#id_categories').val(),
