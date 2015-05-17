@@ -50,7 +50,7 @@ $( document ).ready(function() {
 
 	$('#comment_area_button').click(function() {
 		$('#comment_area').toggle();
-		$('#id_comment').focus();
+		$('#comment_form').focus();
 		$('#keyword_area').hide();
 	});
 

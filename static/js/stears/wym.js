@@ -23,7 +23,7 @@ $(document).ready(function() {
         save_or_review = $(this).val();
     });
     
-    $('.wymeditor').wymeditor({
+    $('.wymeditor.article_editor').wymeditor({
                 html: $('textarea.wymeditor').val(),
                 postInit: function(wym) {
                     // $(wym._doc.body).click( function() {
@@ -55,7 +55,25 @@ $(document).ready(function() {
                 }
             });
 
+    $('.wym_preview_button').click(function(){
+        $('a[name="Preview"]').click();
+    });
+
     $('#article_form').submit(function(event){
+        var headline = $('#id_headline').val();
+        var content = $('.wym_html_val').val();
+
+        if(headline.length < 5){
+            event.preventDefault();
+            alert('Please enter a valid headline! You cannot save this without one');
+            return false;
+        }
+
+        if(content.length < 20){
+            event.preventDefault();
+            alert('Who is going to want to read an article that short? ;)');
+            return false;
+        }
 
         var wym = $.wymeditors(0);
         wym.update();
@@ -85,18 +103,11 @@ $(document).ready(function() {
             }
         }
 
-        try {
-            console.log(clean_article_content($('.wym_html_val').val()));
-        }
-        catch(err) {
-            console.log(err.message);
-        }
-
         $.ajax({
             type: "post",
             data: {
                 'headline':$('#id_headline').val(),
-                'content':$('.wym_html_val').val(),
+                'content':content,
                 'article_id':$('#id_article_id').val(),
                 'nse_headlines':$('#id_nse_headlines').val(),
                 'categories':$('#id_categories').val(),
@@ -117,10 +128,6 @@ $(document).ready(function() {
             }
         });
         return false;
-    });
-
-    $('.wym_preview_button').click(function(){
-        $('a[name="Preview"]').click();
     });
 
 });

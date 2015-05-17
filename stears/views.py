@@ -41,12 +41,22 @@ def upload_photo(request):
             article_image.save()
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
-            photos = ArticleImageModel.objects.all()
+            try:
+                photos = ArticleImageModel.objects.all()
+            except Exception as e:
+                photos = []
+                print e
+                print "*********** COULDN'T LOAD PICTURES *************"
             return render(request, 'stears/photos.html',
                           {'form': form, 'photos': photos})
     else:
         form = ArticleImageForm()
-    photos = ArticleImageModel.objects.all()
+    try:
+        photos = ArticleImageModel.objects.all()
+    except Exception as e:
+        photos = []
+        print e
+        print "*********** COULDN'T LOAD PICTURES *************"
     return render(request, 'stears/photos.html',
                   {'form': form, 'photos': photos})
 
@@ -57,7 +67,7 @@ def research(request):
     form = ChoiceForm(choices=choices)
     writers_article_form = WritersArticleForm()
     return render(request, 'stears/research.html',
-                    {'form': form, 
+                    {'form': form,
                     'writers_article_form': writers_article_form})
 
 
@@ -455,10 +465,11 @@ def comment(request, pk):
             make_comment(
                 str(request.user), int(article_id),
                 comment_form.cleaned_data['comment'])
+            return HttpResponse('reload')
         else:
-            print "Invalid"
-    return HttpResponseRedirect(reverse(
-        'weal:article_detail', args=(), kwargs={'pk': pk}))
+            return HttpResponse("Sorry, comment could not be saved! \
+                Please alert the aministrator")
+    return HttpResponse('reload')
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
@@ -576,7 +587,7 @@ def review_article(request, pk):
             print "Invalid"
         return HttpResponseRedirect(reverse('weal:writers_write'))
     article_review_form = ArticleReviewForm()
-    return render(request, 'stears/review_article.html', 
+    return render(request, 'stears/review_article.html',
         {'article': article, 'article_review_form': article_review_form})
 
 

@@ -2,10 +2,14 @@
 <div class="row article_box" style='{% if article.writer %}{% else %}background-color:#D5EBFE{% endif %}'>
 <div class="columns small-12 medium-10 ">
 	<div class="comment_summary" id="summary{{ forloop.counter }}">
+		{% autoescape off %}
 		{{ comment.comment|urlize|safe|slice:':20' }}...
+		{% endautoescape %}
 	</div>
 	<div class="comment_body" id="body{{ forloop.counter }}" hidden>
+		{% autoescape off %}
 		{{ comment.comment|urlize|safe }}
+		{% endautoescape %}
 		<p>
 		<div style="float:right;">
 			<strong>
