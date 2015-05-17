@@ -644,12 +644,22 @@ def allocate_articles(request, pk):
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
+def allocate_article(request):
+    if request.method == 'POST':
+        pass
+    return HttpResponse('reload')
+
+
+@user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
 def allocator(request):
     onsite = mongo_calls('onsite')
     pages = list(onsite.find({'active': True}))
     context = {}
     for item in pages:
-        context[item['page']] = item
+        item.pop('_id')
+        item.pop('active')
+        page = item.pop('page')
+        context[page] = item
     return render(request, 'stears/allocator2.html', context)
 
 
