@@ -79,7 +79,8 @@ class EconomyPage(StearsPage):
 
 
 def add_article_to_section(page, section, article_id):
-    articles = mongo_calls('migrations')
+    # articles = mongo_calls('migrations')
+    articles = mongo_calls('articles')
     onsite = mongo_calls('onsite')
 
     max_articles = params.section_max_articles[section]
@@ -94,7 +95,8 @@ def add_article_to_section(page, section, article_id):
         True, False)
 
 def put_article_on_page(page, section, article_id):
-    articles = mongo_calls('migrations')
+    # articles = mongo_calls('migrations')
+    articles = mongo_calls('articles')
     onsite = mongo_calls('onsite')
 
     article = articles.find_one(

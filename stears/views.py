@@ -685,7 +685,8 @@ def allocate_article(request):
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
 def allocator(request):
     onsite = mongo_calls('onsite')
-    pipeline = mongo_calls('migrations')
+    # pipeline = mongo_calls('migrations')
+    pipeline = mongo_calls('articles')
     pages = list(onsite.find({'active': True}))
     articles = list(pipeline.find({
                 '$query': {'type': 'writers_article'},
