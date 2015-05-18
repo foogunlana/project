@@ -14,34 +14,63 @@
 	<br>
 {% endblock %}
 {% block content %}
+	<head>
+		<script src="/static/js/stears/allocator.js" ></script>
+	</head>
 	<div class="row">
 		<div class="columns small-11 small-centered">
 			<div class="row">
-				<div class="columns small-12 large-8">
+				<div class="columns small-12 large-4 large-push-8">
+					<div class="article_box">
+						Articles		
+					</div>
+					<br>
+					<div class="article_box">
+						<select name="article_options" id="id_article_options" style="margin:0px;" data-url="{% url 'weal:allocate' %}" >
+							<option value="None">Choose an article</option>
+							{% for option in articles %}
+							<option value="{{ option.article_id }}">{{ option.headline }}</option>
+							{% empty %}
+							<option value="None">Sorry! No articles are in the pipeline</option>
+							{% endfor %}
+						</select>
+						<form action="{% url 'weal:allocate' %}" hidden>
+							{% csrf_token %}
+						</form>
+						<button class="fill submit_article_option">Go</button>
+						<script type="text/javascript">
+							$.ajaxSetup({
+								data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
+							})
+						</script>
+					</div>
+					<br>
+				</div>
+				<div class="columns small-12 large-8 large-pull-4">
 					<div class="article_box">
 						<a id="allocate_home_form" class="toggles_div" style="padding:10px;">Home page</a>
 					</div>
 					<br>
-					<div class="allocate_home_form article_box" class="columns small-12" style="padding:10px;">
-						<div>
+					<div class="allocate_home_form article_box" class="columns small-12" style="padding:10px;" data-page="home">
+						<div class="section" >
 							Market Snapshot
 						</div>
-						<div>
+						<div class="section" >
 							Quote 
 						</div>
-						<div data-name="main_feature" class="choose_article">
+						<div data-title="main_feature" class="section choose_article">
 							Main feature
 						</div>
-						<div data-name="main_feature" class="choose_article">
+						<div data-title="daily_column" class="section choose_article">
 							Daily column
 						</div>
-						<div data-name="main_feature" class="choose_article">
+						<div data-title="secondary" class="section choose_article">
 							Secondary
 						</div>
-						<div>
+						<div class="section" >
 							Tertiaries
 						</div>
-						<div>
+						<div class="section" >
 							Extras
 						</div>
 					</div>
@@ -77,20 +106,6 @@
 						</div>
 					</div>
 					<br>
-				</div>
-				<div class="columns small-12 large-4">
-					<div class="article_box">
-						Articles		
-					</div>
-					<br>
-					<div class="article_box" style="min-height:100px;">
-						<form id="article_form" action="{% url 'weal:allocate' %}" hidden>
-							{% csrf_token %}
-						</form>
-						<form action="{% url 'weal:allocate' %}" hidden>
-							{% csrf_token %}
-						</form>
-					</div>
 				</div>
 			</div>
 		</div>

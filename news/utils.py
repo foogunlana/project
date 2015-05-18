@@ -77,6 +77,20 @@ class EconomyPage(StearsPage):
         return False
 
 
+def put_article_on_page(page, section, article_id):
+    articles = mongo_calls('migrations')
+    onsite = mongo_calls('onsite')
+
+    article = articles.find_one(
+        {'article_id': article_id},
+        {'headline': 1, 'content': 1, 'writer': 1, 'category': 1, 'article_id': 1})
+
+    onsite.update(
+        {'active': True, 'page': page},
+        {'$set': { section: article }},
+        True, False)
+
+
 def obj_dict_recursive(obj):
     obj_dict = dict(obj.__dict__)
     for key in obj_dict:

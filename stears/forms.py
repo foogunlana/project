@@ -90,6 +90,10 @@ class AddWritersForm(forms.Form):
             choices=[(x, x) for x in writers_list],
         )
 
+class AllocationForm(forms.Form):
+    page = forms.CharField(max_length=30, required=True)
+    section = forms.CharField(max_length=30, required=True)
+    article_id = forms.CharField(max_length=10, required=True)
 
 class RemoveWritersForm(forms.Form):
 
