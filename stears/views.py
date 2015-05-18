@@ -18,7 +18,7 @@ from stears.utils import article_key_words, revive_from_trash, add_writers,\
     put_in_review, new_member, \
     edit_writer_registration_details
 
-from news.utils import put_article_on_page
+from news.utils import put_article_on_page, add_article_to_section
 
 from stears.permissions import approved_writer, is_a_boss, \
     writer_can_edit_article
@@ -659,6 +659,7 @@ def allocate_articles(request, pk):
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
 def allocate_article(request):
+    multiples = ['economy_posts', 'business_posts', 'extras', 'tertiaries']
     if request.method == 'POST':
         allocation_form = AllocationForm(request.POST)
         if allocation_form.is_valid():
@@ -666,8 +667,18 @@ def allocate_article(request):
             article_id = int(allocation_form.cleaned_data['article_id'])
             page = allocation_form.cleaned_data['page']
 
-            put_article_on_page(
-                page=page, section=section, article_id=article_id)
+            try:
+                if section in multiples:
+                    add_article_to_section(
+                        page=page, section=section, article_id=article_id)
+                else:
+                    # Find way to verify that section, page and article_id make sense
+                    put_article_on_page(
+                        page=page, section=section, article_id=article_id)
+            except Exception as e:
+                print e
+        else:
+            return HttpResponse(allocation_form.errors)
     return HttpResponse('reload')
 
 

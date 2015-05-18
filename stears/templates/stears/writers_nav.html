@@ -8,6 +8,13 @@
 			<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
 		</ul>
 		<section class="top-bar-section">
+			{% if user.username|is_editor %}
+			<ul class="left">
+				<li>
+					<a href="{% url 'weal:allocator' %}">WTemplate 1.0</a>
+				</li>
+			</ul>
+			{% endif %}
 			<ul class="right">
 				<li>
 					<a href="{% url 'weal:writers_write' %}">Write</a>

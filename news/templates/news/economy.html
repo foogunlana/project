@@ -72,7 +72,7 @@
     </div>
   </div>
   <div class="w-row category-row">
-    {% for article in economy_posts %}
+    {% for article in economy_posts reversed %}
     <div class="w-col w-col-3 w-col-small-6 w-col-tiny-6 article-segment">
       <h3>{{ article.headline }}</h3>
       <div>{{ article.writer }}</div>

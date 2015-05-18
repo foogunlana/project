@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from stears.utils import mongo_calls
 
+import stears.params as params
 import copy
 
 
@@ -76,6 +77,21 @@ class EconomyPage(StearsPage):
     def is_ready(self):
         return False
 
+
+def add_article_to_section(page, section, article_id):
+    articles = mongo_calls('migrations')
+    onsite = mongo_calls('onsite')
+
+    max_articles = params.section_max_articles[section]
+
+    article = articles.find_one(
+        {'article_id': article_id},
+        {'headline': 1, 'content': 1, 'writer': 1, 'category': 1, 'article_id': 1})
+
+    onsite.update(
+        {'active': True, 'page': page},
+        {'$push': {section: {'$each': [article], '$slice': -max_articles}}},
+        True, False)
 
 def put_article_on_page(page, section, article_id):
     articles = mongo_calls('migrations')
