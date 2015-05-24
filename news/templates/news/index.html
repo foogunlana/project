@@ -130,12 +130,14 @@
   </div>
 
   <!-- Main feature goes here -->
-  <div class="w-section w-hidden-small w-hidden-tiny main-article">
-    <div class="w-section main-article-content">
-      <h1 class="main-article-h1">{{ main_feature.headline }}</h1>
-      <div class="article-author">{{ main_feature.writer }}</div>
+    <a class="w-clearfix w-inline-block article-link-block link-block-main" href="#">
+    <div class="w-hidden-small w-hidden-tiny main-article">
+      <div class="w-section main-article-content">
+        <h1 class="main-article-h1">{{ main_feature.headline }}</h1>
+        <div class="article-author">{{ main_feature.writer }}</div>
+      </div>
     </div>
-  </div>
+  </a>
   <div class="w-section w-hidden-small w-hidden-tiny market-snapshot">
     <div class="w-section widget-header"></div>
     <div class="w-row">
@@ -159,42 +161,52 @@
     </div>
   </div>
   <div class="w-section horizontal-border"></div>
-  <div class="w-section w-hidden-small w-hidden-tiny secondary-article">
-    <div class="w-row">
-      <div class="w-col w-col-5 w-col-medium-6 secondary-article-text">
-        <div class="article-category">{{ secondary.category|pretty_category }}</div>
-        <h2>{{ secondary.headline }}</h2>
-        <div class="article-author">{{ secondary.writer }}</div>
+  <a class="w-hidden-small w-hidden-tiny w-clearfix w-inline-block article-link-block article-link-secondary" href="#">
+    <div class="secondary-article">
+      <div class="w-row">
+        <div class="w-col w-col-5 w-col-medium-6 secondary-article-text">
+          <div class="secondary-header-and-author">
+            <div class="article-category">{{ secondary.category|pretty_category }}</div>
+            <h2>{{ secondary.headline }}</h2>
+            <div class="article-author">{{ secondary.writer }}</div>
+          </div>
       </div>
-      <div class="w-col w-col-7 w-col-medium-6 secondary-article-img"></div>
+        <div class="w-col w-col-7 w-col-medium-6 secondary-article-img"></div>
+      </div>
     </div>
-  </div>
+  </a>
   <div class="w-section w-hidden-small w-hidden-tiny third-article-section">
     <div class="w-row third-article-segment">
       <div class="w-col w-col-7 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col1">
         <div class="w-section all-text-article">
-          <div class="article-category">{{ daily_column.category|pretty_category }}</div>
-          <h3>{{ daily_column.headline }}</h3>
-          <div class="article-author">{{ daily_column.writer }}</div>
-          <p class="all-text-article-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim</p>
+          <a class="w-inline-block article-link-block" href="#">
+            <div class="article-category">{{ daily_column.category|pretty_category }}</div>
+            <h3>{{ daily_column.headline }}</h3>
+            <div class="article-author">{{ daily_column.writer }}</div>
+            <p class="all-text-article-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim</p>
+          </a>
         </div>
       </div>
       <div class="w-col w-col-5 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col1">
         <div class="w-section mini-article-segment">
-          <div class="article-category mini-article-category">{{ tertiaries.0.category|pretty_category }}</div>
-          <h4>{{ tertiaries.0.headline }}</h4>
-          <div class="article-author mini-article-author">{{ tertiaries.0.writer }}</div>
+          <a class="w-inline-block article-link-block" href="#">
+            <div class="article-category mini-article-category">{{ tertiaries.0.category|pretty_category }}</div>
+            <h4>{{ tertiaries.0.headline }}</h4>
+            <div class="article-author mini-article-author">{{ tertiaries.0.writer }}</div>
+          </a>
         </div>
         <div class="w-section mini-segment-horizontal-border"></div>
         <div class="w-section mini-article-segment">
-          <div class="article-category mini-article-category">{{ tertiaries.1.category|pretty_category }}</div>
-          <h4>{{ tertiaries.1.headline }}</h4>
-          <div class="article-author mini-article-author">{{ tertiaries.1.writer }}</div>
+          <a class="w-inline-block article-link-block" href="#">
+            <div class="article-category mini-article-category">{{ tertiaries.1.category|pretty_category }}</div>
+            <h4>{{ tertiaries.1.headline }}</h4>
+            <div class="article-author mini-article-author">{{ tertiaries.1.writer }}</div>
+          </a>
         </div>
       </div>
     </div>
   </div>
-  <div class="w-section horizontal-border"></div>
+  <div class="w-section horizontal-border bottom-border"></div>
   <div class="w-section quote-section">
     <h2 class="quote-h2">{{ quote }}</h2>
     <div class="article-author">Quote Author</div>
@@ -215,16 +227,25 @@
   </div>
   <div class="w-row w-hidden-small w-hidden-tiny other-posts">
     <div class="w-col w-col-6">
-      <div class="article-category mini-article-category">{{ extras.0.category|pretty_category }}</div>
-      <h4>{{ extras.0.headline }}</h4>
-      <div class="article-author mini-article-author">{{ extras.0.writer }}</div>
-      <div class="other-post-image"></div>
+      <a class="w-inline-block article-link-block mini-article-link-block" href="#">
+        <div class="mini-header-and-author">
+            <div class="article-category mini-article-category">{{ extras.0.category|pretty_category }}</div>
+            <h4>{{ extras.0.headline }}</h4>
+            <div class="article-author mini-article-author">{{ extras.0.writer }}
+            </div>
+          </div>
+        <div class="other-post-image"></div>
+      </a>
     </div>
     <div class="w-col w-col-6">
-      <div class="article-category mini-article-category">{{ extras.1.category|pretty_category }}</div>
-      <h4>{{ extras.1.headline }}</h4>
-      <div class="article-author mini-article-author">{{ extras.1.writer }}</div>
-      <div class="other-post-image"></div>
+      <a class="w-inline-block article-link-block mini-article-link-block" href="#">
+        <div class="mini-header-and-author">
+          <div class="article-category mini-article-category">{{ extras.1.category|pretty_category }}</div>
+          <h4>{{ extras.1.headline }}</h4>
+          <div class="article-author mini-article-author">{{ extras.1.writer }}</div>
+        </div>
+        <div class="other-post-image"></div>
+      </a>
     </div>
   </div>
   <div class="w-section w-hidden-small w-hidden-tiny gainers-segment losers-segment">
