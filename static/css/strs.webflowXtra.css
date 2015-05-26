@@ -17,3 +17,8 @@
 .gainers-stock {
 	width:19.45%;
 }
+
+p {
+    margin-bottom: 2%;
+    word-break:break-word;
+ }
