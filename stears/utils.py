@@ -16,6 +16,7 @@ import random
 
 def get_mongo_client():
     client = None
+    
     while True:
         if client != None:
             print "YIELD CLIENT"
@@ -39,7 +40,7 @@ def handle_uploaded_file(image):
 def mongo_calls(collection_name):
     client = NseNews.client
     try:
-        collection = client.stears[collection_name]
+        collection = client[params.db][collection_name]
     except Exception as e:
         print e
         raise Exception
