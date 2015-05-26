@@ -3,7 +3,7 @@ from stears.permissions import editor
 from stears.utils import mongo_calls
 from django.contrib.auth.decorators import user_passes_test
 from utils import HomePage, BusinessPage, EconomyPage, \
-Article
+Article, htmltag_text, remove_special_characters
 
 
 
@@ -41,4 +41,8 @@ def economy(request):
 def index(request):
     onsite = mongo_calls('onsite')
     context = onsite.find_one({'page': 'home'})
+    daily_column = context['daily_column']
+    dc_summary = htmltag_text(daily_column['content'], 'p')
+    dc_summary = remove_special_characters(dc_summary.pop())
+    context['daily_column_summary'] = dc_summary
     return render(request, 'news/index.html', context)

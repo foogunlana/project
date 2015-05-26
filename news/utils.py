@@ -1,7 +1,10 @@
 from abc import ABCMeta, abstractmethod
 from stears.utils import mongo_calls
+from lxml import html
 
 import stears.params as params
+import htmlentitydefs
+import re
 import copy
 
 
@@ -78,6 +81,21 @@ class EconomyPage(StearsPage):
         return False
 
 
+def htmltag_text(html_string, tag):
+    tree = html.fromstring(html_string)
+    # paragraphs = list(reversed(tree.xpath("//%s/text()"%(tag))))
+    paragraphs = list(reversed(tree.xpath("//p/text()")))
+    return paragraphs
+
+
+def remove_special_characters(mystring):
+    mystring = re.sub(
+        '&([^;]+);',
+        lambda m: unichr(htmlentitydefs.name2codepoint[m.group(1)]),
+        mystring)
+    return mystring.encode('utf-8')
+
+
 def add_article_to_section(page, section, article_id):
     # articles = mongo_calls('migrations')
     articles = mongo_calls('articles')
@@ -93,6 +111,7 @@ def add_article_to_section(page, section, article_id):
         {'active': True, 'page': page},
         {'$push': {section: {'$each': [article], '$slice': -max_articles}}},
         True, False)
+
 
 def put_article_on_page(page, section, article_id):
     # articles = mongo_calls('migrations')

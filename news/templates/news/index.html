@@ -183,7 +183,9 @@
             <div class="article-category">{{ daily_column.category|pretty_category }}</div>
             <h3>{{ daily_column.headline }}</h3>
             <div class="article-author">{{ daily_column.writer }}</div>
-            <p class="all-text-article-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim</p>
+            <p class="all-text-article-p">
+              {{ daily_column_summary|truncatechars:250 }}
+            </p>
           </a>
         </div>
       </div>
