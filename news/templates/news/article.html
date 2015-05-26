@@ -6,30 +6,24 @@
 <body>
   {% include 'news/news_nav.html' %}
   
-  <h1 class="article-header">Failure is not an option</h1>
+  <h1 class="article-header">{{ article.headline }}</h1>
   <div class="w-section article-image"></div>
   <div class="w-row article-content">
     <div class="w-col w-col-9 article">
-      <div class="w-hidden-main w-hidden-medium article-author mobile-element">Author Name</div>
-      <div class="w-hidden-main w-hidden-medium article-category mobile-element">Category</div>
-      <p class="article-paragraph">‘Failure is not an option’. For most Nigerians, this is a relatively familiar phrase as the 2015 general elections draw nearer. However, what remains undefined for many Nigerians, is as clear as day to the average politician. What really is failure for Nigeria?&nbsp;
-        <br>
-        <br>In 1966, when Major Chukwuma Nzeogwu staged Nigeria’s first coup, it was clear to many that Nigeria had failed as an independent state, having to subject itself to military rule. Yet, the coup plotters and their eastern supporters would have seen the change of government as the first step towards removing a corrupt and greedy government. Tumultuous years followed, as Nigeria moved from one Head of State to another, until the General Olusegun Obasanjo administration brought relative stability to the nation. This transition from military government to a civilian leadership and the birth of the Fourth Republic can arguably be categorized as a non-failure. But 16 years later, in a campaign teeming with rigging allegations, violent attacks, political stratagems and the occasional Abuja peace accord, we can barely define what failure means for the nation today.&nbsp;
-        <br>
-        <br>Speaking to a Nigerian oil and gas student, I asked what failure meant in the context of this election, and his reply was ‘Well, failure is…umm…we know we don’t what a military government, failure is an election that isn’t free and fair’. The demand for a free and fair election is a morally laudatory, but in a country where a primary school classroom election cannot be conducted on fair terms, one must question Nigerians right to demand free and fair elections.&nbsp;
-        <br>
-        <br>Of course, there are the Nigerian elite. Among whom stock prices, economic indicators and international perception can make or break their view of the country. Far removed from the realities in Yobe, Borno or Adamawa, their understanding of failure is centred around the ability of the Lagos Island to hold its place in international circles and attract foreign investment. Infact, despite the current pace of the nation, under the right circumstances, in the highest offices of Marina, you may even hear phrases like ‘Africa Rising’.&nbsp;
-        <br>
-        <br>The truth is, Nigerians, and Nigeria, has lost a sense of what it means to actually fail this time around. Africa’s most populous nation is too busy lambasting politicians for high level graft and terrorist attacks in the north-eastern region, to set a legitimate standard for itself. A free and fair election is virtually impossible, even by Nigerian standards, and it is likely to remain so with the current mentality of Nigerians. Failure rebounds all the way from the Chappal Waddi to the deepest basins of the Niger Delta, and the country is enmeshed in a web of institutional failure and inefficiency. And where there is no standard, there is nothing left but an unaccountable free-for-all.&nbsp;
-        <br>
-        <br>NEVERTHELESS, the average political candidate knows what it means to fail. Failure means losing his man-made entitlement to political office. This sharp divide between the clear aims of the ruling class and the mirage of hope being doused on the voters is ever more striking as political rhetoric heatens up in the run up to the elections. The candidates are clear in their desire to win, for many, at all costs. As the former Head of State, Olusegun Obasanjo has stated previously, the elections should not be a do or die affair – but indeed it may be for many. The political thugs or ‘agberos’ who mobilise themselves on the back of political whims are unending in their desire to dispose of their immediate ‘targets’. They too, have an understanding of what failure for their ‘Oga’ will mean, not failure for Nigeria.&nbsp;
-        <br>
-        <br>In a nation so diverse as Nigeria, one can only wonder whether these views of one country can ever made one. The elites, the politicians, the voters – when will we stop to ask ourselves what failure means for our country? But not all hope is lost, we can hold solace in the fact that failure is not fatal, but failure to change just might be.​</p>
-      <div class="article-author">Author Name</div>
+      <div class="w-hidden-main w-hidden-medium article-author mobile-element">
+        {{ article.writer }}</div>
+      <div class="w-hidden-main w-hidden-medium article-category mobile-element">
+        {{ article.category }}</div>
+      <p class="article-paragraph">
+        {% autoescape off %}
+        {{ article.content }}
+        {% endautoescape %}
+      </p>
+      <div class="article-author">{{ article.writer }}</div>
     </div>
     <div class="w-col w-col-3 w-hidden-small w-hidden-tiny article-information">
-      <div class="article-author">Author Name</div>
-      <div class="article-category">Category</div>
+      <div class="article-author">{{ article.writer }}</div>
+      <div class="article-category">{{ article.category }}</div>
     </div>
   </div>
 

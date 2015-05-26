@@ -6,12 +6,21 @@ from utils import HomePage, BusinessPage, EconomyPage, \
 Article
 
 
+
 # Create your views here.
 
 
 @user_passes_test(lambda u: editor(u), login_url='/weal/')
-def article(request):
-    return render(request, 'news/article.html')
+def article(request, pk):
+    pk = int(pk)
+    articles = mongo_calls('migrations')
+
+    article = articles.find_one({'article_id': pk})
+    if not article:
+        articles = mongo_calls('articles')
+        article = articles.find_one({'article_id': pk})
+    context = {'article': article}
+    return render(request, 'news/article.html', context)
 
 
 @user_passes_test(lambda u: editor(u), login_url='/weal/')

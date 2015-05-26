@@ -130,7 +130,7 @@
   </div>
 
   <!-- Main feature goes here -->
-    <a class="w-clearfix w-inline-block article-link-block link-block-main" href="#">
+    <a class="w-clearfix w-inline-block article-link-block link-block-main" href="{% url 'news:article' main_feature.article_id %}">
     <div class="w-hidden-small w-hidden-tiny main-article">
       <div class="w-section main-article-content">
         <h1 class="main-article-h1">{{ main_feature.headline }}</h1>
@@ -161,7 +161,7 @@
     </div>
   </div>
   <div class="w-section horizontal-border"></div>
-  <a class="w-hidden-small w-hidden-tiny w-clearfix w-inline-block article-link-block article-link-secondary" href="#">
+  <a class="w-hidden-small w-hidden-tiny w-clearfix w-inline-block article-link-block article-link-secondary" href="{% url 'news:article' secondary.article_id %}">
     <div class="secondary-article">
       <div class="w-row">
         <div class="w-col w-col-5 w-col-medium-6 secondary-article-text">
@@ -179,7 +179,7 @@
     <div class="w-row third-article-segment">
       <div class="w-col w-col-7 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col1">
         <div class="w-section all-text-article">
-          <a class="w-inline-block article-link-block" href="#">
+          <a class="w-inline-block article-link-block" href="{% url 'news:article' daily_column.article_id %}">
             <div class="article-category">{{ daily_column.category|pretty_category }}</div>
             <h3>{{ daily_column.headline }}</h3>
             <div class="article-author">{{ daily_column.writer }}</div>
@@ -189,7 +189,7 @@
       </div>
       <div class="w-col w-col-5 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col1">
         <div class="w-section mini-article-segment">
-          <a class="w-inline-block article-link-block" href="#">
+          <a class="w-inline-block article-link-block" href="{% url 'news:article' tertiaries.0.article_id %}">
             <div class="article-category mini-article-category">{{ tertiaries.0.category|pretty_category }}</div>
             <h4>{{ tertiaries.0.headline }}</h4>
             <div class="article-author mini-article-author">{{ tertiaries.0.writer }}</div>
@@ -197,7 +197,7 @@
         </div>
         <div class="w-section mini-segment-horizontal-border"></div>
         <div class="w-section mini-article-segment">
-          <a class="w-inline-block article-link-block" href="#">
+          <a class="w-inline-block article-link-block" href="{% url 'news:article' tertiaries.1.article_id %}">
             <div class="article-category mini-article-category">{{ tertiaries.1.category|pretty_category }}</div>
             <h4>{{ tertiaries.1.headline }}</h4>
             <div class="article-author mini-article-author">{{ tertiaries.1.writer }}</div>
@@ -227,7 +227,7 @@
   </div>
   <div class="w-row w-hidden-small w-hidden-tiny other-posts">
     <div class="w-col w-col-6">
-      <a class="w-inline-block article-link-block mini-article-link-block" href="#">
+      <a class="w-inline-block article-link-block mini-article-link-block" href="{% url 'news:article' extras.0.article_id %}">
         <div class="mini-header-and-author">
             <div class="article-category mini-article-category">{{ extras.0.category|pretty_category }}</div>
             <h4>{{ extras.0.headline }}</h4>
@@ -238,7 +238,7 @@
       </a>
     </div>
     <div class="w-col w-col-6">
-      <a class="w-inline-block article-link-block mini-article-link-block" href="#">
+      <a class="w-inline-block article-link-block mini-article-link-block" href="{% url 'news:article' extras.1.article_id %}">
         <div class="mini-header-and-author">
           <div class="article-category mini-article-category">{{ extras.1.category|pretty_category }}</div>
           <h4>{{ extras.1.headline }}</h4>
