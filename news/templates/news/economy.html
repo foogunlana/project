@@ -54,7 +54,7 @@
       <div class="featured-post-author">{{ main_feature.writer }}</div>
       <h2>{{ main_feature.headline }}</h2>
       <div class="featured-post-category">{{ main_feature.category }}</div>
-      <p class="w-hidden-small w-hidden-tiny featured-post-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh.</p>
+      <p class="w-hidden-small w-hidden-tiny featured-post-p">{{ emf_summary|truncatechars:250 }}</p>
     </div>
     <div class="w-col w-col-2 w-hidden-small w-hidden-tiny w-clearfix category-sidebar">
       <h4>Sub-Category</h4>

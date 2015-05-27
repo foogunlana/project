@@ -27,6 +27,10 @@ def article(request, pk):
 def business(request):
     onsite = mongo_calls('onsite')
     context = onsite.find_one({'page': 'business'})
+    main_feature = context['main_feature']
+    bmf_summary = htmltag_text(main_feature['content'], 'p')
+    bmf_summary = remove_special_characters(bmf_summary.pop())
+    context['bmf_summary'] = bmf_summary
     return render(request, 'news/business.html', context)
 
 
@@ -34,6 +38,10 @@ def business(request):
 def economy(request):
     onsite = mongo_calls('onsite')
     context = onsite.find_one({'page': 'economy'})
+    main_feature = context['main_feature']
+    emf_summary = htmltag_text(main_feature['content'], 'p')
+    emf_summary = remove_special_characters(emf_summary.pop())
+    context['emf_summary'] = emf_summary
     return render(request, 'news/economy.html', context)
 
 
