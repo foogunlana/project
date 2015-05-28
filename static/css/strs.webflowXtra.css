@@ -2,10 +2,6 @@
   margin-bottom: 10%;
 }
 
-.market-snapshot {
-  width: 33.6%;
- }
-
 .secondary-article-text h2 {
  font-size: 2em	
 }
@@ -21,4 +17,28 @@
 p {
     margin-bottom: 2%;
     word-break:break-word;
+ }
+
+.mobile-news-tab, .mobile-news-tab.w--current {
+	width: 49.4%;
+}
+
+.mobile-markets-tab, .mobile-markets-tab.w--current {
+	width: 49.4%;
+}
+
+.mobile-home-tabs {
+	width:96%;
+}
+
+.w-nav-link.w--current {
+  color: black;
+}
+
+
+ @media (min-width: 768px) {
+
+	.market-snapshot{
+		width: 33.9%;
+	}
  }

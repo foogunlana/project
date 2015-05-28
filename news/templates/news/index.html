@@ -7,130 +7,145 @@
 <body class="w-clearfix">
   {% include 'news/news_nav.html' %}
   <div class="w-tabs w-hidden-main w-hidden-medium mobile-homepage" data-duration-in="300" data-duration-out="100">
-    <div class="w-tab-menu">
-      <a class="w-tab-link w--current w-inline-block news-tab" data-w-tab="Tab 1">
-        <div>News</div>
-      </a>
-      <a class="w-tab-link w-inline-block market-tab" data-w-tab="Tab 2">
-        <div>Market Data</div>
-      </a>
-    </div>
-    <div class="w-tab-content mobile-homepage-content">
-      <div class="w-tab-pane w--tab-active w-clearfix" data-w-tab="Tab 1">
-        <div class="w-section main-article">
-          <div class="w-section main-article-content">
-            <div class="main-article-category">{{ main_feature.category|pretty_category }}</div>
-            <h1 class="main-article-h1">{{ main_feature.headline }}</h1>
-            <div class="article-author">{{ main_feature.writer }}</div>
-          </div>
-        </div>
-        <div class="w-section secondary-article">
-          <div class="w-row">
-            <div class="w-col w-col-5 w-col-medium-6 secondary-article-text">
-              <div class="article-category">{{ secondary.category|pretty_category }}</div>
-              <h2>{{ secondary.headline }}</h2>
-              <div class="article-author">{{ secondary.writer }}</div>
-            </div>
-            <div class="w-col w-col-7 w-col-medium-6 secondary-article-img"></div>
-          </div>
-        </div>
-        <div class="w-section third-article-section">
-          <div class="w-row third-article-segment">
-            <div class="w-col w-col-7 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col1">
-              <div class="w-section all-text-article">
-                <div class="article-category">{{ daily_column.category|pretty_category }}</div>
-                <h3>{{ daily_column.headline }}</h3>
-                <div class="article-author">{{ daily_column.writer }}</div>
-                <p class="all-text-article-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim</p>
-              </div>
-            </div>
-            <div class="w-col w-col-5 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col1">
-              <div class="w-section mini-article-segment">
-                <div class="article-category mini-article-category">{{ tertiaries.0.category|pretty_category }}</div>
-                <h4>{{ tertiaries.0.headline }}</h4>
-                <div class="article-author mini-article-author">{{ tertiaries.0.writer }}</div>
-              </div>
-              <div class="w-section mini-segment-horizontal-border"></div>
-              <div class="w-section mini-article-segment">
-                <div class="article-category mini-article-category">{{ tertiaries.1.category|pretty_category }}</div>
-                <h4>{{ tertiaries.1.headline }}</h4>
-                <div class="article-author mini-article-author">{{ tertiaries.1.headline }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="w-row w-hidden-main w-hidden-medium other-posts">
-          <div class="w-col w-col-6 w-col-small-6 w-col-tiny-6">
-            <div class="article-category mini-article-category">{{ extras.0.category|pretty_category }}</div>
-            <h4>{{ extras.0.headline }}</h4>
-            <div class="article-author mini-article-author">{{ extras.0.writer }}</div>
-            <div class="other-post-image"></div>
-          </div>
-          <div class="w-col w-col-6 w-col-small-6 w-col-tiny-6">
-            <div class="article-category mini-article-category">{{ extras.1.category|pretty_category }}</div>
-            <h4>{{ extras.1.headline }}</h4>
-            <div class="article-author mini-article-author">{{ extras.1.writer }}</div>
-            <div class="other-post-image"></div>
-          </div>
-        </div>
+    <div class="w-tabs" data-duration-in="300" data-duration-out="100">
+      <div class="w-tab-menu mobile-home-tabs">
+        <a class="w-tab-link w--current w-inline-block mobile-news-tab" data-w-tab="News">
+          <div class="tab-text">News</div>
+        </a>
+        <a class="w-tab-link w-inline-block mobile-markets-tab" data-w-tab="Markets">
+          <div class="tab-text">Markets</div>
+        </a>
       </div>
-      <div class="w-tab-pane" data-w-tab="Tab 2">
-        <div class="w-section market-snapshot">
-          <div class="w-section widget-header"></div>
-          <div class="w-row">
-            <div class="w-col w-col-5 w-col-medium-6 w-col-small-6 w-col-tiny-6 market-snapshot-col">
-              <div class="w-section market-snapshot-row-x3"></div>
-              <div class="w-section market-snapshot-row-x1"></div>
-              <div class="w-section market-snapshot-row-x2"></div>
-              <div class="w-section market-snapshot-row-x2"></div>
-            </div>
-            <div class="w-col w-col-7 w-col-medium-6 w-col-small-6 w-col-tiny-6 market-snapshot-col">
-              <div class="w-section market-snapshot-row-x1"></div>
-              <div class="w-section market-snapshot-row-x2"></div>
-              <div class="w-section market-snapshot-row-x2"></div>
-              <div class="w-section market-snapshot-row-x1"></div>
-              <div class="w-row">
-                <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4"></div>
-                <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4"></div>
-                <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4"></div>
+      <div class="w-tab-content mobile-homepage-content">
+        <div class="w-tab-pane w--tab-active w-clearfix mobile-home-news" data-w-tab="News">
+          <a class="w-inline-block article-link-block link-block-main" href="{% url 'news:article' main_feature.article_id %}">
+            <div class="w-section main-article">
+              <div class="w-section main-article-content">
+                <div class="main-article-category">{{ main_feature.category|pretty_category }}</div>
+                <h1 class="main-article-h1">{{ main_feature.headline }}</h1>
+                <div class="article-author">{{ main_feature.writer }}</div>
               </div>
+            </div>
+          </a>
+          <div class="w-section secondary-article">
+            <a class="w-inline-block article-link-block" href="{% url 'news:article' secondary.article_id %}">
+              <div class="w-row">
+                <div class="w-col w-col-5 w-col-medium-6 secondary-article-text">
+                  <div class="secondary-header-and-author">
+                    <div class="article-category">{{ secondary.category|pretty_category }}</div>
+                    <h2>{{ secondary.headline }}</h2>
+                    <div class="article-author">{{ secondary.writer }}</div>
+                  </div>
+                </div>
+                <div class="w-col w-col-7 w-col-medium-6 secondary-article-img"></div>
+              </div>
+            </a>
+          </div>
+          <div class="w-section w-clearfix third-article-section">
+            <div class="w-row third-article-segment">
+              <div class="w-col w-col-7 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col1">
+                <a class="w-inline-block article-link-block all-text-article" href="{% url 'news:article' daily_column.article_id %}">
+                  <div class="article-category">{{ daily_column.category|pretty_category }}</div>
+                  <h3>{{ daily_column.headline }}</h3>
+                  <div class="article-author">{{ daily_column.writer }}</div>
+                  <p class="all-text-article-p">{{ daily_column_summary|truncatechars:200 }}</p>
+                </a>
+              </div>
+              <div class="w-col w-col-5 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col2">
+                <a class="w-inline-block article-link-block mini-article-segment" href="{% url 'news:article' tertiaries.0.article_id %}">
+                  <div class="article-category mini-article-category">{{ tertiaries.0.category|pretty_category }}</div>
+                  <h4>{{ tertiaries.0.headline }}</h4>
+                  <div class="article-author mini-article-author">{{ tertiaries.0.writer }}</div>
+                </a>
+                <div class="w-section mini-segment-horizontal-border"></div>
+                <a class="w-inline-block article-link-block mini-article-segment" href="{% url 'news:article' tertiaries.1.article_id %}">
+                  <div class="article-category mini-article-category">{{ tertiaries.1.category|pretty_category }}</div>
+                  <h4>{{ tertiaries.1.headline }}</h4>
+                  <div class="article-author mini-article-author">{{ tertiaries.1.headline }}</div>
+                </a>
+              </div>
+            </div>
+            <div class="w-clearfix goodmusicftbigsean">
+              <div class="maybachmusic"></div>
+            </div>
+          </div>
+          <div class="w-row w-hidden-main w-hidden-medium other-posts">
+            <div class="w-col w-col-6 w-col-small-6 w-col-tiny-6">
+              <a class="w-inline-block article-link-block" href="{% url 'news:article' extras.0.article_id %}">
+                <div class="mini-header-and-author">
+                  <div class="article-category mini-article-category">{{ extras.0.category|pretty_category }}</div>
+                    <h4>{{ extras.0.headline }}</h4>
+                    <div class="article-author mini-article-author">{{ extras.0.writer }}</div>
+                </div>
+                <div class="other-post-image"></div>
+              </a>
+            </div>
+            <div class="w-col w-col-6 w-col-small-6 w-col-tiny-6">
+              <a class="w-inline-block article-link-block" href="{% url 'news:article' extras.1.article_id %}">
+                <div class="mini-header-and-author">
+                  <div class="article-category mini-article-category">{{ extras.1.category|pretty_category }}</div>
+                  <h4>{{ extras.1.headline }}</h4>
+                  <div class="article-author mini-article-author">{{ extras.1.writer }}</div>
+                </div>
+                <div class="other-post-image"></div>
+              </a>
             </div>
           </div>
         </div>
-
-        <!-- Market Snapshot goes here -->
-        <div class="w-section gainers-segment">
-          <div class="top-5-title">Top 5</div>
-          <h3 class="gainers-h3" id="gainers-h3">Gainers</h3>
-          {% for i in '12345' %}
+        <div class="w-tab-pane mobile-home-markets" data-w-tab="Markets">
+          <div class="w-section market-snapshot">
+            <div class="w-section widget-header"></div>
+            <div class="w-row">
+              <div class="w-col w-col-5 w-col-medium-6 w-col-small-6 w-col-tiny-6 market-snapshot-col">
+                <div class="w-section market-snapshot-row-x3"></div>
+                <div class="w-section market-snapshot-row-x1"></div>
+                <div class="w-section market-snapshot-row-x2"></div>
+                <div class="w-section market-snapshot-row-x2"></div>
+              </div>
+              <div class="w-col w-col-7 w-col-medium-6 w-col-small-6 w-col-tiny-6 market-snapshot-col">
+                <div class="w-section market-snapshot-row-x1"></div>
+                <div class="w-section market-snapshot-row-x2"></div>
+                <div class="w-section market-snapshot-row-x2"></div>
+                <div class="w-section market-snapshot-row-x1"></div>
+                <div class="w-row">
+                  <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4"></div>
+                  <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4"></div>
+                  <div class="w-col w-col-4 w-col-small-4 w-col-tiny-4"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="w-section gainers-segment">
+            <div class="top-5-title">Top 5</div>
+            <h3 class="gainers-h3" id="gainers-h3">Gainers</h3>
+            {% for i in '12345' %}
+              <div class="gainers-stock">
+                <div class="gainers-stock-h1">Dangote
+                  <br>Corp</div>
+                <div class="gainers-initials gainers-stock-h1">(DGC)</div>
+                <div class="gainers-price">13096.02</div>
+                <div class="gainers-percentage-change">(0.73%)</div>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="w-section gainers-segment losers-segment">
+            <div class="top-5-title">Top 5</div>
+            <h3 class="losers-h3" id="gainers-h3">Losers</h3>
+            {% for i in '12345' %}
             <div class="gainers-stock">
               <div class="gainers-stock-h1">Dangote
                 <br>Corp</div>
               <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-              <div class="gainers-price">13096.02</div>
-              <div class="gainers-percentage-change">(0.73%)</div>
+              <div class="losers-price">13096.02</div>
+              <div class="losers-percentage-change">(0.73%)</div>
             </div>
-          {% endfor %}
-        </div>
-        <div class="w-section gainers-segment losers-segment">
-          <div class="top-5-title">Top 5</div>
-          <h3 class="losers-h3" id="gainers-h3">Losers</h3>
-          {% for i in '12345' %}
-          <div class="gainers-stock">
-            <div class="gainers-stock-h1">Dangote
-              <br>Corp</div>
-            <div class="gainers-initials gainers-stock-h1">(DGC)</div>
-            <div class="losers-price">13096.02</div>
-            <div class="losers-percentage-change">(0.73%)</div>
+            {% endfor %}
           </div>
-          {% endfor %}
         </div>
       </div>
     </div>
   </div>
-
-  <!-- Main feature goes here -->
-    <a class="w-clearfix w-inline-block article-link-block link-block-main" href="{% url 'news:article' main_feature.article_id %}">
+  <a class="w-clearfix w-inline-block article-link-block link-block-main" href="{% url 'news:article' main_feature.article_id %}">
     <div class="w-hidden-small w-hidden-tiny main-article">
       <div class="w-section main-article-content">
         <h1 class="main-article-h1">{{ main_feature.headline }}</h1>
@@ -161,35 +176,37 @@
     </div>
   </div>
   <div class="w-section horizontal-border"></div>
-  <a class="w-hidden-small w-hidden-tiny w-clearfix w-inline-block article-link-block article-link-secondary" href="{% url 'news:article' secondary.article_id %}">
-    <div class="secondary-article">
-      <div class="w-row">
-        <div class="w-col w-col-5 w-col-medium-6 secondary-article-text">
-          <div class="secondary-header-and-author">
-            <div class="article-category">{{ secondary.category|pretty_category }}</div>
-            <h2>{{ secondary.headline }}</h2>
-            <div class="article-author">{{ secondary.writer }}</div>
+  <div class="second-row-col1">
+    <a class="w-hidden-small w-hidden-tiny w-inline-block article-link-block article-link-secondary" href="{% url 'news:article' secondary.article_id %}">
+      <div class="secondary-article">
+        <div class="w-row">
+          <div class="w-col w-col-5 w-col-stack secondary-article-text">
+            <div class="secondary-header-and-author">
+              <div class="article-category">{{ secondary.category|pretty_category }}</div>
+              <h2>{{ secondary.headline }}</h2>
+              <div class="article-author">{{ secondary.writer }}</div>
+            </div>
           </div>
+          <div class="w-col w-col-7 w-col-stack secondary-article-img"></div>
+        </div>
       </div>
-        <div class="w-col w-col-7 w-col-medium-6 secondary-article-img"></div>
-      </div>
-    </div>
-  </a>
+    </a>
+  </div>
   <div class="w-section w-hidden-small w-hidden-tiny third-article-section">
     <div class="w-row third-article-segment">
       <div class="w-col w-col-7 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col1">
-        <div class="w-section all-text-article">
-          <a class="w-inline-block article-link-block" href="{% url 'news:article' daily_column.article_id %}">
+        <a class="w-inline-block article-link-block" href="{% url 'news:article' daily_column.article_id %}">
+          <div class="daily-column-header-and-author">
             <div class="article-category">{{ daily_column.category|pretty_category }}</div>
             <h3>{{ daily_column.headline }}</h3>
             <div class="article-author">{{ daily_column.writer }}</div>
-            <p class="all-text-article-p">
-              {{ daily_column_summary|truncatechars:250 }}
-            </p>
-          </a>
-        </div>
+          </div>
+          <p class="all-text-article-p">
+            {{ daily_column_summary|truncatechars:200 }}
+          </p>
+        </a>
       </div>
-      <div class="w-col w-col-5 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col1">
+      <div class="w-col w-col-5 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col2">
         <div class="w-section mini-article-segment">
           <a class="w-inline-block article-link-block" href="{% url 'news:article' tertiaries.0.article_id %}">
             <div class="article-category mini-article-category">{{ tertiaries.0.category|pretty_category }}</div>
@@ -229,18 +246,17 @@
   </div>
   <div class="w-row w-hidden-small w-hidden-tiny other-posts">
     <div class="w-col w-col-6">
-      <a class="w-inline-block article-link-block mini-article-link-block" href="{% url 'news:article' extras.0.article_id %}">
+      <a class="w-inline-block article-link-block mini-article-link-block" href="#">
         <div class="mini-header-and-author">
-            <div class="article-category mini-article-category">{{ extras.0.category|pretty_category }}</div>
-            <h4>{{ extras.0.headline }}</h4>
-            <div class="article-author mini-article-author">{{ extras.0.writer }}
-            </div>
-          </div>
+          <div class="article-category mini-article-category">{{ extras.0.category|pretty_category }}</div>
+          <h4>{{ extras.0.headline }}</h4>
+          <div class="article-author mini-article-author">{{ extras.0.writer }}</div>
+        </div>
         <div class="other-post-image"></div>
       </a>
     </div>
     <div class="w-col w-col-6">
-      <a class="w-inline-block article-link-block mini-article-link-block" href="{% url 'news:article' extras.1.article_id %}">
+      <a class="w-inline-block article-link-block mini-article-link-block" href="#">
         <div class="mini-header-and-author">
           <div class="article-category mini-article-category">{{ extras.1.category|pretty_category }}</div>
           <h4>{{ extras.1.headline }}</h4>
@@ -261,7 +277,7 @@
       <div class="losers-price">13096.02</div>
       <div class="losers-percentage-change">(0.73%)</div>
     </div>
-    {% endfor %}    
+    {% endfor %}
   </div>
   {% include 'news/footer.html' %}
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
