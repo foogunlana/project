@@ -23,7 +23,7 @@
               <div class="w-section main-article-content">
                 <div class="main-article-category">{{ main_feature.category|pretty_category }}</div>
                 <h1 class="main-article-h1">{{ main_feature.headline }}</h1>
-                <div class="article-author">{{ main_feature.writer }}</div>
+                <div class="article-author">{{ main_feature.writer|format_name:'long' }}</div>
               </div>
             </div>
           </a>
@@ -34,7 +34,7 @@
                   <div class="secondary-header-and-author">
                     <div class="article-category">{{ secondary.category|pretty_category }}</div>
                     <h2>{{ secondary.headline }}</h2>
-                    <div class="article-author">{{ secondary.writer }}</div>
+                    <div class="article-author">{{ secondary.writer|format_name:'long' }}</div>
                   </div>
                 </div>
                 <div class="w-col w-col-7 w-col-medium-6 secondary-article-img"></div>
@@ -47,7 +47,7 @@
                 <a class="w-inline-block article-link-block all-text-article" href="{% url 'news:article' daily_column.article_id %}">
                   <div class="article-category">{{ daily_column.category|pretty_category }}</div>
                   <h3>{{ daily_column.headline }}</h3>
-                  <div class="article-author">{{ daily_column.writer }}</div>
+                  <div class="article-author">{{ daily_column.writer|format_name:'long' }}</div>
                   <p class="all-text-article-p">{{ daily_column_summary|truncatechars:200 }}</p>
                 </a>
               </div>
@@ -55,7 +55,7 @@
                 <a class="w-inline-block article-link-block mini-article-segment" href="{% url 'news:article' tertiaries.0.article_id %}">
                   <div class="article-category mini-article-category">{{ tertiaries.0.category|pretty_category }}</div>
                   <h4>{{ tertiaries.0.headline }}</h4>
-                  <div class="article-author mini-article-author">{{ tertiaries.0.writer }}</div>
+                  <div class="article-author mini-article-author">{{ tertiaries.0.writer|format_name:'long' }}</div>
                 </a>
                 <div class="w-section mini-segment-horizontal-border"></div>
                 <a class="w-inline-block article-link-block mini-article-segment" href="{% url 'news:article' tertiaries.1.article_id %}">
@@ -75,7 +75,7 @@
                 <div class="mini-header-and-author">
                   <div class="article-category mini-article-category">{{ extras.0.category|pretty_category }}</div>
                     <h4>{{ extras.0.headline }}</h4>
-                    <div class="article-author mini-article-author">{{ extras.0.writer }}</div>
+                    <div class="article-author mini-article-author">{{ extras.0.writer|format_name:'long' }}</div>
                 </div>
                 <div class="other-post-image"></div>
               </a>
@@ -85,7 +85,7 @@
                 <div class="mini-header-and-author">
                   <div class="article-category mini-article-category">{{ extras.1.category|pretty_category }}</div>
                   <h4>{{ extras.1.headline }}</h4>
-                  <div class="article-author mini-article-author">{{ extras.1.writer }}</div>
+                  <div class="article-author mini-article-author">{{ extras.1.writer|format_name:'long' }}</div>
                 </div>
                 <div class="other-post-image"></div>
               </a>
@@ -149,7 +149,7 @@
     <div class="w-hidden-small w-hidden-tiny main-article">
       <div class="w-section main-article-content">
         <h1 class="main-article-h1">{{ main_feature.headline }}</h1>
-        <div class="article-author">{{ main_feature.writer }}</div>
+        <div class="article-author">{{ main_feature.writer|format_name:'long' }}</div>
       </div>
     </div>
   </a>
@@ -184,7 +184,7 @@
             <div class="secondary-header-and-author">
               <div class="article-category">{{ secondary.category|pretty_category }}</div>
               <h2>{{ secondary.headline }}</h2>
-              <div class="article-author">{{ secondary.writer }}</div>
+              <div class="article-author">{{ secondary.writer|format_name:'long' }}</div>
             </div>
           </div>
           <div class="w-col w-col-7 w-col-stack secondary-article-img"></div>
@@ -199,7 +199,7 @@
           <div class="daily-column-header-and-author">
             <div class="article-category">{{ daily_column.category|pretty_category }}</div>
             <h3>{{ daily_column.headline }}</h3>
-            <div class="article-author">{{ daily_column.writer }}</div>
+            <div class="article-author">{{ daily_column.writer|format_name:'long' }}</div>
           </div>
           <p class="all-text-article-p">
             {{ daily_column_summary|truncatechars:200 }}
@@ -211,7 +211,7 @@
           <a class="w-inline-block article-link-block" href="{% url 'news:article' tertiaries.0.article_id %}">
             <div class="article-category mini-article-category">{{ tertiaries.0.category|pretty_category }}</div>
             <h4>{{ tertiaries.0.headline }}</h4>
-            <div class="article-author mini-article-author">{{ tertiaries.0.writer }}</div>
+            <div class="article-author mini-article-author">{{ tertiaries.0.writer|format_name:'long' }}</div>
           </a>
         </div>
         <div class="w-section mini-segment-horizontal-border"></div>
@@ -219,7 +219,7 @@
           <a class="w-inline-block article-link-block" href="{% url 'news:article' tertiaries.1.article_id %}">
             <div class="article-category mini-article-category">{{ tertiaries.1.category|pretty_category }}</div>
             <h4>{{ tertiaries.1.headline }}</h4>
-            <div class="article-author mini-article-author">{{ tertiaries.1.writer }}</div>
+            <div class="article-author mini-article-author">{{ tertiaries.1.writer|format_name:'long' }}</div>
           </a>
         </div>
       </div>
@@ -250,7 +250,7 @@
         <div class="mini-header-and-author">
           <div class="article-category mini-article-category">{{ extras.0.category|pretty_category }}</div>
           <h4>{{ extras.0.headline }}</h4>
-          <div class="article-author mini-article-author">{{ extras.0.writer }}</div>
+          <div class="article-author mini-article-author">{{ extras.0.writer|format_name:'long' }}</div>
         </div>
         <div class="other-post-image"></div>
       </a>
@@ -260,7 +260,7 @@
         <div class="mini-header-and-author">
           <div class="article-category mini-article-category">{{ extras.1.category|pretty_category }}</div>
           <h4>{{ extras.1.headline }}</h4>
-          <div class="article-author mini-article-author">{{ extras.1.writer }}</div>
+          <div class="article-author mini-article-author">{{ extras.1.writer|format_name:'long' }}</div>
         </div>
         <div class="other-post-image"></div>
       </a>
