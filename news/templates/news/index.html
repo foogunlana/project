@@ -246,7 +246,7 @@
   </div>
   <div class="w-row w-hidden-small w-hidden-tiny other-posts">
     <div class="w-col w-col-6">
-      <a class="w-inline-block article-link-block mini-article-link-block" href="#">
+      <a class="w-inline-block article-link-block mini-article-link-block" href="{% url 'news:article' extras.0.article_id %}">
         <div class="mini-header-and-author">
           <div class="article-category mini-article-category">{{ extras.0.category|pretty_category }}</div>
           <h4>{{ extras.0.headline }}</h4>
@@ -256,7 +256,7 @@
       </a>
     </div>
     <div class="w-col w-col-6">
-      <a class="w-inline-block article-link-block mini-article-link-block" href="#">
+      <a class="w-inline-block article-link-block mini-article-link-block" href="{% url 'news:article' extras.1.article_id %}">
         <div class="mini-header-and-author">
           <div class="article-category mini-article-category">{{ extras.1.category|pretty_category }}</div>
           <h4>{{ extras.1.headline }}</h4>
