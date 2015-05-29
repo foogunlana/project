@@ -28,7 +28,7 @@
   </div>
   <div class="w-row companies-row-1">
     <div class="w-col w-col-10 featured-post">
-      <a class="w-clearfix w-inline-block article-link-block" href="#">
+      <a class="w-clearfix w-inline-block article-link-block" href="{% url 'news:article' main_feature.article_id %}">
         <div class="featured-post-image"></div>
         <div class="featured-post-text">
           <div class="featured-post-author">{{ main_feature.writer }}</div>
@@ -66,7 +66,7 @@
   <div class="w-row w-hidden-main w-hidden-small w-hidden-tiny category-row-tablet">
     {% with business_posts|array_list:i as post %}
     <div class="w-col w-col-6 article-segment">
-      <a class="w-inline-block post-block" href="#">
+      <a class="w-inline-block post-block" href="{% url 'news:article' post.article_id %}">
         <div class="header-and-author">
           <h3 class="business-h3">{{ post.headline }}</h3>
           <div class="post-block-author">{{ post.writer }}</div>
@@ -77,7 +77,7 @@
     {% endwith %}
     {% with business_posts|array_list:j as post %}
     <div class="w-col w-col-6 article-segment">
-      <a class="w-inline-block post-block" href="#">
+      <a class="w-inline-block post-block" href="{% url 'news:article' post.article_id %}">
         <div class="header-and-author">
           <h3 class="business-h3">{{ post.headline }}</h3>
           <div class="post-block-author">{{ post.writer }}</div>
@@ -95,7 +95,7 @@
     {% for i in '0123' %}
     {% with business_posts|array_list:i as post %}
     <div class="w-col w-col-3 article-segment">
-      <a class="w-inline-block post-block" href="#">
+      <a class="w-inline-block post-block" href="{% url 'news:article' post.article_id %}">
         <div class="header-and-author">
           <h3 class="business-h3">{{ post.headline }}</h3>
           <div class="post-block-author">{{ post.writer }}</div>
@@ -110,7 +110,7 @@
     {% for i in '4567' %}
     {% with business_posts|array_list:i as post %}
     <div class="w-col w-col-3 article-segment">
-      <a class="w-inline-block post-block" href="#">
+      <a class="w-inline-block post-block" href="{% url 'news:article' post.article_id %}">
         <div class="header-and-author">
           <h3 class="business-h3">{{ post.headline }}</h3>
           <div class="post-block-author">{{ post.writer }}</div>
