@@ -90,6 +90,13 @@
 							</div>
 							{% include "stears/nse_versions.html" %}
 						{% endif %}
+						<br>
+						<div class="row" style="padding-left:15px;padding-right:15px;">
+							<div class="article_box">
+								<strong style="padding-left:10px;">Photo link:</strong> 
+								{% if article.photo %}{{ article.photo }}{% else %}None{% endif %}
+							</div>
+						</div>
 					</div>
 					<br>
 					<div class="fill">
@@ -243,6 +250,20 @@
 						<button id="comment_area" class="toggles_div fill" style="border-radius:3px;" >Comment</button>
 					</div>
 					{% ifequal user.username article.writer %}
+							<div class="row">
+								<form action="{% url 'weal:addphoto' pk=article.article_id %}" method='post' class="add_photo" hidden>
+									{% csrf_token %}
+									{{ add_photo_form }}
+									<button type="submit" class="fill toggles_div" name="article_id" value="{{ article.article_id }}">Go</button>
+									<button style="background-color:#FF4747;" class="fill toggles_div cancel_button" id="add_photo" >Cancel</button>
+								</form>
+								<button class="fill toggles_div add_photo" id="add_photo" >
+								{% if article.photo %}
+									Change Photo
+								{% else %}
+									Add Photo
+								{% endif %}</button>
+							</div>
 						{% ifequal article.state 'in_progress' %}
 							<div class="row">
 								<form action="{% url 'weal:add_writer' %}" method="post" class="add_writers" hidden>
@@ -259,7 +280,7 @@
 										{% csrf_token %}
 										{{ remove_writers_form }}
 										<button type="submit" class="fill toggles_div" id="remove_writers" name="article_id" value="{{ article.article_id }}">Remove</button>
-										<button  class="fill toggles_div cancel_button" id="remove_writers" >Cancel</button>
+										<button class="fill toggles_div cancel_button" id="remove_writers" >Cancel</button>
 									</form>
 									<button type="submit" class="fill toggles_div remove_writers" id="remove_writers" >Remove writer(s)</button>
 								</div>

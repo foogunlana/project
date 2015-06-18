@@ -25,6 +25,8 @@ urlpatterns = patterns('',
                        url(r'^articles/write/$', views.writers_write,
                            name='writers_write'),
 
+                       url(r'^article/addphoto/(?P<pk>[0-9]+)/$',
+                           views.add_photo, name='addphoto'),
                        url(r'^article/addtag/(?P<pk>[0-9]+)/$',
                            views.add_tag, name='tag'),
                        url(r'^article/addwriter/$', views.add_writer_to_article,

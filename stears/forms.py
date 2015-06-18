@@ -337,6 +337,17 @@ class NseArticleForm(forms.Form):
             max_length=30, initial=nse_headlines, required=False)
 
 
+class AddPhotoForm(forms.Form):
+    photo_link = forms.CharField(max_length=200)
+
+    def clean_link(self):
+        link = self.cleaned_data['photo_link']
+        if link.startswith('/media/articleImages/'):
+            return link
+        else:
+            raise ValidationError("That's not one of our images!")
+
+
 class WritersArticleForm(forms.Form):
 
     headline = forms.CharField(max_length=200, widget=forms.TextInput(attrs={

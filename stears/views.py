@@ -3,7 +3,7 @@ from stears.forms import LoginForm, ArticleImageForm, AddWritersForm, \
     RemoveWritersForm, RegisterForm, KeyWordsForm, ChoiceForm, \
     ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, \
     NseArticleForm, ChangePasswordForm, ArticleReviewForm, EditWriterForm, \
-    AllocationForm
+    AllocationForm, AddPhotoForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout
 from mongoengine.django.auth import User
@@ -63,6 +63,25 @@ def upload_photo(request):
     return render(request, 'stears/photos.html',
                   {'form': form, 'photos': photos})
 
+
+@user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
+def add_photo(request, pk):
+    if request.method == 'POST':
+        pk = int(pk)
+        add_photo_form = AddPhotoForm(request.POST)
+        if add_photo_form.is_valid():
+            photo = add_photo_form.cleaned_data['photo_link']
+            articles = mongo_calls('articles')
+            articles.update({'article_id': pk},
+                            {'$set': {'photo': photo}},
+                            False, False)
+        else:
+            print 'not Ok'
+
+    if request.method == 'GET':
+        add_photo_form = AddPhotoForm()
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
 def research(request):
@@ -408,6 +427,7 @@ def article_detail(request, **kwargs):
     pk = int(kwargs.pop('pk'))
     comment_form = CommentForm()
     key_words_form = KeyWordsForm()
+    add_photo_form = AddPhotoForm()
 
     article = article_collection.find_one({'article_id': pk})
 
@@ -451,7 +471,7 @@ def article_detail(request, **kwargs):
 
     context = {'article': article, 'suggest_form': suggest_form,
          'remove_writers_form': remove_writers_form,
-         'key_words_form': key_words_form,
+         'key_words_form': key_words_form, 'add_photo_form': add_photo_form,
          'writers_article_form': writers_article_form,
          'add_writers_form': add_writers_form, 'comment_form': comment_form}
 
