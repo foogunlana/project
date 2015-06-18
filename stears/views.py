@@ -419,19 +419,20 @@ def article_detail(request, **kwargs):
         category = article['category'].replace('stears', '').replace('_', ' ')
     else:
         nse_id = pk
-        category = "stearsTier_1"
+        category = "stearsOther"
 
     approved_writers = users.find(
         {'state': 'approved'}).distinct('username')
     suggest_form = SuggestForm(my_arg=approved_writers)
 
     locked_fields = ['nse_headlines']
+    s_cat = lambda x: 'stears' + x.replace(' ', '_')
 
     if writer_can_edit_article(str(user), article):
         if article.get('type', '') == 'writers_article':
             writers_article_form = WritersArticleForm(
                 initial={'nse_headlines': nse_id,
-                         'categories': category,
+                         'categories': s_cat(category),
                          'article_id': pk,
                          'content': article['content'],
                          'headline': article['headline']},
