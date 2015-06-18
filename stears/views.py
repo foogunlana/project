@@ -249,7 +249,7 @@ def writers_home_test(request, group):
         else:
             articles = list(article_collection.find({
                 '$query': {'type': 'writers_article'},
-                '$orderby': {'time': -1}}, 
+                '$orderby': {'time': -1}},
                 params.article_button_items).limit(50))
 
     context = {"writers_article_form": writers_article_form,
@@ -425,7 +425,7 @@ def article_detail(request, **kwargs):
         {'state': 'approved'}).distinct('username')
     suggest_form = SuggestForm(my_arg=approved_writers)
 
-    locked_fields = ['nse_headlines', 'categories']
+    locked_fields = ['nse_headlines']
 
     if writer_can_edit_article(str(user), article):
         if article.get('type', '') == 'writers_article':
@@ -449,10 +449,10 @@ def article_detail(request, **kwargs):
     remove_writers_form = RemoveWritersForm(article_id=pk)
 
     context = {'article': article, 'suggest_form': suggest_form,
-     'remove_writers_form': remove_writers_form, 
-     'key_words_form': key_words_form,
-     'writers_article_form': writers_article_form, 
-     'add_writers_form': add_writers_form, 'comment_form': comment_form}
+         'remove_writers_form': remove_writers_form,
+         'key_words_form': key_words_form,
+         'writers_article_form': writers_article_form,
+         'add_writers_form': add_writers_form, 'comment_form': comment_form}
 
     return render(request, 'stears/article_detail.html', context)
 
@@ -691,7 +691,7 @@ def allocator(request):
     articles = list(pipeline.find({
                 '$query': {'type': 'writers_article'},
                 '$orderby': {'time': -1}},
-                {'headline': 1, '_id': 0, 'article_id': 1}).limit(50))
+                {'headline': 1, '_id': 0, 'article_id': 1, 'category':1}))
     context = {}
     for item in pages:
         item.pop('_id')

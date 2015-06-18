@@ -201,10 +201,12 @@ def suggest_nse_article(username, article_id):
 def update_writers_article(username, form):
     headline = form.cleaned_data['headline']
     content = form.cleaned_data['content']
+    category = form.cleaned_data['categories']
 
     article = {
         'headline': headline,
         'content': stears_italics(content),
+        'category': category,
         'type': 'writers_article'
     }
 

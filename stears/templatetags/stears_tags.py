@@ -52,7 +52,6 @@ def format_name(long_name, long_or_short):
         name = str(long_name.split("_")[0])
     else:
         name = str(long_name.replace("_", " "))
-    print "tag used"
     name = "".join(
         [letter for letter in name if re.match(r'^[a-zA-Z ]+$', name)])
     return name.title()

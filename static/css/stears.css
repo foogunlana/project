@@ -53,6 +53,10 @@ body{
   cursor:pointer;
 }
 
+.section:hover{
+  font-weight: bolder;
+}
+
 .section.highlighted{
   color: #008cba;
 }
@@ -78,6 +82,10 @@ body{
   color:white;
   padding-left:15px;
   font-size: 20px;
+}
+
+.submit_article_option{
+  margin-bottom: 0px;
 }
 
 *{

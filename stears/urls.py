@@ -66,7 +66,6 @@ urlpatterns = patterns('',
                            name='photos'),
                        url(r'^research/$', views.research, name='research'),
 
-
                        url(r'^writers/$', views.writers_list,
                            name='writers_list'),
 
