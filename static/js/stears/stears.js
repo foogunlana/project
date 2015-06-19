@@ -78,6 +78,22 @@ $( document ).ready(function() {
 		$('html, body').animate({ scrollTop: $(the_div).offset().top - 100}, 'fast');
 	});
 
+	$('.toggles_div2').click(function() {
+		var div_class = $(this).attr('id');
+		var the_div = ".".concat(div_class.toString());
+		if($(the_div).is(':visible')){
+			$(the_div).hide();
+		} else {
+			var group_class = $(this).data('group');
+			var the_group = ".".concat(group_class.toString());
+			$(the_group).each(function(){
+				$(this).hide();
+			});
+			$(the_div).show();
+		}
+		$('html, body').animate({ scrollTop: $(the_div).offset().top - 100}, 'fast');
+	});
+
 	$('.toggles_on_hover').hover(function() {
 		var div_class = $(this).attr('id');
 		$(".".concat(div_class.toString())).toggle();

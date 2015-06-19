@@ -12,6 +12,7 @@ import re
 # from django.core.validators import email_re
 
 BIRTH_YEAR_CHOICES = ('1991', '1992', '1993')
+max_headline = 50
 
 
 class ProfileImageForm(forms.Form):
@@ -350,7 +351,7 @@ class AddPhotoForm(forms.Form):
 
 class WritersArticleForm(forms.Form):
 
-    headline = forms.CharField(max_length=200, widget=forms.TextInput(attrs={
+    headline = forms.CharField(max_length=max_headline, widget=forms.TextInput(attrs={
         'data-validation': 'length',
         'data-validation-length': 'min5'}))
     content = forms.CharField(widget=forms.Textarea(attrs={

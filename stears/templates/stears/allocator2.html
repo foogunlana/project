@@ -6,11 +6,6 @@
 {% block page_title_block %}
 <br>
 <br>
-	<div class="row">
-		<div class="columns small-11 small-centered" style="padding-left:0px;">
-			<h1 style="display:inline-block;">Stears Allocator</h1><h5 style="color:#FF4747;display:inline-block;">Beta</h5><h6>feedback appreciated!</h6>
-		</div>
-	</div>
 	<br>
 {% endblock %}
 {% block content %}
@@ -20,14 +15,11 @@
 	<div class="row">
 		<div class="columns small-11 small-centered">
 			<div class="row">
-				<div class="columns small-12 large-4 large-push-8">
-					<div class="article_box">
-						Cat 1	
-					</div>
-					<br>
+				<div class="columns small-12 medium-6 large-4 large-push-8">
+					{% for cat in '123' %}
 					<div class="article_box">
 						<select name="article_options" id="id_article_options" style="margin:0px;" data-url="{% url 'weal:allocate' %}" >
-							<option value="None">Choose an article</option>
+							<option value="None">Choose from Cat {{ cat }} articles</option>
 							{% for option in articles %}
 							<option value="{{ option.article_id }}">{{ option.headline }}</option>
 							{% empty %}
@@ -45,63 +37,14 @@
 						</script>
 					</div>
 					<br>
-
-					<div class="article_box">
-						Cat 2	
-					</div>
-					<br>
-					<div class="article_box">
-						<select name="article_options" id="id_article_options" style="margin:0px;" data-url="{% url 'weal:allocate' %}" >
-							<option value="None">Choose an article</option>
-							{% for option in articles %}
-							<option value="{{ option.article_id }}">{{ option.headline }}</option>
-							{% empty %}
-							<option value="None">Sorry! No articles are in the pipeline</option>
-							{% endfor %}
-						</select>
-						<form action="{% url 'weal:allocate' %}" hidden>
-							{% csrf_token %}
-						</form>
-						<button class="fill submit_article_option">Go</button>
-						<script type="text/javascript">
-							$.ajaxSetup({
-								data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
-							})
-						</script>
-					</div>
-					<br>
-
-					<div class="article_box">
-						Cat 3		
-					</div>
-					<br>
-					<div class="article_box">
-						<select name="article_options" id="id_article_options" style="margin:0px;" data-url="{% url 'weal:allocate' %}" >
-							<option value="None">Choose an article</option>
-							{% for option in articles %}
-							<option value="{{ option.article_id }}">{{ option.headline }}</option>
-							{% empty %}
-							<option value="None">Sorry! No articles are in the pipeline</option>
-							{% endfor %}
-						</select>
-						<form action="{% url 'weal:allocate' %}" hidden>
-							{% csrf_token %}
-						</form>
-						<button class="fill submit_article_option">Go</button>
-						<script type="text/javascript">
-							$.ajaxSetup({
-								data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
-							})
-						</script>
-					</div>
-					<br>
+					{% endfor %}
 				</div>
 				<div class="columns small-12 large-8 large-pull-4">
 					<div class="article_box">
-						<a id="allocate_home_form" class="toggles_div" style="padding:10px;">Home page</a>
+						<a id="allocate_home_form" class="toggles_div2" style="padding:10px;" data-group="s_pages">Home page</a>
 					</div>
 					<br>
-					<div class="allocate_home_form article_box" class="columns small-12" style="padding:10px;" data-page="home">
+					<div class="allocate_home_form article_box s_pages" class="columns small-12" style="padding:10px;" data-page="home">
 						<div data-title="market_snapshot" class="section" >
 							Market Snapshot
 						</div>
@@ -127,10 +70,10 @@
 					<br>
 
 					<div class="article_box">
-						<a id="allocate_business_form" class="toggles_div" style="padding:10px;" >Business page</a>
+						<a id="allocate_business_form" class="toggles_div2" style="padding:10px;" data-group="s_pages">Business page</a>
 					</div>
 					<br>
-					<div class="allocate_business_form article_box" class="columns small-12" style="padding:10px;" data-page="business">
+					<div class="allocate_business_form article_box s_pages" class="columns small-12" style="padding:10px;" data-page="business" hidden>
 						<div data-title="business_posts" class="section choose_article">
 							Business posts
 						</div>
@@ -141,10 +84,10 @@
 					<br>
 
 					<div class="article_box">
-						<a id="allocate_economy_form" class="toggles_div" style="padding:10px;">Economy page</a>
+						<a id="allocate_economy_form" class="toggles_div2" style="padding:10px;" data-group="s_pages">Economy page</a>
 					</div>
 					<br>
-					<div class="allocate_economy_form article_box" class="columns small-12" style="padding:10px;" data-page="economy">
+					<div class="allocate_economy_form article_box s_pages" class="columns small-12" style="padding:10px;" data-page="economy" hidden>
 						<div data-title="economic_snapshot" class="section">
 							Economic snapshot
 						</div>
