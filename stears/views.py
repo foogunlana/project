@@ -399,7 +399,7 @@ def bin(request):
     bin = mongo_calls('bin')
     articles = list(bin.find({
         '$query': {'type': 'writers_article', 'writer': username},
-        '$orderby': {'time': -1}}, 
+        '$orderby': {'time': -1}},
         dict(params.article_button_items, **{'binned': 1})))
 
     context = {'articles': articles}
@@ -436,7 +436,7 @@ def article_detail(request, **kwargs):
 
     if article['type'] == 'writers_article':
         nse_id = article['nse_article_id']
-        category = article['category'].replace('stears', '').replace('_', ' ')
+        category = article['category']
     else:
         nse_id = pk
         category = "stearsOther"
@@ -446,13 +446,13 @@ def article_detail(request, **kwargs):
     suggest_form = SuggestForm(my_arg=approved_writers)
 
     locked_fields = ['nse_headlines']
-    s_cat = lambda x: 'stears' + x.replace(' ', '_')
+    # s_cat = lambda x: 'stears' + x.replace(' ', '_')
 
     if writer_can_edit_article(str(user), article):
         if article.get('type', '') == 'writers_article':
             writers_article_form = WritersArticleForm(
                 initial={'nse_headlines': nse_id,
-                         'categories': s_cat(category),
+                         'categories': category,
                          'article_id': pk,
                          'content': article['content'],
                          'headline': article['headline']},
@@ -719,7 +719,15 @@ def allocator(request):
         item.pop('active')
         page = item.pop('page')
         context[page] = item
-    context['articles'] = articles
+
+    cats = params.article_categories.values()
+    groups = {}
+    for cat in cats: groups[cat] = []
+    for article in articles:
+        groups[article['category']] = groups.get(
+                        article['category'], []) + [article]
+    context['cats'] = groups
+
     return render(request, 'stears/allocator2.html', context)
 
 

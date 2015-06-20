@@ -16,14 +16,14 @@
 		<div class="columns small-11 small-centered">
 			<div class="row">
 				<div class="columns small-12 medium-6 large-4 large-push-8">
-					{% for cat in '123' %}
+					{% for cat, headlines in cats.items reversed%}
 					<div class="article_box">
 						<select name="article_options" id="id_article_options" style="margin:0px;" data-url="{% url 'weal:allocate' %}" >
-							<option value="None">Choose from Cat {{ cat }} articles</option>
-							{% for option in articles %}
+							<option value="None">Choose from {{ cat|pretty_category }}</option>
+							{% for option in headlines %}
 							<option value="{{ option.article_id }}">{{ option.headline }}</option>
 							{% empty %}
-							<option value="None">Sorry! No articles are in the pipeline</option>
+							<option value="None">Sorry! No articles here</option>
 							{% endfor %}
 						</select>
 						<form action="{% url 'weal:allocate' %}" hidden>
