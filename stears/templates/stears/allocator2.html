@@ -15,15 +15,15 @@
 	<div class="row">
 		<div class="columns small-11 small-centered">
 			<div class="row">
-				<div class="columns small-12 medium-6 large-4 large-push-8">
+				<div class="columns small-12 medium-7 large-5 large-push-7">
 					<div class="article_box">
 						<a id="article_dropdowns" class="toggles_div" style="padding:10px;">Articles</a>
 					</div>
 					<br>
 					<div class="article_dropdowns">
 						{% for cat, headlines in cats.items reversed%}
-						<div class="article_box">
-							<select name="article_options" id="id_article_options_{{ cat }}" style="margin:0px;" data-url="{% url 'weal:allocate' %}" >
+						<div class="">
+							<select style="width:80%;display:inline-block;" name="article_options" id="id_article_options_{{ cat }}" style="margin:0px;" data-url="{% url 'weal:allocate' %}" >
 								<option value="None">Choose from {{ cat|pretty_category }}</option>
 								{% for option in headlines %}
 								<option value="{{ option.article_id }}">{{ option.headline }}</option>
@@ -34,18 +34,17 @@
 							<form action="{% url 'weal:allocate' %}" hidden>
 								{% csrf_token %}
 							</form>
-							<button class="fill submit_article_option" data-cat="{{ cat }}">Go</button>
+							<button class="submit_article_option" style="width:15%;display:inline-block;" data-cat="{{ cat }}">Go</button>
 							<script type="text/javascript">
 								$.ajaxSetup({
 									data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
 								})
 							</script>
 						</div>
-						<br>
 						{% endfor %}
 					</div>
 				</div>
-				<div class="columns small-12 large-8 large-pull-4">
+				<div class="columns small-12 large-7 large-pull-5">
 					<div class="article_box">
 						<a id="allocate_home_form" class="toggles_div2" style="padding:10px;" data-group="s_pages">Home</a>
 					</div>
