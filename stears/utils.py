@@ -47,6 +47,14 @@ def mongo_calls(collection_name):
     return collection
 
 
+def make_new_quote(body, author):
+    onsite = mongo_calls('onsite')
+    articles = mongo_calls('articles')
+    onsite.update({'page': 'home'},
+                  {'$set': {'quote': {'body': body, 'author': author}}},
+                   False, False)
+    # Add to list of quotes!
+
 def make_url(name, True_for_snapshot):
 
     link = "http://staging.globaltrybe.com/nseij.svc/" + name

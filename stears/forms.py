@@ -96,6 +96,10 @@ class AllocationForm(forms.Form):
     section = forms.CharField(max_length=30, required=True)
     article_id = forms.CharField(max_length=10, required=True)
 
+class NewQuoteForm(forms.Form):
+    quote = forms.CharField(max_length=200, required=True)
+    author = forms.CharField(max_length=30, required=True)
+
 class RemoveWritersForm(forms.Form):
 
     def __init__(self, *args, **kwargs):

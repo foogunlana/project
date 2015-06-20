@@ -3,7 +3,7 @@ from stears.forms import LoginForm, ArticleImageForm, AddWritersForm, \
     RemoveWritersForm, RegisterForm, KeyWordsForm, ChoiceForm, \
     ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, \
     NseArticleForm, ChangePasswordForm, ArticleReviewForm, EditWriterForm, \
-    AllocationForm, AddPhotoForm
+    AllocationForm, AddPhotoForm, NewQuoteForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout
 from mongoengine.django.auth import User
@@ -16,7 +16,7 @@ from stears.utils import article_key_words, revive_from_trash, add_writers,\
     suggest_nse_article, update_writers_article, edit_user, \
     make_writer_id, make_writers_article, submit_writers_article, \
     put_in_review, new_member, \
-    edit_writer_registration_details
+    make_new_quote, edit_writer_registration_details
 
 from news.utils import put_article_on_page, add_article_to_section
 
@@ -704,6 +704,20 @@ def allocate_article(request):
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
+def new_quote(request):
+    onsite = mongo_calls('onsite')
+    if request.method == 'POST':
+        new_quote_form = NewQuoteForm(request.POST)
+        if new_quote_form.is_valid():
+            quote = new_quote_form.cleaned_data['quote']
+            author = new_quote_form.cleaned_data['author']
+            make_new_quote(body=quote, author=author)
+        else:
+            print new_quote_form.errors
+            return HttpResponse(new_quote_form.errors)
+    return HttpResponse('reload')
+
+@user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
 def allocator(request):
     onsite = mongo_calls('onsite')
     # pipeline = mongo_calls('migrations')
@@ -727,7 +741,7 @@ def allocator(request):
         groups[article['category']] = groups.get(
                         article['category'], []) + [article]
     context['cats'] = groups
-
+    context['quote_form'] = NewQuoteForm()
     return render(request, 'stears/allocator2.html', context)
 
 

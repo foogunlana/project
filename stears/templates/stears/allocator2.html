@@ -48,8 +48,18 @@
 						<div data-title="market_snapshot" class="section" >
 							Market Snapshot
 						</div>
-						<div data-title="quote" class="section quote_entry" >
-							Quote 
+						<div data-title="quote" id="toggle_quote_form" class="section quote_entry toggles_div" >
+							Quote - {{ home.quote.body|truncatechars:'50' }}
+						</div>
+						<div class="toggle_quote_form" id="new_quote" data-url="{% url 'weal:newquote' %}" hidden>
+						<br>
+							<form >
+								<h5>New Quote</h5>
+								{% csrf_token %}
+								{{ quote_form }}
+								<button class="fill submit_quote" >Go</button>
+							</form>
+						<br>
 						</div>
 						<div data-title="main_feature" class="section choose_article">
 							Main feature
@@ -63,8 +73,8 @@
 						<div data-title="tertiaries" class="section choose_article" >
 							Tertiaries
 						</div>
-						<div data-title="extras" class="section choose_article" >
-							Extras
+						<div data-title="features" class="section choose_article" >
+							Features
 						</div>
 					</div>
 					<br>
