@@ -19,15 +19,23 @@ $(document).ready(function(){
 		if(!$('.highlighted').hasClass('choose_article')){
 			return false;
 		}
+
+		
+		var category = $(this).data('cat');
+		var cat_id = '#id_article_options_' + category;
+		
 		var section = $('.highlighted').data('title');
-		var article_id = $('#id_article_options').val();
-		var allocator_url = $('#id_article_options').data('url');
+		var article_id = $(cat_id).val();
+		var allocator_url = $(cat_id).data('url');
 		var allocator_page = $('.highlighted').parent().data('page');
 
 		if((!section)||(!article_id)||(article_id==='None')){
 			alert('Please select a section and an article to allocate');
 			return false;
 		}else{
+			if(!confirm('Put this article in ' + section + '?')){
+				return false;
+			}
 			$.ajax({
 			url : allocator_url,
             type: "post",

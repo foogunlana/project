@@ -699,6 +699,7 @@ def allocate_article(request):
             except Exception as e:
                 print e
         else:
+            print 'not valid'
             return HttpResponse(allocation_form.errors)
     return HttpResponse('reload')
 
