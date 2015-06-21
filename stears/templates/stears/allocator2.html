@@ -79,7 +79,7 @@
 							<br>
 							<ul>
 								{% for x in '012' %}
-								<li class="section choose_article" data-title="tertiaries_{{ x|add:'1' }}" style="display:inline-block;margin-right:20px;">Post - {{ x|add:'1' }}</li>
+								<li class="section choose_article" data-title="tertiaries_{{ x }}" style="display:inline-block;margin-right:20px;">Post - {{ x|add:'1' }}</li>
 								{% endfor %}
 							</ul>
 						</div>
@@ -90,7 +90,7 @@
 							<br>
 							<ul>
 								{% for x in '0123' %}
-								<li class="section choose_article" data-title="features_{{ x|add:'1' }}" style="display:inline-block;margin-right:20px;">Post - {{ x|add:'1' }}</li>
+								<li class="section choose_article" data-title="features_{{ x }}" style="display:inline-block;margin-right:20px;">Post - {{ x|add:'1' }}</li>
 								{% endfor %}
 							</ul>
 						</div>
@@ -109,13 +109,13 @@
 							</li>
 							<div class="sector_{{ sector }} sectors" hidden>
 								<ul>
-									<li data-title="main_feature" class="section choose_article">
+									<li data-title="{{ sector }}_main_feature" class="section choose_article">
 										Main feature
 									</li>
 									<li>
 										Features:
 										{% for x in '01234567' %}
-										<li class="section choose_article" data-title="features_{{ x|add:'1' }}" style="display:inline-block;margin-right:20px;">Post - {{ x|add:'1' }}</li>
+										<li class="section choose_article" data-title=" {{ sector }}_features_{{ x }}" style="display:inline-block;margin-right:20px;">Post - {{ x|add:'1' }}</li>
 										{% endfor %}
 									</li>
 								</ul>
