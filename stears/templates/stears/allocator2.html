@@ -50,7 +50,7 @@
 					</div>
 					<br>
 					<div class="allocate_home_form article_box s_pages" class="columns small-12" style="padding:10px;" data-page="home">
-						<div data-title="quote" id="toggle_quote_form" class="section quote_entry toggles_div" >
+						<div data-title="quote" id="toggle_quote_form" class="section quote_entry derived toggles_div" >
 							Quote - {{ home.quote.body|truncatechars:'50' }}
 						</div>
 						<div class="toggle_quote_form" id="new_quote" data-url="{% url 'weal:newquote' %}" hidden>
@@ -72,11 +72,27 @@
 						<div data-title="secondary" class="section choose_article">
 							Secondary
 						</div>
-						<div data-title="tertiaries" class="section choose_article" >
+						<div data-title="tertiaries" id="tertiary_list" class="section choose_article derived toggles_div" >
 							Tertiaries
 						</div>
-						<div data-title="features" class="section choose_article" >
+						<div class="tertiary_list" hidden>
+							<br>
+							<ul>
+								{% for x in '012' %}
+								<li class="section choose_article" data-title="tertiaries_{{ x|add:'1' }}" style="display:inline-block;margin-right:20px;">Post - {{ x|add:'1' }}</li>
+								{% endfor %}
+							</ul>
+						</div>
+						<div data-title="features" id="features_list" class="section derived choose_article toggles_div" >
 							Features
+						</div>
+						<div class="features_list"  hidden>
+							<br>
+							<ul>
+								{% for x in '0123' %}
+								<li class="section choose_article" data-title="features_{{ x|add:'1' }}" style="display:inline-block;margin-right:20px;">Post - {{ x|add:'1' }}</li>
+								{% endfor %}
+							</ul>
 						</div>
 					</div>
 					<br>
@@ -86,12 +102,26 @@
 					</div>
 					<br>
 					<div class="allocate_business_form article_box s_pages" class="columns small-12" style="padding:10px;" data-page="Business_&_Economy" hidden>
-						<div data-title="main_feature" class="section choose_article">
-							Main feature
-						</div>
-						<div data-title="business_posts" class="section choose_article">
-							Business posts
-						</div>
+						<ol>
+							{% for sector in '0123456' %}
+							<li data-title="sector_{{ sector }}" id="sector_{{ sector }}" class="toggles_div2 section derived" data-group="sectors">
+								Sector - {{ sector|add:'1' }}
+							</li>
+							<div class="sector_{{ sector }} sectors" hidden>
+								<ul>
+									<li data-title="main_feature" class="section choose_article">
+										Main feature
+									</li>
+									<li>
+										Features:
+										{% for x in '01234567' %}
+										<li class="section choose_article" data-title="features_{{ x|add:'1' }}" style="display:inline-block;margin-right:20px;">Post - {{ x|add:'1' }}</li>
+										{% endfor %}
+									</li>
+								</ul>
+							</div>
+							{% endfor %}
+						</ol>
 					</div>
 					<br>
 
