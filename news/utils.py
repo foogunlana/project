@@ -96,36 +96,28 @@ def remove_special_characters(mystring):
     return mystring.encode('utf-8')
 
 
-def add_article_to_section(page, section, article_id):
+def put_article_on_page(page, section, article_id, sector=None, number=None):
     # articles = mongo_calls('migrations')
     articles = mongo_calls('articles')
     onsite = mongo_calls('onsite')
-
-    max_articles = params.section_max_articles[section]
-
     article = articles.find_one(
         {'article_id': article_id},
         {'headline': 1, 'content': 1, 'writer': 1, 'category': 1, 'article_id': 1})
 
-    onsite.update(
-        {'active': True, 'page': page},
-        {'$push': {section: {'$each': [article], '$slice': -max_articles}}},
-        True, False)
+    if sector:
+        find_doc = {'active': True, 'page': page, 'sector': sector}
+    else:
+        find_doc = {'active': True, 'page': page}
 
-
-def put_article_on_page(page, section, article_id):
-    # articles = mongo_calls('migrations')
-    articles = mongo_calls('articles')
-    onsite = mongo_calls('onsite')
-
-    article = articles.find_one(
-        {'article_id': article_id},
-        {'headline': 1, 'content': 1, 'writer': 1, 'category': 1, 'article_id': 1})
-
-    onsite.update(
-        {'active': True, 'page': page},
-        {'$set': { section: article }},
-        True, False)
+    if number or sector:
+        onsite.update(find_doc,
+            {'$set': {'%s.%s' % (section, number): article}},
+            False, False)
+    else:
+        onsite.update(
+            {'active': True, 'page': page},
+            {'$set': { section: article}},
+            False, False)
 
 
 def obj_dict_recursive(obj):

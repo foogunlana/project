@@ -29,11 +29,24 @@ $(document).ready(function(){
 
 		var category = $(this).data('cat');
 		var cat_id = '#id_article_options_' + category;
+		var item = $('.highlighted');
 		
-		var section = $('.highlighted').data('title');
+		var section = item.data('title');
 		var article_id = $(cat_id).val();
 		var allocator_url = $(cat_id).data('url');
-		var allocator_page = $('.highlighted').parent().data('page');
+		var allocator_page = item.parent().data('page');
+
+
+		var sector = item.data('sector');
+		var number = item.data('num');
+
+		var post_data = {
+            'article_id':article_id,
+            'page':allocator_page,
+            'section':section,
+            'sector':sector,
+            'number':number,
+        };
 
 		if((!section)||(!article_id)||(article_id==='None')){
 			alert('Please select a section and an article to allocate');
@@ -45,11 +58,7 @@ $(document).ready(function(){
 			$.ajax({
 			url : allocator_url,
             type: "post",
-            data: {
-                'article_id':article_id,
-                'page':allocator_page,
-                'section':section,
-            },
+            data: post_data,
             success: function(responseData, textStatus, jqXHR) {
                 if(responseData === "reload"){
                     location.reload();

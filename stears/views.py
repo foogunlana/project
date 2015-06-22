@@ -3,7 +3,7 @@ from stears.forms import LoginForm, ArticleImageForm, AddWritersForm, \
     RemoveWritersForm, RegisterForm, KeyWordsForm, ChoiceForm, \
     ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, \
     NseArticleForm, ChangePasswordForm, ArticleReviewForm, EditWriterForm, \
-    AllocationForm, AddPhotoForm, NewQuoteForm
+    AllocationForm, AddPhotoForm, NewQuoteForm, ReportForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout
 from mongoengine.django.auth import User
@@ -18,7 +18,7 @@ from stears.utils import article_key_words, revive_from_trash, add_writers,\
     put_in_review, new_member, \
     make_new_quote, edit_writer_registration_details
 
-from news.utils import put_article_on_page, add_article_to_section
+from news.utils import put_article_on_page
 
 from stears.permissions import approved_writer, is_a_boss, \
     writer_can_edit_article
@@ -680,28 +680,36 @@ def allocate_articles(request, pk):
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
 def allocate_article(request):
-    multiples = ['economy_posts', 'business_posts', 'extras', 'tertiaries']
+    multiples = ['features', 'tertiaries']
     if request.method == 'POST':
         allocation_form = AllocationForm(request.POST)
         if allocation_form.is_valid():
             section = allocation_form.cleaned_data['section']
             article_id = int(allocation_form.cleaned_data['article_id'])
             page = allocation_form.cleaned_data['page']
-
+            sector = allocation_form.cleaned_data.get('sector', None)
+            number = allocation_form.cleaned_data.get('number', None)
             try:
-                if section in multiples:
-                    add_article_to_section(
-                        page=page, section=section, article_id=article_id)
-                else:
-                    # Find way to verify that section, page and article_id make sense
-                    put_article_on_page(
-                        page=page, section=section, article_id=article_id)
+                put_article_on_page(page=page, section=section,
+                         article_id=article_id, sector=sector, number=number)
             except Exception as e:
-                print e
+                print e, 'error'
         else:
             print 'not valid'
             return HttpResponse(allocation_form.errors)
     return HttpResponse('reload')
+
+
+@user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
+def allocate_report(request):
+    if request.method == 'POST':
+        report_form = ReportForm(request.POST, request.FILES)
+        if report_form.is_valid():
+            print report_form.cleaned_data['pdf'].content_type
+            # Store the PDF!
+        else:
+            return HttpResponse('Not ok')
+    return HttpResponse('Ok')
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
@@ -724,6 +732,8 @@ def allocator(request):
     # pipeline = mongo_calls('migrations')
     pipeline = mongo_calls('articles')
     pages = list(onsite.find({'active': True}))
+    report_form = ReportForm()
+
     articles = list(pipeline.find({
                 '$query': {'type': 'writers_article'},
                 '$orderby': {'time': -1}},
@@ -741,8 +751,11 @@ def allocator(request):
     for article in articles:
         groups[article['category']] = groups.get(
                         article['category'], []) + [article]
+
     context['cats'] = groups
     context['quote_form'] = NewQuoteForm()
+    context['sectors'] = params.sectors.values()
+    context['report_form'] = report_form
     return render(request, 'stears/allocator2.html', context)
 
 

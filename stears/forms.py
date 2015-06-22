@@ -26,7 +26,7 @@ class ArticleImageForm(forms.Form):
 
     def clean_article_image(self):
         image = self.cleaned_data['article_image']
-        if image.content_type in settings.CONTENT_TYPES:
+        if image.content_type in settings.IMAGE_CONTENT_TYPES:
             if image._size > settings.MAX_UPLOAD_SIZE:
                 raise forms.ValidationError('Please keep filesize under %s. Current filesize %s' % (
                     filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(image._size)))
@@ -34,6 +34,25 @@ class ArticleImageForm(forms.Form):
             raise forms.ValidationError(
                 'Not supported, image must be jpeg or png')
         return image
+
+class ReportForm(forms.Form):
+    pdf = forms.FileField(label="Please upload .pdf file")
+    author = forms.CharField(required=True, label="Author")
+    week_ending = forms.DateField(
+                    required=True,
+                    label='Week ending',
+                    widget=forms.DateInput())
+
+    def clean_pdf(self):
+        pdf = self.cleaned_data['pdf']
+        if pdf.content_type == 'application/pdf':
+            if pdf._size > settings.MAX_UPLOAD_SIZE:
+                raise forms.ValidationError('Please keep filesize under %s. Current filesize %s' % (
+                    filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(image._size)))
+        else:
+            raise forms.ValidationError(
+                'Not supported, file must be .pdf format')
+        return pdf
 
 
 class LoginForm(forms.Form):
@@ -95,6 +114,8 @@ class AllocationForm(forms.Form):
     page = forms.CharField(max_length=30, required=True)
     section = forms.CharField(max_length=30, required=True)
     article_id = forms.CharField(max_length=10, required=True)
+    sector = forms.CharField(max_length=10, required=False)
+    number = forms.CharField(max_length=10, required=False)
 
 class NewQuoteForm(forms.Form):
     quote = forms.CharField(max_length=200, required=True)
