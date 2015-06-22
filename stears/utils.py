@@ -262,29 +262,29 @@ def put_in_review(article_id):
 
     category = article['category']
 
-    if (category == 'stearsTutorial') or (category == 'stearsColumn'):
-        articles.update(
-            {'article_id': article_id},
-            {'$set': {'state': 'submitted', 'reviewer': 'No reviewer'}},
-            False, False
-        )
-        return False
-
-    users = mongo_calls('user')
-    reviewers = users.find(
-        {'username': {'$nin': writers}}).distinct('username')
-    reviewer = random.choice(reviewers)
-
-    users.update(
-        {'username': reviewer},
-        {'$addToSet': {'reviews': article_id}},
-        False, False
-    )
+    # if (category == 'stearsTutorial') or (category == 'stearsColumn'):
     articles.update(
         {'article_id': article_id},
-        {'$set': {'state': 'in_review', 'reviewer': reviewer}},
+        {'$set': {'state': 'submitted', 'reviewer': 'No reviewer'}},
         False, False
     )
+    return False
+
+    # users = mongo_calls('user')
+    # reviewers = users.find(
+    #     {'username': {'$nin': writers}}).distinct('username')
+    # reviewer = random.choice(reviewers)
+
+    # users.update(
+    #     {'username': reviewer},
+    #     {'$addToSet': {'reviews': article_id}},
+    #     False, False
+    # )
+    # articles.update(
+    #     {'article_id': article_id},
+    #     {'$set': {'state': 'in_review', 'reviewer': reviewer}},
+    #     False, False
+    # )
 
 
 def submit_writers_article(article_id, review):
