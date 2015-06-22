@@ -735,7 +735,7 @@ def allocator(request):
     report_form = ReportForm()
 
     articles = list(pipeline.find({
-                '$query': {'type': 'writers_article'},
+                '$query': {'type': 'writers_article', 'state':'submitted'},
                 '$orderby': {'time': -1}},
                 {'headline': 1, '_id': 0, 'article_id': 1, 'category':1}))
     context = {}
