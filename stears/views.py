@@ -23,7 +23,7 @@ from news.utils import put_article_on_page
 from stears.permissions import approved_writer, is_a_boss, \
     writer_can_edit_article
 
-from stears.models import ArticleImageModel
+from stears.models import ArticleImageModel, ReportModel
 from mongoengine.queryset import DoesNotExist
 
 
@@ -705,10 +705,15 @@ def allocate_report(request):
     if request.method == 'POST':
         report_form = ReportForm(request.POST, request.FILES)
         if report_form.is_valid():
-            print report_form.cleaned_data['pdf'].content_type
-            # Store the PDF!
+            pdf = report_form.cleaned_data['pdf']
+            if pdf:
+                report = ReportModel(**report_form.cleaned_data)
+                report.save()
+            else:
+                pass
+                #ERROR
         else:
-            return HttpResponse('Not ok')
+            return HttpResponse(json.dumps(report_form.errors))
     return HttpResponse('Ok')
 
 

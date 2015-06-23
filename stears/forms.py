@@ -38,10 +38,25 @@ class ArticleImageForm(forms.Form):
 class ReportForm(forms.Form):
     pdf = forms.FileField(label="Please upload .pdf file")
     author = forms.CharField(required=True, label="Author")
+    industry = forms.BooleanField(required=False)
+    summary = forms.CharField(required=False,
+        widget=forms.Textarea(attrs={
+            'data-validation': 'length',
+            'data-validation-length': 'min10',
+            'style': 'height:100px;'
+        }), label='Summary of industry report')
     week_ending = forms.DateField(
                     required=True,
                     label='Week ending',
                     widget=forms.DateInput())
+
+    def clean(self):
+        cleaned_data = super(ReportForm, self).clean()
+        industry = cleaned_data.get("industry", None)
+        summary = cleaned_data.get("summary", None)
+
+        if industry and not summary:
+            raise ValidationError('Summary is required for Industry Reports')
 
     def clean_pdf(self):
         pdf = self.cleaned_data['pdf']

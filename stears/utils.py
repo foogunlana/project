@@ -16,7 +16,7 @@ import random
 
 def get_mongo_client():
     client = None
-    
+
     while True:
         if client != None:
             print "YIELD CLIENT"

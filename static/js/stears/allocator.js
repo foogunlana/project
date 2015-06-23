@@ -101,4 +101,41 @@ $(document).ready(function(){
     return false;
 
 	});
+
+
+	$('.submit_report').click(function(event){
+		event.preventDefault();
+
+		var formData = new FormData($('#report_form')[0]);
+		var new_report_url = $('#new_report').data('url');
+
+		$.ajax({
+		url : new_report_url,
+        type: "post",
+        xhr: function() {  // custom xhr
+            myXhr = $.ajaxSettings.xhr();
+            // if(myXhr.upload){ // if upload property exists
+            //     myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // progressbar
+            // }
+            return myXhr;
+        },
+        data: formData,
+
+        success: function(responseData, textStatus, jqXHR) {
+            if(responseData === "reload"){
+                location.reload();
+            }else{
+                alert(responseData);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert(errorThrown);
+        },
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+    return false;
+
+	});
 });

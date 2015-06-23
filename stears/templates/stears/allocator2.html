@@ -129,16 +129,24 @@
 					</div>
 					<br>
 					<div class="allocate_economy_form article_box s_pages" class="columns small-12" style="padding:10px;" data-page="Market_Reports" hidden>
-						<div data-title="" class="">
-							<form action="{% url 'weal:allocate_report' %}" method="post" enctype="multipart/form-data">
+						<div data-title="" id="new_report" data-url="{% url 'weal:allocate_report' %}" class="">
+							<form method="post" id="report_form" enctype="multipart/form-data">
 								{% csrf_token %}
-								<label for="pdf">Please upload .pdf file</label>
+								<h5>
+									Please upload .pdf file
+								</h5>
+
 								{{ report_form.pdf }}
+								<br>
+								Industry report? {{ report_form.industry }}
+								<br>
+								{{ report_form.summary.label }}<label for="summary" style="color:red"> ** Required for Industry Reports only **</label>
+								{{ report_form.summary }}
 								<label for="author">Author</label>
 								{{ report_form.author }}
 								<label for="week_ending">Week ending</label>
 								<input type="date" name="week_ending" id="id_week_ending" style="width:80%;display:inline-block;">
-								<button type="submit" style="width:18%;display:inline-block;">Go</button>
+								<button class="submit_report" style="width:18%;display:inline-block;">Go</button>
 							</form>
 						</div>
 					</div>
