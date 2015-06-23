@@ -15,7 +15,7 @@ from stears.utils import article_key_words, revive_from_trash, add_writers,\
     accept_to_write, request_json, make_url, move_to_trash, \
     suggest_nse_article, update_writers_article, edit_user, \
     make_writer_id, make_writers_article, submit_writers_article, \
-    put_in_review, new_member, \
+    new_member, \
     make_new_quote, edit_writer_registration_details
 
 from news.utils import put_article_on_page
@@ -447,7 +447,7 @@ def article_detail(request, **kwargs):
 
     locked_fields = ['nse_headlines']
     # s_cat = lambda x: 'stears' + x.replace(' ', '_')
-
+    print category
     if writer_can_edit_article(str(user), article):
         if article.get('type', '') == 'writers_article':
             writers_article_form = WritersArticleForm(
@@ -606,7 +606,8 @@ def review_article(request, pk):
     if request.method == "POST":
         article_review_form = ArticleReviewForm(request.POST)
         if article_review_form.is_valid():
-            submit_writers_article(pk, article_review_form.cleaned_data)
+            # submit_writers_article(pk, article_review_form.cleaned_data)
+            pass
         else:
             print "Invalid"
         return HttpResponseRedirect(reverse('weal:writers_write'))
@@ -815,7 +816,7 @@ def submit_article(request):
                 if sor == 'save':
                     return HttpResponse("reload")
             if sor == 'review':
-                put_in_review(article_id)
+                submit_writers_article(article_id)
                 return HttpResponse("reload")
             return HttpResponse(request.POST['content'])
         else:
