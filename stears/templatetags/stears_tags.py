@@ -1,7 +1,7 @@
 from django import template
 from stears.params import remove_from_date
 from stears.utils import mongo_calls
-from stears.permissions import editor, writer_can_edit_article, writer_can_view_article
+from stears.permissions import editor, writer_can_edit_article
 from stears import params
 import time
 import re
@@ -22,7 +22,23 @@ def is_editor(user):
 
 @register.filter("writer_can_see")
 def writer_can_see(username, article):
-    return writer_can_view_article(str(username), article)
+    state = article['state']
+    writer = article.get('writer', '')
+    others = article.get('writers', '')['others']
+
+    if not writer:
+        return True
+
+    elif (state == 'in_progress'):
+        return ((writer == username) or (writer in others))
+
+    elif (state == 'in_review'):
+        return True
+
+    elif editor(username):
+        return True
+
+    return False
 
 
 @register.filter("format_underscore")

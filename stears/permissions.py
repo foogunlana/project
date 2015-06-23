@@ -20,7 +20,7 @@ def is_a_boss(username):
     return False
 
 
-def editor2(username):
+def editor(username):
     writer = User.objects.get(username=str(username))
     if not writer:
         return False
@@ -28,8 +28,8 @@ def editor2(username):
         return True
     return False
 
-
-def editor(username):
+#Optimisation needed! Checked for each article button. Extremely inefficient
+def editor2(username):
     users = mongo_calls('user')
     writer = users.find_one({'username': str(username)})
     if not writer:
@@ -53,25 +53,5 @@ def writer_can_edit_article(username, article):
 
     elif (username == writer) or (username in article['writers']['others']):
         return True
-
-    return False
-
-
-def writer_can_view_article(username, article):
-    state = article['state']
-    writer = article.get('writer', '')
-    others = article.get('writers', '')['others']
-
-    if not writer:
-        return True
-
-    elif (state == 'in_progress'):
-        return ((writer == username) or (writer in others) or (editor(username)))
-
-    elif (state == 'in_review'):
-        return True
-
-    elif (state == 'submitted'):
-        return editor(username)
 
     return False
