@@ -53,19 +53,21 @@
 						</div>
 					</div>
 				{% endif %}
-				{% if reviews %}
+				{% if daily_column_form %}
 					<div class="row">
-						<div class="columns small-12">
-							<h4>
-							Reviews
-							</h4>
-							<div class="columns small-12 small-centered">
-								{% for article in reviews %}
-									{% include 'stears/article_button.html' %}
-									{% if forloop.last %}
-										<br>
-									{% endif%}
-								{% endfor %}
+						<div class="columns small-12 small-centered medium-6 medium-uncentered">
+							<a class="fill article_box toggles_div" style="padding-left:10px;" id="dc_form_toggle">
+								Enter Daily Column
+							</a>
+							<br>
+							<br>
+							<div class="article_box dc_form_toggle " style="padding-left:10px;"hidden>
+								<form method="POST" action="{% url 'weal:daily_column' %}" enctype="multipart/form-data">
+									{% csrf_token %}
+									Column title
+									{{ daily_column_form.title }}
+									<button type="submit" class="fill">Go</button>
+								</form>
 							</div>
 							<br>
 						</div>

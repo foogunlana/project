@@ -66,8 +66,25 @@
 						<div data-title="main_feature" class="section choose_article">
 							Main feature
 						</div>
-						<div data-title="daily_column" class="section choose_article">
-							Daily column - {{ home.daily_column.headline|truncatechars:50 }}
+						<div data-title="daily_column" id="dc_toggle" class="section derived toggles_div choose_article">
+							Daily column -> {{ home.daily_column.headline|truncatechars:50 }}
+						</div>
+						<div class="dc_toggle" hidden>
+							<br>
+							<ul data-page="home">
+								{% for column in columns %}
+								<li class="section choose_article fill" data-title="daily_column" data-num="{{ forloop.counter|add:'-1' }}" style="">{{ column.day }} -> {{ column.title }}</li>
+								{% endfor %}
+								<select style="width:90%;display:inline-block;" name="" id="" style="" data-url="" >
+								<option value="None"> Choose Columns </option>
+								{% for writer, title in writers_columns.items %}
+								<option value="{{ writer }}">{{ title }}</option>
+								{% empty %}
+								<option value="None">Sorry! No columns here</option>
+								{% endfor %}
+								</select>
+							<button class="submit_column fill" style="width:90%;">Go</button>
+							</ul>
 						</div>
 						<div data-title="secondary" class="section choose_article">
 							Secondary
@@ -146,7 +163,7 @@
 								{{ report_form.author }}
 								<label for="week_ending">Week ending</label>
 								<input type="date" name="week_ending" id="id_week_ending" style="width:80%;display:inline-block;">
-								<button class="submit_report" style="width:18%;display:inline-block;">Go</button>
+								<button class="submit_report" style="width:15%;display:inline-block;">Go</button>
 							</form>
 						</div>
 					</div>

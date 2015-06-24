@@ -3,7 +3,7 @@ from stears.forms import LoginForm, ArticleImageForm, AddWritersForm, \
     RemoveWritersForm, RegisterForm, KeyWordsForm, ChoiceForm, \
     ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, \
     NseArticleForm, ChangePasswordForm, ArticleReviewForm, EditWriterForm, \
-    AllocationForm, AddPhotoForm, NewQuoteForm, ReportForm
+    AllocationForm, AddPhotoForm, NewQuoteForm, ReportForm, DailyColumnForm
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout
 from mongoengine.django.auth import User
@@ -298,12 +298,16 @@ def writers_write(request):
     messages = []
     users = mongo_calls('user')
     article_collection = mongo_calls('articles')
+    daily_column_form = None
 
     if request.method == 'GET':
         username = str(request.user)
         writer = users.find_one(
             {'username': username},
-            {'suggested_articles': 1, 'reviews': 1, '_id': 0})
+            {'suggested_articles': 1, 'reviews': 1, '_id': 0, 'role': 1})
+
+        if writer['role'] == 'Columnist':
+            daily_column_form = DailyColumnForm()
 
         suggested_articles = writer.get('suggested_articles', [])
         suggestions = list(article_collection.find(
@@ -323,7 +327,7 @@ def writers_write(request):
 
         context = {"writers_article_form": writers_article_form, 'articles':
                    articles, 'suggestions': suggestions, 'messages': messages,
-                    'reviews': reviews}
+                   'reviews': reviews, 'daily_column_form': daily_column_form}
 
     return render(request, 'stears/writers_write.html', context)
 
@@ -363,6 +367,23 @@ def writer_detail(request, name):
         context = {'writer': writer, 'articles': articles,
         'edit_writer_form': edit_writer_form,'writers_article_form': writers_article_form}
     return render(request, 'stears/writer_detail.html', context)
+
+
+@user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
+def daily_column(request):
+    writers = mongo_calls('user')
+    writer = str(request.user)
+    if request.method == 'POST':
+        author = str(request.user)
+        daily_column = DailyColumnForm(request.POST)
+        if daily_column.is_valid():
+            title = daily_column.cleaned_data['title']
+            if title:
+                writers.update({'username': writer},
+                               {'$set': {'column': title}})
+        else:
+            print 'not valid'
+    return HttpResponseRedirect(reverse('weal:writers_write'))
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
@@ -737,6 +758,7 @@ def allocator(request):
     onsite = mongo_calls('onsite')
     # pipeline = mongo_calls('migrations')
     pipeline = mongo_calls('articles')
+    writers = mongo_calls('user')
     pages = list(onsite.find({'active': True}))
     report_form = ReportForm()
 
@@ -762,6 +784,11 @@ def allocator(request):
     context['quote_form'] = NewQuoteForm()
     context['sectors'] = params.sectors.values()
     context['report_form'] = report_form
+    context['columns'] = params.columns
+    context['writers_columns'] = {
+            writer['username']: writer['column'] for writer in writers.find(
+            {'role': 'Columnist'}, {'column': 1, 'username': 1}) if writer.get('column')}
+
     return render(request, 'stears/allocator2.html', context)
 
 

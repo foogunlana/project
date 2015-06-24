@@ -65,7 +65,7 @@ $(document).ready(function() {
 
         if(headline.length < 5){
             event.preventDefault();
-            alert('Please enter a valid headline! You cannot save this without one');
+            alert('Please enter a valid headline!');
             return false;
         }
 

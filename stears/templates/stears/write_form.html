@@ -85,13 +85,14 @@
 				{% endifequal %}
 			</div>
 		</div>
+	</form>
 
-		<script type="text/javascript">
-		$.ajaxSetup({
-		url: "{% url 'weal:submit' %}",
-		data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
-		})
-		</script>
+	<script type="text/javascript">
+	$.ajaxSetup({
+	url: "{% url 'weal:submit' %}",
+	data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
+	})
+	</script>
 
 
 {% else %}

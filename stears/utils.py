@@ -118,7 +118,7 @@ def do_magic_user():
     foo.save()
     edit_user(foo.username, 'state', 'admin')
     edit_user(foo.username, 'reviews', [])
-    edit_user(foo.username, 'role', 'stearsColumnist')
+    edit_user(foo.username, 'role', 'Columnist')
     make_writer_id(foo.username)
 
 

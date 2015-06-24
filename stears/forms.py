@@ -70,6 +70,14 @@ class ReportForm(forms.Form):
         return pdf
 
 
+class DailyColumnForm(forms.Form):
+    title = forms.CharField(required=True,
+                         max_length="50",
+                         widget=forms.Textarea(attrs={
+                            'style':'height:60px',
+                            }))
+
+
 class LoginForm(forms.Form):
     email = forms.EmailField(label='Email', max_length=30, widget=forms.TextInput(
         attrs={'data-validation': 'length', 'data-validation-length': 'min1'}))
