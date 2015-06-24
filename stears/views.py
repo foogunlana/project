@@ -269,7 +269,7 @@ def writers_home_test(request, group):
             articles = list(article_collection.find({
                 '$query': {'type': 'writers_article'},
                 '$orderby': {'time': -1}},
-                params.article_button_items).limit(30))
+                params.article_button_items).limit(50))
 
     context = {"writers_article_form": writers_article_form,
                'articles': articles, 'nostates': nostates}
@@ -360,7 +360,7 @@ def writer_detail(request, name):
                 "$query": {'writer': name},
                 "$orderby": {"time": -1}}, params.article_button_items))
 
-        context = {'writer': writer, 'articles': articles, 
+        context = {'writer': writer, 'articles': articles,
         'edit_writer_form': edit_writer_form,'writers_article_form': writers_article_form}
     return render(request, 'stears/writer_detail.html', context)
 

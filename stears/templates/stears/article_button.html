@@ -10,21 +10,9 @@
 					<button type="submit" style="display:inline-block;padding-botom:2px;" name="article_id" value="{{ article.article_id }}">Revive</button>
 				</form>
 			{% else %}
-				{% if user.username|writer_can_see:article %}
-					<a {% ifequal article.state 'on_site' %}href="{% url 'weal:preview' pk=article.article_id %}"{% else %}href="{% url 'weal:article_detail' pk=article.article_id %}"{% endifequal %}  >
-						<font {% ifequal article.category 'stearsTutorial' %}style="color:#6CBC36;"{% endifequal %}>{{ article.headline }}</font>
-					</a>
-				{% else %}
-						<font {% ifequal article.category 'stearsTutorial' %}style="color:#6CBC36;"{% endifequal %}>{{ article.headline }}</font>
-				{% endif %}
-
-				{% ifequal article.state 'in_review' %}
-					{% ifequal article.reviewer user %}
-						<a href="{% url 'weal:review' pk=article.article_id %}" style="padding-left:10px;color:red;">
-							Review?
-						</a>
-					{% endifequal %}
-				{% endifequal %}
+				<a {% ifequal article.state 'on_site' %}href="{% url 'weal:preview' pk=article.article_id %}"{% else %}href="{% url 'weal:article_detail' pk=article.article_id %}"{% endifequal %}  >
+					<font {% ifequal article.category 'stearsTutorial' %}style="color:#6CBC36;"{% endifequal %}>{{ article.headline }}</font>
+				</a>
 			{% endif %}
 		</div>
 		<div class="columns small-6 medium-3 ">
@@ -32,17 +20,9 @@
 		</div>
 		<div class="columns small-6 medium-3 ">
 			<strong>
-			{% if article.writers|get_value:'original' %}
-				{% if user|is_editor %}
-					{% if article.writers|get_value:'original' %}
-						<a href="{% url 'weal:writer_detail' article.writers.original %}">
-							{{ article.writers|get_value:'original'|format_name:'long' }}
-						</a>
-					{% endif %}
-				{% else %}
+				<a href="{% url 'weal:writer_detail' article.writers.original %}">
 					{{ article.writers|get_value:'original'|format_name:'long' }}
-				{% endif %}
-			{% endif %}
+				</a>
 			</strong>
 		</div>
 		<div class="columns medium-6 hide-for-small">
@@ -54,11 +34,4 @@
 			</strong>
 		</div>
 	</div>
-	<!-- {% ifequal article.state 'on_site' %}
-		{% if user|is_editor %}
-		<div>
-			<a href="#">Allocate on site</a>
-		</div>
-	{% endif %}
-	{% endifequal %} -->
 </div>
