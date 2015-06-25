@@ -77,6 +77,16 @@ class DailyColumnForm(forms.Form):
                             'style':'height:60px',
                             }))
 
+class ColumnForm(forms.Form):
+    author = forms.CharField(required=True)
+    day = forms.CharField(required=True)
+
+    def clean_day(self):
+        day = self.cleaned_data['day']
+        if day not in '0123456':
+            raise ValidationError('Incorrect choice of day')
+        return day
+
 
 class LoginForm(forms.Form):
     email = forms.EmailField(label='Email', max_length=30, widget=forms.TextInput(

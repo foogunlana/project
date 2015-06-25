@@ -3,7 +3,9 @@ from stears.forms import LoginForm, ArticleImageForm, AddWritersForm, \
     RemoveWritersForm, RegisterForm, KeyWordsForm, ChoiceForm, \
     ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, \
     NseArticleForm, ChangePasswordForm, ArticleReviewForm, EditWriterForm, \
-    AllocationForm, AddPhotoForm, NewQuoteForm, ReportForm, DailyColumnForm
+    AllocationForm, AddPhotoForm, NewQuoteForm, ReportForm, DailyColumnForm, \
+    ColumnForm
+
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout
 from mongoengine.django.auth import User
@@ -385,6 +387,20 @@ def daily_column(request):
             print 'not valid'
     return HttpResponseRedirect(reverse('weal:writers_write'))
 
+
+@user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
+def select_column(request):
+    if request.method == 'POST':
+        column_form = ColumnForm(request.POST)
+        if column_form.is_valid():
+            day = column_form.cleaned_data['day']
+            writer = column_form.cleaned_data['author']
+            onsite = mongo_calls('onsite')
+            onsite.update({'type': 'daily_columns'},
+                          {'$set': {day: writer}}, upsert=True)
+        else:
+            HttpResponse(column_form.errors)
+    return HttpResponse('Ok')
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
 def edit_writer_detail(request):
@@ -784,7 +800,7 @@ def allocator(request):
     context['quote_form'] = NewQuoteForm()
     context['sectors'] = params.sectors.values()
     context['report_form'] = report_form
-    context['columns'] = params.columns
+    context['columns'] = params.columns  #Needs to reflect actual columns ...
     context['writers_columns'] = {
             writer['username']: writer['column'] for writer in writers.find(
             {'role': 'Columnist'}, {'column': 1, 'username': 1}) if writer.get('column')}

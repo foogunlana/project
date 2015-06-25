@@ -73,9 +73,9 @@
 							<br>
 							<ul data-page="home">
 								{% for column in columns %}
-								<li class="section choose_article fill" data-title="daily_column" data-num="{{ forloop.counter|add:'-1' }}" style="">{{ column.day }} -> {{ column.title }}</li>
+								<li class="section fill day" data-title="daily_column" data-num="{{ forloop.counter|add:'-1' }}" style="">{{ column.day }} -> {{ column.title }}</li>
 								{% endfor %}
-								<select style="width:90%;display:inline-block;" name="" id="" style="" data-url="" >
+								<select style="width:90%;display:inline-block;" name="" id="select_column" style="" data-url="{% url 'weal:select_column' %}" >
 								<option value="None"> Choose Columns </option>
 								{% for writer, title in writers_columns.items %}
 								<option value="{{ writer }}">{{ title }}</option>

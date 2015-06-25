@@ -102,6 +102,42 @@ $(document).ready(function(){
 
 	});
 
+	$('.submit_column').click(function(event){
+		event.preventDefault();
+		var column_url = $('#select_column').data('url');
+		var author = $('#select_column').val();
+		var item = $('.highlighted');
+		var day = item.data('num');
+		if(!item.hasClass('day')){
+			alert('Invalid choice of day for the column');
+			return false;
+		}
+		if(author==='None'){
+			alert('No column chosen');
+			return false;
+		}
+		$.ajax({
+		url : column_url,
+        type: "post",
+        data: {
+            'day':day,
+            'author':author,
+        },
+        success: function(responseData, textStatus, jqXHR) {
+            if(responseData === "reload"){
+                location.reload();
+            }else{
+                alert(responseData);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log("error");
+        }
+    });
+    return false;
+
+	});
+
 
 	$('.submit_report').click(function(event){
 		event.preventDefault();

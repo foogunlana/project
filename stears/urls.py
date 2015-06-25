@@ -58,6 +58,8 @@ urlpatterns = patterns('',
                        url(r'^article/suggest/$', views.suggest,
                            name='suggest_nse_article'),
 
+                       url(r'^column/select/$', views.select_column,
+                           name='select_column'),
 
                        url(r'^changepassword/$', views.change_password,
                            name='change_password'),
