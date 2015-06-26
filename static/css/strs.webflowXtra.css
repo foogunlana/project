@@ -91,3 +91,17 @@
 		width: 33.9%;
 	}
  }
+
+ @media (max-width: 767px) and (min-width: 480px){
+
+.article-link-block.widget-link-block {
+  display: inline-block;
+  width: 53%;
+}
+
+.article-link-block.widget-link-block-2 {
+  width: 46%;
+}
+}
+
+}
