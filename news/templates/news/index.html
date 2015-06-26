@@ -184,7 +184,7 @@
       </div>
       <div class="w-col w-col-5 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col2">
         <div class="w-section mini-article-segment">
-          {% if tertiaries.0 %}
+          {% if tertiaries.1 %}
           <a class="w-inline-block article-link-block" href="{% url 'news:article' tertiaries.1.article_id %}">
             <div class="article-category mini-article-category">{{ tertiaries.1.category|pretty_category }}</div>
             <h4>{{ tertiaries.1.headline }}</h4>
@@ -194,7 +194,7 @@
         </div>
         <div class="w-section mini-segment-horizontal-border"></div>
         <div class="w-section mini-article-segment">
-          {% if tertiaries.0 %}
+          {% if tertiaries.2 %}
           <a class="w-inline-block article-link-block" href="{% url 'news:article' tertiaries.2.article_id %}">
             <div class="article-category mini-article-category">{{ tertiaries.2.category|pretty_category }}</div>
             <h4>{{ tertiaries.2.headline }}</h4>
