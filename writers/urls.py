@@ -4,7 +4,6 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from writers import settings
 
 urlpatterns = patterns('',
-                       url(r'^test/$', 'writers.views.test', name='test'),
                        url(r'^weal/',
                            include('stears.urls', namespace='weal')),
                        url(r'^',

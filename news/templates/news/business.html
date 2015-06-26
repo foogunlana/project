@@ -1,22 +1,27 @@
 {% extends 'news/news_base.html' %}
-{% load news_tags %}
+{% load stears_tags %}
 
-{% block title %}Business{% endblock %}
+{% block title %}Stears{% endblock %}
 
 {% block body %}
-<body>
+<head>
+  <style>
+  .option_{{ sector }}{
+    font-weight: bolder;
+  }
+  </style>
+</head>
+<body class="w-clearfix">
   {% include 'news/news_nav.html' %}
   <div class="w-form">
     <form id="email-form" name="email-form" data-name="Email Form">
       <select class="w-select w-hidden-main w-hidden-medium sub-category-drop-down" id="Sub-Category" name="Sub-Category" data-name="Sub-Category">
-        <option value="">Choose Section</option>
-        <option value="NIB">News In Brief</option>
-        <option value="Finance">Finance</option>
-        <option value="Energy">Energy </option>
-        <option value="Agriculture">Agriculture</option>
-        <option value="Industry">Industry</option>
-        <option value="Transport">Transport</option>
-        <option value="Technology">Technology</option>
+        <option value="">{{ sector|pretty_category }}</option>
+        <option class="option_stearsGovernance" value="{% url 'news:business' 'stearsGovernance' %}">Governance</option>
+        <option class="option_stearsBusiness" value="{% url 'news:business' 'stearsBusiness' %}">Business</option>
+        <option class="option_stearsMacroeconomy" value="{% url 'news:business' 'stearsMacroeconomy' %}">Macroeconomy</option>
+        <option class="option_stearsEditorial" value="{% url 'news:business' 'stearsEditorial' %}">Editorial</option>
+        <option class="option_stearsColumn"  value="{% url 'news:business' 'stearsColumn' %}">Column</option>
       </select>
     </form>
     <div class="w-form-done">
@@ -27,103 +32,85 @@
     </div>
   </div>
   <div class="w-row companies-row-1">
-    <div class="w-col w-col-10 featured-post">
-      <a class="w-clearfix w-inline-block article-link-block" href="{% url 'news:article' main_feature.article_id %}">
-        <div class="featured-post-image"></div>
+     <div class="w-col w-col-10 featured-post">
+      {% if main_feature %}
+      <a class="w-clearfix w-inline-block article-link-block featured-link-block" href="{% url 'news:article' main_feature.article_id %}">
+        <div class="featured-post-image">
+          <img class="featured-image" src="{{ main_feature.photo }}" alt="">
+        </div>
         <div class="featured-post-text">
-          <div class="featured-post-author">{{ main_feature.writer }}</div>
+          <div class="featured-post-author">{{ main_feature.writer|format_name:'long' }}</div>
           <h2>{{ main_feature.headline }}</h2>
-          <div class="featured-post-category">{{ main_feature.category }}</div>
-          <p class="w-hidden-small w-hidden-tiny featured-post-p">
-            {{ bmf_summary|truncatechars:210 }}
-          </p>
+          <div class="featured-post-category">{{ main_feature.category|pretty_category }}</div>
+          <p class="w-hidden-small w-hidden-tiny featured-post-p">{{ bmf_summary }}</p>
         </div>
       </a>
+      {% endif %}
     </div>
     <div class="w-col w-col-2 w-hidden-small w-hidden-tiny category-sidebar">
-      <h4>Section</h4>
+      <p class="news-in-brief-p sections-header">Sections</p>
       <ul class="w-list-unstyled sub-category-list">
-        <li><a class="sub-category" href="#">Finance</a>
+        <li><a class="sub-category option_stearsGovernance" href="{% url 'news:business' 'stearsGovernance' %}">Governance</a>
         </li>
-        <li><a class="sub-category" href="#">Energy</a>
+        <li><a class="sub-category option_stearsBusiness" href="{% url 'news:business' 'stearsBusiness' %}">Business</a>
         </li>
-        <li><a class="sub-category" href="#">Agriculture</a>
+        <li><a class="sub-category option_stearsMacroeconomy" href="{% url 'news:business' 'stearsMacroeconomy' %}">Macroeconomy</a>
         </li>
-        <li><a class="sub-category" href="#">Industry</a>
+        <li><a class="sub-category option_stearsEditorial" href="{% url 'news:business' 'stearsEditorial' %}">Editorial</a>
         </li>
-        <li><a class="sub-category" href="#">Transport</a>
-        </li>
-        <li><a class="sub-category" href="#">Technology</a>
+        <li><a class="sub-category option_stearsColumn" href="{% url 'news:business' 'stearsColumn' %}">Column</a>
         </li>
       </ul>
-      <p class="news-in-brief-p">Or are you in a hurry?
-        <br>
-        <br>Check out our <strong><a class="sub-category nib-link" href="#">‘News-In-Brief’ </a></strong>section.</p>
+      <p class="news-in-brief-p">Economic Data</p>
+      <div class="economic-data-header">GDP Growth</div>
+      <div class="economic-figures">{{ economic_data.gdp_growth }}%</div>
+      <div class="economic-data-header">Unemployment</div>
+      <div class="economic-figures">{{ economic_data.unemployment }}%</div>
+      <div class="economic-data-header">Inflation</div>
+      <div class="economic-figures">{{ economic_data.inflation }}%</div>
+      <div class="economic-data-header">Interest Rate</div>
+      <div class="economic-figures">{{ economic_data.interest_rates }}%</div>
     </div>
   </div>
-  {% for i in '0246' %}
-  {% with i|add:'1' as j %}
   <div class="w-row w-hidden-main w-hidden-small w-hidden-tiny category-row-tablet">
-    {% with business_posts|array_list:i as post %}
-    <div class="w-col w-col-6 article-segment">
-      <a class="w-inline-block post-block" href="{% url 'news:article' post.article_id %}">
-        <div class="header-and-author">
-          <h3 class="business-h3">{{ post.headline }}</h3>
-          <div class="post-block-author">{{ post.writer }}</div>
-        </div>
-        <div class="w-section article-thumbnail"></div>
-      </a>
-    </div>
-    {% endwith %}
-    {% with business_posts|array_list:j as post %}
-    <div class="w-col w-col-6 article-segment">
-      <a class="w-inline-block post-block" href="{% url 'news:article' post.article_id %}">
-        <div class="header-and-author">
-          <h3 class="business-h3">{{ post.headline }}</h3>
-          <div class="post-block-author">{{ post.writer }}</div>
-        </div>
-        <div class="w-section article-thumbnail"></div>
-      </a>
-    </div>
-    {% endwith %}
-  </div>
-  {% endwith %}
-  {% endfor %}
-  
-
-  <div class="w-row w-hidden-medium category-row">
-    {% for i in '0123' %}
-    {% with business_posts|array_list:i as post %}
-    <div class="w-col w-col-3 article-segment">
-      <a class="w-inline-block post-block" href="{% url 'news:article' post.article_id %}">
-        <div class="header-and-author">
-          <h3 class="business-h3">{{ post.headline }}</h3>
-          <div class="post-block-author">{{ post.writer }}</div>
-        </div>
-        <div class="w-section article-thumbnail"></div>
-      </a>
-    </div>
-    {% endwith %}
+    {% for feature in features %}
+      <div class="w-col w-col-6 article-segment">
+        <a class="w-inline-block post-block" href="{% url 'news:article' feature.article_id %}">
+          <div class="header-and-author">
+            <h3 class="business-h3">{{ feature.headline }}</h3>
+            <div class="post-block-author">{{ feature.author }}</div>
+          </div>
+          <div class="w-section article-thumbnail">
+            <img class="stears-thumbnail" src="{{ feature.photo }}" alt="">
+          </div>
+        </a>
+      </div>
+      {% if forloop.counter|divisibleby:2 %}
+          <div class="w-hidden-main w-hidden-small w-hidden-tiny article-divider">
+            <div class="w-section tablet-divider"></div>
+          </div>
+      {% endif %}
     {% endfor %}
   </div>
   <div class="w-row w-hidden-medium category-row">
-    {% for i in '4567' %}
-    {% with business_posts|array_list:i as post %}
+    {% for feature in features %}
     <div class="w-col w-col-3 article-segment">
-      <a class="w-inline-block post-block" href="{% url 'news:article' post.article_id %}">
+      <a class="w-inline-block post-block" href="{% url 'news:article' feature.article_id %}">
         <div class="header-and-author">
-          <h3 class="business-h3">{{ post.headline }}</h3>
-          <div class="post-block-author">{{ post.writer }}</div>
+          <h3 class="business-h3">{{ feature.headline }}</h3>
+          <div class="post-block-author">{{ feature.writer }}</div>
         </div>
-        <div class="w-section article-thumbnail"></div>
+        <div class="w-section article-thumbnail">
+          <img class="stears-thumbnail" src="{{ feature.photo }}" alt="">
+        </div>
       </a>
     </div>
-    {% endwith %}
     {% endfor %}
   </div>
-   {% include 'news/footer.html' %}
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script type="text/javascript" src="/static/js/webflow.js"></script>
+  <script src="/static/js/news/news.js"></script>
   <!--[if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
 </body>
+
 {% endblock %}

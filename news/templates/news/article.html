@@ -7,23 +7,45 @@
   {% include 'news/news_nav.html' %}
   
   <h1 class="article-header">{{ article.headline }}</h1>
-  <div class="w-section article-image"></div>
-  <div class="w-row article-content">
-    <div class="w-col w-col-9 article">
-      <div class="w-hidden-main w-hidden-medium article-author mobile-element">
-        {{ article.writer }}</div>
-      <div class="w-hidden-main w-hidden-medium article-category mobile-element">
-        {{ article.category }}</div>
-      <p class="article-paragraph">
+  <div class="w-section article-image">
+    <img src="{{ article.photo }}" alt="">
+  </div>
+  <div class="w-section w-clearfix article-content">
+    <div class="w-clearfix article-detail">
+      <div class="article-author article-page">{{ article.author }}</div>
+      <div class="article-category article-page">{{ article.category }}</div>
+      <div class="share-article">
+        <div class="share-text">Share</div>
+        <a class="w-inline-block article-link-block share-link-block" href="#"><img class="twitter-share" src="/static/images/social19.svg" width="17">
+        </a>
+        <a class="w-inline-block article-link-block share-link-block" href="#"><img class="facebook-share" src="/static/images/facebook12.svg" width="9">
+        </a>
+        <a class="w-inline-block article-link-block share-link-block" href="#"><img class="linkedin-share" src="/static/images/linkedin11.svg" width="19">
+        </a>
+        <a class="w-inline-block article-link-block share-link-block" href="#"><img class="google-plus-share" src="/static/images/iconmonstr-google-plus-icon.svg" width="20">
+        </a>
+        <a class="w-inline-block article-link-block share-link-block" href="#"><img class="mail-share" src="/static/images/iconmonstr-email-4-icon.svg" width="22">
+        </a>
+      </div>
+    </div>
+    <div class="article-paragraph">
         {% autoescape off %}
         {{ article.content }}
         {% endautoescape %}
-      </p>
-      <div class="article-author">{{ article.writer }}</div>
     </div>
-    <div class="w-col w-col-3 w-hidden-small w-hidden-tiny article-information">
-      <div class="article-author">{{ article.writer }}</div>
-      <div class="article-category">{{ article.category }}</div>
+    <div class="article-author article-bottom">{{ article.writer }}</div>
+    <div class="share-article article-bottom">
+      <div class="share-text">Share&nbsp;</div>
+      <a class="w-inline-block article-link-block share-link-block" href="#"><img class="twitter-share" src="/static/images/social19.svg" width="17">
+      </a>
+      <a class="w-inline-block article-link-block share-link-block" href="#"><img class="facebook-share" src="/static/images/facebook12.svg" width="9">
+      </a>
+      <a class="w-inline-block article-link-block share-link-block" href="#"><img class="linkedin-share" src="/static/images/linkedin11.svg" width="19">
+      </a>
+      <a class="w-inline-block article-link-block share-link-block" href="#"><img class="google-plus-share" src="/static/images/iconmonstr-google-plus-icon.svg" width="20">
+      </a>
+      <a class="w-inline-block article-link-block share-link-block" href="#"><img class="mail-share" src="/static/images/iconmonstr-email-4-icon.svg" width="22">
+      </a>
     </div>
   </div>
 

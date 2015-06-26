@@ -12,6 +12,7 @@ class ProfileImageModel(models.Model):
 class ReportModel(models.Model):
     pdf = models.FileField(upload_to='reports/%Y/%m/%d')
     author = models.CharField(max_length=50)
+    title = models.CharField(max_length=50, default='')
     industry = models.BooleanField(default=False)
     summary = models.CharField(default='', max_length="200")
     week_ending = models.DateField()

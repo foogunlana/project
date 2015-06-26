@@ -36,7 +36,6 @@ $(document).ready(function(){
 		var allocator_url = $(cat_id).data('url');
 		var allocator_page = item.parent().data('page');
 
-
 		var sector = item.data('sector');
 		var number = item.data('num');
 

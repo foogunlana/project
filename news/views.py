@@ -1,56 +1,82 @@
 from django.shortcuts import render
 from stears.permissions import editor
 from stears.utils import mongo_calls
+from stears.models import ReportModel
 from django.contrib.auth.decorators import user_passes_test
 from utils import HomePage, BusinessPage, EconomyPage, \
 Article, htmltag_text, remove_special_characters
 
-
-
+import datetime
 # Create your views here.
 
 
 @user_passes_test(lambda u: editor(u), login_url='/weal/')
 def article(request, pk):
     pk = int(pk)
-    articles = mongo_calls('migrations')
-
-    article = articles.find_one({'article_id': pk})
-    if not article:
-        articles = mongo_calls('articles')
+    context = {}
+    if request.method == 'GET':
+        articles = mongo_calls('migrations')
         article = articles.find_one({'article_id': pk})
-    context = {'article': article}
+        if not article:
+            articles = mongo_calls('articles')
+            article = articles.find_one({'article_id': pk})
+        context = {'article': article}
     return render(request, 'news/article.html', context)
 
 
 @user_passes_test(lambda u: editor(u), login_url='/weal/')
-def business(request):
-    onsite = mongo_calls('onsite')
-    context = onsite.find_one({'page': 'business'})
-    main_feature = context['main_feature']
-    bmf_summary = htmltag_text(main_feature['content'], 'p')
-    bmf_summary = remove_special_characters(bmf_summary.pop())
-    context['bmf_summary'] = bmf_summary
+def business(request, sector):
+    if request.method == 'GET':
+        onsite = mongo_calls('onsite')
+        context = onsite.find_one({'page': 'b_e', 'sector': sector})
+        if context:
+            if context.get('main_feature'):
+                main_feature = context['main_feature']
+                bmf_summary = htmltag_text(main_feature['content'], 'p')
+                bmf_summary = remove_special_characters(bmf_summary.pop())
+                context['bmf_summary'] = bmf_summary
+                print bmf_summary
+            else:
+                context = {}
+        else:
+            context = {}
     return render(request, 'news/business.html', context)
 
 
 @user_passes_test(lambda u: editor(u), login_url='/weal/')
-def economy(request):
-    onsite = mongo_calls('onsite')
-    context = onsite.find_one({'page': 'economy'})
-    main_feature = context['main_feature']
-    emf_summary = htmltag_text(main_feature['content'], 'p')
-    emf_summary = remove_special_characters(emf_summary.pop())
-    context['emf_summary'] = emf_summary
-    return render(request, 'news/economy.html', context)
+def reports(request):
+    context = {}
+    if request.method == 'GET':
+        reports = ReportModel.objects.all()
+        for report in reports:
+            d = datetime.datetime.strptime(str(report.week_ending), "%Y-%m-%d")
+            report.time_title = "Week ending {}th".format(d.strftime('%B %W'))
+        context['reports'] = reports
+    return render(request, 'news/stearsreport.html', context)
 
 
 @user_passes_test(lambda u: editor(u), login_url='/weal/')
 def index(request):
-    onsite = mongo_calls('onsite')
-    context = onsite.find_one({'page': 'home'})
-    daily_column = context['daily_column']
-    dc_summary = htmltag_text(daily_column['content'], 'p')
-    dc_summary = remove_special_characters(dc_summary.pop())
-    context['daily_column_summary'] = dc_summary
+    context = {}
+    if request.method == 'GET':
+        onsite = mongo_calls('onsite')
+        articles = mongo_calls('articles')
+        context = onsite.find_one({'page': 'home'})
+        day = str(datetime.datetime.now().weekday())
+        col_writer = context['daily_column'].get(day)
+        todays_column = articles.find_one({'$query': {
+                                  'writer':col_writer, 'category': 'stearsColumn', 'state':'submitted'},
+                                  '$orderby':{'time':-1}})
+        if todays_column:
+            # optimize by adding titles to articles
+            writers = mongo_calls('user')
+            writer = writers.find_one({'username': col_writer})
+            todays_column['column_title'] = writer.get('column', '')
+            #
+            dc_summary = htmltag_text(todays_column['content'], 'p')
+            dc_summary = remove_special_characters(dc_summary.pop())
+            context['daily_column_summary'] = dc_summary
+            context['column'] = todays_column
     return render(request, 'news/index.html', context)
+
+

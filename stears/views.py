@@ -4,7 +4,7 @@ from stears.forms import LoginForm, ArticleImageForm, AddWritersForm, \
     ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, \
     NseArticleForm, ChangePasswordForm, ArticleReviewForm, EditWriterForm, \
     AllocationForm, AddPhotoForm, NewQuoteForm, ReportForm, DailyColumnForm, \
-    ColumnForm
+    ColumnForm, EconomicDataForm
 
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout
@@ -396,8 +396,8 @@ def select_column(request):
             day = column_form.cleaned_data['day']
             writer = column_form.cleaned_data['author']
             onsite = mongo_calls('onsite')
-            onsite.update({'type': 'daily_columns'},
-                          {'$set': {day: writer}}, upsert=True)
+            onsite.update({'page': 'home'},
+                          {'$set': {'daily_column.{}'.format(day): writer}})
         else:
             HttpResponse(column_form.errors)
     return HttpResponse('Ok')
@@ -721,6 +721,7 @@ def allocate_article(request):
     multiples = ['features', 'tertiaries']
     if request.method == 'POST':
         allocation_form = AllocationForm(request.POST)
+        print request.POST
         if allocation_form.is_valid():
             section = allocation_form.cleaned_data['section']
             article_id = int(allocation_form.cleaned_data['article_id'])
@@ -747,12 +748,34 @@ def allocate_report(request):
             if pdf:
                 report = ReportModel(**report_form.cleaned_data)
                 report.save()
+                week_ending = str(report_form.cleaned_data['week_ending'])
+                author = report_form.cleaned_data['author']
+                d = datetime.datetime.strptime(week_ending, "%Y-%m-%d")
+                string = "Week ending {}th".format(d.strftime('%B %W'))
+                onsite = mongo_calls('onsite')
+                onsite.update({'page': 'home'},
+                              {'$set': {'report': {
+                                        'date': string,
+                                        'author': author}}})
             else:
-                pass
-                #ERROR
+                return HttpResponse('No pdf')
         else:
             return HttpResponse(json.dumps(report_form.errors))
-    return HttpResponse('Ok')
+    return HttpResponse('reload')
+
+
+@user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
+def economic_data(request):
+    if request.method == 'POST':
+        economic_data_form = EconomicDataForm(request.POST)
+        if economic_data_form.is_valid():
+            data = economic_data_form.cleaned_data
+            onsite = mongo_calls('onsite')
+            onsite.update({'page': 'b_e'},
+                          {'$set': {'economic_data': data}}, multi=True)
+        else:
+            return HttpResponseRedirect(reverse('weal:allocator'))
+    return HttpResponseRedirect(reverse('weal:allocator'))
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
@@ -777,6 +800,7 @@ def allocator(request):
     writers = mongo_calls('user')
     pages = list(onsite.find({'active': True}))
     report_form = ReportForm()
+    economic_data_form = EconomicDataForm()
 
     articles = list(pipeline.find({
                 '$query': {'type': 'writers_article', 'state':'submitted'},
@@ -795,11 +819,11 @@ def allocator(request):
     for article in articles:
         groups[article['category']] = groups.get(
                         article['category'], []) + [article]
-
     context['cats'] = groups
     context['quote_form'] = NewQuoteForm()
     context['sectors'] = params.sectors.values()
     context['report_form'] = report_form
+    context['economic_data_form'] = economic_data_form
     context['columns'] = params.columns  #Needs to reflect actual columns ...
     context['writers_columns'] = {
             writer['username']: writer['column'] for writer in writers.find(

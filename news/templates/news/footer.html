@@ -1,13 +1,15 @@
 <div class="w-section w-clearfix footer">
-    <div class="w-clearfix footer-nav">
-      	<a class="footer-links" href="{% url 'news:index' %}">Home</a>
-    	<a class="footer-links" href="{% url 'news:business' %}">Business</a>
-    	<a class="footer-links" href="{% url 'news:economy' %}">Economy</a>
+  <div class="w-clearfix footer-nav">
+    <a class="w-clearfix w-inline-block social-link-block" href="https://twitter.com/intent/follow?screen_name=@stearsng">
       <div class="footer-social">
-        <div class="footer-title">Social</div><img class="facebook-icon" src="/static/images/facebook12.svg" width="6" alt="54d264eda59e05340ae1fb74_facebook12.svg"><img class="linkedin-icon" src="/static/images/linkedin11.svg" width="14" alt="54d26e39a59e05340ae1fe23_linkedin11.svg"><img class="twitter-icon" src="/static/images/social19.svg" width="12" alt="54d265fa0d5fbeb671afe3f1_social19.svg"><img class="rss-icon" src="/static/images/social23.svg" width="12" alt="54d27c22a59e05340ae1ffce_social23.svg">
+        <div class="footer-title">Follow us on Twitter</div>
+        <img class="twitter-icon" src="/static/images/social19.svg" width="12">
       </div>
-    </div>
-	<a class="w-nav-brand mobile-logo" href="{% url 'news:index' %}">
-		<img src="/static/images/StearsLogoTransForSite.png" width="70" alt="54f34f3f3bc4fd5b7ac52c01_StearsLogoTransForSite.png">
     </a>
+    <a class="footer-links" href="{% url 'news:index' %}">Home</a>
+    <a class="footer-links" href="{% url 'news:business' 'stearsBusiness' %}">Business &amp; Economy</a>
+    <a class="footer-links" href="{% url 'news:reports' %}">Market Reports</a>
   </div>
+  <a class="w-inline-block footer-link-block" href="{% url 'news:index' %}"><img src="/static/images/StearsBeta.png" width="70">
+  </a>
+</div>

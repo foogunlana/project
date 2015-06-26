@@ -142,10 +142,10 @@
 					<br>
 
 					<div class="article_box">
-						<a id="allocate_economy_form" class="toggles_div2" style="padding:10px;" data-group="s_pages">Market Reports</a>
+						<a id="allocate_reports_form" class="toggles_div2" style="padding:10px;" data-group="s_pages">Market Reports</a>
 					</div>
 					<br>
-					<div class="allocate_economy_form article_box s_pages" class="columns small-12" style="padding:10px;" data-page="Market_Reports" hidden>
+					<div class="allocate_reports_form article_box s_pages" class="columns small-12" style="padding:10px;" data-page="Market_Reports" hidden>
 						<div data-title="" id="new_report" data-url="{% url 'weal:allocate_report' %}" class="">
 							<form method="post" id="report_form" enctype="multipart/form-data">
 								{% csrf_token %}
@@ -157,6 +157,8 @@
 								<br>
 								Industry report? {{ report_form.industry }}
 								<br>
+								{{ report_form.title.label }}<label for="summary" style="color:red"> ** Required for Industry Reports **</label>
+								{{ report_form.title }}
 								{{ report_form.summary.label }}<label for="summary" style="color:red"> ** Required for Industry Reports **</label>
 								{{ report_form.summary }}
 								<label for="author">Author</label>
@@ -164,6 +166,21 @@
 								<label for="week_ending">Week ending</label>
 								<input type="date" name="week_ending" id="id_week_ending" style="width:80%;display:inline-block;">
 								<button class="submit_report" style="width:15%;display:inline-block;">Go</button>
+							</form>
+						</div>
+					</div>
+					<br>
+
+					<div class="article_box">
+						<a id="e_data_form" class="toggles_div2" style="padding:10px;" data-group="s_pages">Economic Data</a>
+					</div>
+					<br>
+					<div class="e_data_form article_box s_pages" class="columns small-12" style="padding:10px;"  hidden>
+						<div id="economic_data" class="">
+							<form method="post" action = "{% url 'weal:economic_data' %}" id="economic_data_form" enctype="multipart/form-data">
+								{% csrf_token %}
+								{{ economic_data_form }}
+								<button class="submit_economic_data" style="width:15%;display:inline-block;">Go</button>
 							</form>
 						</div>
 					</div>

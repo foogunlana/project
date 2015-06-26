@@ -39,6 +39,7 @@ class ReportForm(forms.Form):
     pdf = forms.FileField(label="Please upload .pdf file")
     author = forms.CharField(required=True, label="Author")
     industry = forms.BooleanField(required=False)
+    title = forms.CharField(required=False, max_length=50)
     summary = forms.CharField(required=False,
         widget=forms.Textarea(attrs={
             'data-validation': 'length',
@@ -54,9 +55,10 @@ class ReportForm(forms.Form):
         cleaned_data = super(ReportForm, self).clean()
         industry = cleaned_data.get("industry", None)
         summary = cleaned_data.get("summary", None)
+        title = cleaned_data.get("title", None)
 
-        if industry and not summary:
-            raise ValidationError('Summary is required for Industry Reports')
+        if industry and not (summary and title):
+            raise ValidationError('Both Title and Summary are required for Industry Reports')
 
     def clean_pdf(self):
         pdf = self.cleaned_data['pdf']
@@ -68,6 +70,13 @@ class ReportForm(forms.Form):
             raise forms.ValidationError(
                 'Not supported, file must be .pdf format')
         return pdf
+
+
+class EconomicDataForm(forms.Form):
+    gdp_growth = forms.FloatField(required=True)
+    unemployment = forms.FloatField(required=True)
+    inflation = forms.FloatField(required=True)
+    interest_rates = forms.FloatField(required=True)
 
 
 class DailyColumnForm(forms.Form):
@@ -147,7 +156,7 @@ class AllocationForm(forms.Form):
     page = forms.CharField(max_length=30, required=True)
     section = forms.CharField(max_length=30, required=True)
     article_id = forms.CharField(max_length=10, required=True)
-    sector = forms.CharField(max_length=10, required=False)
+    sector = forms.CharField(max_length=30, required=False)
     number = forms.CharField(max_length=10, required=False)
 
 class NewQuoteForm(forms.Form):

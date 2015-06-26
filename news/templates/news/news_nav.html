@@ -1,40 +1,38 @@
-<div class="w-nav w-hidden-main w-hidden-medium mobile-navspace" data-collapse="small" data-animation="default" data-duration="400">
-  <div class="w-nav w-hidden-main w-hidden-medium mobile-nav" data-collapse="small" data-animation="default" data-duration="400" data-contain="1">
-    <div class="w-container">
-      <a class="w-nav-brand mobile-logo" href="{% url 'news:index' %}"><img src="/static/images/StearsLogoTransForSite.png" width="75" alt="54f34f3f3bc4fd5b7ac52c01_StearsLogoTransForSite.png">
+  <div class="w-nav w-hidden-small w-hidden-tiny" data-collapse="small" data-animation="default" data-duration="400">
+    <div class="w-section w-clearfix navigation">
+      <a class="w-clearfix w-inline-block logo-link" href="{% url 'news:index' %}">
+        <img class="stears-logo" src="/static/images/StearsBeta.png" width="480">
       </a>
-      <nav class="w-nav-menu w-clearfix mobile-nav-menu" role="navigation">
-        <a class="w-nav-link mobile-nav-link" href="{% url 'news:index' %}">Home</a>
-        <a class="w-nav-link mobile-nav-link" href="{% url 'news:business' %}">Business</a>
-        <a class="w-nav-link mobile-nav-link" href="{% url 'news:economy' %}">Economy</a>
+      <div class="w-clearfix top-half">
+        <a class="w-clearfix w-inline-block social-link-block" href="https://twitter.com/intent/follow?screen_name=@stearsng">
+          <div class="nav-social">
+            <div class="follow-us">Follow us on Twitter</div>
+            <img class="twitter-icon" src="/static/images/social19.svg" width="12">
+          </div>
+        </a>
+      </div>
+      <nav class="w-nav-menu nav-content" role="navigation">
+        <a class="w-nav-link nav-text" href="{% url 'news:index' %}">Home</a>
+        <a class="w-nav-link nav-text" href="{% url 'news:business' 'stearsBusiness' %}">Business &amp; Economy</a>
+        <a class="w-nav-link nav-text" href="{% url 'news:reports' %}">Market Reports</a>
       </nav>
-      <div class="w-nav-button mobile-menu-button">
-        <div class="w-icon-nav-menu hamburger-icon"></div>
-      </div>
-      <div class="nav-title">Menu</div>
     </div>
   </div>
-</div>
-<div class="w-nav w-hidden-small w-hidden-tiny" data-collapse="small" data-animation="default" data-duration="400">
-  <div class="w-section w-clearfix navigation">
-    <div class="w-clearfix top-half">
-        <a class="w-nav-brand mobile-logo" href="{% url 'news:index' %}"><img src="/static/images/StearsLogoTransForSite.png" width="75" alt="54f34f3f3bc4fd5b7ac52c01_StearsLogoTransForSite.png">
-      </a>
-      <div class="nav-social">
-        <div class="follow-us">Follow Us</div><img class="facebook-icon" src="/static/images/facebook12.svg" width="6" alt="54d264eda59e05340ae1fb74_facebook12.svg"><img class="twitter-icon" src="/static/images/social19.svg" width="12" alt="54d265fa0d5fbeb671afe3f1_social19.svg"><img class="linkedin-icon" src="/static/images/linkedin11.svg" width="14" alt="54d26e39a59e05340ae1fe23_linkedin11.svg"><img class="rss-icon" src="/static/images/social23.svg" width="12" alt="54d27c22a59e05340ae1ffce_social23.svg">
+  <div class="w-nav w-hidden-main w-hidden-medium mobile-navspace" data-collapse="small" data-animation="default" data-duration="400">
+    <div class="w-nav w-hidden-main w-hidden-medium mobile-nav" data-collapse="small" data-animation="default" data-duration="400" data-contain="1">
+      <div class="w-container">
+        <a class="w-nav-brand mobile-logo" href="{% url 'news:index' %}">
+          <img src="/static/images/StearsBeta.svg" width="90">
+        </a>
+        <nav class="w-nav-menu w-clearfix mobile-nav-menu" role="navigation">
+          <a class="w-nav-link mobile-nav-link" href="{% url 'news:index' %}">Home</a>
+          <a class="w-nav-link mobile-nav-link" href="{% url 'news:business' 'stearsBusiness' %}">Business &amp; Economy</a>
+          <a class="w-nav-link mobile-nav-link" href="{% url 'news:reports' %}">Market Reports</a>
+        </nav>
+        <div class="w-nav-button mobile-menu-button">
+          <div class="w-icon-nav-menu hamburger-icon"></div>
+        </div>
+        <div class="nav-title">Menu</div>
       </div>
-    </div>
-    <nav class="w-nav-menu nav-content" role="navigation">
-      <a class="w-nav-link nav-text" href="{% url 'news:index' %}">Home</a>
-      <a class="w-nav-link nav-text" href="{% url 'news:business' %}">Business</a>
-      <a class="w-nav-link nav-text" href="{% url 'news:economy' %}">Economy</a>
-    </nav>
-    <div class="nav-stock">
-      <div class="nav-stockticker">
-        <div class="ticker-title">NGSEINDX :</div>
-      </div>
-      <div class="ticker-price">13,456</div>
-      <div class="ticker-price percentage-change">(2.4%&nbsp;&nbsp;283)</div>
     </div>
   </div>
-</div>
