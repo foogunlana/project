@@ -721,7 +721,6 @@ def allocate_article(request):
     multiples = ['features', 'tertiaries']
     if request.method == 'POST':
         allocation_form = AllocationForm(request.POST)
-        print request.POST
         if allocation_form.is_valid():
             section = allocation_form.cleaned_data['section']
             article_id = int(allocation_form.cleaned_data['article_id'])

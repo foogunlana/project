@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from stears.permissions import editor
+from stears.permissions import editor, approved_writer
 from stears.utils import mongo_calls
 from stears.models import ReportModel
 from django.contrib.auth.decorators import user_passes_test
@@ -10,7 +10,7 @@ import datetime
 # Create your views here.
 
 
-@user_passes_test(lambda u: editor(u), login_url='/weal/')
+@user_passes_test(lambda u: approved_writer(u), login_url='/weal/')
 def article(request, pk):
     pk = int(pk)
     context = {}
@@ -24,7 +24,7 @@ def article(request, pk):
     return render(request, 'news/article.html', context)
 
 
-@user_passes_test(lambda u: editor(u), login_url='/weal/')
+@user_passes_test(lambda u: approved_writer(u), login_url='/weal/')
 def business(request, sector):
     if request.method == 'GET':
         onsite = mongo_calls('onsite')
@@ -43,7 +43,7 @@ def business(request, sector):
     return render(request, 'news/business.html', context)
 
 
-@user_passes_test(lambda u: editor(u), login_url='/weal/')
+@user_passes_test(lambda u: approved_writer(u), login_url='/weal/')
 def reports(request):
     context = {}
     if request.method == 'GET':
@@ -55,7 +55,7 @@ def reports(request):
     return render(request, 'news/stearsreport.html', context)
 
 
-@user_passes_test(lambda u: editor(u), login_url='/weal/')
+@user_passes_test(lambda u: approved_writer(u), login_url='/weal/')
 def index(request):
     context = {}
     if request.method == 'GET':
