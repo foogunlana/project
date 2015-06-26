@@ -135,7 +135,7 @@
             <h3 class="stearsreport-report">Report</h3>
           </div>
           <h4 class="w-hidden-medium w-hidden-small w-hidden-tiny stearsreport-widget-h3">{{ report.date }}</h4>
-          <div class="w-hidden-medium w-hidden-small w-hidden-tiny stearsreport-widget-text">By {{ report.author }}</div>
+          <div class="w-hidden-medium w-hidden-small w-hidden-tiny stearsreport-widget-text">By {{ report.author|format_name:'long' }}</div>
         </div>
       </a>
     </div>
@@ -218,7 +218,7 @@
         <a class="w-inline-block post-block" href="{% url 'news:article' feature.article_id %}">
           <div class="header-and-author">
             <h3 class="business-h3">{{ feature.headline }}</h3>
-            <div class="post-block-author">{{ feature.writer }}</div>
+            <div class="post-block-author">{{ feature.writer|format_name:'long' }}</div>
           </div>
           <div class="w-section article-thumbnail">
             <img class="stears-thumbnail" src="{{ feature.photo }}" alt="">
@@ -234,7 +234,7 @@
         <a class="w-inline-block post-block" href="{% url 'news:article' article.article_id %}">
           <div class="header-and-author">
             <h3 class="business-h3">{{ article.headline }}</h3>
-            <div class="post-block-author">{{ article.writer }}</div>
+            <div class="post-block-author">{{ article.writer|format_name:'long' }}</div>
           </div>
           <div class="w-section article-thumbnail">
             <img class="stears-thumbnail" src="{{ article.photo }}" alt="">

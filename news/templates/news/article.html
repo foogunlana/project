@@ -1,4 +1,5 @@
 {% extends 'news/news_base.html' %}
+{% load stears_tags %}
 
 {% block title %}Article{% endblock %}
 
@@ -13,7 +14,7 @@
   <div class="w-section w-clearfix article-content">
     <div class="w-clearfix article-detail">
       <div class="article-author article-page">{{ article.author }}</div>
-      <div class="article-category article-page">{{ article.category }}</div>
+      <div class="article-category article-page">{{ article.category|pretty_category }}</div>
       <div class="share-article">
         <div class="share-text">Share</div>
         <a class="w-inline-block article-link-block share-link-block" href="#"><img class="twitter-share" src="/static/images/social19.svg" width="17">
@@ -33,7 +34,7 @@
         {{ article.content }}
         {% endautoescape %}
     </div>
-    <div class="article-author article-bottom">{{ article.writer }}</div>
+    <div class="article-author article-bottom">{{ article.writer|format_name:'long' }}</div>
     <div class="share-article article-bottom">
       <div class="share-text">Share&nbsp;</div>
       <a class="w-inline-block article-link-block share-link-block" href="#"><img class="twitter-share" src="/static/images/social19.svg" width="17">
