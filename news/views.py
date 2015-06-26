@@ -47,7 +47,7 @@ def business(request, sector):
 def reports(request):
     context = {}
     if request.method == 'GET':
-        reports = ReportModel.objects.all()
+        reports = ReportModel.objects.all().order_by('week_ending')
         for report in reports:
             d = datetime.datetime.strptime(str(report.week_ending), "%Y-%m-%d")
             report.time_title = "Week ending {}".format(d.strftime('%B %-d'))
