@@ -17,8 +17,8 @@
     <form id="email-form" name="email-form" data-name="Email Form">
       <select class="w-select w-hidden-main w-hidden-medium sub-category-drop-down" id="Sub-Category" name="Sub-Category" data-name="Sub-Category">
         <option value="">{{ sector|pretty_category }}</option>
-        <option class="option_stearsGovernance" value="{% url 'news:business' 'stearsGovernance' %}">Governance</option>
         <option class="option_stearsBusiness" value="{% url 'news:business' 'stearsBusiness' %}">Business</option>
+        <option class="option_stearsGovernance" value="{% url 'news:business' 'stearsGovernance' %}">Governance</option>
         <option class="option_stearsMacroeconomy" value="{% url 'news:business' 'stearsMacroeconomy' %}">Macroeconomy</option>
         <option class="option_stearsEditorial" value="{% url 'news:business' 'stearsEditorial' %}">Editorial</option>
         <option class="option_stearsColumn"  value="{% url 'news:business' 'stearsColumn' %}">Column</option>
@@ -50,9 +50,9 @@
     <div class="w-col w-col-2 w-hidden-small w-hidden-tiny category-sidebar">
       <p class="news-in-brief-p sections-header">Sections</p>
       <ul class="w-list-unstyled sub-category-list">
-        <li><a class="sub-category option_stearsGovernance" href="{% url 'news:business' 'stearsGovernance' %}">Governance</a>
-        </li>
         <li><a class="sub-category option_stearsBusiness" href="{% url 'news:business' 'stearsBusiness' %}">Business</a>
+        </li>
+        <li><a class="sub-category option_stearsGovernance" href="{% url 'news:business' 'stearsGovernance' %}">Governance</a>
         </li>
         <li><a class="sub-category option_stearsMacroeconomy" href="{% url 'news:business' 'stearsMacroeconomy' %}">Macroeconomy</a>
         </li>
