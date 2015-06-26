@@ -50,7 +50,7 @@ def reports(request):
         reports = ReportModel.objects.all()
         for report in reports:
             d = datetime.datetime.strptime(str(report.week_ending), "%Y-%m-%d")
-            report.time_title = "Week ending {}th".format(d.strftime('%B %W'))
+            report.time_title = "Week ending {}".format(d.strftime('%B %-d'))
         context['reports'] = reports
     return render(request, 'news/stearsreport.html', context)
 

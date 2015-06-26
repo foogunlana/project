@@ -39,7 +39,7 @@
         </div>
         <div class="w-col w-col-7 daily-column-widget-text">
           <h3>{{ column.headline }}</h3>
-          <p>{{ daily_column_summary }}</p>
+          <p>{{ daily_column_summary|truncatechars:'200' }}</p>
         </div>
       </div>
       {% endif %}
@@ -123,7 +123,7 @@
           </div>
           <div class="w-col w-col-7 daily-column-widget-text">
             <h4>{{ column.headline }}</h4>
-            <p>{{ daily_column_summary }}</p>
+            <p>{{ daily_column_summary|truncatechars:'200' }}</p>
           </div>
         </div>
       </a>
