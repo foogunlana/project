@@ -42,7 +42,7 @@
           <div class="featured-post-author">{{ main_feature.writer|format_name:'long' }}</div>
           <h2>{{ main_feature.headline }}</h2>
           <div class="featured-post-category">{{ main_feature.category|pretty_category }}</div>
-          <p class="w-hidden-small w-hidden-tiny featured-post-p">{{ bmf_summary }}</p>
+          <p class="w-hidden-small w-hidden-tiny featured-post-p">{{ bmf_summary|truncatechars:'200' }}</p>
         </div>
       </a>
       {% endif %}

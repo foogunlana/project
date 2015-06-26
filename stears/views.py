@@ -827,7 +827,7 @@ def allocator(request):
     context['columns'] = params.columns  #Needs to reflect actual columns ...
     context['writers_columns'] = {
             writer['username']: writer['column'] for writer in writers.find(
-            {'role': 'Columnist'}, {'column': 1, 'username': 1}) if writer.get('column')}
+            {}, {'column': 1, 'username': 1}) if writer.get('column')}
 
     return render(request, 'stears/allocator2.html', context)
 
