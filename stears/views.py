@@ -308,7 +308,7 @@ def writers_write(request):
             {'username': username},
             {'suggested_articles': 1, 'reviews': 1, '_id': 0, 'role': 1})
 
-        if writer['role'] == 'Columnist':
+        if writer['role'] in ['Editor', 'Admin', 'Columnist']:
             daily_column_form = DailyColumnForm()
 
         suggested_articles = writer.get('suggested_articles', [])
