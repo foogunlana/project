@@ -83,7 +83,7 @@ $(document).ready(function() {
                 tag_count+=1;
             });
 
-            if($('.nolink')){
+            if($('#article_photo_link').data('link')==='N'){
                 alert('You must add a photo to submit your editor. Ask you editor about uploading photos to the WEAL');
                 return false;
             }

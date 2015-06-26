@@ -93,11 +93,8 @@
 						<br>
 						<div class="row" style="padding-left:15px;padding-right:15px;">
 							<div class="article_box">
-								<strong style="padding-left:10px;">Photo link:</strong> 
-								{% if article.photo %}{{ article.photo }}{% else %}
-								<div id="nolink" style="padding-left:15px;padding-right:15px;">
-									None
-								</div>{% endif %}
+								<strong style="padding-left:10px;" id="article_photo_link" {% if article.photo %}data-link="Y"{% else %}data-link="N"{% endif %}>Photo link:</strong> 
+								{% if article.photo %}{{ article.photo }}{% endif %}
 							</div>
 						</div>
 					</div>
