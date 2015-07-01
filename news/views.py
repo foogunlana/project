@@ -35,9 +35,6 @@ def business(request, sector):
                 bmf_summary = htmltag_text(main_feature['content'], 'p')
                 bmf_summary = remove_special_characters(bmf_summary.pop())
                 context['bmf_summary'] = bmf_summary
-                print bmf_summary
-            else:
-                context = {}
         else:
             context = {}
     return render(request, 'news/business.html', context)

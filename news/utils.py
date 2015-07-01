@@ -110,13 +110,26 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
         find_doc = {'page': page}
     if number:
         onsite.update(find_doc,
-            {'$set': {'{}.{}'.format(section, number): article},
-             '$setOnInsert': {section: [article]}}, upsert=True)
+            {'$set': {'{}.{}'.format(section, number): article}},
+            upsert=True)
     else:
         onsite.update(find_doc,
             {'$set': { section: article}},
             upsert=True)
 
+
+def reset_page(page):
+    onsite = mongo_calls('onsite')
+    if page == 'b_e':
+        for sector in params.sectors.values():
+            onsite.update({'page': 'b_e', 'sector': sector},
+                          {'page': 'b_e', 'sector': sector, 'features': []},
+                          upsert=True)
+    if page == 'home':
+        onsite.update(
+            {'page': 'home'},
+            {'page': 'home', 'features': [], 'tertiaries': [], 'daily_column': {}},
+             upsert=True)
 
 
 def obj_dict_recursive(obj):
@@ -135,12 +148,6 @@ def obj_dict_recursive(obj):
             obj_dict[key] = elements
     return obj_dict
 
-
-def reset_site_arrays():
-    onsite = mongo_calls('onsite')
-    onsite.update({'page':'home'}, {'$set': {'tertiaries': []}}, multi=True)
-    onsite.update({'page':'home'}, {'$set': {'features': []}}, multi=True)
-    onsite.update({'page':'b_e'}, {'$set': {'features': []}}, multi=True)
 
 
 def populate_site(collection):
