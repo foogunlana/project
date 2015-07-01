@@ -110,8 +110,8 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
         find_doc = {'page': page}
     if number:
         onsite.update(find_doc,
-            {'$set': {'{}.{}'.format(section, number): article}},
-            upsert=True)
+            {'$set': {'{}.{}'.format(section, number): article},
+             '$setOnInsert': {section: [article]}}, upsert=True)
     else:
         onsite.update(find_doc,
             {'$set': { section: article}},

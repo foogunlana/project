@@ -75,6 +75,7 @@
   <div class="w-row w-hidden-main w-hidden-small w-hidden-tiny category-row-tablet">
     {% for feature in features %}
       <div class="w-col w-col-6 article-segment">
+        {% if feature %}
         <a class="w-inline-block post-block" href="{% url 'news:article' feature.article_id %}">
           <div class="header-and-author">
             <h3 class="business-h3">{{ feature.headline }}</h3>
@@ -84,6 +85,7 @@
             <img class="stears-thumbnail" src="{{ feature.photo }}" alt="">
           </div>
         </a>
+        {% endif %}
       </div>
       {% if forloop.counter|divisibleby:2 %}
           <div class="w-hidden-main w-hidden-small w-hidden-tiny article-divider">
@@ -95,6 +97,7 @@
   <div class="w-row w-hidden-medium category-row">
     {% for feature in features %}
     <div class="w-col w-col-3 article-segment">
+      {% if feature %}
       <a class="w-inline-block post-block" href="{% url 'news:article' feature.article_id %}">
         <div class="header-and-author">
           <h3 class="business-h3">{{ feature.headline }}</h3>
@@ -104,6 +107,7 @@
           <img class="stears-thumbnail" src="{{ feature.photo }}" alt="">
         </div>
       </a>
+      {% endif %}
     </div>
     {% endfor %}
   </div>
