@@ -4,7 +4,7 @@ from stears.forms import LoginForm, ArticleImageForm, AddWritersForm, \
     ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, \
     NseArticleForm, ChangePasswordForm, ArticleReviewForm, EditWriterForm, \
     AllocationForm, AddPhotoForm, NewQuoteForm, ReportForm, DailyColumnForm, \
-    ColumnForm, EconomicDataForm
+    ColumnForm, EconomicDataForm, DeletePhotoForm
 
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout
@@ -64,6 +64,18 @@ def upload_photo(request):
         print "*********** COULDN'T LOAD PICTURES *************"
     return render(request, 'stears/photos.html',
                   {'form': form, 'photos': photos})
+
+
+@user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
+def delete_photo(request):
+    if request.method == 'POST':
+        delete_photo_form = DeletePhotoForm(request.POST)
+        if delete_photo_form.is_valid():
+            pk = int(delete_photo_form.cleaned_data['pk'])
+            ArticleImageModel.objects.filter(pk=pk).delete()
+        else:
+            print delete_photo_form.errors
+    return HttpResponseRedirect(reverse('weal:photos'))
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')

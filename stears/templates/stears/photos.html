@@ -38,16 +38,33 @@
 		<div class="columns small-12">
 			<div class="row">
 				{% if photos %}
-					{% for photo in photos %}
-						<div class="columns small-6 medium-4 large-3">
-							<br>
-							<div class="article_box" style="width:200px;padding:5px;display:inline-block;" >
-								<img src="{{ photo.docfile.url }}">
+					{% if user|is_editor %}
+						{% for photo in photos %}
+							<div class="columns small-6 medium-4 large-3" id="photo_{{photo.pk}}">
 								<br>
-								<a class="copy-button fill" data-clipboard-text="{{ photo.docfile.url }}">Copy image url</a>
+								<div class="article_box" style="width:200px;padding:5px;display:inline-block;" >
+									<img src="{{ photo.docfile.url }}">
+									<button class="copy-button fill" data-clipboard-text="{{ photo.docfile.url }}" style="margin-bottom:5px;margin-top:5px">Copy image url</button>
+									<form action="{% url 'weal:delete_photo' %}" method="POST">
+										{% csrf_token %}
+										<input type="text" name='pk' id="id_pk" value="{{ photo.pk }}" style="display:none">
+										<button type="submit" class="fill confirm-submission" style="margin:0px;background-color:#FF4747;">Delete</button>
+									</form>
+								</div>
 							</div>
-						</div>
-					{% endfor %}
+						{% endfor %}
+					{% else %}
+						{% for photo in photos %}
+							<div class="columns small-6 medium-4 large-3" id="photo_{{photo.pk}}">
+								<br>
+								<div class="article_box" style="width:200px;padding:5px;display:inline-block;" >
+									<img src="{{ photo.docfile.url }}">
+									<br>
+									<a class="copy-button fill" data-clipboard-text="{{ photo.docfile.url }}">Copy image url</a>
+								</div>
+							</div>
+						{% endfor %}
+					{% endif %}
 				{% else %}
 					<p>No documents.</p>
 				{% endif %}

@@ -35,6 +35,11 @@ class ArticleImageForm(forms.Form):
                 'Not supported, image must be jpeg or png')
         return image
 
+
+class DeletePhotoForm(forms.Form):
+    pk = forms.IntegerField()
+
+
 class ReportForm(forms.Form):
     pdf = forms.FileField(label="Please upload .pdf file")
     author = forms.CharField(required=True, label="Author")

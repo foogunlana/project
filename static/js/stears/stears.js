@@ -16,7 +16,7 @@ $( document ).ready(function() {
 
 
 	$( ".confirm-submission" ).click(function( event ) {
-		if(!confirm( "Are you sure you want to post" )){
+		if(!confirm( "Are you sure you want to do this?" )){
 			event.preventDefault();
 			console.log('prevent');
 		}

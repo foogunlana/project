@@ -76,6 +76,8 @@ urlpatterns = patterns('',
                        url(r'^gts/$', views.gts, name='gts'),
                        url(r'^photos/$', views.upload_photo,
                            name='photos'),
+                       url(r'^photo/delete/$', views.delete_photo,
+                           name='delete_photo'),
                        url(r'^research/$', views.research, name='research'),
 
                        url(r'^writers/$', views.writers_list,
