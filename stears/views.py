@@ -555,12 +555,14 @@ def add_tag(request, pk):
             request.POST
         )
         if key_words_form.is_valid():
-            article_key_words(
+            tag = article_key_words(
                 pk,
                 key_words_form.cleaned_data['tags'],
                 other=key_words_form.cleaned_data['other'])
+            responseData = {'tag': tag, 'success': True}
+            return HttpResponse(json.dumps(responseData))
         else:
-            print "Invalid"
+            return HttpResponse(key_words_form.errors)
     return HttpResponseRedirect(reverse(
         'weal:article_detail', args=(), kwargs={'pk': pk}))
 
@@ -856,15 +858,15 @@ def submissions(request):
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
-def remove_tag(request):
+def remove_tag(request, pk):
     if request.method == 'POST':
-        code = request.POST.get('data', None)
-        if not code:
+        tag = request.POST.get('tag', None)
+        if not tag:
             print "Error!"
             return HttpResponse('No tag specified')
 
-        id_and_tag = code.split(',')
-        pk, tag = int(id_and_tag[0]), str(id_and_tag[1])
+        tag = str(tag)
+        pk = int(pk)
 
         articles = mongo_calls('articles')
         articles.update(

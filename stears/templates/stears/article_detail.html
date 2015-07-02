@@ -205,7 +205,7 @@
 					</div>
 				</div>
 				<div>
-					<form method="POST" action="{% url 'weal:remove_tag' %}">
+					<form method="POST" action="#" data-url="{% url 'weal:remove_tag' article.article_id %}">
 						{% csrf_token %}
 						{% if article.keywords %}
 							<h3>
@@ -215,20 +215,24 @@
 								<h6 style="color:red;">
 									Click to delete
 								</h6>
-								{% for word in article.keywords %}
-									<div class="tag_wrapper" >
-										<a href="#"  class = "button2 tag_button tag_button_view" data-tag="{{ article.article_id }},{{ word }}" data-url="{% url 'weal:remove_tag' %}">
-											{{ word }}
-										</a>,
-									</div>
-								{% endfor%}
+								<div class="tag_container">
+									{% for word in article.keywords %}
+										<div class="tag_wrapper" id="example_tag">
+											<a href="#"  class = "button2 tag_button tag_button_view" data-tag="{{ word }}" data-url="{% url 'weal:remove_tag' article.article_id %}">
+												{{ word }}
+											</a>, 
+										</div>
+									{% endfor%}
+								</div>
 							{% else %}
 								{% for word in article.keywords %}
+									<div class="tag_container">
 										<div class="" style="display:inline-block">
 											<div href="#" class="tag_button_view">
 												{{ word }}
 											</div>
 										</div>,
+									</div>
 								{% endfor%}
 							{% endif %}
 						{% endif %}
@@ -236,7 +240,6 @@
 					<div id="keyword_area" {% if key_words_form.errors %}{% else %}hidden{% endif %}>
 						{% include 'stears/keywords_form.html' %}
 					</div>
-				<script src="/static/js/stears/articletags.js"></script>
 			</div>
 		</div>
 		
@@ -431,4 +434,5 @@
 </div>
 </div>
 </div>
+<script src="/static/js/stears/article_detail.js"></script>
 {% endblock %}

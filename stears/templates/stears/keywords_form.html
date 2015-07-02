@@ -1,5 +1,5 @@
 {% if key_words_form %}
-	<form method="POST" id="tag_form" action="{% url 'weal:tag' pk=article.article_id %}">
+	<form method="POST" id="tag_form" data-url="{% url 'weal:tag' pk=article.article_id %}">
 		{% csrf_token %}
 		<h3>
 		Add tags to this article
@@ -23,7 +23,7 @@
 			</td>
 		</tr>
 		</table>
-		<button class=" fill comment" type="keywords" >Save tag</button>
+		<button class=" fill comment" type="submit" >Save tag</button>
 	</form>
 {% else %}
 	<h3>
@@ -34,15 +34,4 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 <script src="http://cdn.jsdelivr.net/jquery.validation/1.13.1/jquery.validate.js"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-	$.validator.addMethod("tagRegex", function(value, element) {
-	return this.optional(element) || ($('#id_tags').val() != 'None') || (/^\w[\w\-\s]+$/i.test(value) && (value != 'None'));
-	}, "Please choose a tag, or create one");
-
-	$("#tag_form").validate({
-	 rules: {
-	 	"other": { tagRegex: true},
-	 },
-	});
-});
 </script>

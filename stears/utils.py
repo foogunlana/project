@@ -311,7 +311,7 @@ def article_key_words(pk, word, **kwargs):
     if other and other != 'None':
         word = other
     elif word == 'None':
-        return
+        return None
 
     articles.update(
         {'article_id': pk},
@@ -325,6 +325,7 @@ def article_key_words(pk, word, **kwargs):
         True,
         False
     )
+    return word
 
 
 def request_to_write(article):
