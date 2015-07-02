@@ -41,6 +41,10 @@
   background-color: transparent;
 }
 
+.featured-post{
+  overflow: hidden;
+}
+
 .featured-post-image{
   overflow:hidden;
   padding-bottom:0px;
@@ -50,6 +54,7 @@
 .featured-image{
   height:100%;
   width:100%;
+  min-width: 640px;
   min-height: 350px;
   z-index:-1;
   position:relative;
@@ -59,6 +64,7 @@
 
 
 .featured-image-container{
+  overflow: hidden;
 /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,000000+100&amp;0+0,0.6+0,0+48,0.65+67,0.92+99 */
 /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&amp;0+0,0+47,0.52+71,1+100 */
 background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0) 47%, rgba(0,0,0,0.52) 71%, rgba(0,0,0,1) 100%); /* FF3.6+ */
