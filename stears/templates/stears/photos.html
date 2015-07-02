@@ -44,11 +44,11 @@
 								<br>
 								<div class="article_box" style="width:200px;padding:5px;display:inline-block;" >
 									<img src="{{ photo.docfile.url }}">
-									<button class="copy-button fill" data-clipboard-text="{{ photo.docfile.url }}" style="margin-bottom:5px;margin-top:5px">Copy image url</button>
-									<form action="{% url 'weal:delete_photo' %}" method="POST">
+									<button class="copy-button fill" data-clipboard-text="{{ photo.docfile.url }}" style="margin-bottom:0px;margin-top:5px">Copy image url</button>
+									<form data-url="{% url 'weal:delete_photo' %}" method="POST" class="delete_photo_form">
 										{% csrf_token %}
 										<input type="text" name='pk' id="id_pk" value="{{ photo.pk }}" style="display:none">
-										<button type="submit" class="fill confirm-submission" style="margin:0px;background-color:#FF4747;">Delete</button>
+										<button type="submit" class="fill confirm-submission" style="margin:0px;margin-top:5px;background-color:#FF4747;">Delete</button>
 									</form>
 								</div>
 							</div>
@@ -71,6 +71,11 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+	$.ajaxSetup({
+		data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
+	})</script>
+	<script src="/static/js/stears/photos.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.2.0/ZeroClipboard.Core.min.js"></script>
 
 	<script src = "/static/js/stears/ZeroClipboard.js"></script>

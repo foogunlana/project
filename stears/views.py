@@ -73,8 +73,10 @@ def delete_photo(request):
         if delete_photo_form.is_valid():
             pk = int(delete_photo_form.cleaned_data['pk'])
             ArticleImageModel.objects.filter(pk=pk).delete()
+            responseData = {'pk':pk, 'success':True}
+            return HttpResponse(json.dumps(responseData))
         else:
-            print delete_photo_form.errors
+            return HttpResponse(delete_photo_form.errors)
     return HttpResponseRedirect(reverse('weal:photos'))
 
 
