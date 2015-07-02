@@ -92,13 +92,20 @@
 						{% endif %}
 						<br>
 						<div class="row" style="padding-left:15px;padding-right:15px;">
-							<div class="article_box">
-								<strong style="padding-left:10px;" id="article_photo_link" {% if article.photo %}data-link="Y"{% else %}data-link="N"{% endif %}>Photo link:</strong> 
-								{% if article.photo %}{{ article.photo }}{% endif %}
+							<div class="article_box toggles_div" id="photo_div">
+								<a style="padding-left:10px;" id="article_photo_link" {% if article.photo %}data-link="Y"{% else %}data-link="N"{% endif %} href="#">Photo</a> 
+							</div>
+							<br>
+							<div class="photo_div" hidden>
+								{% if article.photo %}<img src="{{ article.photo }}" alt="">
+								{% else %}
+								<strong>
+									Sorry! no photo has been added
+								</strong>
+								{% endif %}
 							</div>
 						</div>
 					</div>
-					<br>
 					<div class="fill">
 						<div class="columns small-12 small-centered article_box">
 							<table >
