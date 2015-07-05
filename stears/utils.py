@@ -313,7 +313,7 @@ def article_key_words(pk, word, **kwargs):
     elif word == 'None':
         return None
 
-    articles.update(
+    response = articles.update(
         {'article_id': pk},
         {'$addToSet': {'keywords': word}},
         False,
@@ -325,7 +325,9 @@ def article_key_words(pk, word, **kwargs):
         True,
         False
     )
-    return word
+    if response['nModified']:
+        return word
+    return None
 
 
 def request_to_write(article):

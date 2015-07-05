@@ -559,7 +559,10 @@ def add_tag(request, pk):
                 pk,
                 key_words_form.cleaned_data['tags'],
                 other=key_words_form.cleaned_data['other'])
-            responseData = {'tag': tag, 'success': True}
+            if tag:
+                responseData = {'tag': tag, 'success': True}
+            else:
+                responseData = {'success': False, 'message': 'Already added'}
             return HttpResponse(json.dumps(responseData))
         else:
             return HttpResponse(key_words_form.errors)

@@ -29,7 +29,9 @@ $(document).ready(function(){
 					tag_clone.find('a').attr('data-tag', tag);
 					tag_clone.find('a').text(tag);
 					tag_clone.prependTo('.tag_container');
-				}
+				}else{
+                    // alert(msg.message);
+                }
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log("error");
