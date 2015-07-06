@@ -214,12 +214,9 @@
 							</div>
 						</div>
 						{% csrf_token %}
-						<h3>
-						Present tags:
-						</h3>
 						{% if user.username|can_write:article %}
 							<h6 style="color:red;">
-								Click to delete
+								Click tags to delete
 							</h6>
 							<div class="tag_container">
 								{% for word in article.keywords %}
@@ -243,6 +240,7 @@
 						{% endif %}
 					</form>
 					<div id="keyword_area" {% if key_words_form.errors %}{% else %}hidden{% endif %}>
+						<br>
 						{% include 'stears/keywords_form.html' %}
 					</div>
 			</div>

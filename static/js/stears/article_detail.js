@@ -9,6 +9,10 @@ $(document).ready(function(){
 		},
 	});
 
+    $('#id_tags').change(function(){
+        $('#tag_form').submit();
+    });
+
 	$('#tag_form').submit(function(event){
 		event.preventDefault();
 
