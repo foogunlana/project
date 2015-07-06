@@ -144,7 +144,7 @@
         <img class="featured-image" src="{{ main_feature.photo }}" alt="">
         <div class="w-section main-article-content">
           <h1 class="main-article-h1">{{ main_feature.headline }}</h1>
-          <div class="article-author">{{ main_feature.category|pretty_category }}</div>
+          <div class="article-author">{{ main_feature.writer|format_name:'long' }}</div>
         </div>
       </div>
     </a>
