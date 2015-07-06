@@ -223,6 +223,7 @@ def update_writers_article(username, form):
 
     articles.save(existing_article)
     # print "%s updated article with id %s"%(username,article_id)
+    return existing_article
 
 
 def add_writers(article_id, usernames):
@@ -284,7 +285,7 @@ def make_writers_article(form, username):
 
 def stears_italics(content):
     content = content.replace(
-        'stears', '<i>stears</i>').replace('Stears', '<i>Stears</i>')
+        'stears', '<font class="hidden-s">S</font>').replace('Stears', '<font class="hidden-s">S</font>')
     return content
 
 

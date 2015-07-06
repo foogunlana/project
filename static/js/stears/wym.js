@@ -24,36 +24,36 @@ $(document).ready(function() {
     });
     
     $('.wymeditor.article_editor').wymeditor({
-                html: $('textarea.wymeditor').val(),
-                postInit: function(wym) {
-                    // $(wym._doc.body).click( function() {
-                        //wym.sbCatchPaste();
-                    // });
-                    //construct the button's html
-                    var html = "<li class='wym_tools_word_count' style='padding-top:3px;padding-left:5px;'>"
-                             + "<a name='Word count' title='Word count' href='#'"
-                             + " style='background: url(\"/static/images/stears/word_count2.png\") no-repeat;'>"
-                             + "Do something"
-                             + "</a></li>";
+        html: $('textarea.wymeditor').val(),
+        postInit: function(wym) {
+            // $(wym._doc.body).click( function() {
+                //wym.sbCatchPaste();
+            // });
+            //construct the button's html
+            var html = "<li class='wym_tools_word_count' style='padding-top:3px;padding-left:5px;'>"
+                     + "<a name='Word count' title='Word count' href='#'"
+                     + " style='background: url(\"/static/images/stears/word_count2.png\") no-repeat;'>"
+                     + "Do something"
+                     + "</a></li>";
 
-                    //add the button to box
-                    $(wym._box)
-                    .find(wym._options.toolsSelector + wym._options.toolsListSelector)
-                    .append(html);
+            //add the button to box
+            $(wym._box)
+            .find(wym._options.toolsSelector + wym._options.toolsListSelector)
+            .append(html);
 
-                    //handle click event
-                    $(wym._box)
-                    .find('li.wym_tools_word_count a').click(function() {
-                        //do something
-                        wym.update();
-                        word_count = wordCount($('.wym_html_val').val());
+            //handle click event
+            $(wym._box)
+            .find('li.wym_tools_word_count a').click(function() {
+                //do something
+                wym.update();
+                word_count = wordCount($('.wym_html_val').val());
 
-                        alert(word_count);
-                        // wym.paste('Lorem ipsum dolor sit amet, consectetuer adipiscing elit.');
-                        return(false);
-                    });
-                }
+                alert(word_count);
+                // wym.paste('Lorem ipsum dolor sit amet, consectetuer adipiscing elit.');
+                return(false);
             });
+        }
+    });
 
     $('.wym_preview_button').click(function(){
         $('a[name="Preview"]').click();
@@ -122,10 +122,20 @@ $(document).ready(function() {
                 if(responseData === "reload"){
                     location.reload();
                 }else{
-                    alert("Your article has been saved");
-                    $('.wym_html_val').val(responseData);
-                    $('#ajax_article_content').html(responseData);
-                    $('#hidden_article_form').hide();
+                    msg = JSON.parse(responseData);
+                    if(msg.success){
+                        alert("Your article has been saved");
+                        $('.wym_html_val').val(msg.article);
+                        $('#ajax_article_content').html(msg.article);
+                        $('#hidden_article_form').hide();
+                    }else{
+                        var keys = Object.keys(msg.errors);
+                        message = '';
+                        for(i = 0; i < keys.length; i++){
+                            message += '('+ keys[i] + ')' + ': ' + msg.errors[keys[i]] + '\n';
+                        }
+                        alert(message);
+                    }
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -134,7 +144,8 @@ $(document).ready(function() {
         });
         return false;
     });
-
+    
+    $('#ajax_article_content').find('.hidden-s').html('<em>Stears</em>');
 });
 
 

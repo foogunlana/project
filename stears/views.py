@@ -894,19 +894,22 @@ def submit_article(request):
             article_id = int(form.cleaned_data.get('article_id', 0))
             sor = request.POST.get('save_or_review', '')
             if article_id:
-                update_writers_article(writer, form)
+                old_article = update_writers_article(writer, form)
+                response = {'success': True, 'article': old_article['content']}
             else:
                 new_article = make_writers_article(form, writer)
                 article_id = save_writers_article(new_article)
+                response = {'success': True, 'article': new_article['content']}
                 if sor == 'save':
-                    return HttpResponse("reload")
+                    return HttpResponse(json.dumps(response))
             if sor == 'review':
                 submit_writers_article(article_id)
-                return HttpResponse("reload")
-            return HttpResponse(request.POST['content'])
+                return HttpResponse(json.dumps(response))
+            return HttpResponse(json.dumps(response))
         else:
-            return HttpResponse("Please fill required fields")
-    return HttpResponse("Error")
+            response = {'success': False, 'errors': form.errors}
+            return HttpResponse(json.dumps(response))
+    return HttpResponse("reload")
 
 
 def noaccess(request):
