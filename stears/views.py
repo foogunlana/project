@@ -498,7 +498,7 @@ def article_detail(request, **kwargs):
 
     locked_fields = ['nse_headlines']
     # s_cat = lambda x: 'stears' + x.replace(' ', '_')
-    print category
+
     if writer_can_edit_article(str(user), article):
         if article.get('type', '') == 'writers_article':
             writers_article_form = WritersArticleForm(

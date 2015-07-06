@@ -76,4 +76,5 @@ def index(request):
             context['column'] = todays_column
     return render(request, 'news/index.html', context)
 
-
+def test(request):
+    return render(request, 'news/test.html')

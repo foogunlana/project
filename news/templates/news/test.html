@@ -1,235 +1,45 @@
-{% extends 'news/news_base.html' %}
-{% load stears_tags %}
+<html>
+  <head>
+    <meta charset="utf-8"><title>Articles - Stears</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="/static/css/foundation.css">
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/news.css">
+    <style type="text/css"></style>
+  </head>
+  <body class="news">
+    <div class="row fill news-top-section">
+      <div class="columns small-12 ">
+        <div class="row news-ss-bar">
+          <div class="columns small-12 medium-4 news-socialside-column">
+            <div class="social-icon">
+              <img class="twitter-icon " src="http://uploads.webflow.com/54d15d04624a64834599eee8/54d265fa0d5fbeb671afe3f1_social19.svg" width="12" alt="54d265fa0d5fbeb671afe3f1_social19.svg">
+            </div>
+          </div>
+        </div>
+        <div class="row news-n-bar">
+          <div class="row small-12 columns large-5 medium-9 small-offset-0 medium-offset-3 large-offset-7">
+            <div class="news-nav-links">
+              <a class="news-nav-text" href="#">
+                <strong>Home</strong>
+              </a>
+              <a class="news-nav-text" href="#">
+                <strong>Business & Economy</strong>
+              </a>
+              <a class="news-nav-text" href="#">
+                <strong>Market Reports</strong>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-{% block title %}Stears{% endblock %}
-
-{% block body %}
-<body class="w-clearfix">
-  {% include 'news/news_nav.html' %}
-  <div class="w-form">
-    <form id="email-form" name="email-form" data-name="Email Form">
-      <select class="w-select w-hidden-main w-hidden-medium sub-category-drop-down" id="Sub-Category" name="Sub-Category" data-name="Sub-Category">
-        <option value="">Choose Section</option>
-        <option value="stearsGovernance">Governance</option>
-        <option value="stearsBusiness">Business</option>
-        <option value="stearsMacroeconomy">Macroeconomy</option>
-        <option value="stearsEditorial">Editorial</option>
-        <option value="stearsColumn">Column</option>
-      </select>
-    </form>
-    <div class="w-form-done">
-      <p>Thank you! Your submission has been received!</p>
-    </div>
-    <div class="w-form-fail">
-      <p>Oops! Something went wrong while submitting the form :(</p>
-    </div>
-  </div>
-  <div class="w-row companies-row-1">
-     <div class="w-col w-col-10 featured-post">
-      <a class="w-clearfix w-inline-block article-link-block" href="#">
-        <div class="featured-post-image"></div>
-        <div class="featured-post-text">
-          <div class="featured-post-author">{{ main_feature.writer|format_name:'long' }}</div>
-          <h2>{{ main_feature.headline }}</h2>
-          <div class="featured-post-category">{{ main_feature.category|pretty_category }}</div>
-          <p class="w-hidden-small w-hidden-tiny featured-post-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh.</p>
-        </div>
-      </a>
-    </div>
-    <div class="w-col w-col-2 w-hidden-small w-hidden-tiny category-sidebar">
-      <p class="news-in-brief-p sections-header">Sections</p>
-      <ul class="w-list-unstyled sub-category-list">
-        <li><a class="sub-category" href="{% url 'news:business' 'stearsGovernance' %}">Governance</a>
-        </li>
-        <li><a class="sub-category" href="{% url 'news:business' 'stearsBusiness' %}">Business</a>
-        </li>
-        <li><a class="sub-category" href="{% url 'news:business' 'stearsMacroeconomy' %}">Macroeconomy</a>
-        </li>
-        <li><a class="sub-category" href="{% url 'news:business' 'stearsEditorial' %}">Editorial</a>
-        </li>
-        <li><a class="sub-category" href="{% url 'news:business' 'stearsColumn' %}">Column</a>
-        </li>
-      </ul>
-      <p class="news-in-brief-p">Economic Data</p>
-      <div class="economic-data-header">Inflation</div>
-      <div class="economic-figures">2.37%</div>
-      <div class="economic-data-header">Unemployment</div>
-      <div class="economic-figures">2.37%</div>
-      <div class="economic-data-header">Nibor</div>
-      <div class="economic-figures">2.37%</div>
-      <div class="economic-data-header">Inflation</div>
-      <div class="economic-figures">2.37%</div>
-    </div>
-  </div>
-  <div class="w-row w-hidden-main w-hidden-small w-hidden-tiny category-row-tablet">
-    <div class="w-col w-col-6 article-segment">
-      <a class="w-inline-block post-block" href="#">
-        <div class="header-and-author">
-          <h3 class="business-h3">Big header here because we want to have one here and we like it.</h3>
-          <div class="post-block-author">Author</div>
-        </div>
-        <div class="w-section article-thumbnail"></div>
-      </a>
-    </div>
-    <div class="w-col w-col-6 article-segment">
-      <a class="w-inline-block post-block" href="#">
-        <div class="header-and-author">
-          <h3 class="business-h3">Big header here</h3>
-          <div class="post-block-author">Author</div>
-        </div>
-        <div class="w-section article-thumbnail"></div>
-      </a>
-    </div>
-  </div>
-  <div class="w-hidden-main w-hidden-small w-hidden-tiny article-divider">
-    <div class="w-section tablet-divider"></div>
-  </div>
-  <div class="w-row w-hidden-main w-hidden-small w-hidden-tiny category-row-tablet">
-    <div class="w-col w-col-6 article-segment">
-      <a class="w-inline-block post-block" href="#">
-        <div class="header-and-author">
-          <h3 class="business-h3">Big header here because we want to have one here and we like it.</h3>
-          <div class="post-block-author">Author</div>
-        </div>
-        <div class="w-section article-thumbnail"></div>
-      </a>
-    </div>
-    <div class="w-col w-col-6 article-segment">
-      <a class="w-inline-block post-block" href="#">
-        <div class="header-and-author">
-          <h3 class="business-h3">Big header here</h3>
-          <div class="post-block-author">Author</div>
-        </div>
-        <div class="w-section article-thumbnail"></div>
-      </a>
-    </div>
-  </div>
-  <div class="w-hidden-main w-hidden-small w-hidden-tiny article-divider">
-    <div class="w-section tablet-divider"></div>
-  </div>
-  <div class="w-row w-hidden-main w-hidden-small w-hidden-tiny category-row-tablet">
-    <div class="w-col w-col-6 article-segment">
-      <a class="w-inline-block post-block" href="#">
-        <div class="header-and-author">
-          <h3 class="business-h3">Big header here because we want to have one here and we like it.</h3>
-          <div class="post-block-author">Author</div>
-        </div>
-        <div class="w-section article-thumbnail"></div>
-      </a>
-    </div>
-    <div class="w-col w-col-6 article-segment">
-      <a class="w-inline-block post-block" href="#">
-        <div class="header-and-author">
-          <h3 class="business-h3">Big header here</h3>
-          <div class="post-block-author">Author</div>
-        </div>
-        <div class="w-section article-thumbnail"></div>
-      </a>
-    </div>
-  </div>
-  <div class="article-divider">
-    <div class="w-section w-hidden-main w-hidden-small w-hidden-tiny tablet-divider"></div>
-  </div>
-  <div class="w-row w-hidden-main w-hidden-small w-hidden-tiny category-row-tablet">
-    <div class="w-col w-col-6 article-segment">
-      <a class="w-inline-block post-block" href="#">
-        <div class="header-and-author">
-          <h3 class="business-h3">Big header here because we want to have one here and we like it.</h3>
-          <div class="post-block-author">Author</div>
-        </div>
-        <div class="w-section article-thumbnail"></div>
-      </a>
-    </div>
-    <div class="w-col w-col-6 article-segment">
-      <a class="w-inline-block post-block" href="#">
-        <div class="header-and-author">
-          <h3 class="business-h3">Big header here</h3>
-          <div class="post-block-author">Author</div>
-        </div>
-        <div class="w-section article-thumbnail"></div>
-      </a>
-    </div>
-  </div>
-  <div class="w-row w-hidden-medium category-row">
-    <div class="w-col w-col-3 article-segment">
-      <a class="w-inline-block post-block" href="#">
-        <div class="header-and-author">
-          <h3 class="business-h3">Currently typing in order to attain the right word</h3>
-          <div class="post-block-author">Author</div>
-        </div>
-        <div class="w-section article-thumbnail"></div>
-      </a>
-    </div>
-    <div class="w-col w-col-3 article-segment">
-      <a class="w-inline-block post-block" href="#">
-        <div class="header-and-author">
-          <h3 class="business-h3">Big header here</h3>
-          <div class="post-block-author">Author</div>
-        </div>
-        <div class="w-section article-thumbnail"></div>
-      </a>
-    </div>
-    <div class="w-col w-col-3 article-segment">
-      <a class="w-inline-block post-block" href="#">
-        <div class="header-and-author">
-          <h3 class="business-h3">Currently typing in order to attain the right word</h3>
-          <div class="post-block-author">Author</div>
-        </div>
-        <div class="w-section article-thumbnail"></div>
-      </a>
-    </div>
-    <div class="w-col w-col-3 article-segment">
-      <a class="w-inline-block post-block" href="#">
-        <div class="header-and-author">
-          <h3 class="business-h3">Currently typing in order to attain the right word</h3>
-          <div class="post-block-author">Author</div>
-        </div>
-        <div class="w-section article-thumbnail"></div>
-      </a>
-    </div>
-  </div>
-  <div class="w-row w-hidden-medium category-row">
-    <div class="w-col w-col-3 article-segment">
-      <a class="w-inline-block post-block" href="#">
-        <div class="header-and-author">
-          <h3 class="business-h3">Currently typing in order to attain the right word</h3>
-          <div class="post-block-author">Author</div>
-        </div>
-        <div class="w-section article-thumbnail"></div>
-      </a>
-    </div>
-    <div class="w-col w-col-3 article-segment">
-      <a class="w-inline-block post-block" href="#">
-        <div class="header-and-author">
-          <h3 class="business-h3">Currently typing in order to attain the right word</h3>
-          <div class="post-block-author">Author</div>
-        </div>
-        <div class="w-section article-thumbnail"></div>
-      </a>
-    </div>
-    <div class="w-col w-col-3 article-segment">
-      <a class="w-inline-block post-block" href="#">
-        <div class="header-and-author">
-          <h3 class="business-h3">Currently typing in order to attain the right word</h3>
-          <div class="post-block-author">Author</div>
-        </div>
-        <div class="w-section article-thumbnail"></div>
-      </a>
-    </div>
-    <div class="w-col w-col-3 article-segment">
-      <a class="w-inline-block post-block" href="#">
-        <div class="header-and-author">
-          <h3 class="business-h3">Currently typing in order to attain the right word</h3>
-          <div class="post-block-author">Author</div>
-        </div>
-        <div class="w-section article-thumbnail"></div>
-      </a>
-    </div>
-  </div>
-  
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script type="text/javascript" src="js/webflow.js"></script>
-  <!--[if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
-</body>
-
-{% endblock %}
+      <script src="/static/js/foundation.min.js"></script>
+      <script>
+      $(document).foundation();
+      </script>
+    </body>
+  </html>
