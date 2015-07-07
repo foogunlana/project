@@ -6,9 +6,9 @@
 	{% include 'stears/writers_nav.html' %}
 {% endblock %}
 {% block writers_block %}
-	<div class="row">
-		<div class="columns small-12 small-centered">
-			<div class="article_box toggles_div" id="upload_doc_toggle" style="padding-left:30px;" >
+	<div class="row " style="padding:20px;">
+		<div class="columns small-12 small-centered" style="padding:0px;">
+			<div class="article_box toggles_div" id="upload_doc_toggle" style="padding-left:40px;" >
 				{{ form.errors }}
 				<a href="#">Upload a new picture?</a> <font color="red" style="padding-left:10px;">jpg/png only, max: 2.5MB</font>
 			</div>
@@ -16,66 +16,76 @@
 			<div class="article_box upload_doc_toggle" hidden>
 				<form method="POST" style="padding:30px;" action="{% url 'weal:photos' %}" enctype="multipart/form-data">
 					{% csrf_token %}
-					<p>
-						{{ form.title.label }}
-					</p>
-					<p>
-						{{ form.title }}
-					</p>
+					<div class="row">
+						<div class="columns small-12 medium-6">
+							{{ form.title.label }}
+							{{ form.title }}
+						</div>
+						<div class="columns small-12 medium-6">
+							{{ form.source.label }}
+							{{ form.source }}
+						</div>
+						<div class="columns small-12">
+							{{ form.description.label }}
+							{{ form.description }}
+						</div>
+					</div>
 					<p style="display:inline-block">
-						{{ form.article_image.label }}
+						{{ form.docfile.label }}
 					</p>
 					<p style="display:inline-block;">
-					{{ form.article_image }}
+					{{ form.docfile }}
 					</p>
 					<button class="fill" type="submit">upload</button>
 				</form>
 			</div>
 		</div>
 	</div>
-	<br>
-	<div class="row">
-		<div class="columns small-12">
-			<div class="row">
-				{% if photos %}
-					{% if user|is_editor %}
-						{% for photo in photos %}
-							<div class="columns small-6 medium-4 large-3" id="photo_{{photo.pk}}">
-								<br>
-								<div class="article_box row" style="width:200px;padding:5px;display:inline-block;margin-bottom:5px;margin-top:5px;" >
-									<img src="{{ photo.docfile.url }}" class="toggles_div21" id="photo_option_{{ photo.pk }}" data-group="photo_options">
-									<div class="row photo_option_{{photo.pk}} photo_options" hidden>
-										<div class="columns small-6" style="padding:0px;padding-right:2.5px;">
-											<button class="copy-button fill" data-clipboard-text="{{ photo.docfile.url }}" style="margin-bottom:0px;margin-top:5px;">Copy URL</button>
-										</div>
-										<div class="columns small-6" style="padding:0px;padding-left:2.5px;">
-											<form data-url="{% url 'weal:delete_photo' %}" method="POST" class="delete_photo_form">
-												{% csrf_token %}
-												<input type="text" name='pk' id="id_pk" value="{{ photo.pk }}" style="display:none">
-												<button type="submit" class="fill confirm-submission" style="margin:0px;margin-top:5px;background-color:#FF4747;">Delete</button>
-											</form>
-										</div>
-									</div>
-								</div>
-							</div>
-						{% endfor %}
-					{% else %}
-						{% for photo in photos %}
-							<div class="columns small-6 medium-4 large-3" id="photo_{{photo.pk}}">
-								<br>
-								<div class="article_box" style="width:200px;padding:5px;display:inline-block;" >
-									<img src="{{ photo.docfile.url }}">
-									<br>
+	<div class="row" style="padding:20px;">
+		{% if photos %}
+			{% if user|is_editor %}
+				{% for photo in photos %}
+					<div class="columns small-6 medium-4 large-3" id="photo_{{photo.pk}}">
+						<br>
+						<div class="article_box" style="width:200px;padding:5px;display:inline-block;margin-bottom:5px;margin-top:5px;" >
+							<img src="{{ photo.docfile.url }}" class="toggles_div21" id="photo_option_{{ photo.pk }}" data-group="photo_options" style="width:100%;">
+							<div class="row photo_option_{{photo.pk}} photo_options" hidden>
+								<div class="columns small-12">{{ photo.title }}</div>
+								<div class="columns small-6" style="padding:0px;padding-right:2.5px;">
 									<button class="copy-button fill" data-clipboard-text="{{ photo.docfile.url }}" style="margin-bottom:0px;margin-top:5px;">Copy URL</button>
 								</div>
+								<div class="columns small-6" style="padding:0px;padding-left:2.5px;">
+									<form data-url="{% url 'weal:delete_photo' %}" method="POST" class="delete_photo_form">
+										{% csrf_token %}
+										<input type="text" name='pk' id="id_pk" value="{{ photo.pk }}" style="display:none">
+										<button type="submit" class="fill confirm-submission" style="margin:0px;margin-top:5px;background-color:#FF4747;">Delete</button>
+									</form>
+								</div>
+								<div class="columns small-12">
+									{{ photo.description }}
+									{% if photo.source %}
+									. Find photo at: <a href="{{ photo.source }}" target="_blank">Source</a>
+									{% endif %}
+								</div>
 							</div>
-						{% endfor %}
-					{% endif %}
-				{% else %}
-					<p>No documents.</p>
-				{% endif %}
-			</div>
-		</div>
+						</div>
+					</div>
+				{% endfor %}
+			{% else %}
+				{% for photo in photos %}
+					<div class="columns small-6 medium-4 large-3" id="photo_{{photo.pk}}">
+						<br>
+						<div class="article_box" style="width:200px;padding:5px;display:inline-block;" >
+							<img src="{{ photo.docfile.url }}">
+							<br>
+							<button class="copy-button fill" data-clipboard-text="{{ photo.docfile.url }}" style="margin-bottom:0px;margin-top:5px;">Copy URL</button>
+						</div>
+					</div>
+				{% endfor %}
+			{% endif %}
+		{% else %}
+			<p>No documents.</p>
+		{% endif %}
 	</div>
 	<script type="text/javascript">
 	$.ajaxSetup({

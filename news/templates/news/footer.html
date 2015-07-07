@@ -6,10 +6,14 @@
         <img class="twitter-icon" src="/static/images/social19.svg" width="12">
       </div>
     </a>
-    <a class="footer-links" href="{% url 'news:index' %}">Home</a>
-    <a class="footer-links" href="{% url 'news:business' 'stearsBusiness' %}">Business &amp; Economy</a>
-    <a class="footer-links" href="{% url 'news:reports' %}">Market Reports</a>
+    <div class="footer-links-container">
+      <a class="footer-links" href="{% url 'news:index' %}">Home</a>
+      <a class="footer-links" href="{% url 'news:business' 'stearsBusiness' %}">Business &amp; Economy</a>
+      <a class="footer-links" href="{% url 'news:reports' %}">Market Reports</a>
+    </div>
   </div>
+  <p class="copyright">Copyright © 2015. Stears Partnership. All rights reserved</p>
+  <br>
   <a class="w-inline-block footer-link-block" href="{% url 'news:index' %}"><img src="/static/images/StearsBeta.png" width="70">
   </a>
 </div>

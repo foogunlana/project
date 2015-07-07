@@ -47,6 +47,12 @@
   padding-bottom:0px; 
 }
 
+.copyright{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  float: right;
+}
+
 .twitter-share{
   margin-bottom:0px;
 }
@@ -154,6 +160,21 @@
   font-size: 35px;
 }
 
+.tags-block{
+  display: block;
+  margin-bottom: 10px;
+}
+
+.article_tag{
+  background-color: white;
+  border-radius: 2px;
+  color: #737373;
+  font-weight: 100;
+  padding: 10px;
+  display: inline-block;
+  margin-bottom: 3px;
+}
+
 table {
     width: 100%;
 }
@@ -213,6 +234,14 @@ th{
   .article-header{
     font-size: 25px;
     line-height: 30px;
+  }
+
+  .copyright{
+  float: left;
+  }
+
+  .footer-links{
+    width: 100%;
   }
 
   .mobile-menu-button{

@@ -34,15 +34,12 @@ import params
 import json
 
 
-
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
 def upload_photo(request):
     if request.method == 'POST':
         form = ArticleImageForm(request.POST, request.FILES)
         if form.is_valid():
-            article_image = ArticleImageModel(
-                docfile=request.FILES['article_image']
-            )
+            article_image = ArticleImageModel(**form.cleaned_data)
             article_image.save()
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
@@ -362,6 +359,7 @@ def writer_detail(request, name):
             'username': writer['username'],
             'first_name': writer['first_name'],
             'last_name': writer['last_name'],
+            'linkedin': writer.get('linkedin', 'None'),
             'dob': writer.get('dob', datetime.datetime.now()),
             'study': writer.get('study', 'None'),
             'interests': writer.get('interests', 'None'),

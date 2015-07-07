@@ -54,14 +54,29 @@
 						</div>
 						<hr>
 						<div class="row">
+							<div class="columns small-6">
+								<strong>Email:</strong>
+							</div>
 							<div class="columns small-12">
-								<strong>Email:</strong> {{ writer.email }}
+								{{ writer.email }}
 							</div>
 						</div>
 						<hr>
 						<div class="row">
-							<div class="columns small-12">
-								<strong>Date of birth:</strong> {{ writer.dob }}
+							<div class="columns small-6">
+								<strong>Linkedin:</strong>
+							</div>
+							<div class="columns small-12" >
+								{{ writer.linkedin }}
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="columns small-6">
+								<strong>Date of birth:</strong> 
+							</div>
+							<div class="columns small-6">
+								{{ writer.dob }}
 							</div>
 						</div>
 						<hr>
@@ -85,39 +100,51 @@
 						<br>
 						{% ifequal writer.username user.username %}
 							<br>
-							<br>
 							<div class="row">
-								<form action="" method="get">
-								</form>
-								<button class="fill toggles_div" id="writer_details">
-								Edit details
-								</button>
+								<div class="columns small-12">
+									<button class="fill toggles_div" id="writer_details">
+									Edit details
+									</button>
+								</div>
 							</div>
 						{% endifequal %}
+						<br>
 					</div>
-					<div class="article_box writer_details" style="padding:20px;" hidden>
+					<div class="article_box writer_details" style="padding:20px;padding-bottom:0px;" hidden>
 						<form action="{% url 'weal:edit_writer_detail' %}" method="post">
 								{% csrf_token %}
+								{{ edit_writer_form.first_name.label }}
 								<p>{{ edit_writer_form.first_name }}</p>
+								{{ edit_writer_form.last_name.label }}
 								<p>{{ edit_writer_form.last_name }}</p>
+								{{ edit_writer_form.new_email.label }}
 								<p>{{ edit_writer_form.new_email }}</p>
 								<p hidden>{{ edit_writer_form.email }}</p>
 								<p hidden>{{ edit_writer_form.username }}</p>
+								{{ edit_writer_form.role.label }}
 								<p>{{ edit_writer_form.role }}</p>
+								{{ edit_writer_form.linkedin.label }}
+								<p>{{ edit_writer_form.linkedin }}</p>
+								{{ edit_writer_form.dob.label }}
 								<p>{{ edit_writer_form.dob }}</p>
+								{{ edit_writer_form.sex.label }}
 								<p>{{ edit_writer_form.sex }}</p>
+								{{ edit_writer_form.study.label }}
 								<p>{{ edit_writer_form.study }}</p>
+								{{ edit_writer_form.occupation.label }}
 								<p>{{ edit_writer_form.occupation }}</p>
+								{{ edit_writer_form.interests.label }}
 								<p>{{ edit_writer_form.interests }}</p>
 								<br>
-								<br>
 								<div class="row">
-									<button class="fill toggles_div cancel_button" type="cancel" id="writer_details">
-									Cancel
-									</button>
-									<button class="fill toggles_div" type="submit" id="writer_details">
-									Save edits
-									</button>
+									<div class="columns small-12">
+										<button class="fill toggles_div cancel_button" type="cancel" id="writer_details">
+										Cancel
+										</button>
+										<button class="fill toggles_div" type="submit" id="writer_details">
+										Save edits
+										</button>
+									</div>
 								</div>
 						</form>
 						<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>

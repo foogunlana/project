@@ -1,7 +1,7 @@
 {% extends 'news/news_base.html' %}
 {% load stears_tags %}
 
-{% block title %}Article{% endblock %}
+{% block title %}{{ article.headline }}{% endblock %}
 
 {% block body %}
 <body>
@@ -36,8 +36,15 @@
         {{ article.content }}
         {% endautoescape %}
     </div>
-    <div class="article-author article-bottom">Written by {{ article.writer|format_name:'long' }}</div>
+    <div class="tags-block">
+      {% for tag in article.keywords %}
+      <div class="article_tag tag_{{ tag }}">
+        {{ tag }}
+      </div>
+      {% endfor %}
+    </div>
     <br>
+    <div class="article-author article-bottom">Written by {{ article.writer|format_name:'long' }}</div>
     <div class="share-article article-bottom">
       <br>
       <div class="share-text">Share this story</div>
@@ -53,6 +60,9 @@
         <a class="w-inline-block article-link-block share-link-block" href="#"><img class="mail-share" src="/static/images/iconmonstr-email-4-icon.svg" width="22">
         </a>
       </div>
+      <div class="copyright">
+      <p><strong>Copyright © STEARS 2015</strong>   All rights reserved. This material, and other digital content on this website, may not be reproduced, published, broadcast, rewritten or redistributed in whole or in part without digital reference to STEARS</p>
+    </div>
     </div>
   </div>
 

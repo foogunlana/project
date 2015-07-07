@@ -2442,7 +2442,7 @@ p {
     color: #737373;
   }
   .footer-links {
-    display: none;
+    /*display: none;*/
     font-weight: 400;
   }
   .footer-social {

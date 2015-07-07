@@ -22,10 +22,13 @@ class ProfileImageForm(forms.Form):
 
 class ArticleImageForm(forms.Form):
     title = forms.CharField(max_length=50, required=True)
-    article_image = forms.FileField(label="Please select an image: ")
+    description = forms.CharField(max_length=100, required=True,
+                  widget=forms.Textarea(attrs={'rows': '3'}))
+    source = forms.CharField(required=True, max_length=100)
+    docfile = forms.FileField(label="Please select an image: ")
 
-    def clean_article_image(self):
-        image = self.cleaned_data['article_image']
+    def clean_docfile(self):
+        image = self.cleaned_data['docfile']
         if image.content_type in settings.IMAGE_CONTENT_TYPES:
             if image._size > settings.MAX_UPLOAD_SIZE:
                 raise forms.ValidationError('Please keep filesize under %s. Current filesize %s' % (
@@ -281,6 +284,8 @@ class EditWriterForm(forms.Form):
         attrs={'data-validation': 'email'}), label="Email Address")
     new_email = forms.EmailField(max_length=30, required=True, widget=forms.TextInput(
         attrs={'data-validation': 'email'}), label="Email Address")
+    linkedin = forms.CharField(max_length=100, required=True, widget=forms.TextInput(
+        attrs={'data-validation': 'url'}), label="Linkedin")
 
     # EXTRAS
 

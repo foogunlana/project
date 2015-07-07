@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from BeautifulSoup import BeautifulSoup
 from stears.permissions import editor, approved_writer
 from stears.utils import mongo_calls
 from stears.models import ReportModel
@@ -21,8 +20,6 @@ def article(request, pk):
         if not article:
             articles = mongo_calls('articles')
             article = articles.find_one({'article_id': pk})
-        tree = BeautifulSoup(article['content'])
-        article['content'] = tree.prettify()
         context = {'article': article}
     return render(request, 'news/article.html', context)
 
