@@ -209,7 +209,7 @@ th{
 }
 
 
- @media (max-width: 480px){
+ @media (max-width: 479px){
   .article-header{
     font-size: 25px;
     line-height: 30px;
@@ -217,6 +217,10 @@ th{
 
   .mobile-menu-button{
   margin-top: 0px;
+  }
+
+  .mobile-nav {
+    margin-bottom: 0px;
   }
 
 }
