@@ -146,6 +146,7 @@ $(document).ready(function() {
     });
     
     $('#ajax_article_content').find('.hidden-s').html('<em>Stears</em>');
+    $('iframe').css('height','500px');
 });
 
 

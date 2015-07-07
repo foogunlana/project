@@ -22,6 +22,14 @@ body{
   background-color:#FF4747;
 }
 
+.wym_dropdown ul li a{
+  line-height: 1;
+}
+
+iframe{
+  height: 400px;
+}
+
 .a_indicator{
   background-color: green;
   display:inline-block;
