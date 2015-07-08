@@ -61,7 +61,7 @@
 										<button type="submit" class="fill confirm-submission" style="margin:0px;margin-top:5px;background-color:#FF4747;">Delete</button>
 									</form>
 								</div>
-								<div class="columns small-12 small-centered">
+								<div class="columns small-12">
 									<strong>Description: </strong><font class="photo_{{ photo.pk }}_description">{{ photo.description }}</font>
 									@<a href="{{ photo.source }}" class="photo_{{ photo.pk }}_source" style="word-break:break-word;" target="_blank">{{ photo.source }}</a>
 
@@ -81,7 +81,7 @@
 											</div>
 											<div class="columns small-12">
 												Description
-												<input id="id_description" maxlength="100" name="description" type="text" value="{{ photo.description }}" style="height:80px;word-break:break-word;">
+												<input id="id_description" maxlength="100" name="description" type="text" value="{{ photo.description }}" style="margin-bottom:0px;height:80px;word-break:break-word;">
 											</div>
 										</div>
 										<input type="text" name='pk' id="id_pk" value="{{ photo.pk }}" style="display:none">
