@@ -2,6 +2,7 @@ from django.shortcuts import render
 from stears.permissions import editor, approved_writer
 from stears.utils import mongo_calls
 from stears.models import ReportModel
+from django.http import HttpRequest
 from django.contrib.auth.decorators import user_passes_test
 from utils import HomePage, BusinessPage, EconomyPage, \
 Article, htmltag_text, remove_special_characters
@@ -17,10 +18,11 @@ def article(request, pk):
     if request.method == 'GET':
         articles = mongo_calls('migrations')
         article = articles.find_one({'article_id': pk})
+        aUri = HttpRequest.build_absolute_uri(request)
         if not article:
             articles = mongo_calls('articles')
             article = articles.find_one({'article_id': pk})
-        context = {'article': article}
+        context = {'article': article, 'aUri': aUri}
     return render(request, 'news/article.html', context)
 
 

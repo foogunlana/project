@@ -1,80 +1,54 @@
 {% extends 'news/news_base.html' %}
 {% load stears_tags %}
-
 {% block title %}{{ article.headline }}{% endblock %}
-
 {% block body %}
-<body>
-  {% include 'news/news_nav.html' %}
-  
-  <h1 class="article-header">{{ article.headline }}</h1>
-  <div class="w-section article-image">
-    <img src="{{ article.photo }}" class="article-page-image" alt="">
-  </div>
-  <div class="w-section w-clearfix article-content">
-    <div class="w-clearfix article-detail">
-      <div class="article-author article-page">{{ article.author }}</div>
-      <div class="article-category article-page">{{ article.category|pretty_category }}</div>
-      <div class="share-article">
-        <div class="share-text">Share this story</div>
-        <div class="share-block">
-          <a class="w-inline-block article-link-block share-link-block" href="#"><img class="twitter-share" src="/static/images/social19.svg" width="17">
-          </a>
-          <a class="w-inline-block article-link-block share-link-block" href="#"><img class="facebook-share" src="/static/images/facebook12.svg" width="9">
-          </a>
-          <a class="w-inline-block article-link-block share-link-block" href="#"><img class="linkedin-share" src="/static/images/linkedin11.svg" width="19">
-          </a>
-          <a class="w-inline-block article-link-block share-link-block" href="#"><img class="google-plus-share" src="/static/images/iconmonstr-google-plus-icon.svg" width="20">
-          </a>
-          <a class="w-inline-block article-link-block share-link-block" href="#"><img class="mail-share" src="/static/images/iconmonstr-email-4-icon.svg" width="22">
-          </a>
+  <body>
+    {% include 'news/news_nav.html' %}
+    
+    <h1 class="article-header">{{ article.headline }}</h1>
+    <div class="w-section article-image">
+      <img src="{{ article.photo }}" class="article-page-image" alt="">
+    </div>
+    <div class="w-section w-clearfix article-content">
+      <div class="w-clearfix article-detail">
+        <div class="article-author article-page">{{ article.author }}</div>
+        <div class="article-category article-page">{{ article.category|pretty_category }}</div>
+        <div class="share-article">
+          {% include 'news/share_article.html' %}
         </div>
       </div>
-    </div>
-    <div class="article-paragraph">
+      <div class="article-paragraph">
         {% autoescape off %}
-        {{ article.content }}
+          {{ article.content }}
         {% endautoescape %}
-    </div>
-    <div class="tags-block">
-      {% for tag in article.keywords %}
-      <div class="article_tag tag_{{ tag }}">
-        {{ tag }}
       </div>
-      {% endfor %}
-    </div>
-    <br>
-    <div class="article-author article-bottom">Written by {{ article.writer|format_name:'long' }}</div>
-    <div class="share-article article-bottom">
+      <div class="tags-block">
+        {% for tag in article.keywords %}
+          <div class="article_tag tag_{{ tag }}">
+            {{ tag }}
+          </div>
+        {% endfor %}
+      </div>
       <br>
-      <div class="share-text">Share this story</div>
-      <div class="share-block">
-        <a class="w-inline-block article-link-block share-link-block" href="#"><img class="twitter-share" src="/static/images/social19.svg" width="17">
-        </a>
-        <a class="w-inline-block article-link-block share-link-block" href="#"><img class="facebook-share" src="/static/images/facebook12.svg" width="9">
-        </a>
-        <a class="w-inline-block article-link-block share-link-block" href="#"><img class="linkedin-share" src="/static/images/linkedin11.svg" width="19">
-        </a>
-        <a class="w-inline-block article-link-block share-link-block" href="#"><img class="google-plus-share" src="/static/images/iconmonstr-google-plus-icon.svg" width="20">
-        </a>
-        <a class="w-inline-block article-link-block share-link-block" href="#"><img class="mail-share" src="/static/images/iconmonstr-email-4-icon.svg" width="22">
-        </a>
+      <div class="article-author article-bottom">Written by {{ article.writer|format_name:'long' }}</div>
+      <br>
+      <br>
+      <div class="share-article article-bottom">
+        {% include 'news/share_article.html' %}
       </div>
       <div class="copyright">
-      <p><strong>Copyright © STEARS 2015</strong>   All rights reserved. This material, and other digital content on this website, may not be reproduced, published, broadcast, rewritten or redistributed in whole or in part without digital reference to STEARS</p>
+        <p><strong>Copyright © STEARS 2015</strong>   All rights reserved. This material, and other digital content on this website, may not be reproduced, published, broadcast, rewritten or redistributed in whole or in part without digital reference to STEARS</p>
+      </div>
     </div>
-    </div>
-  </div>
-
-  {% include 'news/footer.html' %}
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script type="text/javascript" src="/static/js/webflow.js"></script>
-  <script>
+    {% include 'news/footer.html' %}
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/webflow.js"></script>
+    <script>
     $(document).ready(function(){
-       $($('.article-paragraph').find('a')).attr('target', '_blank');
-       $('.article-paragraph').find('.hidden-s').html('<em>Stears</em>');
+    $($('.article-paragraph').find('a')).attr('target', '_blank');
+    $('.article-paragraph').find('.hidden-s').html('<em>Stears</em>');
     });
-  </script>
-  <!--[if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
-</body>
+    </script>
+    <!--[if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+  </body>
 {% endblock %}
