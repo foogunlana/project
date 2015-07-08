@@ -29,6 +29,16 @@ $(document).ready(function(event){
 	$(".edit_photo_form").submit(function(event){
 		event.preventDefault();
 		var pk = this.pk.value;
+		var timer = $(this).val();
+		if(!timer){
+			timer = 0;
+		}
+		var wait = $.now() - parseInt(timer);
+		if(wait < 3000){
+			return false;
+		}else{
+			$(this).val($.now());
+		}
 		
 		var edit_photo_url = $(this).data('url');
 		formData = {

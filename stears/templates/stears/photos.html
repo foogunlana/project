@@ -68,7 +68,7 @@
 									<button class="toggles_div2 fill" style="margin-bottom:0px;margin-top:5px;" id="edit_{{ photo.pk }}" data-group="edit_photo">Edit</button>
 								</div>
 								<div class="columns small-12 edit_{{ photo.pk }}" data-group="edit_photo" hidden>
-									<form data-url="{% url 'weal:edit_photo' %}" method="POST" class="edit_photo_form">
+									<form data-url="{% url 'weal:edit_photo' %}" method="POST" class="edit_photo_form" id='edit_photo_{{ photo.pk }}' data-update='0'>
 										{% csrf_token %}
 										<div class="row" id="edit_photo_form_data">
 											<div class="columns small-12 ">
