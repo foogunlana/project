@@ -100,7 +100,12 @@
 							<img src="{{ photo.docfile.url }}">
 							<br>
 							<button class="copy-button fill" data-clipboard-text="{{ photo.docfile.url }}" style="margin-bottom:0px;margin-top:5px;">Copy URL</button>
-						</div>
+							<strong>Title: </strong><font class="photo_{{ photo.pk }}_title">{{ photo.title }}</font>
+							<br>
+							<strong>Description: </strong><font class="photo_{{ photo.pk }}_description">{{ photo.description }}</font>
+							<br>
+							@<a href="{{ photo.source }}" class="photo_{{ photo.pk }}_source" style="word-break:break-word;" target="_blank">{{ photo.source }}</a>
+							</div>
 					</div>
 				{% endfor %}
 			{% endif %}
