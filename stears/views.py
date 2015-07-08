@@ -785,7 +785,7 @@ def allocate_report(request):
                 report.save()
                 week_ending = str(report_form.cleaned_data['week_ending'])
                 d = datetime.datetime.strptime(week_ending, "%Y-%m-%d")
-                string = "Week ending {}".format(d.strftime('%B %-d'), )
+                string = "Week ending {}".format(d.strftime('%B %-d, %Y'), )
                 onsite = mongo_calls('onsite')
                 onsite.update({'page': 'home'},
                               {'$set': {'report': {

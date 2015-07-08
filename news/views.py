@@ -49,8 +49,9 @@ def reports(request):
         reports = ReportModel.objects.all().order_by('week_ending')
         for report in reports:
             d = datetime.datetime.strptime(str(report.week_ending), "%Y-%m-%d")
-            report.time_title = "Week ending {}".format(d.strftime('%B %-d'))
+            report.time_title = "Week ending {}".format(d.strftime('%B %-d, %Y'))
         context['reports'] = reports
+        context['page'] = 'reports'
     return render(request, 'news/stearsreport.html', context)
 
 
