@@ -49,6 +49,7 @@ coverage.xml
 *settings.py
 *params.py
 media
+migrations
 
 # Sphinx documentation
 docs/_build/
