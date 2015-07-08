@@ -78,6 +78,8 @@ urlpatterns = patterns('',
                            name='photos'),
                        url(r'^photo/delete/$', views.delete_photo,
                            name='delete_photo'),
+                       url(r'^photo/edit/$', views.edit_photo,
+                           name='edit_photo'),
                        url(r'^research/$', views.research, name='research'),
 
                        url(r'^writers/$', views.writers_list,

@@ -45,12 +45,12 @@
 		{% if photos %}
 			{% if user|is_editor %}
 				{% for photo in photos %}
-					<div class="columns small-6 medium-4 large-3" id="photo_{{photo.pk}}">
+					<div class="columns small-12 medium-4 large-3" id="photo_{{photo.pk}}">
 						<br>
-						<div class="article_box" style="width:200px;padding:5px;display:inline-block;margin-bottom:5px;margin-top:5px;" >
+						<div class="article_box" style="width:100%;padding:5px;display:inline-block;margin-bottom:5px;margin-top:5px;" >
 							<img src="{{ photo.docfile.url }}" class="toggles_div21" id="photo_option_{{ photo.pk }}" data-group="photo_options" style="width:100%;">
 							<div class="row photo_option_{{photo.pk}} photo_options" hidden>
-								<div class="columns small-12">{{ photo.title }}</div>
+								<div class="columns small-12"><strong>Title: </strong> <font class="photo_{{ photo.pk }}_title">{{ photo.title }}</font></div>
 								<div class="columns small-6" style="padding:0px;padding-right:2.5px;">
 									<button class="copy-button fill" data-clipboard-text="{{ photo.docfile.url }}" style="margin-bottom:0px;margin-top:5px;">Copy URL</button>
 								</div>
@@ -61,11 +61,32 @@
 										<button type="submit" class="fill confirm-submission" style="margin:0px;margin-top:5px;background-color:#FF4747;">Delete</button>
 									</form>
 								</div>
-								<div class="columns small-12">
-									{{ photo.description }}
-									{% if photo.source %}
-									. Find photo at: <a href="{{ photo.source }}" target="_blank">Source</a>
-									{% endif %}
+								<div class="columns small-12 small-centered">
+									<strong>Description: </strong><font class="photo_{{ photo.pk }}_description">{{ photo.description }}</font>
+									@<a href="{{ photo.source }}" class="photo_{{ photo.pk }}_source" style="word-break:break-word;" target="_blank">{{ photo.source }}</a>
+
+									<button class="toggles_div2 fill" style="margin-bottom:0px;margin-top:5px;" id="edit_{{ photo.pk }}" data-group="edit_photo">Edit</button>
+								</div>
+								<div class="columns small-12 edit_{{ photo.pk }}" data-group="edit_photo" hidden>
+									<form data-url="{% url 'weal:edit_photo' %}" method="POST" class="edit_photo_form">
+										{% csrf_token %}
+										<div class="row" id="edit_photo_form_data">
+											<div class="columns small-12 ">
+												Title
+												<input id="id_title" maxlength="50" name="title" type="text" value="{{ photo.title }}">
+											</div>
+											<div class="columns small-12 ">
+												Source
+												<input id="id_source" maxlength="100" name="source" type="text" value="{{ photo.source }}">
+											</div>
+											<div class="columns small-12">
+												Description
+												<input id="id_description" maxlength="100" name="description" type="text" value="{{ photo.description }}" style="height:80px;word-break:break-word;">
+											</div>
+										</div>
+										<input type="text" name='pk' id="id_pk" value="{{ photo.pk }}" style="display:none">
+										<button type="submit" class="fill" style="margin:0px;margin-top:5px;display:none;">Save</button>
+									</form>
 								</div>
 							</div>
 						</div>

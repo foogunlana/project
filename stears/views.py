@@ -4,7 +4,7 @@ from stears.forms import LoginForm, ArticleImageForm, AddWritersForm, \
     ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, \
     NseArticleForm, ChangePasswordForm, ArticleReviewForm, EditWriterForm, \
     AllocationForm, AddPhotoForm, NewQuoteForm, ReportForm, DailyColumnForm, \
-    ColumnForm, EconomicDataForm, DeletePhotoForm
+    ColumnForm, EconomicDataForm, DeletePhotoForm, EditPhotoForm
 
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout
@@ -36,6 +36,7 @@ import json
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
 def upload_photo(request):
+    edit_photo_form = EditPhotoForm()
     if request.method == 'POST':
         form = ArticleImageForm(request.POST, request.FILES)
         if form.is_valid():
@@ -50,7 +51,7 @@ def upload_photo(request):
                 print e
                 print "*********** COULDN'T LOAD PICTURES *************"
             return render(request, 'stears/photos.html',
-                          {'form': form, 'photos': photos})
+                          {'form': form, 'photos': photos, 'edit_photo_form': edit_photo_form})
     else:
         form = ArticleImageForm()
     try:
@@ -60,7 +61,7 @@ def upload_photo(request):
         print e
         print "*********** COULDN'T LOAD PICTURES *************"
     return render(request, 'stears/photos.html',
-                  {'form': form, 'photos': photos})
+                  {'form': form, 'photos': photos, 'edit_photo_form': edit_photo_form})
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
@@ -76,6 +77,23 @@ def delete_photo(request):
             return HttpResponse(delete_photo_form.errors)
     return HttpResponseRedirect(reverse('weal:photos'))
 
+
+@user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
+def edit_photo(request):
+    if request.method == 'POST':
+        edit_photo_form = EditPhotoForm(request.POST)
+        if edit_photo_form.is_valid():
+            data = edit_photo_form.cleaned_data
+            pk = int(data.pop('pk'))
+            photo = ArticleImageModel.objects.filter(
+                    pk=pk).update(**data)
+            responseData = {'pk':pk, 'success':True, 
+                            'kwargs': edit_photo_form.cleaned_data}
+            return HttpResponse(json.dumps(responseData))
+        else:
+            responseData = {'success':False, 'errors': edit_photo_form.errors}
+            return HttpResponse(json.dumps(responseData))
+    return HttpResponseRedirect(reverse('weal:photos'))
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
 def add_photo(request, pk):
@@ -93,8 +111,8 @@ def add_photo(request, pk):
 
     if request.method == 'GET':
         add_photo_form = AddPhotoForm()
-
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
 def research(request):

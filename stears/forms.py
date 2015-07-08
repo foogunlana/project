@@ -40,7 +40,14 @@ class ArticleImageForm(forms.Form):
 
 
 class DeletePhotoForm(forms.Form):
-    pk = forms.IntegerField()
+    pk = forms.IntegerField(required=True)
+
+
+class EditPhotoForm(forms.Form):
+    pk = forms.IntegerField(required=True)
+    title = forms.CharField(max_length=50, required=True)
+    description = forms.CharField(max_length=100, required=True)
+    source = forms.CharField(required=True, max_length=100)
 
 
 class ReportForm(forms.Form):
