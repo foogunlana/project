@@ -51,7 +51,12 @@ $(document).ready(function(event){
 				$('.photo_' + pk + '_title').text(msg.kwargs.title);
 				$('.photo_' + pk + '_source').text(msg.kwargs.source);
 			}else{
-				alert('Error: ' + JSON.stringify(msg.errors));
+				var keys = Object.keys(msg.errors);
+                message = '';
+                for(i = 0; i < keys.length; i++){
+                    message += '('+ keys[i] + ')' + ': ' + msg.errors[keys[i]] + '\n';
+                }
+                alert(message);
 			}
         },
         error: function(jqXHR, textStatus, errorThrown) {

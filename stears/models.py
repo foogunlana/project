@@ -5,7 +5,7 @@ class ArticleImageModel(models.Model):
     docfile = models.FileField(upload_to='articleImages/%Y/%m/%d')
     title = models.CharField(max_length=50, default='')
     description = models.CharField(max_length=100, default='')
-    source = models.CharField(max_length=100, default='')
+    source = models.URLField(max_length=100, default='')
 
 
 class ProfileImageModel(models.Model):

@@ -24,7 +24,7 @@ class ArticleImageForm(forms.Form):
     title = forms.CharField(max_length=50, required=True)
     description = forms.CharField(max_length=100, required=True,
                   widget=forms.Textarea(attrs={'rows': '3'}))
-    source = forms.CharField(required=True, max_length=100)
+    source = forms.URLField(required=False)
     docfile = forms.FileField(label="Please select an image: ")
 
     def clean_docfile(self):
@@ -47,7 +47,7 @@ class EditPhotoForm(forms.Form):
     pk = forms.IntegerField(required=True)
     title = forms.CharField(max_length=50, required=True)
     description = forms.CharField(max_length=100, required=True)
-    source = forms.CharField(required=True, max_length=100)
+    source = forms.URLField(required=False)
 
 
 class ReportForm(forms.Form):
