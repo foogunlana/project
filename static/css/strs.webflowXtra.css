@@ -419,6 +419,14 @@ th{
     line-height: 30px;
   }
 
+  .stearsreport-description h4{
+    width: 90%;
+  }
+
+  .stearsreport-description p{
+    width: 90%;
+  }
+
   .copyright{
   float: left;
   }
