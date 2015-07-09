@@ -83,7 +83,6 @@ class EconomyPage(StearsPage):
 
 def htmltag_text(html_string, tag):
     tree = html.fromstring(html_string)
-    # paragraphs = list(reversed(tree.xpath("//%s/text()"%(tag))))
     paragraphs = list(reversed(tree.xpath("//p/text()")))
     return paragraphs
 
@@ -100,9 +99,11 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
     # articles = mongo_calls('migrations')
     articles = mongo_calls('articles')
     onsite = mongo_calls('onsite')
-    article = articles.find_one(
-        {'article_id': article_id},
-        {'headline': 1, 'content': 1, 'writer': 1, 'category': 1, 'article_id': 1, 'photo':1})
+    article = articles.find_one({'article_id': article_id})
+
+    if not article.get('summary', None):
+        par1 = remove_special_characters(htmltag_text(article['content'], 'p').pop())
+        article['par1'] = par1
 
     if sector:
         find_doc = {'page': page, 'sector': sector}

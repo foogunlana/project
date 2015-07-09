@@ -191,6 +191,16 @@
   width:100%;
 }
 
+.header-and-author{
+  height: 200px;
+  padding: 8px;
+}
+
+.post-summary{
+  font-size: 12px;
+  margin-top:5px;
+  word-wrap:break-word;
+}
 
 .article-thumbnail{
   padding:0px;
@@ -213,6 +223,15 @@
 
 .mobile-home-tabs {
 	width:96%;
+}
+
+.w-nav-link:hover, .w-nav-link.w--current:hover, .w-nav-link:active, .w-nav-link.w--current:active{
+  background-color: #f05042;
+  color: white;
+}
+
+.w-nav-link.w--current{
+  color: #f05042;
 }
 
 .article-header{
@@ -252,6 +271,10 @@ th{
 	.market-snapshot{
 		width: 33.9%;
 	}
+
+  .header-and-author{
+    height: 200px;
+  }
  }
 
   @media (min-width: 991px) {
@@ -308,6 +331,10 @@ th{
     width: 46%;
   }
 
+  .header-and-author{
+    height: 120px;
+  }
+
 }
 
 
@@ -331,6 +358,10 @@ th{
 
   .mobile-nav {
     margin-bottom: 0px;
+  }
+
+  .header-and-author{
+    height: 140px;
   }
 
 }
