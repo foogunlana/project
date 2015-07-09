@@ -60,6 +60,7 @@
               <div class="article-category">{{ secondary.category|pretty_category }}</div>
               <h2 class="secondary-h2">{{ secondary.headline }}</h2>
               <div class="article-author">{{ secondary.writer|format_name:'long' }}</div>
+              <p class="post-summary">{{ secondary.par1|truncatechars:90 }}</p>
             </div>
           </div>
           <div class="w-col w-col-7 w-col-medium-6 secondary-article-img">
@@ -159,6 +160,7 @@
               <div class="article-category">{{ secondary.category|pretty_category }}</div>
               <h2>{{ secondary.headline }}</h2>
               <div class="article-author">{{ secondary.writer|format_name:'long' }}</div>
+              <p class="post-summary">{{ secondary.par1|truncatechars:90 }}</p>
             </div>
           </div>
           <div class="w-col w-col-7 w-col-stack secondary-article-img">

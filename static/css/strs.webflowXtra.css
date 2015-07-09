@@ -146,6 +146,11 @@
   font-size: 35px;
 }
 
+.main-article:hover .main-article-content{
+  background-color: rgba(255, 255, 255, 0.7);
+  color: black;
+}
+
 .first-row-home{
   padding-top:3%;
 }
@@ -245,6 +250,10 @@ h3, h4, .business-h3, .daily-column-h2{
 .w-nav-link:hover, .w-nav-link.w--current:hover, .w-nav-link:active, .w-nav-link.w--current:active{
   background-color: #f05042;
   color: white;
+}
+
+.w-nav-button.w--open{
+  background-color: #f05042;
 }
 
 .w-nav-link.w--current{
