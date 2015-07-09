@@ -304,6 +304,10 @@ th{
  }
 
   @media (min-width: 991px) {
+    
+    .secondary-header-and-author h2{
+      font-size: 28px;
+    }
 
     .article-header{
       width:50%;
