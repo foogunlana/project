@@ -187,12 +187,16 @@
 }
 
 .stears-thumbnail{
-  height: 100%;
+  height: auto;
   width:100%;
 }
 
+.post-block{
+  background-color: white;
+}
+
 .header-and-author{
-  height: 200px;
+  height: 160px;
   padding: 8px;
 }
 
@@ -273,7 +277,7 @@ th{
 	}
 
   .header-and-author{
-    height: 200px;
+    height: 140px;
   }
  }
 
@@ -283,6 +287,15 @@ th{
       width:50%;
       margin-left:15%;
       margin-top:1%;
+    }
+
+    .article-thumbnail{
+      min-height: 100px;
+      height: auto;
+    }
+
+    .header-and-author{
+      height: 200px;
     }
 
     .stearsreport-widget-logo {
