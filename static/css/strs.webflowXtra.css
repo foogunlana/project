@@ -295,7 +295,7 @@ th{
     }
 
     .header-and-author{
-      height: 170px;
+      height: 190px;
     }
 
     .stearsreport-widget-logo {
@@ -333,6 +333,11 @@ th{
   .article-link-block.widget-link-block {
     display: inline-block;
     width: 53%;
+  }
+
+  .business-h3{
+    font-size: 20px;
+    line-height: 20px;
   }
 
   .article-header{
