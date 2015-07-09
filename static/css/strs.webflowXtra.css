@@ -230,6 +230,37 @@ h3, h4, .business-h3, .daily-column-h2{
   background-color: transparent;
 }
 
+.stearsreport-description{
+  margin-bottom: 80px;
+  padding-top: 10px;
+  padding:20px;
+  padding-left: 0px;
+  background-color: white;
+}
+
+.stearsreport-description h4{
+  color: #f05042;
+  font-weight: 300;
+  font-size: 16px;
+  display: block;
+  margin-left:auto;
+  margin-right: auto;
+  text-align: left;
+  margin-top:10px;
+  margin-bottom:10px;
+  width: 70%;
+}
+
+.stearsreport-description p{
+  font-size: 16px;
+  display: block;
+  margin-left:auto;
+  margin-right: auto;
+  text-align: left;
+  margin-top:10px;
+  margin-bottom:10px;
+  width: 70%;
+}
 
 .article-link-block{
   overflow: hidden;
