@@ -80,6 +80,8 @@ urlpatterns = patterns('',
                            name='delete_photo'),
                        url(r'^photo/edit/$', views.edit_photo,
                            name='edit_photo'),
+                       url(r'^reports/delete/$', views.delete_report,
+                           name='del_report'),
                        url(r'^research/$', views.research, name='research'),
 
                        url(r'^writers/$', views.writers_list,

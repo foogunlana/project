@@ -147,11 +147,8 @@ $(document).ready(function(){
 		$.ajax({
 		url : new_report_url,
         type: "post",
-        xhr: function() {  // custom xhr
+        xhr: function() {
             myXhr = $.ajaxSettings.xhr();
-            // if(myXhr.upload){ // if upload property exists
-            //     myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // progressbar
-            // }
             return myXhr;
         },
         data: formData,
@@ -169,6 +166,32 @@ $(document).ready(function(){
         cache: false,
         contentType: false,
         processData: false
+    });
+    return false;
+
+	});
+
+	$('.delete_report_form').submit(function(event){
+		event.preventDefault();
+		formData = {'pk':$('#delete_report').val()};
+		var del_report_url = $('#delete_report').data('url');
+
+		$.ajax({
+		url : del_report_url,
+        type: "post",
+        data: formData,
+
+        success: function(responseData, textStatus, jqXHR) {
+            msg = JSON.parse(responseData);
+            if(msg.success){
+				pk = msg.pk;
+				alert('Deleted');
+				$('.report_option_' + pk).remove();
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert(errorThrown);
+        },
     });
     return false;
 

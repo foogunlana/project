@@ -168,6 +168,29 @@
 								<button class="submit_report" style="width:15%;display:inline-block;">Go</button>
 							</form>
 						</div>
+						<br>
+						<form action="#" class="delete_report_form" method="post">
+							{% csrf_token %}
+							<div class="row">
+								<div class="columns small-12 medium-9">
+									<select name="" data-url="{% url 'weal:del_report' %}" id="delete_report" class="fill">
+										<option value="None">Delete a report?</option>
+										{% for report in reports %}
+											<option class="report_option_{{ report.pk }}" value="{{ report.pk }}">{{ report.week_ending }} by {{ report.author }}</option>
+										{% endfor %}
+									</select>
+								</div>
+								<div class="columns small-12 medium-3">
+									<button type="submit" style="background-color:#FF4747" class=" fill">
+										Del
+									</button>
+									<script type="text/javascript">
+									$.ajaxSetup({
+										data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
+									})</script>
+								</div>
+							</div>
+						</form>
 					</div>
 					<br>
 

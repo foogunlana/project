@@ -799,6 +799,15 @@ def allocate_report(request):
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
+def delete_report(request):
+    if request.method == 'POST':
+        pk = int(request.POST['pk'])
+        ReportModel.objects.filter(pk=pk).delete()
+        responseData = {'success': True, 'pk': pk}
+    return HttpResponse(json.dumps(responseData))
+
+
+@user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
 def economic_data(request):
     if request.method == 'POST':
         economic_data_form = EconomicDataForm(request.POST)
@@ -854,6 +863,7 @@ def allocator(request):
         groups[article['category']] = groups.get(
                         article['category'], []) + [article]
     context['cats'] = groups
+    context['reports'] = ReportModel.objects.all()
     context['quote_form'] = NewQuoteForm()
     context['sectors'] = params.sectors.values()
     context['report_form'] = report_form
