@@ -195,6 +195,10 @@
   background-color: white;
 }
 
+.post-block:hover{
+  background-color: #fafafa;
+}
+
 .header-and-author{
   height: 160px;
   padding: 8px;
