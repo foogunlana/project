@@ -8,7 +8,7 @@
     <h1 class="article-header">{{ article.headline }}</h1>
 
     <div class="w-section article-image">
-      <div class="article-author">Written by {{ article.writer|format_name:'long' }}</div>
+      <div class="article-author">Written by <font class="author-name">{{ article.writer|format_name:'long' }}</font></div>
       <br>
       <img src="{{ article.photo }}" class="article-page-image" alt="">
     </div>
@@ -33,7 +33,7 @@
         {% endfor %}
       </div>
       <br>
-      <div class="article-author article-bottom">Written by {{ article.writer|format_name:'long' }}</div>
+      <div class="article-author article-bottom">Written by <font class="author-name">{{ article.writer|format_name:'long' }}</font></div>
       <br>
       <br>
       <div class="share-article article-bottom">
