@@ -29,10 +29,16 @@
 }
 
 .article-paragraph p a{
-  color: #333;
+  color: #f75e5e;
   font-weight: 500;
   text-decoration: none;
-  border-bottom: solid #a1a1a1 1px;
+}
+
+.article-paragraph p a:hover{
+  text-decoration: none;
+  /*#f75e5e*/
+  /*#2A58D6*/
+  border-bottom: solid #f75e5e 1px;
 }
 
 .article-paragraph{
@@ -94,15 +100,41 @@
   display: inline-block;
 }
 
-.main-article-content {
+.main-article-content{
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
   width: 100%;
   height: auto;
-  padding: 15px;
+  padding: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   background-color: rgba(0,0,0,0.6);
+}
+
+.nav-content{
+  padding: 0px;
+  height: 70px;
+}
+
+.nav-text.w--current{
+  font-weight: 500;
+  color: #f05042;
+}
+
+.nav-text{
+  margin:0px;
+  padding:20px;
+  display: inline-block;
+  height: 100%;
+  line-height: 40px;
+}
+
+.nav-text:hover{
+  background-color: #f05042;
+  text-decoration: none;
+  color: white;
 }
 
 .companies-row-1{
@@ -111,6 +143,7 @@
 
 .main-article-h1{
   margin-bottom: 0px;
+  font-size: 36px;
 }
 
 .first-row-home{
@@ -182,10 +215,6 @@
 	width:96%;
 }
 
-.w-nav-link.w--current {
-  color: black;
-}
-
 .article-header{
   font-size: 35px;
 }
@@ -233,6 +262,14 @@ th{
       margin-top:1%;
     }
 
+    .stearsreport-widget-logo {
+      width:41.66666667%;
+      padding:10px;
+      height:80px;
+      display: inline-block;
+      padding-top:0px;
+    }
+
     .article-content{
       width: 50%;
     }
@@ -240,6 +277,20 @@ th{
     .article-image{ 
       width: 50%;
     }
+
+    .daily-column-widget{
+      height:250px;
+    }
+
+    .stearsreport-widget{
+      height:120px;
+      padding-top: 40px;      
+    }
+
+    .stearsreport-widget-h3, .stearsreport-widget-text{
+      width:55%;
+    }
+
    }
  @media (max-width: 767px) and (min-width: 480px){
 

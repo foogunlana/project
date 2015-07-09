@@ -6,7 +6,10 @@
     {% include 'news/news_nav.html' %}
     
     <h1 class="article-header">{{ article.headline }}</h1>
+
     <div class="w-section article-image">
+      <div class="article-author">Written by {{ article.writer|format_name:'long' }}</div>
+      <br>
       <img src="{{ article.photo }}" class="article-page-image" alt="">
     </div>
     <div class="w-section w-clearfix article-content">

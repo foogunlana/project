@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from stears.permissions import editor, approved_writer
 from stears.utils import mongo_calls
-from stears.models import ReportModel
+from stears.models import ReportModel, ArticleImageModel
 from django.http import HttpRequest
 from django.contrib.auth.decorators import user_passes_test
 from utils import HomePage, BusinessPage, EconomyPage, \
@@ -22,7 +22,10 @@ def article(request, pk):
         if not article:
             articles = mongo_calls('articles')
             article = articles.find_one({'article_id': pk})
-        context = {'article': article, 'aUri': aUri}
+        photo_uri = article['photo']
+        u = photo_uri.replace('/media/','')
+        photoitems = ArticleImageModel.objects.get(docfile=u)
+        context = {'article': article, 'aUri': aUri, 'photoitems': photoitems}
     return render(request, 'news/article.html', context)
 
 
