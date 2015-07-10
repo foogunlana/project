@@ -10,10 +10,6 @@
 
 }
 
-.author-name{
-  color: #2A58D6;
-}
-
 .gainers-stock {
 	width:19.19%;
 }
@@ -32,8 +28,13 @@
   letter-spacing: 0.4px;
 }
 
+.author-name{
+  color: #2A58D6;
+}
+
 .article-paragraph p a{
-  color: #1a67a8;
+  /*color: #1a67a8;*/
+  color: #2A58D6;
   font-weight: 500;
   text-decoration: none;
 }
@@ -42,7 +43,7 @@
   text-decoration: none;
   /*#f75e5e*/
   /*#2A58D6*/
-  border-bottom: solid #1a67a8 1px;
+  border-bottom: solid #2A58D6 1px;
 }
 
 .article-paragraph{
