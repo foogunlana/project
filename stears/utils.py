@@ -1,6 +1,7 @@
 from urllib2 import urlopen
 from pymongo import MongoClient
 from threading import Thread, active_count
+from models import ArticleImageModel
 import threading
 from mongoengine.django.auth import User
 from django.core.mail import send_mail
@@ -408,15 +409,35 @@ def revive_from_trash(pk):
     bin.remove({'article_id': int(pk)})
 
 
+def site_ready(article):
+    p = article.get('photo', None)
+    if not p:
+        return False
+
+    photo = p.replace('/media/', '')
+    results = ArticleImageModel.objects.filter(docfile=photo).count()
+    if not results:
+        return False
+
+    if not len(article.get('keywords', [])):
+        return False
+
+    return True
+
+
+
 def migrate_article(article_id):
     articles = mongo_calls('articles')
     migrations = mongo_calls('migrations')
+    article = articles.find_one(
+            {'article_id': article_id, 'type': 'writers_article'})
+
+    if not site_ready(article):
+        return False
 
     try:
-        article = articles.find_one(
-            {'article_id': article_id, 'type': 'writers_article'})
-        article['state'] = 'on_site'
-        migrations.update({'article_id': article_id}, article, True)
+        article['state'] = 'site_ready'
+        migrations.insert(article)
         if article_id:
             articles.remove({'article_id': article_id})
     except Exception:

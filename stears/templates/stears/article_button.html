@@ -10,7 +10,7 @@
 					<button type="submit" style="display:inline-block;padding-botom:2px;" name="article_id" value="{{ article.article_id }}">Revive</button>
 				</form>
 			{% else %}
-				<a {% ifequal article.state 'on_site' %}href="{% url 'weal:preview' pk=article.article_id %}"{% else %}href="{% url 'weal:article_detail' pk=article.article_id %}"{% endifequal %}  >
+				<a {% ifequal article.state 'site_ready' %}href="{% url 'weal:preview' pk=article.article_id %}"{% else %}href="{% url 'weal:article_detail' pk=article.article_id %}"{% endifequal %}  >
 					<font {% ifequal article.category 'stearsTutorial' %}style="color:#6CBC36;"{% endifequal %}>{{ article.headline }}</font>
 				</a>
 			{% endif %}

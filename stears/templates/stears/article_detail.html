@@ -263,6 +263,12 @@
 						<button id="comment_area" class="toggles_div fill" style="border-radius:3px;" >Comment</button>
 					</div>
 					{% if user.username|is_editor %}
+					<div class="row fill article-box">
+						<form action="{% url 'weal:prepreview' pk=article.article_id %}" method="get">
+							{% csrf_token %}
+							<button class="fill">Preview</button>
+						</form>
+					</div>
 					<div class="row">
 						<form action="{% url 'weal:addphoto' pk=article.article_id %}" method='post' class="add_photo" hidden>
 							{% csrf_token %}

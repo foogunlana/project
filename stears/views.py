@@ -626,7 +626,7 @@ def approve_article(request):
             )
 
         elif commit_id:
-            migrate_article(int(commit_id))
+            print migrate_article(int(commit_id))
 
     return HttpResponseRedirect(reverse('weal:submissions'))
 
@@ -722,7 +722,7 @@ def pipeline(request):
     if request.method == 'GET':
         migrations = mongo_calls('migrations')
         articles = list(migrations.find(
-            {'$query': {}, '$orderby': {'time': -1}}, 
+            {'$query': {}, '$orderby': {'time': -1}},
             params.article_button_items))
 
     context = {'articles': articles, 'nostates': True}
@@ -736,9 +736,24 @@ def preview_article(request, pk):
         migrations = mongo_calls('migrations')
         article = migrations.find_one(
             {'article_id': pk},
-            {'content': 1, '_id': 0, 'headline': 1, 'writers': 1})
+            {'content': 1, '_id': 0, 'headline': 1, 'writer': 1,
+             'writers': 1, 'photo': 1, 'keywords': 1, 'category': 1})
 
-    context = {'article': article, 'writers': article['writers']}
+    context = {'article': article, 'writers': article.get('writers', {})}
+    return render(request, 'news/article.html', context)
+
+
+@user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
+def preview_prearticle(request, pk):
+    if request.method == 'GET':
+        pk = int(pk)
+        articles = mongo_calls('articles')
+        article = articles.find_one(
+            {'article_id': pk},
+            {'content': 1, '_id': 0, 'headline': 1, 'writer': 1,
+             'writers': 1, 'photo': 1, 'keywords': 1, 'category': 1})
+
+    context = {'article': article, 'writers': article.get('writers', {})}
     return render(request, 'news/article.html', context)
 
 
@@ -838,23 +853,22 @@ def new_quote(request):
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
 def allocator(request):
     onsite = mongo_calls('onsite')
-    # pipeline = mongo_calls('migrations')
-    pipeline = mongo_calls('articles')
+    pipeline = mongo_calls('migrations')
     writers = mongo_calls('user')
-    pages = list(onsite.find({'active': True}))
+    pages = list(onsite.find({'page': {'$exists': True}}))
     report_form = ReportForm()
     economic_data_form = EconomicDataForm()
 
     articles = list(pipeline.find({
-                '$query': {'type': 'writers_article', 'state':'submitted'},
+                '$query': {'type': 'writers_article', 'state': 'site_ready'},
                 '$orderby': {'time': -1}},
                 {'headline': 1, '_id': 0, 'article_id': 1, 'category':1}))
     context = {}
     for item in pages:
         item.pop('_id')
-        item.pop('active')
         page = item.pop('page')
         context[page] = item
+        print page
 
     cats = params.article_categories.values()
     groups = {}
@@ -872,6 +886,8 @@ def allocator(request):
     context['writers_columns'] = {
             writer['username']: writer['column'] for writer in writers.find(
             {}, {'column': 1, 'username': 1}) if writer.get('column')}
+
+    # print context['home']
 
     return render(request, 'stears/allocator2.html', context)
 
