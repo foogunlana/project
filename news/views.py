@@ -22,10 +22,10 @@ def article(request, pk):
         if not article:
             articles = mongo_calls('articles')
             article = articles.find_one({'article_id': pk})
-        photo_uri = article['photo']
-        u = photo_uri.replace('/media/','')
-        photoitems = ArticleImageModel.objects.get(docfile=u)
-        context = {'article': article, 'aUri': aUri, 'photoitems': photoitems}
+        # photo_uri = article['photo']
+        # u = photo_uri.replace('/media/','')
+        # photoitems = ArticleImageModel.objects.get(docfile=u)
+        context = {'article': article, 'aUri': aUri}
     return render(request, 'news/article.html', context)
 
 
