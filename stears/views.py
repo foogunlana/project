@@ -48,20 +48,18 @@ def upload_photo(request):
                 photos = ArticleImageModel.objects.all()
             except Exception as e:
                 photos = []
-                print e
-                print "*********** COULDN'T LOAD PICTURES *************"
             return render(request, 'stears/photos.html',
-                          {'form': form, 'photos': photos, 'edit_photo_form': edit_photo_form})
+                          {'form': form, 'photos': photos,
+                           'edit_photo_form': edit_photo_form})
     else:
         form = ArticleImageForm()
     try:
         photos = ArticleImageModel.objects.all()
     except Exception as e:
         photos = []
-        print e
-        print "*********** COULDN'T LOAD PICTURES *************"
     return render(request, 'stears/photos.html',
-                  {'form': form, 'photos': photos, 'edit_photo_form': edit_photo_form})
+                  {'form': form, 'photos': photos,
+                   'edit_photo_form': edit_photo_form})
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
@@ -71,7 +69,7 @@ def delete_photo(request):
         if delete_photo_form.is_valid():
             pk = int(delete_photo_form.cleaned_data['pk'])
             ArticleImageModel.objects.filter(pk=pk).delete()
-            responseData = {'pk':pk, 'success':True}
+            responseData = {'pk': pk, 'success': True}
             return HttpResponse(json.dumps(responseData))
         else:
             return HttpResponse(delete_photo_form.errors)
@@ -86,14 +84,15 @@ def edit_photo(request):
             data = edit_photo_form.cleaned_data
             pk = int(data.pop('pk'))
             photo = ArticleImageModel.objects.filter(
-                    pk=pk).update(**data)
-            responseData = {'pk':pk, 'success':True, 
+                pk=pk).update(**data)
+            responseData = {'pk': pk, 'success': True,
                             'kwargs': edit_photo_form.cleaned_data}
             return HttpResponse(json.dumps(responseData))
         else:
-            responseData = {'success':False, 'errors': edit_photo_form.errors}
+            responseData = {'success': False, 'errors': edit_photo_form.errors}
             return HttpResponse(json.dumps(responseData))
     return HttpResponseRedirect(reverse('weal:photos'))
+
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
 def add_photo(request, pk):
@@ -106,9 +105,6 @@ def add_photo(request, pk):
             articles.update({'article_id': pk},
                             {'$set': {'photo': photo}},
                             False, False)
-        else:
-            print 'not Ok'
-
     if request.method == 'GET':
         add_photo_form = AddPhotoForm()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
@@ -120,8 +116,8 @@ def research(request):
     form = ChoiceForm(choices=choices)
     writers_article_form = WritersArticleForm()
     return render(request, 'stears/research.html',
-                    {'form': form,
-                    'writers_article_form': writers_article_form})
+                  {'form': form,
+                   'writers_article_form': writers_article_form})
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
@@ -216,13 +212,13 @@ def login_view(request):
                     login(request, user)
                 if user:
                     request.session.set_expiry(
-                        params.SESSION_AGE)  
+                        params.SESSION_AGE)
                     if next:
                         return HttpResponseRedirect(next)
                     else:
                         return HttpResponseRedirect(
                             reverse('weal:articles_group',
-                              args=(), kwargs={'group': 'peers'}))
+                                    args=(), kwargs={'group': 'peers'}))
                 else:
                     errors.append(
                         'Oops! something went wrong. please refresh')
@@ -346,13 +342,13 @@ def writers_write(request):
             params.article_button_items))
 
         articles = list(article_collection.find(
-                {"$query": {'writer': username}, "$orderby": {"time": -1}},
-                params.article_button_items))
+            {"$query": {'writer': username}, "$orderby": {"time": -1}},
+            params.article_button_items))
 
         reviews = list(article_collection.find({
-                "$query": {'article_id': {'$in': writer['reviews']},
-                 'state':'in_review'},
-                "$orderby": {"time": -1}}, params.article_button_items))
+            "$query": {'article_id': {'$in': writer['reviews']},
+            'state': 'in_review'},
+            "$orderby": {"time": -1}}, params.article_button_items))
 
         writers_article_form = WritersArticleForm()
 
@@ -393,11 +389,12 @@ def writer_detail(request, name):
         writers_article_form = WritersArticleForm()
 
         articles = list(article_collection.find({
-                "$query": {'writer': name},
-                "$orderby": {"time": -1}}, params.article_button_items))
+            "$query": {'writer': name},
+            "$orderby": {"time": -1}}, params.article_button_items))
 
         context = {'writer': writer, 'articles': articles,
-        'edit_writer_form': edit_writer_form,'writers_article_form': writers_article_form}
+                   'edit_writer_form': edit_writer_form,
+                   'writers_article_form': writers_article_form}
     return render(request, 'stears/writer_detail.html', context)
 
 
@@ -413,8 +410,6 @@ def daily_column(request):
             if title:
                 writers.update({'username': writer},
                                {'$set': {'column': title}})
-        else:
-            print 'not valid'
     return HttpResponseRedirect(reverse('weal:writers_write'))
 
 
@@ -432,6 +427,7 @@ def select_column(request):
             HttpResponse(column_form.errors)
     return HttpResponse('Ok')
 
+
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
 def edit_writer_detail(request):
     username = str(request.POST['username'])
@@ -442,8 +438,6 @@ def edit_writer_detail(request):
                 return HttpResponseRedirect(reverse(
                     'weal:writer_detail', args=(), kwargs={'name': username}))
             edit_writer_registration_details(edit_writer_form)
-        else:
-            print edit_writer_form.errors
 
     return HttpResponseRedirect(reverse(
         'weal:writer_detail', args=(), kwargs={'name': username}))
@@ -537,10 +531,12 @@ def article_detail(request, **kwargs):
     remove_writers_form = RemoveWritersForm(article_id=pk)
 
     context = {'article': article, 'suggest_form': suggest_form,
-         'remove_writers_form': remove_writers_form,
-         'key_words_form': key_words_form, 'add_photo_form': add_photo_form,
-         'writers_article_form': writers_article_form,
-         'add_writers_form': add_writers_form, 'comment_form': comment_form}
+               'remove_writers_form': remove_writers_form,
+               'key_words_form': key_words_form,
+               'add_photo_form': add_photo_form,
+               'writers_article_form': writers_article_form,
+               'add_writers_form': add_writers_form,
+               'comment_form': comment_form}
 
     return render(request, 'stears/article_detail.html', context)
 
@@ -608,7 +604,8 @@ def approve_writer(request):
             username = username_revoke
             edit_user(username_revoke, 'state', 'request')
 
-    return HttpResponseRedirect(reverse('weal:writer_detail', args=(), kwargs={'name': username}))
+    return HttpResponseRedirect(reverse('weal:writer_detail',
+                                        args=(), kwargs={'name': username}))
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
@@ -626,7 +623,7 @@ def approve_article(request):
             )
 
         elif commit_id:
-            print migrate_article(int(commit_id))
+            migrate_article(int(commit_id))
 
     return HttpResponseRedirect(reverse('weal:submissions'))
 
@@ -677,15 +674,12 @@ def review_article(request, pk):
         return HttpResponseRedirect(reverse('weal:noaccess'))
     if request.method == "POST":
         article_review_form = ArticleReviewForm(request.POST)
-        if article_review_form.is_valid():
+        # if article_review_form.is_valid():
             # submit_writers_article(pk, article_review_form.cleaned_data)
-            pass
-        else:
-            print "Invalid"
         return HttpResponseRedirect(reverse('weal:writers_write'))
     article_review_form = ArticleReviewForm()
-    return render(request, 'stears/review_article.html',
-        {'article': article, 'article_review_form': article_review_form})
+    return render(request, 'stears/review_article.html', {'article': article,
+                           'article_review_form': article_review_form})
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
@@ -779,11 +773,11 @@ def allocate_article(request):
             number = allocation_form.cleaned_data.get('number', None)
             try:
                 put_article_on_page(page=page, section=section,
-                         article_id=article_id, sector=sector, number=number)
+                                    article_id=article_id,
+                                    sector=sector, number=number)
             except Exception as e:
-                print e, 'error'
+                pass
         else:
-            print 'not valid'
             return HttpResponse(allocation_form.errors)
     return HttpResponse('reload')
 
@@ -846,9 +840,9 @@ def new_quote(request):
             author = new_quote_form.cleaned_data['author']
             make_new_quote(body=quote, author=author)
         else:
-            print new_quote_form.errors
             return HttpResponse(new_quote_form.errors)
     return HttpResponse('reload')
+
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
 def allocator(request):
@@ -860,34 +854,35 @@ def allocator(request):
     economic_data_form = EconomicDataForm()
 
     articles = list(pipeline.find({
-                '$query': {'type': 'writers_article', 'state': 'site_ready'},
-                '$orderby': {'time': -1}},
-                {'headline': 1, '_id': 0, 'article_id': 1, 'category':1}))
+                    '$query': {'type': 'writers_article',
+                    'state': 'site_ready'},
+                    '$orderby': {'time': -1}},
+        {'headline': 1, '_id': 0, 'article_id': 1, 'category': 1}))
+
     context = {}
     for item in pages:
         item.pop('_id')
         page = item.pop('page')
         context[page] = item
-        print page
 
     cats = params.article_categories.values()
     groups = {}
-    for cat in cats: groups[cat] = []
+    for cat in cats:
+        groups[cat] = []
     for article in articles:
         groups[article['category']] = groups.get(
-                        article['category'], []) + [article]
+            article['category'], []) + [article]
+
     context['cats'] = groups
     context['reports'] = ReportModel.objects.all()
     context['quote_form'] = NewQuoteForm()
     context['sectors'] = params.sectors.values()
     context['report_form'] = report_form
     context['economic_data_form'] = economic_data_form
-    context['columns'] = params.columns  #Needs to reflect actual columns ...
+    context['columns'] = params.columns  # Needs to reflect actual columns ...
     context['writers_columns'] = {
-            writer['username']: writer['column'] for writer in writers.find(
+        writer['username']: writer['column'] for writer in writers.find(
             {}, {'column': 1, 'username': 1}) if writer.get('column')}
-
-    # print context['home']
 
     return render(request, 'stears/allocator2.html', context)
 
@@ -907,7 +902,6 @@ def remove_tag(request, pk):
     if request.method == 'POST':
         tag = request.POST.get('tag', None)
         if not tag:
-            print "Error!"
             return HttpResponse('No tag specified')
 
         tag = str(tag)

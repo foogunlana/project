@@ -26,7 +26,9 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
     article = articles.find_one({'article_id': article_id})
 
     if not article.get('summary', None):
-        par1 = remove_special_characters(htmltag_text(article['content'], 'p').pop())
+        par1 = remove_special_characters(
+            htmltag_text(article['content'], 'p').pop())
+
         article['par1'] = par1
 
     if sector:
@@ -35,12 +37,13 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
         find_doc = {'page': page}
     if number:
         onsite.update(find_doc,
-            {'$set': {'active': True, '{}.{}'.format(section, number): article}},
-            upsert=True)
+                      {'$set': {'active': True,
+                       '{}.{}'.format(section, number): article}},
+                      upsert=True)
     else:
         onsite.update(find_doc,
-            {'$set': {'active': True, section: article}},
-            upsert=True)
+                      {'$set': {'active': True, section: article}},
+                      upsert=True)
 
 
 def reset_page(page):
@@ -48,13 +51,15 @@ def reset_page(page):
     if page == 'b_e':
         for sector in params.sectors.values():
             onsite.update({'page': 'b_e', 'sector': sector},
-                          {'page': 'b_e', 'sector': sector, 'features': [], 'active': True},
+                          {'page': 'b_e', 'sector': sector,
+                           'features': [], 'active': True},
                           upsert=True)
     if page == 'home':
         onsite.update(
             {'page': 'home'},
-            {'page': 'home', 'features': [], 'tertiaries': [], 'daily_column': {}, 'active': True},
-             upsert=True)
+            {'page': 'home', 'features': [], 'tertiaries': [],
+             'daily_column': {}, 'active': True},
+            upsert=True)
 
 
 def obj_dict_recursive(obj):

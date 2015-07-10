@@ -1,13 +1,10 @@
 from urllib2 import urlopen
 from pymongo import MongoClient
-from threading import Thread, active_count
 from models import ArticleImageModel
-import threading
 from mongoengine.django.auth import User
 from django.core.mail import send_mail
 from writers.settings import EMAIL_HOST_USER as email_host
 
-# import enchant
 import params
 import json
 import time
@@ -42,11 +39,11 @@ def mongo_calls(collection_name):
 
 def make_new_quote(body, author):
     onsite = mongo_calls('onsite')
-    articles = mongo_calls('articles')
     onsite.update({'page': 'home'},
                   {'$set': {'quote': {'body': body, 'author': author}}},
-                   False, False)
+                  False, False)
     # Add to list of quotes!
+
 
 def make_url(name, True_for_snapshot):
 
@@ -167,15 +164,19 @@ def make_username(first_name, last_name):
             long_name = "%s%i" % (long_name, random.randint(1, 9))
         if not re.match(r'^[a-zA-Z0-9_]+$', long_name):
             raise Exception(
-                "Username should include only alphanumeric characters, letters and numbers")
+                "Username should include only alphanumeric characters,\
+                 letters and numbers")
 
 
 def forgot_password_email(email):
     users = mongo_calls('user')
     user = users.find_one({"email": email})
-    password = "If you see this message, please contact admin, as this shouldn't be here"
+    password = "If you see this message, please contact admin, \
+                as this shouldn't be here"
     username = user['username']
-    send_mail('Email verification', 'Hi Stears writer, weve made you a new password: "%s" . Also, your username is "%s" incase you forgot that too' % (password, username), email_host,
+    send_mail('Email verification', 'Hi Stears writer, weve made you a \
+        new password: "%s" . Also, your username is "%s" incase you forgot \
+        that too' % (password, username), email_host,
               [email], fail_silently=False)
 
 
@@ -197,7 +198,8 @@ def request_json(URL):
 def suggest_nse_article(username, article_id):
     users = mongo_calls('user')
     users.update(
-        {'username': username}, {'$push': {'suggested_articles': int(article_id)}}, False)
+        {'username': username},
+        {'$push': {'suggested_articles': int(article_id)}}, False)
 
 
 # Optimize query here
@@ -255,7 +257,8 @@ def submit_writers_article(article_id):
     if True:
         articles.update(
             {'article_id': article_id},
-            {'$set': {'state': 'submitted', 'reviewer': 'No reviewer', 'time': time.time()}},
+            {'$set': {'state': 'submitted',
+             'reviewer': 'No reviewer', 'time': time.time()}},
             False, False
         )
         return False
@@ -286,7 +289,8 @@ def make_writers_article(form, username):
 
 def stears_italics(content):
     content = content.replace(
-        'stears', '<font class="hidden-s">S</font>').replace('Stears', '<font class="hidden-s">S</font>')
+        'stears', '<font class="hidden-s">S</font>').replace(
+            'Stears', '<font class="hidden-s">S</font>')
     return content
 
 
@@ -425,12 +429,11 @@ def site_ready(article):
     return True
 
 
-
 def migrate_article(article_id):
     articles = mongo_calls('articles')
     migrations = mongo_calls('migrations')
     article = articles.find_one(
-            {'article_id': article_id, 'type': 'writers_article'})
+        {'article_id': article_id, 'type': 'writers_article'})
 
     if not site_ready(article):
         return False
@@ -441,7 +444,6 @@ def migrate_article(article_id):
         if article_id:
             articles.remove({'article_id': article_id})
     except Exception:
-        # print e
         raise Exception
 
 
