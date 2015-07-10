@@ -356,6 +356,19 @@ th{
       margin-right: auto;
     }
 
+    .article-container{
+      width:70%;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .article-content, .article-image, .article-header{
+      max-width: 750px;
+      width: 100%;
+      margin-left: 0px;
+    }
+
     .stearsreport-post{
       margin:0px;
       width: 100%;
@@ -409,13 +422,7 @@ th{
     .secondary-header-and-author h2{
       font-size: 28px;
     }
-
-    .article-header{
-      width:50%;
-      margin-left:15%;
-      margin-top:1%;
-    }
-
+    
     .article-thumbnail{
       min-height: 100px;
       height: auto;
@@ -431,14 +438,6 @@ th{
       height:80px;
       display: inline-block;
       padding-top:0px;
-    }
-
-    .article-content{
-      width: 50%;
-    }
-
-    .article-image{ 
-      width: 50%;
     }
 
     .daily-column-widget{
