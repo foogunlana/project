@@ -16,7 +16,11 @@ def article(request, pk):
     if request.method == 'GET':
         try:
             articles = mongo_calls('migrations')
-            article = articles.find_one({'article_id': pk})
+            article = articles.find_one(
+                {'article_id': pk},
+                {'headline': 1, 'category': 1, 'writer': 1,
+                 'keywords': 1, 'content': 1})
+
             aUri = HttpRequest.build_absolute_uri(request)
             context = {'article': article, 'aUri': aUri}
         except Exception:
@@ -26,6 +30,7 @@ def article(request, pk):
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/')
 def business(request, sector):
+    context = {}
     if request.method == 'GET':
         try:
             onsite = mongo_calls('onsite')
@@ -54,7 +59,6 @@ def reports(request):
                     str(report.week_ending), "%Y-%m-%d")
                 report.time_title = "Week ending {}".format(
                                     d.strftime('%B %-d, %Y'))
-
             context['reports'] = reports
             context['page'] = 'reports'
         except Exception:
