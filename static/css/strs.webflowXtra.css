@@ -357,14 +357,14 @@ th{
     }
 
     .article-container{
-      width:70%;
-      max-width: 1000px;
+      width:85%;
+      max-width: 1100px;
       margin-left: auto;
       margin-right: auto;
     }
 
     .article-content, .article-image, .article-header{
-      max-width: 750px;
+      max-width: 720px;
       width: 100%;
       margin-left: 0px;
     }
@@ -422,7 +422,7 @@ th{
     .secondary-header-and-author h2{
       font-size: 28px;
     }
-    
+
     .article-thumbnail{
       min-height: 100px;
       height: auto;
