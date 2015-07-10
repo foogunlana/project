@@ -95,24 +95,27 @@
       {% endif %}
     {% endfor %}
   </div>
-  <div class="w-row w-hidden-medium category-row">
-    {% for feature in features %}
-    <div class="w-col w-col-3 article-segment">
-      {% if feature %}
-      <a class="w-inline-block post-block" href="{% url 'news:article' feature.article_id %}">
-        <div class="header-and-author">
-          <h3 class="business-h3">{{ feature.headline }}</h3>
-          <div class="post-block-author">{{ feature.writer|format_name:'long' }}</div>
-          <p class="post-summary">{{ feature.par1|truncatechars:90 }}</p>
+  <div class="be-container">
+    <div class="w-row w-hidden-medium category-row">
+      {% for feature in features %}
+        <div class="w-col w-col-3 article-segment">
+          {% if feature %}
+          <a class="w-inline-block post-block" href="{% url 'news:article' feature.article_id %}">
+            <div class="header-and-author">
+              <h3 class="business-h3">{{ feature.headline }}</h3>
+              <div class="post-block-author">{{ feature.writer|format_name:'long' }}</div>
+              <p class="post-summary">{{ feature.par1|truncatechars:90 }}</p>
+            </div>
+            <div class="w-section article-thumbnail">
+              <img class="stears-thumbnail" src="{{ feature.photo }}" alt="">
+            </div>
+          </a>
+          {% endif %}
         </div>
-        <div class="w-section article-thumbnail">
-          <img class="stears-thumbnail" src="{{ feature.photo }}" alt="">
-        </div>
-      </a>
-      {% endif %}
+      {% endfor %}
     </div>
-    {% endfor %}
   </div>
+  {% include 'news/footer.html' %}
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script type="text/javascript" src="/static/js/webflow.js"></script>
   <!--[if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->

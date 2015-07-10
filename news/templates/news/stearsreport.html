@@ -11,67 +11,68 @@
     <h3 class="stearsreport-report stearsreport-logo-text">Report</h3>
   </div>
   <div class="stearsreport-description">
-    <h4>
-      What Is StearsReport?
-    </h4>
-    <p>
-      Each week, the StearsReport takes a look back at the events of the previous seven days on the Nigerian financial markets. Broken down into the Oil/Gas and Banking sectors, it looks at the performance of the Nigerian Stock Exchange and related indices.
-    </p>
-    <p>
-      It includes a glossary for new entrants to Finance and is put together by the Finance Team of the Writer’s Network.
-    </p>
-  </div>
-  <div class="w-section stearsreport-container">
-    {% for report in reports reversed%}
-      {% if report.industry %}
-      <div class="w-clearfix stearsreport-post industry-report">
-        <a class="w-clearfix w-inline-block pdf-link-block" href="{{ report.pdf.url }}" target="_blank">
-          <div class="stearsreport-post-text">
-            <div class="industry-report-label">Industry Report</div>
-            <h2 class="stearsreport-h2">{{ report.title }}</h2>
-            <div class="stearsreport-byline">{{ report.summary }}</div>
+      <h4>
+        What Is StearsReport?
+      </h4>
+      <p>
+        Each week, the StearsReport takes a look back at the events of the previous seven days on the Nigerian financial markets. Broken down into the Oil/Gas and Banking sectors, it looks at the performance of the Nigerian Stock Exchange and related indices.
+      </p>
+      <p>
+        It includes a glossary for new entrants to Finance and is put together by the Finance Team of the Writer’s Network.
+      </p>
+    </div>
+  <div class="report-container">
+    <div class="w-section stearsreport-container">
+      {% for report in reports reversed%}
+        {% if report.industry %}
+        <div class="w-clearfix stearsreport-post industry-report">
+          <a class="w-clearfix w-inline-block pdf-link-block" href="{{ report.pdf.url }}" target="_blank">
+            <div class="stearsreport-post-text">
+              <div class="industry-report-label">Industry Report</div>
+              <h2 class="stearsreport-h2">{{ report.title }}</h2>
+              <div class="stearsreport-byline">{{ report.summary }}</div>
+            </div>
+          </a>
+          <div class="stearsreport-misc industry-options">
+            <a class="w-inline-block view-link-block" href="{{ report.pdf.url }}" target="_blank">
+              <div class="w-clearfix view-report-segment"><img class="view-report" src="/static/images/iconmonstr-eye-7-icon.svg" width="30">
+                <div class="view-report-text">View Report</div>
+              </div>
+            </a>
+            <a class="w-inline-block download-link-block" href="{{ report.pdf.url }}" download>
+              <div class="w-clearfix download-link">
+                <div class="download-report-text">Download
+                  <br>Report</div><img class="download-report" src="/static/images/iconmonstr-download-8-icon.svg" width="30">
+              </div>
+            </a>
           </div>
-        </a>
-        <div class="stearsreport-misc industry-options">
-          <a class="w-inline-block view-link-block" href="{{ report.pdf.url }}" target="_blank">
-            <div class="w-clearfix view-report-segment"><img class="view-report" src="/static/images/iconmonstr-eye-7-icon.svg" width="30">
-              <div class="view-report-text">View Report</div>
-            </div>
-          </a>
-          <a class="w-inline-block download-link-block" href="{{ report.pdf.url }}" download>
-            <div class="w-clearfix download-link">
-              <div class="download-report-text">Download
-                <br>Report</div><img class="download-report" src="/static/images/iconmonstr-download-8-icon.svg" width="30">
-            </div>
-          </a>
         </div>
-      </div>
-      {% else %}
-      <div class="w-clearfix stearsreport-post">
-        <a class="w-clearfix w-inline-block pdf-link-block" href="{{ report.pdf.url }}" target="_blank">
-          <div class="stearsreport-post-text">
-            <div class="industry-report-label">Weekly Report</div>
-            <h2 class="stearsreport-h2">Stears Report – {{ report.time_title }}</h2>
+        {% else %}
+        <div class="w-clearfix stearsreport-post">
+          <a class="w-clearfix w-inline-block pdf-link-block" href="{{ report.pdf.url }}" target="_blank">
+            <div class="stearsreport-post-text">
+              <div class="industry-report-label">Weekly Report</div>
+              <h2 class="stearsreport-h2">Stears Report – {{ report.time_title }}</h2>
+            </div>
+          </a>
+          <div class="stearsreport-misc">
+            <a class="w-inline-block view-link-block" href="{{ report.pdf.url }}" target="_blank">
+              <div class="w-clearfix view-report-segment"><img class="view-report" src="/static/images/iconmonstr-eye-7-icon.svg" width="30">
+                <div class="view-report-text">View Report</div>
+              </div>
+            </a>
+            <a class="w-inline-block download-link-block" href="{{ report.pdf.url }}" download>
+              <div class="w-clearfix download-link">
+                <div class="download-report-text">Download
+                  <br>Report</div><img class="download-report" src="/static/images/iconmonstr-download-8-icon.svg" width="30">
+              </div>
+            </a>
           </div>
-        </a>
-        <div class="stearsreport-misc">
-          <a class="w-inline-block view-link-block" href="{{ report.pdf.url }}" target="_blank">
-            <div class="w-clearfix view-report-segment"><img class="view-report" src="/static/images/iconmonstr-eye-7-icon.svg" width="30">
-              <div class="view-report-text">View Report</div>
-            </div>
-          </a>
-          <a class="w-inline-block download-link-block" href="{{ report.pdf.url }}" download>
-            <div class="w-clearfix download-link">
-              <div class="download-report-text">Download
-                <br>Report</div><img class="download-report" src="/static/images/iconmonstr-download-8-icon.svg" width="30">
-            </div>
-          </a>
         </div>
-      </div>
-      {% endif %}
-    {% endfor %}
+        {% endif %}
+      {% endfor %}
+    </div>
   </div>
-
   {% include 'news/footer.html' %}
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script type="text/javascript" src="/static/js/webflow.js"></script>
