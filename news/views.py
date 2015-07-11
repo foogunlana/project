@@ -24,6 +24,7 @@ def article(request, pk):
             context = {'article': article, 'aUri': aUri}
         except Exception:
             pass
+    context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
     return render(request, 'news/article.html', context)
 
 
@@ -43,6 +44,7 @@ def business(request, sector):
                 context = {}
         except Exception:
             pass
+    context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
     return render(request, 'news/business.html', context)
 
 
@@ -60,6 +62,7 @@ def reports(request):
             context['page'] = 'reports'
         except Exception:
             pass
+    context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
     return render(request, 'news/stearsreport.html', context)
 
 
@@ -90,4 +93,5 @@ def index(request):
                 context['column'] = todays_column
         except Exception:
             pass
+    context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
     return render(request, 'news/index.html', context)

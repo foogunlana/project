@@ -1,5 +1,6 @@
 {% extends 'news/news_base.html' %}
 {% load stears_tags %}
+
 {% block title %}{{ article.headline }}{% endblock %}
 {% block body %}
   <body>
@@ -9,7 +10,7 @@
       <div class="w-section article-image">
         <div class="article-author">Written by <font class="author-name">{{ article.writer|format_name:'long' }}</font></div>
         <br>
-        <img src="{{ article.photo }}" class="article-page-image" alt="">
+        <img src="{{ article.photo }}" class="article-page-image" alt="{{ article.headline }}">
       </div>
       <div class="w-section w-clearfix article-content">
         <div class="w-clearfix article-detail">

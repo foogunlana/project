@@ -8,7 +8,7 @@
   {% include 'news/news_nav.html' %}
   <div class="w-hidden-main w-hidden-medium w-clearfix mobile-homepage">
     {% if main_feature %}
-    <a class="w-inline-block article-link-block link-block-main" href="{% url 'news:article' main_feature.article_id %}">
+    <a class="w-inline-block article-link-block link-block-main" href="{{ sUri }}{% url 'news:article' main_feature.article_id %}">
       <div class="w-section main-article featured-image-container">
         <img class="featured-image" src="{{ main_feature.photo }}" alt="">
         <div class="w-section main-article-content">
@@ -21,7 +21,7 @@
     {% endif %}
     <div class="w-clearfix column-and-report-widget">
       {% if column %}
-      <a class="w-clearfix w-inline-block article-link-block widget-link-block" href="{% url 'news:article' column.article_id %}">
+      <a class="w-clearfix w-inline-block article-link-block widget-link-block" href="{{ sUri }}{% url 'news:article' column.article_id %}">
         <div class="w-hidden-main daily-column-widget">
           <h2 class="daily-column-h2">Stears Column</h2>
           <div class="daily-column-secondary-header">
@@ -45,7 +45,7 @@
         </div>
       </div>
       {% endif %}
-      <a class="w-clearfix w-inline-block article-link-block widget-link-block-2" href="{% url 'news:reports' %}">
+      <a class="w-clearfix w-inline-block article-link-block widget-link-block-2" href="{{ sUri }}{% url 'news:reports' %}">
         <div class="w-clearfix stearsreport-widget">
           <div class="stearsreport-widget-logo">
             <h3 class="daily-column-h2 stearsreport-widget-h4">Stears</h3>
@@ -56,7 +56,7 @@
     </div>
     <div class="w-section secondary-article">
       {% if secondary %}
-      <a class="w-inline-block article-link-block" href="{% url 'news:article' secondary.article_id %}">
+      <a class="w-inline-block article-link-block" href="{{ sUri }}{% url 'news:article' secondary.article_id %}">
         <div class="w-row">
           <div class="w-col w-col-5 w-col-medium-6 secondary-article-text">
             <div class="secondary-header-and-author">
@@ -77,7 +77,7 @@
       <div class="w-row third-article-segment">
         <div class="w-col w-col-7 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col1">
           {% if tertiaries.0 %}
-          <a class="w-inline-block article-link-block all-text-article" href="{% url 'news:article' tertiaries.0.article_id %}">
+          <a class="w-inline-block article-link-block all-text-article" href="{{ sUri }}{% url 'news:article' tertiaries.0.article_id %}">
             <div class="article-category">{{ tertiaries.0.category|pretty_category }}</div>
             <h3>{{ tertiaries.0.headline }}</h3>
             <div class="article-author">{{ tertiaries.0.writer|format_name:'long' }}</div>
@@ -87,7 +87,7 @@
         </div>
         <div class="w-col w-col-5 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col2">
           {% if tertiaries.1 %}
-          <a class="w-inline-block article-link-block mini-article-segment" href="{% url 'news:article' tertiaries.1.article_id %}">
+          <a class="w-inline-block article-link-block mini-article-segment" href="{{ sUri }}{% url 'news:article' tertiaries.1.article_id %}">
             <div class="article-category mini-article-category">{{ tertiaries.1.category|pretty_category }}</div>
             <h4>{{ tertiaries.1.headline }}</h4>
             <div class="article-author mini-article-author">{{ tertiaries.1.writer|format_name:'long' }}</div>
@@ -95,7 +95,7 @@
           {% endif %}
           <div class="w-section mini-segment-horizontal-border"></div>
           {% if tertiaries.2 %}
-          <a class="w-inline-block article-link-block mini-article-segment" href="{% url 'news:article' tertiaries.2.article_id %}">
+          <a class="w-inline-block article-link-block mini-article-segment" href="{{ sUri }}{% url 'news:article' tertiaries.2.article_id %}">
             <div class="article-category mini-article-category">{{ tertiaries.2.category|pretty_category }}</div>
             <h4>{{ tertiaries.2.headline }}</h4>
             <div class="article-author mini-article-author">{{ tertiaries.2.writer|format_name:'long' }}</div>
@@ -112,7 +112,7 @@
     <div class="main-container">
       <div class="w-hidden-small w-hidden-tiny column-and-report-widget">
         {% if column %}
-        <a class="w-inline-block article-link-block" href="{% url 'news:article' column.article_id %}">
+        <a class="w-inline-block article-link-block" href="{{ sUri }}{% url 'news:article' column.article_id %}">
           <div class="w-hidden-main daily-column-widget">
             <h2 class="daily-column-h2">Stears Column</h2>
             <div class="daily-column-secondary-header">
@@ -134,7 +134,7 @@
           </div>
         </a>
         {% endif %}
-        <a class="w-clearfix w-inline-block article-link-block widget-link-block" href="{% url 'news:reports' %}">
+        <a class="w-clearfix w-inline-block article-link-block widget-link-block" href="{{ sUri }}{% url 'news:reports' %}">
           <div class="w-clearfix stearsreport-widget">
             <div class="stearsreport-widget-logo">
               <h3 class="daily-column-h2 stearsreport-widget-h4">Stears</h3>
@@ -146,7 +146,7 @@
         </a>
       </div>
       {% if main_feature %}
-        <a class="w-clearfix w-inline-block article-link-block link-block-main" href="{% url 'news:article' main_feature.article_id %}">
+        <a class="w-clearfix w-inline-block article-link-block link-block-main" href="{{ sUri }}{% url 'news:article' main_feature.article_id %}">
           <div class="w-hidden-small w-hidden-tiny main-article featured-image-container">
             <img class="featured-image" src="{{ main_feature.photo }}" alt="">
             <div class="w-section main-article-content">
@@ -162,7 +162,7 @@
     <div class="w-section horizontal-border"></div>
     <div class="second-row-col1">
       {% if secondary %}
-      <a class="w-hidden-small w-hidden-tiny w-inline-block article-link-block article-link-secondary" href="{% url 'news:article' secondary.article_id %}">
+      <a class="w-hidden-small w-hidden-tiny w-inline-block article-link-block article-link-secondary" href="{{ sUri }}{% url 'news:article' secondary.article_id %}">
         <div class="secondary-article">
           <div class="w-row">
             <div class="w-col w-col-5 w-col-stack secondary-article-text">
@@ -185,7 +185,7 @@
       <div class="w-row third-article-segment">
         <div class="w-col w-col-7 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col1">
           {% if tertiaries.0 %}
-          <a class="w-inline-block article-link-block" href="{% url 'news:article' tertiaries.0.article_id %}">
+          <a class="w-inline-block article-link-block" href="{{ sUri }}{% url 'news:article' tertiaries.0.article_id %}">
             <div class="daily-column-header-and-author">
               <div class="article-category">{{ tertiaries.0.category|pretty_category }}</div>
               <h3>{{ tertiaries.0.headline }}</h3>
@@ -198,7 +198,7 @@
         <div class="w-col w-col-5 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col2">
           <div class="w-section mini-article-segment">
             {% if tertiaries.1 %}
-            <a class="w-inline-block article-link-block" href="{% url 'news:article' tertiaries.1.article_id %}">
+            <a class="w-inline-block article-link-block" href="{{ sUri }}{% url 'news:article' tertiaries.1.article_id %}">
               <div class="article-category mini-article-category">{{ tertiaries.1.category|pretty_category }}</div>
               <h4>{{ tertiaries.1.headline }}</h4>
               <div class="article-author mini-article-author">{{ tertiaries.1.writer|format_name:'long' }}</div>
@@ -208,7 +208,7 @@
           <div class="w-section mini-segment-horizontal-border"></div>
           <div class="w-section mini-article-segment">
             {% if tertiaries.2 %}
-            <a class="w-inline-block article-link-block" href="{% url 'news:article' tertiaries.2.article_id %}">
+            <a class="w-inline-block article-link-block" href="{{ sUri }}{% url 'news:article' tertiaries.2.article_id %}">
               <div class="article-category mini-article-category">{{ tertiaries.2.category|pretty_category }}</div>
               <h4>{{ tertiaries.2.headline }}</h4>
               <div class="article-author mini-article-author">{{ tertiaries.2.writer|format_name:'long' }}</div>
@@ -231,7 +231,7 @@
         {% for feature in features %}
         <div class="w-col w-col-6 w-col-small-6 article-segment">
           {% if feature %}
-          <a class="w-inline-block post-block" href="{% url 'news:article' feature.article_id %}">
+          <a class="w-inline-block post-block" href="{{ sUri }}{% url 'news:article' feature.article_id %}">
             <div class="header-and-author">
               <h3 class="business-h3">{{ feature.headline }}</h3>
               <div class="post-block-author">{{ feature.writer|format_name:'long' }}</div>
@@ -250,7 +250,7 @@
         {% for feature in features %}
         <div class="w-col w-col-3 article-segment">
           {% if feature %}
-          <a class="w-inline-block post-block" href="{% url 'news:article' feature.article_id %}">
+          <a class="w-inline-block post-block" href="{{ sUri }}{% url 'news:article' feature.article_id %}">
             <div class="header-and-author">
               <h3 class="business-h3">{{ feature.headline }}</h3>
               <div class="post-block-author">{{ feature.writer|format_name:'long' }}</div>

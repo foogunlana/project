@@ -17,11 +17,11 @@
     <form id="email-form" name="email-form" data-name="Email Form">
       <select class="w-select w-hidden-main w-hidden-medium sub-category-drop-down" id="Sub-Category" name="Sub-Category" data-name="Sub-Category">
         <option value="">{{ sector|pretty_category }}</option>
-        <option class="option_stearsBusiness" value="{% url 'news:business' 'stearsBusiness' %}">Business</option>
-        <option class="option_stearsGovernance" value="{% url 'news:business' 'stearsGovernance' %}">Governance</option>
-        <option class="option_stearsMacroeconomy" value="{% url 'news:business' 'stearsMacroeconomy' %}">Macroeconomy</option>
-        <option class="option_stearsEditorial" value="{% url 'news:business' 'stearsEditorial' %}">Editorial</option>
-        <option class="option_stearsColumn"  value="{% url 'news:business' 'stearsColumn' %}">Column</option>
+        <option class="option_stearsBusiness" value="{{ sUri }}{% url 'news:business' 'stearsBusiness' %}">Business</option>
+        <option class="option_stearsGovernance" value="{{ sUri }}{% url 'news:business' 'stearsGovernance' %}">Governance</option>
+        <option class="option_stearsMacroeconomy" value="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Macroeconomy</option>
+        <option class="option_stearsEditorial" value="{{ sUri }}{% url 'news:business' 'stearsEditorial' %}">Editorial</option>
+        <option class="option_stearsColumn"  value="{{ sUri }}{% url 'news:business' 'stearsColumn' %}">Column</option>
       </select>
     </form>
     <div class="w-form-done">
@@ -34,7 +34,7 @@
   <div class="w-row companies-row-1">
      <div class="w-col w-col-10 featured-post">
       {% if main_feature %}
-      <a class="w-clearfix w-inline-block article-link-block featured-link-block" href="{% url 'news:article' main_feature.article_id %}">
+      <a class="w-clearfix w-inline-block article-link-block featured-link-block" href="{{ sUri }}{% url 'news:article' main_feature.article_id %}">
         <div class="featured-post-image">
           <img class="featured-image" src="{{ main_feature.photo }}" alt="">
         </div>
@@ -50,15 +50,15 @@
     <div class="w-col w-col-2 w-hidden-small w-hidden-tiny category-sidebar">
       <p class="news-in-brief-p sections-header">Sections</p>
       <ul class="w-list-unstyled sub-category-list">
-        <li><a class="sub-category option_stearsBusiness" href="{% url 'news:business' 'stearsBusiness' %}">Business</a>
+        <li><a class="sub-category option_stearsBusiness" href="{{ sUri }}{% url 'news:business' 'stearsBusiness' %}">Business</a>
         </li>
-        <li><a class="sub-category option_stearsGovernance" href="{% url 'news:business' 'stearsGovernance' %}">Governance</a>
+        <li><a class="sub-category option_stearsGovernance" href="{{ sUri }}{% url 'news:business' 'stearsGovernance' %}">Governance</a>
         </li>
-        <li><a class="sub-category option_stearsMacroeconomy" href="{% url 'news:business' 'stearsMacroeconomy' %}">Macroeconomy</a>
+        <li><a class="sub-category option_stearsMacroeconomy" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Macroeconomy</a>
         </li>
-        <li><a class="sub-category option_stearsEditorial" href="{% url 'news:business' 'stearsEditorial' %}">Editorial</a>
+        <li><a class="sub-category option_stearsEditorial" href="{{ sUri }}{% url 'news:business' 'stearsEditorial' %}">Editorial</a>
         </li>
-        <li><a class="sub-category option_stearsColumn" href="{% url 'news:business' 'stearsColumn' %}">Column</a>
+        <li><a class="sub-category option_stearsColumn" href="{{ sUri }}{% url 'news:business' 'stearsColumn' %}">Column</a>
         </li>
       </ul>
       <p class="news-in-brief-p">Economic Data</p>
@@ -76,7 +76,7 @@
     {% for feature in features %}
       <div class="w-col w-col-6 article-segment">
         {% if feature %}
-        <a class="w-inline-block post-block" href="{% url 'news:article' feature.article_id %}">
+        <a class="w-inline-block post-block" href="{{ sUri }}{% url 'news:article' feature.article_id %}">
           <div class="header-and-author">
             <h3 class="business-h3">{{ feature.headline }}</h3>
             <div class="post-block-author">{{ feature.author }}</div>
@@ -100,7 +100,7 @@
       {% for feature in features %}
         <div class="w-col w-col-3 article-segment">
           {% if feature %}
-          <a class="w-inline-block post-block" href="{% url 'news:article' feature.article_id %}">
+          <a class="w-inline-block post-block" href="{{ sUri }}{% url 'news:article' feature.article_id %}">
             <div class="header-and-author">
               <h3 class="business-h3">{{ feature.headline }}</h3>
               <div class="post-block-author">{{ feature.writer|format_name:'long' }}</div>

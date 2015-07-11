@@ -3,12 +3,12 @@ from django import template
 register = template.Library()
 
 
-@register.filter("array_list")
-def array_list(array, index):
-    index = int(index)
+@register.filter('replace')
+def repalce(string, ois):
     try:
-        element = array[index]
-    except Exception as e:
-        element = None
-
-    return element
+        ois = ois.split(',')
+        o, i = ois[0], ois[1]
+        string = string.replace(o, i)
+    except Exception:
+        pass
+    return string

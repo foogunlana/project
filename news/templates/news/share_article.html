@@ -1,3 +1,4 @@
+{% load news_tags %}
 <div class="share-text">Share this story</div>
 <div class="share-block">
     <a class="w-inline-block article-link-block share-link-block" href="https://twitter.com/share?url={{ aUri }}" target="_blank" alt="Twitter"><img class="twitter-share" src="/static/images/social19.svg" width="17">
@@ -8,6 +9,6 @@
     </a>
     <a class="w-inline-block article-link-block share-link-block" href="https://plus.google.com/share?url={{ aUri }}" target="_blank" alt="Google Plus"><img class="google-plus-share" src="/static/images/iconmonstr-google-plus-icon.svg" width="20">
     </a>
-    <a class="w-inline-block article-link-block share-link-block" href="mailto:?Subject=Stears News&amp;Body=A%20Stears%20News%20Website%20article%20 {{ aUri }}" alt="mail"><img class="mail-share" src="/static/images/iconmonstr-email-4-icon.svg" width="22">
+    <a class="w-inline-block article-link-block share-link-block" href="mailto:?Subject={{ article.headline }} - Stears News&amp;Body={{ aUri }} - {{ article.headline }}" alt="mail"><img class="mail-share" src="/static/images/iconmonstr-email-4-icon.svg" width="22">
     </a>
 </div>
