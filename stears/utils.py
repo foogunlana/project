@@ -15,8 +15,7 @@ import random
 def get_mongo_client():
     try:
         client = MongoClient(params.MONGO_URI)
-    except Exception as e:
-        print e
+    except Exception:
         raise Exception
     return client
 
@@ -31,8 +30,7 @@ def mongo_calls(collection_name):
     client = get_mongo_client()
     try:
         collection = client[params.db][collection_name]
-    except Exception as e:
-        print e
+    except Exception:
         raise Exception
     return collection
 

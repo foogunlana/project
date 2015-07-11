@@ -70,8 +70,11 @@ def reports(request):
 def index(request):
     context = {}
     if request.method == 'GET':
+        print datetime.datetime.now(), 1
         onsite = mongo_calls('onsite')
+        print datetime.datetime.now(), 2
         articles = mongo_calls('migrations')
+        print datetime.datetime.now(), 3
         try:
             context = onsite.find_one({'page': 'home'})
             day = str(datetime.datetime.now().weekday())
