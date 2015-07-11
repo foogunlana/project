@@ -296,7 +296,7 @@ def writers_home_test(request, group):
             articles = list(article_collection.find({
                 '$query': {'type': 'writers_article'},
                 '$orderby': {'time': -1}},
-                params.article_button_items).limit(50))
+                params.article_button_items))
 
     context = {"writers_article_form": writers_article_form,
                'articles': articles, 'nostates': nostates}
