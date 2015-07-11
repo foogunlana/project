@@ -262,7 +262,7 @@
 					<div class="row">
 						<button id="comment_area" class="toggles_div fill" style="border-radius:3px;" >Comment</button>
 					</div>
-					{% if article.state|is_editor %}
+					{% if user|is_editor %}
 					<div class="row fill article-box">
 						<form action="{% url 'weal:prepreview' pk=article.article_id %}" method="get">
 							{% csrf_token %}
