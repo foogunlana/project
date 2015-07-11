@@ -80,7 +80,7 @@ def index(request):
             todays_column = articles.find_one({'$query': {
                                                'writer': col_writer,
                                                'category': 'stearsColumn',
-                                               'state': 'submitted'},
+                                               'state': 'site_ready'},
                                                '$orderby': {'time': -1}})
             if todays_column:
                 # optimize by adding titles to articles
