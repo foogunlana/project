@@ -9,7 +9,6 @@ from utils import htmltag_text, remove_special_characters
 import datetime
 
 
-@user_passes_test(lambda u: approved_writer(u), login_url='/weal/')
 def article(request, pk):
     pk = int(pk)
     context = {}
@@ -28,7 +27,6 @@ def article(request, pk):
     return render(request, 'news/article.html', context)
 
 
-@user_passes_test(lambda u: approved_writer(u), login_url='/weal/')
 def business(request, sector):
     context = {}
     if request.method == 'GET':
@@ -48,7 +46,6 @@ def business(request, sector):
     return render(request, 'news/business.html', context)
 
 
-@user_passes_test(lambda u: approved_writer(u), login_url='/weal/')
 def reports(request):
     context = {}
     if request.method == 'GET':
@@ -66,7 +63,6 @@ def reports(request):
     return render(request, 'news/stearsreport.html', context)
 
 
-@user_passes_test(lambda u: approved_writer(u), login_url='/weal/')
 def index(request):
     context = {}
     if request.method == 'GET':
