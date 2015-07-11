@@ -5,5 +5,8 @@ import pymongo
 
 articles = mongo_calls('articles')
 
-articles.ensure_index([("state", pymongo.ASCENDING)])
-articles.ensure_index([("time", pymongo.DESCENDING)])
+try:
+    articles.ensure_index([("state", pymongo.ASCENDING)])
+    articles.ensure_index([("time", pymongo.DESCENDING)])
+except Exception:
+    pass

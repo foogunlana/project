@@ -4,6 +4,7 @@ from models import ArticleImageModel
 from mongoengine.django.auth import User
 from django.core.mail import send_mail
 from writers.settings import EMAIL_HOST_USER as email_host
+from writers.settings import client
 
 import params
 import json
@@ -12,24 +13,17 @@ import re
 import random
 
 
-def get_mongo_client():
-    try:
-        client = MongoClient(params.MONGO_URI)
-    except Exception:
-        raise Exception
-    return client
-
-
 def handle_uploaded_file(image):
     with open('media/articleImages/', 'wb+') as destination:
         for chunk in image.chunks():
             destination.write(chunk)
 
 
-def mongo_calls(collection_name):
-    client = get_mongo_client()
+def mongo_calls(collection_name, c=client):
     try:
-        collection = client[params.db][collection_name]
+        if not c:
+            c = MongoClient(params.MONGO_URI)
+        collection = c[params.db][collection_name]
     except Exception:
         raise Exception
     return collection
