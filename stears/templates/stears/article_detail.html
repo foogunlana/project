@@ -265,7 +265,6 @@
 					{% if user|is_editor %}
 					<div class="row fill article-box">
 						<form action="{% url 'weal:prepreview' pk=article.article_id %}" method="get">
-							{% csrf_token %}
 							<button class="fill">Preview</button>
 						</form>
 					</div>
