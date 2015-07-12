@@ -1,3 +1,42 @@
+.article_box{
+  background-color:rgba(255,255,255,0.8);
+  padding:5px;
+}
+
+.button3{
+  display: inline-block;
+  background-color:#f05042;
+  color: white;
+  max-height: 60px;
+  text-align: center;
+  border-radius: 3px;
+  padding: 5px;
+  border:none;
+}
+
+.button3:hover{
+  background-color:transparent;
+  color: black;
+}
+
+.above_nav{
+  width:100%;
+  max-width: 720px;
+  margin: auto;
+}
+
+.above_nav p{
+  display: inline-block;
+  width: 80%;
+}
+
+.fill {
+  width:100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: initial;
+}
+
 .article-segment {
   margin-bottom: 10%;
 }

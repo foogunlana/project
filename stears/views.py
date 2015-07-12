@@ -17,7 +17,7 @@ from stears.utils import article_key_words, revive_from_trash, add_writers,\
     accept_to_write, request_json, make_url, move_to_trash, \
     suggest_nse_article, update_writers_article, edit_user, \
     make_writer_id, make_writers_article, submit_writers_article, \
-    new_member, \
+    new_member, retract, \
     make_new_quote, edit_writer_registration_details
 
 from news.utils import put_article_on_page
@@ -731,10 +731,24 @@ def preview_article(request, pk):
         article = migrations.find_one(
             {'article_id': pk},
             {'content': 1, '_id': 0, 'headline': 1, 'writer': 1,
-             'writers': 1, 'photo': 1, 'keywords': 1, 'category': 1})
+             'article_id': 1, 'writers': 1, 'photo': 1,
+             'keywords': 1, 'category': 1, 'state': 1})
+    if article:
+        context = {'article': article, 'writers': article.get('writers', {})}
+        return render(request, 'stears/preview_article.html', context)
+    # Go to submissions as article is probably not in pipeline
+    return HttpResponseRedirect(reverse('weal:submissions'))
 
-    context = {'article': article, 'writers': article.get('writers', {})}
-    return render(request, 'news/article.html', context)
+
+@user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
+def retract_article(request):
+    responseData = {}
+    if request.method == 'POST':
+        pk = int(request.POST.get('pk'))
+        #Make function to check if already onsite!!!!!!!!!
+        retract(pk)
+        responseData = {'success': True}
+    return HttpResponse(json.dumps(responseData))
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')

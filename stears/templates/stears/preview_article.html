@@ -1,78 +1,121 @@
+<html data-wf-site="54d15d04624a64834599eee8" data-wf-page="54d15d04624a64834599eee9">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="generator" content="Webflow">
 
-	<head><meta charset="utf-8"><title>Articles - Stears</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Webflow">
-		<link rel="stylesheet" type="text/css" href="/static/css/webflow.css">
-		<link rel="stylesheet" type="text/css" href="/static/css/strs.webflow.css">
-		<style type="text/css"></style>
-	</head>
-	<body >
-		<div class="top-nav">
-			<div class="w-row">
-				<div class="w-col w-col-8 top-nav-search">
-					<div class="w-form">
-						<form id="search-form" name="search-form" data-name="Search Form">
-							<img class="search-icon" src="http://uploads.webflow.com/54d15d04624a64834599eee8/54d27522bba289360a8cc876_search19.svg" width="22" alt="54d27522bba289360a8cc876_search19.svg">
-							<input class="w-input search-bar" id="name" type="text" placeholder="Enter your search term here" name="name" data-name="Name">
-						</form>
-					</div>
-				</div>
-				<div class="w-col w-col-4 top-nav-social" style="float:right;">
-					<img class="facebook-icon" src="http://uploads.webflow.com/54d15d04624a64834599eee8/54d264eda59e05340ae1fb74_facebook12.svg" width="6" alt="54d264eda59e05340ae1fb74_facebook12.svg">
-					<img class="twitter-icon" src="http://uploads.webflow.com/54d15d04624a64834599eee8/54d265fa0d5fbeb671afe3f1_social19.svg" width="12" alt="54d265fa0d5fbeb671afe3f1_social19.svg">
-					<img class="linkedin-icon" src="http://uploads.webflow.com/54d15d04624a64834599eee8/54d26e39a59e05340ae1fe23_linkedin11.svg" width="14" alt="54d26e39a59e05340ae1fe23_linkedin11.svg">
-					<img class="rss-icon" src="http://uploads.webflow.com/54d15d04624a64834599eee8/54d27c22a59e05340ae1ffce_social23.svg" width="12" alt="54d27c22a59e05340ae1ffce_social23.svg">
-				</div>
-			</div>
-		</div>
-		<div class="w-clearfix nav">
-			<div class="w-clearfix nav-links">
-				<a class="nav-text" href="#">
-					<strong>Home</strong>
-				</a>
-				<a class="nav-text" href="#">
-					<strong>Markets</strong>
-				</a>
-				<a class="nav-text" href="#">
-					<strong>Companies</strong>
-				</a>
-				<a class="nav-text" href="#">
-					<strong>Economy</strong>
-				</a>
-				<a class="nav-text" href="#">
-					<strong>StearsTalk</strong>
-				</a>
-			</div>
-		</div>
-		<div class="article-image">
-			
-		</div>
-		<div class="w-row article-content">
-			<div class="w-col w-col-9 article">
-				<h1 class="article-header">Heading</h1>
-				<p class="article-paragraph">
-					{% autoescape off %}
-					{{ article.content }}
-					{% endautoescape %}
-				</p >
-			</div>
-			<div class="w-col w-col-3 article-information">
-				<div class="article-author">Author Name</div>
-				{{ writers.original }}
-				<div class="article-category">Category</div>
-				{{ article.category }}
-			</div>
-		</div>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/webflow.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/strs2.webflow.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/strs.webflowXtra.css">
+
+  <link rel="shortcut icon" type="/static/images/x-icon" href="/static/images/StearsFavicon.png">
+  <link rel="apple-touch-icon" href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png">
+  <script type="text/javascript" src="https://use.typekit.net/rzv6vwe.js"></script>
+  <script src="https://platform.twitter.com/widgets.js"></script>
+  <script type="text/javascript">
+    try{Typekit.load();}catch(e){}
+  </script>
+  <script type="text/javascript" src="/static/js/modernizr.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+
+{% load stears_tags %}
+
+<body>
+  {% if user|is_editor %}
+    {% ifequal article.state 'site_ready' %}
+      <div class="article_box">
+        <div class="above_nav">
+          <strong>Do you want to take this article off the pipeline? (Back to 'Submitted articles')</strong>
+          <form data-url="{% url 'weal:retract' %}" method="post" id="retract_article_form" style="display:inline-block;">
+            {% csrf_token %}
+            <input type="text" id="id_pk" name="pk" value="{{ article.article_id }}" hidden>
+            <button class="button3 fill" type="submit">Retract article</button>
+          </form>
+          </div>
+        </div>
+      </div>
+    {% endifequal %}
+  {% endif %}
+  {% include 'news/news_nav.html' %}
+  <div class="article-container">
+    <h1 class="article-header">{{ article.headline }}</h1>
+    <div class="w-section article-image">
+      <div class="article-author">Written by <font class="author-name">{{ article.writer|format_name:'long' }}</font></div>
+      <br>
+      <img src="{{ article.photo }}" class="article-page-image" alt="{{ article.headline }}">
+    </div>
+    <div class="w-section w-clearfix article-content">
+      <div class="w-clearfix article-detail">
+        <div class="article-author article-page">{{ article.author }}</div>
+        <div class="article-category article-page">{{ article.category|pretty_category }}</div>
+        <div class="share-article">
+          {% include 'news/share_article.html' %}
+        </div>
+      </div>
+      <div class="article-paragraph">
+        {% autoescape off %}
+          {{ article.content }}
+        {% endautoescape %}
+      </div>
+      <div class="tags-block">
+        {% for tag in article.keywords %}
+          <div class="article_tag tag_{{ tag }}">
+            {{ tag }}
+          </div>
+        {% endfor %}
+      </div>
+      <br>
+      <div class="article-author article-bottom">Written by <font class="author-name">{{ article.writer|format_name:'long' }}</font></div>
+      <br>
+      <br>
+      <div class="share-article article-bottom">
+        {% include 'news/share_article.html' %}
+      </div>
+      <div class="copyright">
+        <p><strong>Copyright © STEARS 2015</strong>   All rights reserved. This material, and other digital content on this website, may not be reproduced, published, broadcast, rewritten or redistributed in whole or in part without digital reference to <em>STEARS</em>.</p>
+      </div>
+    </div>
+  </div>
+  {% include 'news/footer.html' %}
+  <script type="text/javascript">
+    $.ajaxSetup({
+      data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
+    })</script>
+  <script>
+  $(document).ready(function(){
+    $($('.article-paragraph').find('a')).attr('target', '_blank');
+    $('.article-paragraph').find('.hidden-s').html('<em>Stears</em>');
+
+    $('#retract_article_form').submit(function(event){
+      event.preventDefault();
+      var formData = {'pk':this.pk.value};
+      alert($(this).data('url'));
+      
+      $.ajax({
+        url: $(this).data('url'),
+        type: 'post',
+        data: formData,
+
+        success: function(responseData, textStatus, jqXHR) {
+            var msg = JSON.parse(responseData);
+            if(msg.success){
+              alert('success');
+              location.reload();
+            }else{
+              alert('Error');
+            }
+              },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert(errorThrown + '\n\n' + textStatus + '\n\n' + JSON.stringify(jqXHR));
+        },});
+        return false;
+      });
+  });
+  </script>
+  <script type="text/javascript" src="/static/js/webflow.js"></script>
+  <script src="/static/js/news/business.js"></script>
 </body>
-
 </html>

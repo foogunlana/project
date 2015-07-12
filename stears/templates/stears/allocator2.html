@@ -21,7 +21,7 @@
 					</div>
 					<br>
 					<div class="article_dropdowns">
-						{% for cat, headlines in cats.items reversed%}
+						{% for cat, headlines in cats.items reversed %}
 						<div class="">
 							<select style="width:80%;display:inline-block;" name="article_options" id="id_article_options_{{ cat }}" style="margin:0px;" data-url="{% url 'weal:allocate' %}" >
 								<option value="None">Choose from {{ cat|pretty_category }}</option>

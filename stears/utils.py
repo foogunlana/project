@@ -439,6 +439,21 @@ def migrate_article(article_id):
         raise Exception
 
 
+def retract(pk):
+    m = mongo_calls('migrations')
+    a = mongo_calls('articles')
+    article = m.find_one({'article_id': pk})
+
+    if article and article.get('state') == 'site_ready':
+        try:
+            article['state'] = 'submitted'
+            a.insert(article)
+            m.remove({'article_id': pk})
+        except Exception:
+            raise Exception
+    return True
+
+
 def save_writers_article(article):
     articles = mongo_calls('articles')
     users = mongo_calls('users')
