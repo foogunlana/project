@@ -26,8 +26,11 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
     article = articles.find_one({'article_id': article_id})
 
     if not article.get('summary', None):
-        par1 = remove_special_characters(
-            htmltag_text(article['content'], 'p').pop())
+        try:
+            par1 = remove_special_characters(
+                htmltag_text(article['content'], 'p').pop())
+        except Exception:
+            par1 = 'Summary not available'
 
         article['par1'] = par1
 
