@@ -12,6 +12,8 @@ class StearsPage(object):
     A page on the Stears website.
     Attributes:
     """
+    singles = ['main_feature', 'secondary']
+    multiples = ['features', 'tertiaries']
 
     __metaclass__ = ABCMeta
 
@@ -38,21 +40,26 @@ class HomePage(StearsPage):
     def __init__(self, *args, **kwargs):
         super(HomePage, self).__init__()
         self.main_feature = kwargs.get('main_feature', None)
-        self.market_snapshot = kwargs.get('market_snapshot', None)
         self.daily_column = kwargs.get('daily_column', None)
         self.secondary = kwargs.get('secondary', None)
         self.tertiaries = kwargs.get('tertiaries', None)
+        self.features = kwargs.get('features', None)
         self.quote = kwargs.get('quote', None)
 
     def is_ready(self):
         return not self.vacancies()
 
     def vacancies(self):
-        vacancies = []
-        for key, value in self.__dict__.items():
-            if value is None:
-                vacancies = vacancies + [key]
-        return vacancies
+        return [key for key, value in self.__dict__.items() if not value]
+
+    def articles(self, func=lambda x: x):
+        page = self.__dict__
+        singles = [func(page[key]) for key in self.singles if page[key]]
+        multiples = []
+        for key in self.multiples:
+            section = page[key]
+            multiples = multiples + [func(item) for item in section if item]
+        return singles + multiples
 
 
 class BusinessPage(StearsPage):
@@ -65,6 +72,52 @@ class BusinessPage(StearsPage):
 
     def is_ready(self):
         return False
+
+    def vacancies(self):
+        return [key for key, value in self.__dict__.items() if not value]
+
+    def articles(self, func=lambda x: x):
+        page = self.__dict__
+        singles = [func(page[key]) for key in self.singles if page.get(key)]
+        multiples = []
+        for key in self.multiples:
+            section = page.get(key)
+            if section:
+                multiples = multiples + [func(item) for item in section if item]
+        return singles + multiples
+
+
+def articles_on_site(func=lambda x: x):
+    onsite = mongo_calls('onsite')
+    home_page = onsite.find_one({'page': 'home'})
+    b_e_pages = list(onsite.find({'page': 'b_e'}, multi=True))
+
+    home = HomePage(**home_page)
+    home_items = home.articles(func)
+
+    b_e_items = []
+    for b_e_page in b_e_pages:
+        b_e = BusinessPage(**b_e_page)
+        b_e_items = b_e_items + b_e.articles(func)
+
+    return home_items + b_e_items
+
+
+def locate(article_id):
+    onsite = mongo_calls('onsite')
+    home_page = onsite.find_one({'page': 'home'})
+    home = HomePage(**home_page)
+    locations = []
+    if article_id in home.articles(lambda a: a['article_id']):
+        locations = [{'page': 'home'}]
+
+    b_e_pages = list(onsite.find({'page': 'b_e'}, multi=True))
+    for b_e_page in b_e_pages:
+        b_e = BusinessPage(**b_e_page)
+        if article_id in b_e.articles(lambda a: a['article_id']):
+            locations = locations + [{'page': 'b_e', 'sector': b_e.sector}]
+
+    return locations
 
 
 def htmltag_text(html_string, tag):
@@ -87,8 +140,11 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
     article = articles.find_one({'article_id': article_id})
 
     if not article.get('summary', None):
-        par1 = remove_special_characters(
-            htmltag_text(article['content'], 'p').pop())
+        try:
+            par1 = remove_special_characters(
+                htmltag_text(article['content'], 'p').pop())
+        except Exception:
+            par1 = "summary unavailable"
 
         article['par1'] = par1
 

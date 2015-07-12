@@ -785,6 +785,7 @@ def allocate_article(request):
             page = allocation_form.cleaned_data['page']
             sector = allocation_form.cleaned_data.get('sector', None)
             number = allocation_form.cleaned_data.get('number', None)
+            print page, sector, number, article_id, section
             try:
                 put_article_on_page(page=page, section=section,
                                     article_id=article_id,
