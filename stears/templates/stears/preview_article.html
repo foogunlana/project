@@ -92,8 +92,7 @@
     $('#retract_article_form').submit(function(event){
       event.preventDefault();
       var formData = {'pk':this.pk.value};
-      alert($(this).data('url'));
-      
+
       $.ajax({
         url: $(this).data('url'),
         type: 'post',
@@ -102,14 +101,13 @@
         success: function(responseData, textStatus, jqXHR) {
             var msg = JSON.parse(responseData);
             if(msg.success){
-              alert('success');
               location.reload();
             }else{
-              alert('Error');
+              alert('Error, could not retract article');
             }
               },
         error: function(jqXHR, textStatus, errorThrown) {
-            alert(errorThrown + '\n\n' + textStatus + '\n\n' + JSON.stringify(jqXHR));
+            alert(errorThrown + 'Please contact tech team');
         },});
         return false;
       });
