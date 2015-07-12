@@ -324,10 +324,6 @@ h3, h4, .business-h3, .daily-column-h2{
 	width:96%;
 }
 
-.featured-link-block.w-inline-block{
-  width: 100%;
-}
-
 .w-nav-link:hover, .w-nav-link.w--current:hover, .w-nav-link:active, .w-nav-link.w--current:active{
   background-color: #f05042;
   color: white;
