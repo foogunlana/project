@@ -141,8 +141,11 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
 
     if not article.get('summary', None):
         try:
-            par1 = remove_special_characters(
-                htmltag_text(article['content'], 'p').pop())
+            text = htmltag_text(article['content'], 'p')
+            for par in text:
+                if len(par) > 50:
+                    par1 = par
+            par1 = remove_special_characters(par1)
         except Exception:
             par1 = 'Summary not available'
 
