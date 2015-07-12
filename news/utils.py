@@ -144,7 +144,7 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
             par1 = remove_special_characters(
                 htmltag_text(article['content'], 'p').pop())
         except Exception:
-            par1 = "summary unavailable"
+            par1 = 'Summary not available'
 
         article['par1'] = par1
 
