@@ -1,9 +1,70 @@
 from stears.utils import mongo_calls
+from abc import ABCMeta, abstractmethod
 from lxml import html
 
 import stears.params as params
 import htmlentitydefs
 import re
+
+
+class StearsPage(object):
+    """
+    A page on the Stears website.
+    Attributes:
+    """
+
+    __metaclass__ = ABCMeta
+
+    @abstractmethod
+    def is_ready(self):
+        return False
+
+
+class Article(object):
+    """
+     An article object to create articles with
+    """
+
+    def __init__(self, headline, content, writer, category, article_id):
+        self.headline = headline
+        self.content = content
+        self.writer = writer
+        self.category = category
+        self.article_id = article_id
+
+
+class HomePage(StearsPage):
+
+    def __init__(self, *args, **kwargs):
+        super(HomePage, self).__init__()
+        self.main_feature = kwargs.get('main_feature', None)
+        self.market_snapshot = kwargs.get('market_snapshot', None)
+        self.daily_column = kwargs.get('daily_column', None)
+        self.secondary = kwargs.get('secondary', None)
+        self.tertiaries = kwargs.get('tertiaries', None)
+        self.quote = kwargs.get('quote', None)
+
+    def is_ready(self):
+        return not self.vacancies()
+
+    def vacancies(self):
+        vacancies = []
+        for key, value in self.__dict__.items():
+            if value is None:
+                vacancies = vacancies + [key]
+        return vacancies
+
+
+class BusinessPage(StearsPage):
+
+    def __init__(self, *args, **kwargs):
+        super(BusinessPage, self).__init__()
+        self.main_feature = kwargs.get('main_feature', None)
+        self.features = kwargs.get('features', None)
+        self.sector = kwargs.get('sector', None)
+
+    def is_ready(self):
+        return False
 
 
 def htmltag_text(html_string, tag):
