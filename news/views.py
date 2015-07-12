@@ -1,9 +1,7 @@
 from django.shortcuts import render
-from stears.permissions import approved_writer
 from stears.utils import mongo_calls
 from stears.models import ReportModel
 from django.http import HttpRequest
-from django.contrib.auth.decorators import user_passes_test
 from utils import htmltag_text, remove_special_characters
 
 import datetime
@@ -18,7 +16,7 @@ def article(request, pk):
             article = articles.find_one(
                 {'article_id': pk},
                 {'headline': 1, 'category': 1, 'writer': 1,
-                 'keywords': 1, 'content': 1})
+                 'keywords': 1, 'content': 1, 'photo': 1})
 
             aUri = HttpRequest.build_absolute_uri(request)
             context = {'article': article, 'aUri': aUri}
