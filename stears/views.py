@@ -867,6 +867,11 @@ def allocator(request):
     pages = list(onsite.find({'page': {'$exists': True}}))
     report_form = ReportForm()
     economic_data_form = EconomicDataForm()
+    quote_form = NewQuoteForm()
+
+    reports = ReportModel.objects.all()
+    sectors = params.sectors.values()
+    cats = params.article_categories.values()
 
     articles = list(pipeline.find({
                     '$query': {'type': 'writers_article',
@@ -874,31 +879,28 @@ def allocator(request):
                     '$orderby': {'time': -1}},
         {'headline': 1, '_id': 0, 'article_id': 1, 'category': 1}))
 
-    context = {}
-    for item in pages:
-        item.pop('_id')
-        page = item.pop('page')
-        context[page] = item
+    context = {item.pop('page'): item for item in pages}
 
-    cats = params.article_categories.values()
-    groups = {}
-    for cat in cats:
-        groups[cat] = []
+    groups = {cat: [] for cat in cats}
     for article in articles:
         groups[article['category']] = groups.get(
             article['category'], []) + [article]
 
-    context['cats'] = groups
-    context['reports'] = ReportModel.objects.all()
-    context['quote_form'] = NewQuoteForm()
-    context['sectors'] = params.sectors.values()
-    context['report_form'] = report_form
-    context['economic_data_form'] = economic_data_form
-    context['columns'] = params.columns  # Needs to reflect actual columns ...
-    context['writers_columns'] = {
-        writer['username']: writer['column'] for writer in writers.find(
-            {}, {'column': 1, 'username': 1}) if writer.get('column')}
 
+    daily_column = context['home']['daily_column']
+    column_list = [None]*7
+
+    w = [{'title': writer['column'], 'writer': writer['username']}
+         for writer in writers.find({},
+         {'column': 1, 'username': 1}) if writer.get('column')]
+
+    context2 = {'cats': groups, 'reports': reports, 'columns': params.columns,
+                'sectors': sectors, 'economic_data_form': economic_data_form,
+                'report_form': report_form, 'writers_columns': writers_columns,
+                'quote_form': quote_form}
+
+    context = dict(context, **context2)
+    # Columns need to reflect actual columns ...
     return render(request, 'stears/allocator2.html', context)
 
 
