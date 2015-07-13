@@ -139,13 +139,13 @@ def summarize(article):
     try:
         text = htmltag_text(article['content'], 'p')
         for par in text:
-            if len(par) > 50:
+            if len(par) > 200:
                 par1 = par
         if not par1:
             par1 = max(text, key=lambda x: len(x))
         par1 = remove_special_characters(par1)
     except Exception:
-        par1 = 'Summary not available'
+        par1 = 'Summary unavailable'
     return par1
 
 
