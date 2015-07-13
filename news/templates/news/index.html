@@ -81,7 +81,7 @@
             <div class="article-category">{{ tertiaries.0.category|pretty_category }}</div>
             <h3>{{ tertiaries.0.headline }}</h3>
             <div class="article-author">{{ tertiaries.0.writer|format_name:'long' }}</div>
-            <p class="all-text-article-p">{{ tertiaries.0.summary|truncatechars:200 }}</p>
+            <p class="all-text-article-p">{{ tertiaries.0.par1|truncatechars:90 }}</p>
           </a>
           {% endif %}
         </div>
@@ -191,7 +191,7 @@
               <h3>{{ tertiaries.0.headline }}</h3>
               <div class="article-author">{{ tertiaries.0.writer|format_name:'long' }}</div>
             </div>
-            <p class="all-text-article-p">{{ tertiaries.0.summary|truncatechars:'200' }}</p>
+            <p class="all-text-article-p">{{ tertiaries.0.par1|truncatechars:90 }}</p>
           </a>
           {% endif %}
         </div>
