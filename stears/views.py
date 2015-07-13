@@ -863,7 +863,6 @@ def allocator(request):
     onsite = mongo_calls('onsite')
     pipeline = mongo_calls('migrations')
     writers = mongo_calls('user')
-    pages = list(onsite.find({'page': {'$exists': True}}))
     report_form = ReportForm()
     economic_data_form = EconomicDataForm()
     quote_form = NewQuoteForm()
@@ -872,34 +871,38 @@ def allocator(request):
     sectors = params.sectors.values()
     cats = params.article_categories.values()
 
+    columns = []
+    pages = list(onsite.find({'page': {'$exists': True}}))
     articles = list(pipeline.find({
                     '$query': {'type': 'writers_article',
                     'state': 'site_ready'},
                     '$orderby': {'time': -1}},
         {'headline': 1, '_id': 0, 'article_id': 1, 'category': 1}))
 
-    context = {item.pop('page'): item for item in pages}
+    try:
+        context = {item.pop('page'): item for item in pages}
+        groups = {cat: [] for cat in cats}
+        for article in articles:
+            groups[article['category']] = groups.get(
+                article['category'], []) + [article]
 
-    groups = {cat: [] for cat in cats}
-    for article in articles:
-        groups[article['category']] = groups.get(
-            article['category'], []) + [article]
+        daily_column = context['home']['daily_column']
+        wcolumns = {writer['username']: writer['column']
+                    for writer in writers.find({},
+                    {'column': 1, 'username': 1}) if writer.get('column')}
+        for index, day in enumerate(params.columns):
+            writer = daily_column.get(str(index))
+            columns = columns + [{'day': day, 'writer': writer,
+                                 'title': wcolumns.get(writer)}]
 
+        context2 = {'cats': groups, 'reports': reports, 'columns': columns,
+                    'sectors': sectors, 'economic_data_form': economic_data_form,
+                    'report_form': report_form, 'writers_columns': wcolumns,
+                    'quote_form': quote_form}
 
-    daily_column = context['home']['daily_column']
-    column_list = [None]*7
-
-    w = [{'title': writer['column'], 'writer': writer['username']}
-         for writer in writers.find({},
-         {'column': 1, 'username': 1}) if writer.get('column')]
-
-    context2 = {'cats': groups, 'reports': reports, 'columns': params.columns,
-                'sectors': sectors, 'economic_data_form': economic_data_form,
-                'report_form': report_form, 'writers_columns': writers_columns,
-                'quote_form': quote_form}
-
-    context = dict(context, **context2)
-    # Columns need to reflect actual columns ...
+        context = dict(context, **context2)
+    except Exception as e:
+        context = {'error': e}
     return render(request, 'stears/allocator2.html', context)
 
 
