@@ -2,7 +2,7 @@ from django.shortcuts import render
 from stears.utils import mongo_calls
 from stears.models import ReportModel
 from django.http import HttpRequest
-from utils import htmltag_text, remove_special_characters
+from utils import htmltag_text, remove_special_characters, summarize
 
 import datetime
 
@@ -84,9 +84,7 @@ def index(request):
                 writers = mongo_calls('user')
                 writer = writers.find_one({'username': col_writer})
                 todays_column['column_title'] = writer.get('column', '')
-                #
-                dc_summary = htmltag_text(todays_column['content'], 'p')
-                dc_summary = remove_special_characters(dc_summary.pop())
+                dc_summary = summarize(todays_column)
                 context['daily_column_summary'] = dc_summary
                 context['column'] = todays_column
         except Exception:

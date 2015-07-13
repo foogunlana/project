@@ -134,22 +134,30 @@ def remove_special_characters(mystring):
     return mystring.encode('utf-8')
 
 
+def summarize(article):
+    par1 = ''
+    try:
+        text = htmltag_text(article['content'], 'p')
+        for par in text:
+            if len(par) > 50:
+                par1 = par
+        if not par1:
+            par1 = max(text, key=lambda x: len(x))
+        par1 = remove_special_characters(par1)
+    except Exception:
+        par1 = 'Summary not available'
+    return par1
+
+
 def put_article_on_page(page, section, article_id, sector=None, number=None):
     articles = mongo_calls('migrations')
     onsite = mongo_calls('onsite')
     article = articles.find_one({'article_id': article_id})
 
     if not article.get('summary', None):
-        try:
-            text = htmltag_text(article['content'], 'p')
-            for par in text:
-                if len(par) > 50:
-                    par1 = par
-            par1 = remove_special_characters(par1)
-        except Exception:
-            par1 = 'Summary not available'
-
-        article['par1'] = par1
+        article['par1'] = summarize(article)
+    else:
+        article['par1'] = article.get('summary')
 
     if sector:
         find_doc = {'page': page, 'sector': sector}
