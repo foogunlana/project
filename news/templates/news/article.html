@@ -1,6 +1,12 @@
 {% extends 'news/news_base.html' %}
 {% load stears_tags %}
 
+{% block special_links %}
+{% ifequal sUri 'http://www.stearsng.com' %}
+{% include 'news/ganalytics.html' %}
+{% endifequal %}
+{% endblock %}
+
 {% block title %}{{ article.headline }}{% endblock %}
 {% block body %}
   <body>

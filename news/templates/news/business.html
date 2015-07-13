@@ -1,7 +1,13 @@
 {% extends 'news/news_base.html' %}
 {% load stears_tags %}
 
-{% block title %}Stears{% endblock %}
+{% block special_links %}
+{% ifequal sUri 'http://www.stearsng.com' %}
+{% include 'news/ganalytics.html' %}
+{% endifequal %}
+{% endblock %}
+
+{% block title %}Stears Business & Economy{% endblock %}
 
 {% block body %}
 <head>

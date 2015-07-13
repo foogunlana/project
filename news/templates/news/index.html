@@ -1,7 +1,15 @@
 {% extends 'news/news_base.html' %}
 {% load stears_tags %}
-{% block title %}Stears{% endblock %}
+
+{% block special_links %}
+{% ifequal sUri 'http://www.stearsng.com' %}
+{% include 'news/ganalytics.html' %}
+{% endifequal %}
+{% endblock %}
+
+{% block title %}Stears Home{% endblock %}
 {% block body %}
+{{ sUri }}
   <body class="w-clearfix">
     {% include 'news/news_nav.html' %}
     <div class="w-hidden-main w-hidden-medium w-clearfix mobile-homepage">
