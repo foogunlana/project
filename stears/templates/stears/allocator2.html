@@ -73,7 +73,7 @@
 							<br>
 							<ul data-page="home">
 								{% for column in columns %}
-								<li class="section fill day" data-title="daily_column" data-num="{{ forloop.counter|add:'-1' }}" style="">{{ column.day }}{% if column.writer %} -> {{ column.title }} by {{ column.writer|format_name:'long' }}{% endif %}</li>
+								<li class="section fill day" data-title="daily_column" data-num="{{ forloop.counter|add:'-1' }}" style="">{{ column.day }} -> {% if column.writer %}{{ column.title }} by {{ column.writer|format_name:'long' }}{% else %} None{% endif %}</li>
 								{% endfor %}
 								<select style="width:90%;display:inline-block;" name="" id="select_column" style="" data-url="{% url 'weal:select_column' %}" >
 								<option value="None"> Choose Columns </option>
