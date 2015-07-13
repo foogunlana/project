@@ -240,6 +240,10 @@
   width:100%;
 }
 
+.placeholder_select{
+  display: none;
+}
+
 .post-block{
   background-color: white;
 }
