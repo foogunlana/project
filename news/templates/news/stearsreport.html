@@ -26,45 +26,43 @@
       {% for report in reports reversed%}
         {% if report.industry %}
         <div class="w-clearfix stearsreport-post industry-report">
-          <a class="w-clearfix w-inline-block pdf-link-block" href="{{ sUri }}{{ report.pdf.url }}" target="_blank">
+          <div class="w-clearfix w-inline-block pdf-link-block nest-anchor">
             <div class="stearsreport-post-text">
               <div class="industry-report-label">Industry Report</div>
-              <h2 class="stearsreport-h2">{{ report.title }}</h2>
+              <h2 class="stearsreport-h2"><a href="{{ sUri }}{{ report.pdf.url }}" class="target-anchor inall" target="_blank">{{ report.title }}</a></h2>
               <div class="stearsreport-byline">{{ report.summary }}</div>
             </div>
-          </a>
+          </div>
           <div class="stearsreport-misc industry-options">
-            <a class="w-inline-block view-link-block" href="{{ sUri }}{{ report.pdf.url }}" target="_blank">
+            <div class="w-inline-block view-link-block nest-anchor">
               <div class="w-clearfix view-report-segment"><img class="view-report" src="/static/images/iconmonstr-eye-7-icon.svg" width="30">
-                <div class="view-report-text">View Report</div>
+                <div class="view-report-text"><a href="{{ sUri }}{{ report.pdf.url }}" target="_blank" class="target-anchor inall"></a>View Report</div>
               </div>
-            </a>
+            </div>
             <a class="w-inline-block download-link-block" href="{{ sUri }}{{ report.pdf.url }}" download>
               <div class="w-clearfix download-link">
-                <div class="download-report-text">Download
-                  <br>Report</div><img class="download-report" src="/static/images/iconmonstr-download-8-icon.svg" width="30">
+                <div class="download-report-text">Download <br>Report</div><img class="download-report" src="/static/images/iconmonstr-download-8-icon.svg" width="30">
               </div>
             </a>
           </div>
         </div>
         {% else %}
         <div class="w-clearfix stearsreport-post">
-          <a class="w-clearfix w-inline-block pdf-link-block" href="{{ sUri }}{{ report.pdf.url }}" target="_blank">
+          <div class="w-clearfix w-inline-block pdf-link-block nest-anchor">
             <div class="stearsreport-post-text">
               <div class="industry-report-label">Weekly Report</div>
-              <h2 class="stearsreport-h2">Stears Report – {{ report.time_title }}</h2>
+              <h2 class="stearsreport-h2"><a href="{{ sUri }}{{ report.pdf.url }}" class="target-anchor inall" target="_blank">Stears Report – {{ report.time_title }}</a></h2>
             </div>
-          </a>
+          </div>
           <div class="stearsreport-misc">
-            <a class="w-inline-block view-link-block" href="{{ sUri }}{{ report.pdf.url }}" target="_blank">
+            <div class="w-inline-block view-link-block nest-anchor">
               <div class="w-clearfix view-report-segment"><img class="view-report" src="/static/images/iconmonstr-eye-7-icon.svg" width="30">
-                <div class="view-report-text">View Report</div>
+                <div class="view-report-text"><a href="{{ sUri }}{{ report.pdf.url }}" class="target-anchor inall" target="_blank">View Report</a></div>
               </div>
-            </a>
+            </div>
             <a class="w-inline-block download-link-block" href="{{ sUri }}{{ report.pdf.url }}" download>
               <div class="w-clearfix download-link">
-                <div class="download-report-text">Download
-                  <br>Report</div><img class="download-report" src="/static/images/iconmonstr-download-8-icon.svg" width="30">
+                <div class="download-report-text">Download<br>Report</div><img class="download-report" src="/static/images/iconmonstr-download-8-icon.svg" width="30">
               </div>
             </a>
           </div>
