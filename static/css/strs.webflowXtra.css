@@ -322,6 +322,16 @@ h3, h4, .business-h3, .daily-column-h2{
 
 .inall{
   all:inherit;
+  font: inherit;
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.inall:hover{
+  all:inherit;
+  font: inherit;
+  color: inherit;
+  text-decoration: inherit;
 }
 
 .mobile-news-tab, .mobile-news-tab.w--current {
