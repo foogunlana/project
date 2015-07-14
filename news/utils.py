@@ -120,12 +120,6 @@ def locate(article_id):
     return locations
 
 
-def htmltag_text(html_string, tag):
-    tree = html.fromstring(html_string)
-    paragraphs = list(reversed(tree.xpath("//p/text()")))
-    return paragraphs
-
-
 def remove_special_characters(mystring):
     mystring = re.sub(
         '&([^;]+);',
@@ -135,18 +129,12 @@ def remove_special_characters(mystring):
 
 
 def summarize(article):
-    par1 = ''
     try:
-        text = htmltag_text(article['content'], 'p')
-        for par in text:
-            if len(par) > 200:
-                par1 = par
-        if not par1:
-            par1 = max(text, key=lambda x: len(x))
-        par1 = remove_special_characters(par1)
+        tree = html.fromstring(article['content'])
+        text = remove_special_characters(tree.text_content())
     except Exception:
-        par1 = 'Summary unavailable'
-    return par1
+        return 'Summary unavailable'
+    return text[:200]
 
 
 def put_article_on_page(page, section, article_id, sector=None, number=None):

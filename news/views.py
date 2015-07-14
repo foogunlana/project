@@ -2,7 +2,7 @@ from django.shortcuts import render
 from stears.utils import mongo_calls
 from stears.models import ReportModel
 from django.http import HttpRequest
-from utils import htmltag_text, remove_special_characters, summarize
+from utils import summarize
 
 import datetime
 
@@ -32,12 +32,8 @@ def business(request, sector):
         try:
             onsite = mongo_calls('onsite')
             context = onsite.find_one({'page': 'b_e', 'sector': sector})
-            if context:
-                if context.get('main_feature'):
-                    main_feature = context['main_feature']
-                    bmf_summary = htmltag_text(main_feature['content'], 'p')
-                    bmf_summary = remove_special_characters(bmf_summary.pop())
-                    context['bmf_summary'] = bmf_summary
+            if context and context.get('main_feature'):
+                context['bmf_summary'] = summarize(context['main_feature'])
             else:
                 context = {}
         except Exception:
