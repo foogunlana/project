@@ -14,7 +14,7 @@
         </div>
         <nav class="w-nav-menu nav-content" role="navigation">
           <a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:index' %}">Home</a>
-          <a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:business' 'stearsBusiness' %}">Business &amp; Economy</a>
+          <a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Business &amp; Economy</a>
           <a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:reports' %}">Market Reports</a>
         </nav>
       </div>
@@ -28,12 +28,11 @@
         </a>
         <nav class="w-nav-menu w-clearfix mobile-nav-menu" role="navigation">
           <a class="w-nav-link mobile-nav-link" href="{{ sUri }}{% url 'news:index' %}">Home</a>
-          <a class="w-nav-link mobile-nav-link b_e_nav" href="{{ sUri }}{% url 'news:business' 'stearsBusiness' %}">Business &amp; Economy</a>
+          <a class="w-nav-link mobile-nav-link b_e_nav" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Business &amp; Economy</a>
           <a class="w-nav-link mobile-nav-link" href="{{ sUri }}{% url 'news:reports' %}">Market Reports</a>
         </nav>
         <div class="w-nav-button mobile-menu-button">
           <div class="w-icon-nav-menu hamburger-icon"></div>
-          <!-- <div class="nav-title">Menu</div> -->
         </div>
       </div>
     </div>
