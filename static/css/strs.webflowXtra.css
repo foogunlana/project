@@ -532,6 +532,10 @@ th{
     width: 53%;
   }
 
+  .secondary-header-and-author{
+      max-height: 220px;
+    }
+
   .business-h3{
     font-size: 20px;
     line-height: 20px;
