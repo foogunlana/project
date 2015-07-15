@@ -17,8 +17,8 @@ def article(request, pk):
                 {'article_id': pk},
                 {'headline': 1, 'category': 1, 'writer': 1,
                  'keywords': 1, 'content': 1, 'photo': 1})
-
             aUri = HttpRequest.build_absolute_uri(request)
+            article['par1'] = summarize(article)
             context = {'article': article, 'aUri': aUri}
         except Exception:
             pass

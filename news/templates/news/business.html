@@ -7,7 +7,11 @@
 {% endifequal %}
 {% endblock %}
 
-{% block title %}Business & Economy | Stears{% endblock %}
+{% block meta %}
+<meta name="description" content="Stears provides insight and opinion on Nigerian business, economic and financial news, including data and analysis."/>
+{% endblock %}
+
+{% block title %}{{ sector|pretty_category }} | Stears{% endblock %}
 
 {% block body %}
 <head>

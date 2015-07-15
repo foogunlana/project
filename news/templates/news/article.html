@@ -7,9 +7,14 @@
 {% endifequal %}
 {% endblock %}
 
+{% block meta %}
+<meta name="description" content="{{ article.par1|truncatechars:'150' }}"/>
+{% endblock %}
+
 {% block title %}{{ article.headline }} | Stears{% endblock %}
 {% block body %}
   <body>
+    {{ article.par1|truncatechars:'60' }}
     {% include 'news/news_nav.html' %}
     <div class="article-container">
       <h1 class="article-header">{{ article.headline }}</h1>
