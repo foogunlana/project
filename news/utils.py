@@ -120,6 +120,14 @@ def locate(article_id):
     return locations
 
 
+def htmltag_text(html_string):
+    tree = html.fromstring(html_string)
+    paragraphs = list(tree.xpath("//p/text()"))
+    if not paragraphs:
+        paragraphs = list(tree.xpath("//span/text()"))
+    return reversed(paragraphs)
+
+
 def remove_special_characters(mystring):
     mystring = re.sub(
         '&([^;]+);',
@@ -129,6 +137,18 @@ def remove_special_characters(mystring):
 
 
 def summarize(article):
+    try:
+        paragraphs = htmltag_text(article['content'])
+        for p in paragraphs:
+            if len(p) > 200:
+                summary = p
+        summary = remove_special_characters(summary)
+    except Exception:
+        summary = summarize2(article)
+    return summary
+
+
+def summarize2(article):
     try:
         tree = html.fromstring(article['content'])
         text = remove_special_characters(tree.text_content())
