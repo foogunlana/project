@@ -414,7 +414,8 @@ def site_ready(article):
     photo = p.replace('/media/', '')
     results = ArticleImageModel.objects.filter(docfile=photo).count()
     if not results:
-        # Photo does not exist in the database. Maybe deleted? Use change photo!
+        # Photo does not exist in the database.
+        # Maybe deleted? Use change photo!
         return False
 
     if not len(article.get('keywords', [])):
@@ -436,14 +437,14 @@ def migrate_article(article_id):
     try:
         article['state'] = 'site_ready'
         article['time'] = time.time()
-        migrations.insert(article)
-        if article_id:
-            articles.remove({'article_id': article_id})
+        migrations.update({'article_id': article_id}, article, upsert=True)
+        articles.remove({'article_id': article_id})
     except Exception:
         raise Exception
 
 
 def retract(pk):
+    pk = int(pk)
     m = mongo_calls('migrations')
     a = mongo_calls('articles')
     article = m.find_one({'article_id': pk})
@@ -451,8 +452,7 @@ def retract(pk):
     if article and article.get('state') == 'site_ready':
         try:
             article['state'] = 'submitted'
-            a.insert(article)
-            m.remove({'article_id': pk})
+            a.update({'article_id': pk}, article, upsert=True)
         except Exception:
             raise Exception
     return True
