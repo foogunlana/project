@@ -435,6 +435,7 @@ def migrate_article(article_id):
 
     try:
         article['state'] = 'site_ready'
+        article['time'] = time.time()
         migrations.insert(article)
         if article_id:
             articles.remove({'article_id': article_id})
