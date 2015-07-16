@@ -52,7 +52,7 @@
           <div class="featured-post-author">{{ main_feature.writer|format_name:'long' }}</div>
           <h2><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' main_feature.article_id %}">{{ main_feature.headline }}</a></h2>
           <div class="featured-post-category">{{ main_feature.category|pretty_category }}</div>
-          <p class="w-hidden-small w-hidden-tiny featured-post-p">{{ bmf_summary|truncatechars:200 }}...</p>
+          <p class="w-hidden-small w-hidden-tiny featured-post-p">{{ bmf_summary|truncatechars:200 }}</p>
         </div>
       </div>
       {% endif %}

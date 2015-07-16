@@ -50,7 +50,7 @@
             </div>
             <div class="w-col w-col-7 daily-column-widget-text">
               <h3>{{ column.headline }}</h3>
-              <p>{{ daily_column_summary|truncatechars:'200' }}...</p>
+              <p>{{ daily_column_summary|truncatechars:'200' }}</p>
             </div>
           </div>
         {% endif %}
@@ -138,7 +138,7 @@
                 </div>
                 <div class="w-col w-col-7 daily-column-widget-text">
                   <h4><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' column.article_id %}">{{ column.headline }}</a></h4>
-                  <p>{{ daily_column_summary|truncatechars:'200' }}...</p>
+                  <p>{{ daily_column_summary|truncatechars:'200' }}</p>
                 </div>
               </div>
             </div>
