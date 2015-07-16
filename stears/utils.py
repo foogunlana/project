@@ -261,7 +261,6 @@ def make_writers_article(form, username):
     headline = form.cleaned_data['headline']
     content = form.cleaned_data['content']
     category = form.cleaned_data.get('categories', "Other")
-    category = "%s%s" % ('stears', category.replace(' ', '_'))
     article = {
         'nse_article_id': nse_article_id,
         'headline': headline,

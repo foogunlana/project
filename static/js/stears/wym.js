@@ -107,7 +107,7 @@ $(document).ready(function() {
                 }
             }
         }
-
+        $('button.wym_submit_button[type="submit"]').hide();
         $.ajax({
             type: "post",
             data: {
@@ -128,6 +128,7 @@ $(document).ready(function() {
                         $('.wym_html_val').val(msg.article);
                         $('#ajax_article_content').html(msg.article);
                         $('#hidden_article_form').hide();
+                        $('button.wym_submit_button[type="submit"]').show();
                     }else{
                         var keys = Object.keys(msg.errors);
                         message = '';
