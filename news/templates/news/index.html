@@ -18,8 +18,16 @@
     <div class="w-hidden-main w-hidden-medium w-clearfix mobile-homepage">
       {% if main_feature %}
         <div class="w-inline-block article-link-block link-block-main nest-anchor">
-          <div class="w-section main-article featured-image-container">
-            <img class="featured-image" src="{{ main_feature.photo }}" alt="">
+          <div class="w-hidden-tiny w-section main-article featured-image-container">
+            <img class="featured-image" src="{{ main_feature.photoset.photomfm }}" alt="">
+            <div class="w-section main-article-content">
+              <div class="main-article-category">{{ main_feature.category|pretty_category }}</div>
+              <h1 class="main-article-h1"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' main_feature.article_id %}">{{ main_feature.headline }}</a></h1>
+              <div class="article-author">{{ main_feature.writer|format_name:'long' }}</div>
+            </div>
+          </div>
+          <div class="w-hidden-small w-section main-article featured-image-container">
+            <img class="featured-image" src="{{ main_feature.photoset.photomfm }}" alt="">
             <div class="w-section main-article-content">
               <div class="main-article-category">{{ main_feature.category|pretty_category }}</div>
               <h1 class="main-article-h1"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' main_feature.article_id %}">{{ main_feature.headline }}</a></h1>
@@ -54,11 +62,11 @@
             </div>
           </div>
         {% endif %}
-        <a class="w-clearfix w-inline-block article-link-block widget-link-block-2" href="{{ sUri }}{% url 'news:reports' %}">
+        <a class="w-clearfix article-link-block widget-link-block-2" href="{{ sUri }}{% url 'news:reports' %}">
           <div class="w-clearfix stearsreport-widget">
             <div class="stearsreport-widget-logo">
-              <h3 class="daily-column-h2 stearsreport-widget-h4">Stears</h3>
-              <h3 class="stearsreport-report">Report</h3>
+              <h3 class="daily-column-h2 stearsreport-widget-h4">Stears
+                <font class="stearsreport-report">Report</font></h3>
             </div>
           </div>
         </a>
@@ -143,11 +151,11 @@
               </div>
             </div>
           {% endif %}
-          <a class="w-clearfix w-inline-block article-link-block widget-link-block" href="{{ sUri }}{% url 'news:reports' %}">
+          <a class="w-clearfix article-link-block widget-link-block" href="{{ sUri }}{% url 'news:reports' %}">
             <div class="w-clearfix stearsreport-widget">
               <div class="stearsreport-widget-logo">
-                <h3 class="daily-column-h2 stearsreport-widget-h4">Stears</h3>
-                <h3 class="stearsreport-report">Report</h3>
+                <h3 class="daily-column-h2 stearsreport-widget-h4">Stears
+                  <font class="stearsreport-report">Report</font></h3>
               </div>
               <h4 class="w-hidden-medium w-hidden-small w-hidden-tiny stearsreport-widget-h3">Market Report - {{ report.date }}</h4>
               <div class="w-hidden-medium w-hidden-small w-hidden-tiny stearsreport-widget-text">By {{ report.author|format_name:'long' }}</div>
@@ -157,7 +165,7 @@
         {% if main_feature %}
           <div class="w-clearfix w-inline-block article-link-block link-block-main nest-anchor">
             <div class="w-hidden-small w-hidden-tiny main-article featured-image-container">
-              <img class="featured-image" src="{{ main_feature.photo }}" alt="">
+              <img class="featured-image" src="{{ main_feature.photoset.photomf }}" alt="">
               <div class="w-section main-article-content">
                 <h1 class="main-article-h1"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' main_feature.article_id %}">{{ main_feature.headline }}</a></h1>
                 <div class="article-author">{{ main_feature.writer|format_name:'long' }}</div>

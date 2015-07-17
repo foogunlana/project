@@ -405,22 +405,18 @@ def revive_from_trash(pk):
 
 
 def site_ready(article):
-    p = article.get('photo', None)
-    if not p:
+    p = article.get('photo', '')
+    if not (p and len(article.get('keywords', []))):
         # Photo has not yet been assigned
-        return False
-
-    photo = p.replace('/media/', '')
-    results = ArticleImageModel.objects.filter(docfile=photo).count()
-    if not results:
-        # Photo does not exist in the database.
-        # Maybe deleted? Use change photo!
-        return False
-
-    if not len(article.get('keywords', [])):
         # No tags
         return False
 
+    link = p.replace('/media/', '')
+    photo = ArticleImageModel.objects.filter(docfile=link)
+    if not photo.count():
+        # Photo does not exist in the database.
+        # Maybe deleted? Use change photo!
+        return False
     return True
 
 

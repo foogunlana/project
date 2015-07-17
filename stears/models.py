@@ -1,4 +1,6 @@
 from django.db import models
+from imagekit.processors import SmartResize, ResizeToFill
+from imagekit.models import ImageSpecField
 
 
 class ArticleImageModel(models.Model):
@@ -6,6 +8,14 @@ class ArticleImageModel(models.Model):
     title = models.CharField(max_length=50, default='')
     description = models.CharField(max_length=100, default='')
     source = models.URLField(max_length=100, default='')
+    picker = ImageSpecField(
+        source='docfile', processors=[SmartResize(200, 117)], format='png')
+    feature = ImageSpecField(
+        source='docfile', processors=[SmartResize(414, 242)], format='png')
+    main_feature = ImageSpecField(
+        source='docfile', processors=[ResizeToFill(800, 468)], format='png')
+    main_feature_mobile = feature = ImageSpecField(
+        source='docfile', processors=[SmartResize(736, 380)], format='JPEG')
 
 
 class ProfileImageModel(models.Model):

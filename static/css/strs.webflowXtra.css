@@ -224,8 +224,6 @@
   min-width: 640px;
   min-height: 350px;
   z-index:-1;
-  position:relative;
-
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#45484d+1,2b2b2b+100&amp;0.01+50,1+99 */ 
 }
 
@@ -517,6 +515,7 @@ th{
 
     .stearsreport-widget{
       height:120px;
+      width: 100%;
       padding-top: 40px;      
     }
 
@@ -554,6 +553,23 @@ th{
     height: 120px;
   }
 
+  .stearsreport-widget{
+    padding-top: 0px;
+  }
+
+  .stearsreport-widget-logo {
+    padding: 0px;
+  }
+
+  .daily-column-h2.stearsreport-widget-h4{
+    height: 100%;
+    width:100%;
+    display: block;
+    text-align: center;
+    line-height: 8;
+  }
+
+
 }
 
 
@@ -561,6 +577,26 @@ th{
   .article-header{
     font-size: 25px;
     line-height: 30px;
+  }
+
+  .stearsreport-widget{
+    padding-top: 0px;
+  }
+
+  .stearsreport-widget-logo {
+    padding: 0px;
+  }
+
+  .daily-column-h2.stearsreport-widget-h4{
+    height: 100%;
+    width:100%;
+    display: block;
+    text-align: center;
+    line-height: 4;
+  }
+
+  .featured-image{
+    margin-left:-75px;
   }
 
   .stearsreport-description h4{

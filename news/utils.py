@@ -1,6 +1,7 @@
 from stears.utils import mongo_calls
 from abc import ABCMeta, abstractmethod
 from lxml import html
+from stears.models import ArticleImageModel
 
 import stears.params as params
 import htmlentitydefs
@@ -157,6 +158,15 @@ def summarize2(article):
     return text[:200]
 
 
+def photoset(link):
+    photo = ArticleImageModel.objects.get(docfile=link)
+    print photo.__dict__, link
+    photoset = {'photop': photo.picker.url, 'photof': photo.feature.url,
+                'photomfm': photo.main_feature_mobile.url,
+                'photomf': photo.main_feature.url}
+    return photoset
+
+
 def put_article_on_page(page, section, article_id, sector=None, number=None):
     articles = mongo_calls('migrations')
     onsite = mongo_calls('onsite')
@@ -167,6 +177,8 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
     else:
         article['par1'] = article.get('summary')
 
+    link = article.get('photo', '').replace('/media/', '')
+    article['photoset'] = photoset(link)
     if sector:
         find_doc = {'page': page, 'sector': sector}
     else:
