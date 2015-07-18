@@ -4,6 +4,7 @@ from lxml import html
 from stears.models import ArticleImageModel
 
 import stears.params as params
+import time
 import htmlentitydefs
 import re
 
@@ -168,6 +169,7 @@ def photoset(link):
 
 
 def put_article_on_page(page, section, article_id, sector=None, number=None):
+    article_id = int(article_id)
     articles = mongo_calls('migrations')
     onsite = mongo_calls('onsite')
     article = articles.find_one({'article_id': article_id})
@@ -192,6 +194,8 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
         onsite.update(find_doc,
                       {'$set': {'active': True, section: article}},
                       upsert=True)
+    articles.update({'article_id': article_id},
+                    {'$set': {'posted': time.time()}})
 
 
 def reset_page(page):
