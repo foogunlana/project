@@ -11,7 +11,7 @@
 				</form>
 			{% else %}
 				<a {% ifequal article.state 'site_ready' %}href="{% url 'weal:preview' pk=article.article_id %}"{% else %}href="{% url 'weal:article_detail' pk=article.article_id %}"{% endifequal %}  >
-					<font {% ifequal article.category 'stearsTutorial' %}style="color:#6CBC36;"{% endifequal %}>{{ article.headline }}</font>
+					<font class="cat1_{{ article.category }} {% if article.posted %}cat2_used{% endif %}">{{ article.headline }}</font>
 				</a>
 			{% endif %}
 		</div>
@@ -30,7 +30,7 @@
 		</div>
 		<div class="columns small-6">
 			<strong>
-			{{ article.state|format_name:"long" }}
+			{{ article.state|format_name:"long" }}{% if article.posted %}<font class="cat2_used">( Used )</font>{% endif %}
 			</strong>
 		</div>
 	</div>
