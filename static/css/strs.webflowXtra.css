@@ -563,6 +563,11 @@ th{
     line-height: 30px;
   }
 
+  .featured-image{
+    margin-left:-75px;
+  }
+
+
   .stearsreport-description h4{
     width: 90%;
   }
