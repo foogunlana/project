@@ -279,9 +279,6 @@ def make_writers_article(form, username):
 
 
 def stears_italics(content):
-    content = content.replace(
-        'stears', '<font class="hidden-s">S</font>').replace(
-            'Stears', '<font class="hidden-s">S</font>')
     return content
 
 
