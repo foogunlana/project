@@ -26,6 +26,13 @@
 					<option value="stearsOther">Others</option>
 				</select>
 			</td>
+			<td>
+				<select class="article_button_sorter" {% if pipeline %}{% else %}hidden{% endif %}>
+					<option value="all">Used & Unused</option>
+					<option value="used">Used</option>
+					<option value="unused">Unused</option>
+				</select>
+			</td>
 		</tr>
 	</div>
 </div>

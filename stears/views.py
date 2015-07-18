@@ -717,9 +717,9 @@ def pipeline(request):
         migrations = mongo_calls('migrations')
         articles = list(migrations.find(
             {'$query': {}, '$orderby': {'time': -1}},
-            params.article_button_items))
+            dict(params.article_button_items, posted=1)))
 
-    context = {'articles': articles, 'nostates': True}
+    context = {'articles': articles, 'nostates': True, 'pipeline': True}
     return render(request, 'stears/pipeline.html', context)
 
 
