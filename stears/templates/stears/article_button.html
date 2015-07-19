@@ -30,7 +30,7 @@
 		</div>
 		<div class="columns small-6">
 			<strong>
-			{{ article.state|format_name:"long" }}<font class="cat2_{{ article.onsite }}">{% if pipeline %}( {{ article.onsite }} ){% endif %}</font>
+			{{ article.state|format_name:"long" }}<a href="#" class="cat2_{{ article.onsite }} onsite_filter" data-filter="{{ article.onsite }}">{% if pipeline %}( {{ article.onsite }} ){% endif %}</a>
 			</strong>
 		</div>
 	</div>

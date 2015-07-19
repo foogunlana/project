@@ -5,7 +5,7 @@
 	<div class="columns small-12 medium-4" style="padding:0px;">
 		<tr>
 			<td >
-				<select class="article_button_sorter" {% if nostates %}hidden{% endif %}>
+				<select class="article_button_sorter" id="state_sorter" {% if nostates %}hidden{% endif %}>
 					<option value="all">All States</option>
 					<option value="in_progress">In Progress</option>
 					<option value="submitted">Submitted</option>
@@ -13,7 +13,7 @@
 				</select>
 			</td>
 			<td>
-				<select class="article_button_sorter" {% if nocategories %}hidden{% endif %}>
+				<select class="article_button_sorter" id="category_sorter" {% if nocategories %}hidden{% endif %}>
 					<option value="all">All Categories</option>
 					<option value="stearsBusiness">Business</option>
 					<option value="stearsColumn">Columns</option>
@@ -25,7 +25,7 @@
 				</select>
 			</td>
 			<td>
-				<select class="article_button_sorter" {% if pipeline %}{% else %}hidden{% endif %}>
+				<select class="article_button_sorter" id="onsite_sorter" {% if pipeline %}{% else %}hidden{% endif %}>
 					<option value="all">On Site, Used & Unused</option>
 					<option value="now">Now On Site</option>
 					<option value="used">Used</option>
