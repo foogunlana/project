@@ -26,6 +26,14 @@ body{
   color: #f05042;
 }
 
+.cat2_now{
+  color: #551A8B;
+}
+
+.cat2_unused{
+  color: #008cba;
+}
+
 .cancel_button{
   background-color:#FF4747;
 }
