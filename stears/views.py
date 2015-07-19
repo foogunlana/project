@@ -20,7 +20,7 @@ from stears.utils import article_key_words, revive_from_trash, add_writers,\
     new_member, retract, \
     make_new_quote, edit_writer_registration_details
 
-from news.utils import put_article_on_page
+from news.utils import put_article_on_page, articles_on_site
 
 from stears.permissions import approved_writer, is_a_boss, \
     writer_can_edit_article
@@ -715,9 +715,13 @@ def remove_writer_from_article(request):
 def pipeline(request):
     if request.method == 'GET':
         migrations = mongo_calls('migrations')
-        articles = list(migrations.find(
+        p_articles = migrations.find(
             {'$query': {}, '$orderby': {'time': -1}},
-            dict(params.article_button_items, posted=1)))
+            dict(params.article_button_items, posted=1))
+        aos = articles_on_site(lambda x: x['article_id'])
+        onsite = lambda x: 'now' if x[
+            'article_id'] in aos else 'used' if x.get('posted') else 'unused'
+        articles = [dict(a, onsite=onsite(a)) for a in p_articles]
 
     context = {'articles': articles, 'nostates': True, 'pipeline': True}
     return render(request, 'stears/pipeline.html', context)
