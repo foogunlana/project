@@ -363,6 +363,7 @@ def writers_write(request):
 def writer_detail(request, name):
     users = mongo_calls('user')
     article_collection = mongo_calls('articles')
+    pipeline = mongo_calls('migrations')
     writer = users.find_one({'username': name})
     context = {}
 
@@ -387,12 +388,14 @@ def writer_detail(request, name):
 
     if request.method == 'GET':
         writers_article_form = WritersArticleForm()
-
+        pipeline = list(pipeline.find({
+            "$query": {'writer': name},
+            "$orderby": {"time": -1}}, params.article_button_items))
         articles = list(article_collection.find({
             "$query": {'writer': name},
             "$orderby": {"time": -1}}, params.article_button_items))
 
-        context = {'writer': writer, 'articles': articles,
+        context = {'writer': writer, 'articles': articles + pipeline,
                    'edit_writer_form': edit_writer_form,
                    'writers_article_form': writers_article_form}
     return render(request, 'stears/writer_detail.html', context)
