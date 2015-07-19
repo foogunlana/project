@@ -161,7 +161,6 @@ def summarize2(article):
 
 def photoset(link):
     photo = ArticleImageModel.objects.get(docfile=link)
-    print photo.__dict__, link
     photoset = {'photop': photo.picker.url, 'photof': photo.feature.url,
                 'photomfm': photo.main_feature_mobile.url,
                 'photomf': photo.main_feature.url}

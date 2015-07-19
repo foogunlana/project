@@ -11,10 +11,10 @@ class ArticleImageModel(models.Model):
     picker = ImageSpecField(
         source='docfile', processors=[SmartResize(200, 117)], format='JPEG')
     feature = ImageSpecField(
-        source='docfile', processors=[SmartResize(414, 242)], format='JPEG')
+        source='docfile', processors=[ResizeToFill(414, 242)], format='JPEG')
     main_feature = ImageSpecField(
         source='docfile', processors=[ResizeToFill(800, 468)], format='JPEG')
-    main_feature_mobile = feature = ImageSpecField(
+    main_feature_mobile = ImageSpecField(
         source='docfile', processors=[SmartResize(736, 380)], format='JPEG')
 
 
