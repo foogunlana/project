@@ -9,11 +9,11 @@ class ArticleImageModel(models.Model):
     description = models.CharField(max_length=100, default='')
     source = models.URLField(max_length=100, default='')
     picker = ImageSpecField(
-        source='docfile', processors=[SmartResize(200, 117)], format='png')
+        source='docfile', processors=[SmartResize(200, 117)], format='JPEG')
     feature = ImageSpecField(
-        source='docfile', processors=[SmartResize(414, 242)], format='png')
+        source='docfile', processors=[SmartResize(414, 242)], format='JPEG')
     main_feature = ImageSpecField(
-        source='docfile', processors=[ResizeToFill(800, 468)], format='png')
+        source='docfile', processors=[ResizeToFill(800, 468)], format='JPEG')
     main_feature_mobile = feature = ImageSpecField(
         source='docfile', processors=[SmartResize(736, 380)], format='JPEG')
 
