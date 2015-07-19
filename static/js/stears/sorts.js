@@ -22,4 +22,10 @@ $( document ).ready(function() {
 			}
 		});
 	});
+
+	$('.onsite_filter').click(function(event) {
+		event.preventDefault();
+		var filter = $(this).data('filter');
+		$('#onsite_sorter').val(filter).change();
+	});
 });
