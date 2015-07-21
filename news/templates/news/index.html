@@ -19,7 +19,7 @@
       {% if main_feature %}
         <div class="w-inline-block article-link-block link-block-main nest-anchor">
           <div class="w-hidden-tiny w-section main-article featured-image-container">
-            <img class="featured-image" src="{{ main_feature.photoset.photomfm }}" alt="">
+            <img class="featured-image" src="{{ main_feature.photo }}" alt="">
             <div class="w-section main-article-content">
               <div class="main-article-category">{{ main_feature.category|pretty_category }}</div>
               <h1 class="main-article-h1"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' main_feature.article_id %}">{{ main_feature.headline }}</a></h1>
@@ -27,7 +27,7 @@
             </div>
           </div>
           <div class="w-hidden-small w-section main-article featured-image-container">
-            <img class="featured-image" src="{{ main_feature.photoset.photomfm }}" alt="">
+            <img class="featured-image" src="{{ main_feature.photo }}" alt="">
             <div class="w-section main-article-content">
               <div class="main-article-category">{{ main_feature.category|pretty_category }}</div>
               <h1 class="main-article-h1"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' main_feature.article_id %}">{{ main_feature.headline }}</a></h1>
@@ -84,7 +84,7 @@
                 </div>
               </div>
               <div class="w-col w-col-7 w-col-medium-6 secondary-article-img">
-                <img class="secondary-photo" src="{{ secondary.photoset.photof }}" alt="">
+                <img class="secondary-photo" src="{{ secondary.photo }}" alt="">
               </div>
             </div>
           </div>
@@ -165,7 +165,7 @@
         {% if main_feature %}
           <div class="w-clearfix w-inline-block article-link-block link-block-main nest-anchor">
             <div class="w-hidden-small w-hidden-tiny main-article featured-image-container">
-              <img class="featured-image" src="{{ main_feature.photoset.photomf }}" alt="">
+              <img class="featured-image" src="{{ main_feature.photo }}" alt="">
               <div class="w-section main-article-content">
                 <h1 class="main-article-h1"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' main_feature.article_id %}">{{ main_feature.headline }}</a></h1>
                 <div class="article-author">{{ main_feature.writer|format_name:'long' }}</div>
@@ -191,7 +191,7 @@
                   </div>
                 </div>
                 <div class="w-col w-col-7 w-col-stack secondary-article-img">
-                  <img class="secondary-photo" src="{{ secondary.photoset.photof }}" alt="">
+                  <img class="secondary-photo" src="{{ secondary.photo }}" alt="">
                 </div>
               </div>
             </div>
@@ -255,7 +255,7 @@
                     <p class="post-summary">{{ feature.par1|truncatechars:90 }}</p>
                   </div>
                   <div class="w-section article-thumbnail">
-                    <img class="stears-thumbnail" src="{{ feature.photoset.photof }}" alt="">
+                    <img class="stears-thumbnail" src="{{ feature.photo }}" alt="">
                   </div>
                 </div>
               {% endif %}
@@ -273,7 +273,7 @@
                     <p class="post-summary">{{ feature.par1|truncatechars:90 }}</p>
                   </div>
                   <div class="w-section article-thumbnail">
-                    <img class="stears-thumbnail" src="{{ feature.photoset.photof }}" alt="">
+                    <img class="stears-thumbnail" src="{{ feature.photo }}" alt="">
                   </div>
                 </div>
               {% endif %}
