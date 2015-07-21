@@ -2,11 +2,18 @@ from stears.utils import mongo_calls
 from abc import ABCMeta, abstractmethod
 from lxml import html
 from stears.models import ArticleImageModel
+from django.core.cache import cache
 
 import stears.params as params
 import time
 import htmlentitydefs
 import re
+
+
+def expire_page(page, sector=None):
+    identifier = 'newscache:{}{}'.format(
+        page, sector if sector else '')
+    cache.delete(identifier)
 
 
 class StearsPage(object):
@@ -180,6 +187,7 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
 
     link = article.get('photo', '').replace('/media/', '')
     article['photoset'] = photoset(link)
+
     if sector:
         find_doc = {'page': page, 'sector': sector}
     else:
@@ -196,6 +204,13 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
     articles.update({'article_id': article_id},
                     {'$set': {'posted': time.time()}})
 
+    pcs = {'home': 'index', 'b_e': 'business'}
+    try:
+        expire_page(page=pcs[page], sector=sector)
+    except Exception as e:
+        print e
+        print "page could not be expired"
+
 
 def reset_page(page):
     onsite = mongo_calls('onsite')
@@ -211,6 +226,7 @@ def reset_page(page):
             {'page': 'home', 'features': [], 'tertiaries': [],
              'daily_column': {}, 'active': True},
             upsert=True)
+
 
 
 def obj_dict_recursive(obj):
