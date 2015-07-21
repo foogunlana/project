@@ -11,6 +11,14 @@
   <meta name="copyright" content="Copyright © 2015. Stears Partnership. All rights reserved">
 
   {% block meta %}{% endblock %}
+
+  {% compress js %}
+  {% block special_links %}{% endblock %}
+  <script type="text/javascript" src="/static/js/typekit.js"></script>
+  <script type="text/javascript" async>
+    try{Typekit.load();}catch(e){}
+  </script>
+  {% endcompress %}
   
   {% load compress %}
   {% compress css %}
@@ -22,13 +30,6 @@
 
   <link rel="shortcut icon" type="/static/images/x-icon" href="/static/images/StearsFavicon.png">
 
-  {% compress js %}
-  {% block special_links %}{% endblock %}
-  <script type="text/javascript" src="/static/js/typekit.js"></script>
-  <script type="text/javascript" async>
-    try{Typekit.load();}catch(e){}
-  </script>
-  {% endcompress %}
 </head>
 
 {% block body %}{% endblock %}
