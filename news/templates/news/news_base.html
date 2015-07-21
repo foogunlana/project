@@ -11,7 +11,8 @@
   <meta name="copyright" content="Copyright © 2015. Stears Partnership. All rights reserved">
 
   {% block meta %}{% endblock %}
-
+  {% load compress %}
+  
   {% compress js %}
   {% block special_links %}{% endblock %}
   <script type="text/javascript" src="/static/js/typekit.js"></script>
@@ -20,7 +21,6 @@
   </script>
   {% endcompress %}
   
-  {% load compress %}
   {% compress css %}
   <link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
   <link rel="stylesheet" type="text/css" href="/static/css/webflow.css">
