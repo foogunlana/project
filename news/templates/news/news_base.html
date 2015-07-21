@@ -12,10 +12,13 @@
 
   {% block meta %}{% endblock %}
   
+  {% load compress %}
+  {% compress css %}
   <link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
   <link rel="stylesheet" type="text/css" href="/static/css/webflow.css">
   <link rel="stylesheet" type="text/css" href="/static/css/strs2.webflow.css">
   <link rel="stylesheet" type="text/css" href="/static/css/strs.webflowXtra.css">
+  {% endcompress %}
 
   <link rel="shortcut icon" type="/static/images/x-icon" href="/static/images/StearsFavicon.png">
   {% block special_links %}{% endblock %}
