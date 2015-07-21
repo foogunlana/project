@@ -499,7 +499,7 @@ class KeyWordsForm(forms.Form):
         tag_doc = collection.find_one(
             {'type': 'tags'}, {'keywords': 1, '_id': 0})
         if tag_doc:
-            tags = ['None'] + tag_doc.get('keywords', [])
+            tags = ['None'] + sorted(tag_doc.get('keywords', []))
         else:
             tags = ['None']
 
