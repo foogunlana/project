@@ -21,15 +21,20 @@
   {% endcompress %}
 
   <link rel="shortcut icon" type="/static/images/x-icon" href="/static/images/StearsFavicon.png">
+
+  {% compress js %}
   {% block special_links %}{% endblock %}
   <script type="text/javascript" src="/static/js/typekit.js"></script>
   <script type="text/javascript" async>
     try{Typekit.load();}catch(e){}
   </script>
+  {% endcompress %}
 </head>
 
 {% block body %}{% endblock %}
 
+{% compress js inline %}
 <script type="text/javascript" src="/static/js/web-mod-jqu.min.js"></script>
 <script src="/static/js/news/news.js"></script>
+{% endcompress %}
 </html>
