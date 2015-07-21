@@ -3,10 +3,12 @@ from stears.utils import mongo_calls
 from stears.models import ReportModel
 from django.http import HttpRequest
 from utils import summarize
+from django.views.decorators.cache import cache_page
 
 import datetime
 
 
+@cache_page(60*60*2)
 def article(request, pk):
     pk = int(pk)
     context = {}
@@ -22,6 +24,7 @@ def article(request, pk):
             context = {'article': article, 'aUri': aUri}
         except Exception:
             pass
+
     context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
     return render(request, 'news/article.html', context)
 
@@ -60,6 +63,7 @@ def reports(request):
     return render(request, 'news/stearsreport.html', context)
 
 
+@cache_page(60*60*2)
 def index(request):
     context = {}
     if request.method == 'GET':
