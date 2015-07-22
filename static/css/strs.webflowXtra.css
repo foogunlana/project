@@ -492,7 +492,7 @@ th{
   font-weight: bold;
 }
 
-@media (min-width: 768px) and (max-width: 991px){
+@media (min-width: 768px) and (max-width: 990px){
   .top-story{
     width: 49.5%;
     display: inline-block;
