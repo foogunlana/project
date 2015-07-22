@@ -13,7 +13,13 @@
   {% block meta %}{% endblock %}
   {% load compress %}
   
+  {% compress js %}
   {% block special_links %}{% endblock %}
+  <script type="text/javascript" src="/static/js/typekit.js"></script>
+  <script type="text/javascript" async>
+    try{Typekit.load();}catch(e){}
+  </script>
+  {% endcompress %}
   
   {% compress css %}
   <link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
@@ -21,20 +27,15 @@
   <link rel="stylesheet" type="text/css" href="/static/css/strs2.webflow.css">
   <link rel="stylesheet" type="text/css" href="/static/css/strs.webflowXtra.css">
   {% endcompress %}
+
   <link rel="shortcut icon" type="/static/images/x-icon" href="/static/images/StearsFavicon.png">
 
 </head>
 
 {% block body %}{% endblock %}
 
-{% compress js %}
-  <script type="text/javascript" src="/static/js/typekit.js"></script>
-  <script type="text/javascript" src="/static/js/web-mod-jqu.min.js"></script>
-{% endcompress %}
-{% compress js inline %}
-  <script type="text/javascript" async>
-    try{Typekit.load();}catch(e){}
-  </script>
-  <script src="/static/js/news/news.js"></script>
-{% endcompress %}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/webflow.js"></script>
+<script type="text/javascript" src="/static/js/modernizr.js"></script>
+<script src="/static/js/news/news.js"></script>
 </html>
