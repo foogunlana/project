@@ -3,6 +3,7 @@ from stears.utils import mongo_calls
 from stears.models import ReportModel
 from django.http import HttpRequest
 from utils import summarize
+from django.core.cache import cache
 
 import datetime
 
@@ -22,11 +23,16 @@ def article(request, pk):
             context = {'article': article, 'aUri': aUri}
         except Exception:
             pass
+
     context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
     return render(request, 'news/article.html', context)
 
 
 def business(request, sector):
+    cache_name = 'newscache:{}{}'.format('business', sector)
+    cached_index = cache.get(cache_name, None)
+    if cached_index:
+        return render(request, 'news/business.html', cached_index)
     context = {}
     if request.method == 'GET':
         try:
@@ -39,6 +45,7 @@ def business(request, sector):
         except Exception:
             pass
     context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
+    cache.set(cache_name, context, 60*60*24)
     return render(request, 'news/business.html', context)
 
 
@@ -61,7 +68,10 @@ def reports(request):
 
 
 def index(request):
-    context = {}
+    cache_name = 'newscache:index'
+    cached_index = cache.get(cache_name, None)
+    if cached_index:
+        return render(request, 'news/index.html', cached_index)
     if request.method == 'GET':
         onsite = mongo_calls('onsite')
         articles = mongo_calls('migrations')
@@ -86,4 +96,5 @@ def index(request):
         except Exception:
             pass
     context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
+    cache.set(cache_name, context, 60*60*1)
     return render(request, 'news/index.html', context)
