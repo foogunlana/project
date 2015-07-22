@@ -566,17 +566,18 @@ th{
     }
 
     .article-container{
-      width: 63%;
+      width: 60%;
       max-width: 1100px;
       margin-left: 0px;
-      margin-right: 2%;
+      margin-right: 0%;
       display: inline-block;
       vertical-align: top;
     }
 
     .article-extras-container{
       display: inline-block;
-      width: 30%;
+      width: 35%;
+      margin-left: 4%;
       vertical-align: top;
       max-width: 720px;
     }
