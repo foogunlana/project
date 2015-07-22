@@ -15,53 +15,100 @@
 {% block body %}
   <body>
     {% include 'news/news_nav.html' %}
-    <div class="article-container">
-      <h1 class="article-header">{{ article.headline }}</h1>
-      <div class="w-section article-image">
-        <div class="article-author">Written by <font class="author-name">{{ article.writer|format_name:'long' }}</font></div>
-        <br>
-        <img src="{{ article.photo }}" class="article-page-image" alt="{{ article.headline }}">
-      </div>
-      <div class="w-section w-clearfix article-content">
-        <div class="w-clearfix article-detail">
-          <div class="article-author article-page">{{ article.author }}</div>
-          <div class="article-category article-page">{{ article.category|pretty_category }}</div>
-          <div class="share-article">
+    <div class="article-page-container">
+      <div class="article-container">
+        <h1 class="article-header">{{ article.headline }}</h1>
+        <div class="w-section article-image">
+          <div class="article-author">Written by <font class="author-name">{{ article.writer|format_name:'long' }}</font></div>
+          <br>
+          <img src="{{ article.photo }}" class="article-page-image" alt="{{ article.headline }}">
+        </div>
+        <div class="w-section w-clearfix article-content">
+          <div class="w-clearfix article-detail">
+            <div class="article-author article-page">{{ article.author }}</div>
+            <div class="article-category article-page">{{ article.category|pretty_category }}</div>
+            <div class="share-article">
+              {% include 'news/share_article.html' %}
+            </div>
+          </div>
+          <div class="article-paragraph">
+            {% autoescape off %}
+              {{ article.content }}
+            {% endautoescape %}
+          </div>
+          <div class="tags-block">
+            {% for tag in article.keywords %}
+              <div class="article_tag tag_{{ tag }}">
+                {{ tag }}
+              </div>
+            {% endfor %}
+          </div>
+          <br>
+          <div class="article-author article-bottom">Written by <font class="author-name">{{ article.writer|format_name:'long' }}</font></div>
+          <br>
+          <br>
+          <div class="share-article article-bottom">
             {% include 'news/share_article.html' %}
           </div>
+          <div class="copyright">
+            <p><strong>Copyright © STEARS 2015</strong>   All rights reserved. This material, and other digital content on this website, may not be reproduced, published, broadcast, rewritten or redistributed in whole or in part without digital reference to <em>STEARS</em>.</p>
+          </div>
         </div>
-        <div class="article-paragraph">
-          {% autoescape off %}
-            {{ article.content }}
-          {% endautoescape %}
-        </div>
-        <div class="tags-block">
-          {% for tag in article.keywords %}
-            <div class="article_tag tag_{{ tag }}">
-              {{ tag }}
+      </div>
+      <div class="article-extras-container">
+        <div class="top-stories-container">
+          <div class="top-stories-header">
+            <h3>
+              Stears Top Picks
+            </h3>
+          </div>
+          <div class="gif-loader" id="top-gif-loader">
+            <img src="/static/images/ajax-loader.gif" alt="">
+          </div>
+          <div class="top-stories-body">
+            <div class="top-story" id="example_main_feature">
+              <h4 class="top-story-headline">
+                <a href=''></a>
+              </h4>
+              <div class="top-story-body">
+                <div class="top-story-summary">
+                  
+                </div>
+              </div>
             </div>
-          {% endfor %}
+          </div>
         </div>
-        <br>
-        <div class="article-author article-bottom">Written by <font class="author-name">{{ article.writer|format_name:'long' }}</font></div>
-        <br>
-        <br>
-        <div class="share-article article-bottom">
-          {% include 'news/share_article.html' %}
-        </div>
-        <div class="copyright">
-          <p><strong>Copyright © STEARS 2015</strong>   All rights reserved. This material, and other digital content on this website, may not be reproduced, published, broadcast, rewritten or redistributed in whole or in part without digital reference to <em>STEARS</em>.</p>
+
+        <div class="sfeatures-container">
+          <div class="features-header">
+            <h3>
+              Features
+            </h3>
+          </div>
+          <div class="gif-loader" id="features-gif-loader">
+            <img src="/static/images/ajax-loader.gif" alt="">
+          </div>
+          <div class="features-body">
+            <div class="feature" id="example_feature">
+              <div class="sfeature-photo">
+                <img src="" alt="">
+              </div>
+              <div class="feature-body">
+                <h4 class="feature-headline">
+                  <a href=''></a>
+                </h4>
+                <div class="feature-summary">
+                  
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     {% include 'news/footer.html' %}
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript" src="/static/js/webflow.js"></script>
-    <script>
-    $(document).ready(function(){
-    $($('.article-paragraph').find('a')).attr('target', '_blank');
-    $('.article-paragraph').find('.hidden-s').html('<em>Stears</em>');
-    });
-    </script>
+    <script type="text/javascript" src="/static/js/news/article.js"></script>
   </body>
 {% endblock %}

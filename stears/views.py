@@ -769,7 +769,7 @@ def preview_prearticle(request, pk):
              'writers': 1, 'photo': 1, 'keywords': 1, 'category': 1})
 
     context = {'article': article, 'writers': article.get('writers', {})}
-    return render(request, 'news/article.html', context)
+    return render(request, 'stears/preview_article.html', context)
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
