@@ -72,6 +72,7 @@ def index(request):
     cached_index = cache.get(cache_name, None)
     if cached_index:
         return render(request, 'news/index.html', cached_index)
+    context = {}
     if request.method == 'GET':
         onsite = mongo_calls('onsite')
         articles = mongo_calls('migrations')

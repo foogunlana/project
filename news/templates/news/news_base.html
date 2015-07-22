@@ -28,16 +28,15 @@
 {% block body %}{% endblock %}
 
 {% compress js %}
-  <script type="text/javascript" src="/static/js/typekit.js"></script>
-  <script type="text/javascript" src="/static/js/jquery1-11-1.min.js"></script>
-{% endcompress %}
-{% compress js inline %}
-  <script type="text/javascript" async>
-    try{Typekit.load();}catch(e){}
-  </script>
-  <script src="/static/js/news/news.js"></script>
-{% endcompress %}
-
+<script type="text/javascript" src="/static/js/typekit.js"></script>
+<script type="text/javascript" async>
+  try{Typekit.load();}catch(e){}
+</script>
+<script type="text/javascript" src="/static/js/jquery1-11-1.min.js"></script>
 <script type="text/javascript" src="/static/js/webflow.js"></script>
 <script type="text/javascript" src="/static/js/modernizr.js"></script>
+{% endcompress %}
+{% compress js inline %}
+<script src="/static/js/news/news.js"></script>
+{% endcompress %}
 </html>

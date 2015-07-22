@@ -1,8 +1,8 @@
 
 $(document).ready(function(){
   $($('.article-paragraph').find('a')).attr('target', '_blank');
-    $('.article-paragraph').find('.hidden-s').html('<em>Stears</em>');
-    });
+  $('.article-paragraph').find('.hidden-s').html('<em>Stears</em>');
+
   $('#Sub-Category').change(function(event){
     window.open($('#Sub-Category').val(), '_self');
   });
@@ -17,4 +17,5 @@ $(document).ready(function(){
     }
     window.open($(this).find('.target-anchor').attr('href'), target);
   });
+
 });
