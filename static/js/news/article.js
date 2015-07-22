@@ -132,7 +132,7 @@ $(document).ready(function(){
 				if(((scrollTop + element.outerHeight()) < stop)){
 					element.stop(false, false).animate({
 						top: scrollTop < originalY ? 0: scrollTop - originalY
-					}, 400);
+					}, 500);
 				}
 			} else {
 			// upscroll code
@@ -141,7 +141,7 @@ $(document).ready(function(){
 				if(((st + element.outerHeight()) < stop)){
 					element.stop(false, false).animate({
 						top: st < originalY ? 0: st - originalY
-					}, 400);
+					}, 500);
 				}
 			}
 			lastScrollTop = st;
