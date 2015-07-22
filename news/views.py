@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from stears.utils import mongo_calls
 from stears.models import ReportModel
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from utils import summarize
 
 import datetime
+import json
 
 
 def article(request, pk):
@@ -87,3 +88,36 @@ def index(request):
             pass
     context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
     return render(request, 'news/index.html', context)
+
+
+def main_features(request):
+    responseData = {}
+    if request.method == 'GET':
+        onsite = mongo_calls('onsite')
+        try:
+            r = onsite.aggregate([{
+                "$group": {"_id": {'headline': "$main_feature.headline",
+                           'article_id': "$main_feature.article_id",
+                           'par1': '$main_feature.par1',
+                           'photo': '$main_feature.photo'}}}])
+            responseData['articles'] = map(
+                lambda x: x['_id'] if x['_id'] else None, r['result'])
+            responseData['success'] = True
+        except Exception:
+            responseData['success'] = False
+    return HttpResponse(json.dumps(responseData))
+
+
+def features(request):
+    responseData = {}
+    if request.method == 'GET':
+        o = mongo_calls('onsite')
+        try:
+            for a in o.find_one({'page': 'home'}, {'features': 1})['features']:
+                responseData['articles'] = responseData.get('articles', []) + [{
+                    'headline': a['headline'], 'par1': a['par1'],
+                    'photo': a['photo'], 'article_id': a['article_id']}]
+            responseData['success'] = True
+        except Exception:
+            responseData['success'] = False
+    return HttpResponse(json.dumps(responseData))

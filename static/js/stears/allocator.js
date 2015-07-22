@@ -184,9 +184,7 @@ $(document).ready(function(){
         success: function(responseData, textStatus, jqXHR) {
             msg = JSON.parse(responseData);
             if(msg.success){
-				pk = msg.pk;
-				alert('Deleted');
-				$('.report_option_' + pk).remove();
+				alert(msg.articles);
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
