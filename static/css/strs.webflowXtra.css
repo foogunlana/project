@@ -551,6 +551,10 @@ th{
       padding-bottom: 10px;
     }
 
+    .feature{
+      padding-bottom: 0px;
+    }
+
     .main-container, .features-container, .secondary-container, .nav-container, .footer-container, .be-container, .companies-row-1{
       width:85%;
       max-width: 1100px;
