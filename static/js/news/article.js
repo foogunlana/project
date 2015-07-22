@@ -1,5 +1,5 @@
 var get_main_features = function(){
-	$('.gif-loader').show();
+	$('#top-gif-loader').show();
 	$.ajax({
 	url : '/articles/mfeatures/',
     type: "get",
@@ -42,7 +42,7 @@ var get_main_features = function(){
 };
 
 var get_features = function(){
-	$('.gif-loader').show();
+	$('#features-gif-loader').show();
 	$.ajax({
 	url : '/articles/homefeatures/',
     type: "get",
@@ -104,4 +104,48 @@ $(document).ready(function(){
 		var link = $(this).find('a').attr('href');
 		window.open(link, '_self');
    });
+
+   (function($) {
+		if($(window).width() < 991){
+			return false;
+		}
+		var element = $('.follow-scroll'),
+			originalY = element.offset().top + 250;
+
+		// Space between element and top of screen (when scrolling)
+		var topMargin = 0;
+
+		// Stop at end of article content
+		var par = $('.article-paragraph');
+		var stop = par.offset().top + par.outerHeight() - 200;
+
+		// Should probably be set in CSS; but here just for emphasis
+		element.css('position', 'relative');
+		var lastScrollTop = 0;
+		$(window).on('scroll', function(event) {
+			var st = $(window).scrollTop();
+			if (st > lastScrollTop){
+			// downscroll code
+				var scrollTop = st - (element.outerHeight() - $(window).height());
+
+				// if(((scrollTop + element.outerHeight()) < stop) && (Math.abs(scrollTop - element.position().top) > 30)){
+				if(((scrollTop + element.outerHeight()) < stop)){
+					element.stop(false, false).animate({
+						top: scrollTop < originalY ? 0: scrollTop - originalY
+					}, 400);
+				}
+			} else {
+			// upscroll code
+
+				// if(((st + element.outerHeight()) < stop) && (Math.abs(st - element.position().top) > 30)){
+				if(((st + element.outerHeight()) < stop)){
+					element.stop(false, false).animate({
+						top: st < originalY ? 0: st - originalY
+					}, 400);
+				}
+			}
+			lastScrollTop = st;
+		});
+	})(jQuery);
+
 });
