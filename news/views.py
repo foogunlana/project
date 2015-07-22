@@ -96,5 +96,5 @@ def index(request):
         except Exception:
             pass
     context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
-    cache.set(cache_name, context, 60*60*24)
+    cache.set(cache_name, context, 60*60*1)
     return render(request, 'news/index.html', context)
