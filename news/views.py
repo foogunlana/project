@@ -34,6 +34,7 @@ def business(request, sector):
     if cached_index:
         return render(request, 'news/business.html', cached_index)
     context = {}
+    absolute_url = 'http://{}'.format(HttpRequest.get_host(request))
     if request.method == 'GET':
         try:
             onsite = mongo_calls('onsite')
@@ -42,10 +43,11 @@ def business(request, sector):
                 context['bmf_summary'] = summarize(context['main_feature'])
             else:
                 context = {}
+            context['sUri'] = absolute_url
+            cache.set(cache_name, context, 60*60*24)
         except Exception:
+            context['sUri'] = absolute_url
             pass
-    context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
-    cache.set(cache_name, context, 60*60*24)
     return render(request, 'news/business.html', context)
 
 
@@ -61,8 +63,8 @@ def reports(request):
                                     d.strftime('%B %-d, %Y'))
             context['reports'] = reports
             context['page'] = 'reports'
-        except Exception:
-            pass
+        except Exception as e:
+            print e
     context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
     return render(request, 'news/stearsreport.html', context)
 
@@ -70,6 +72,8 @@ def reports(request):
 def index(request):
     cache_name = 'newscache:index'
     cached_index = cache.get(cache_name, None)
+    absolute_url = 'http://{}'.format(HttpRequest.get_host(request))
+
     if cached_index:
         return render(request, 'news/index.html', cached_index)
     context = {}
@@ -94,8 +98,10 @@ def index(request):
                 dc_summary = summarize(todays_column)
                 context['daily_column_summary'] = dc_summary
                 context['column'] = todays_column
-        except Exception:
-            pass
-    context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
-    cache.set(cache_name, context, 60*60*1)
+
+            context['sUri'] = absolute_url
+            cache.set(cache_name, context, 60*60*1)
+        except Exception as e:
+            context['sUri'] = absolute_url
+            print e
     return render(request, 'news/index.html', context)
