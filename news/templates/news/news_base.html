@@ -14,15 +14,18 @@
   {% load compress %}
   
   {% block special_links %}{% endblock %}
-  
   {% compress css %}
   <link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
   <link rel="stylesheet" type="text/css" href="/static/css/webflow.css">
   <link rel="stylesheet" type="text/css" href="/static/css/strs2.webflow.css">
   <link rel="stylesheet" type="text/css" href="/static/css/strs.webflowXtra.css">
   {% endcompress %}
+  <style>
+    h1, h2, h3, h4, h5{
+      visibility: hidden;
+    }
+  </style>
   <link rel="shortcut icon" type="/static/images/x-icon" href="/static/images/StearsFavicon.png">
-
 </head>
 
 {% block body %}{% endblock %}
@@ -36,6 +39,11 @@
 <script type="text/javascript" src="/static/js/webflow.js"></script>
 <script type="text/javascript" src="/static/js/modernizr.js"></script>
 {% endcompress %}
+<style>
+    h1, h2, h3, h4, h5{
+      visibility: visible;
+    }
+</style>
 {% compress js inline %}
 <script src="/static/js/news/news.js"></script>
 {% endcompress %}
