@@ -91,10 +91,10 @@ def index(request):
                                                'state': 'site_ready'},
                                                '$orderby': {'time': -1}})
             if todays_column:
-                # optimize by adding titles to articles
                 writers = mongo_calls('user')
                 writer = writers.find_one({'username': col_writer})
-                todays_column['column_title'] = writer.get('column', '')
+                if writer:
+                    todays_column['column_title'] = writer.get('column', '')
                 dc_summary = summarize(todays_column)
                 context['daily_column_summary'] = dc_summary
                 context['column'] = todays_column
