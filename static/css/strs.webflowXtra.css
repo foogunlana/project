@@ -796,7 +796,10 @@ th{
     line-height: 8;
   }
 
-
+  .article-thumbnail{
+    width: 100%;
+    padding:2%;
+  }
 }
 
 
@@ -835,6 +838,16 @@ th{
   .article-header{
     font-size: 25px;
     line-height: 30px;
+  }
+
+  .post-block{
+    border-bottom: none;
+  }
+
+  .article-thumbnail{
+    width: 100%;
+    padding:2%;
+    overflow: hidden;
   }
 
   .stearsreport-widget{
