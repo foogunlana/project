@@ -46,7 +46,7 @@
       {% if main_feature %}
       <div class="w-clearfix w-inline-block article-link-block featured-link-block nest-anchor">
         <div class="featured-post-image featured-image-container">
-          <img class="featured-image" src="{{ main_feature.photo }}" alt="">
+          <img class="featured-image" src="{% if main_feature.photoset %}{{ main_feature.photoset.photomf }}{% else %}{{ main_feature.photo }}{% endif %}" alt="">
         </div>
         <div class="featured-post-text">
           <div class="featured-post-author">{{ main_feature.writer|format_name:'long' }}</div>
@@ -93,7 +93,7 @@
             <p class="post-summary">{{ feature.par1|truncatechars:90 }}</p>
           </div>
           <div class="w-section article-thumbnail">
-            <img class="stears-thumbnail" src="{{ feature.photo }}" alt="">
+            <img class="stears-thumbnail" src="{% if feature.photoset %}{{ feature.photoset.photof }}{% else %}{{ feature.photo }}{% endif %}" alt="">
           </div>
         </div>
         {% endif %}
@@ -116,8 +116,11 @@
               <div class="post-block-author">{{ feature.writer|format_name:'long' }}</div>
               <p class="post-summary">{{ feature.par1|truncatechars:90 }}</p>
             </div>
-            <div class="w-section article-thumbnail">
-              <img class="stears-thumbnail" src="{{ feature.photo }}" alt="">
+            <div class="w-section article-thumbnail w-hidden-small ">
+              <img class="stears-thumbnail" src="{% if feature.photoset %}{{ feature.photoset.photof }}{% else %}{{ feature.photo }}{% endif %}" alt="">
+            </div>
+            <div class="w-section article-thumbnail w-hidden-main w-hidden-tiny hidden-small">
+              <img class="stears-thumbnail" src="{% if feature.photoset %}{{ feature.photoset.photomfm }}{% else %}{{ feature.photo }}{% endif %}" alt="">
             </div>
           </div>
           {% endif %}
