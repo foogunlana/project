@@ -471,15 +471,16 @@ h3, h4, .business-h3, .daily-column-h2{
 .reports-ad-container{
   background-color: white;
   width: 100%;
-  border-radius: 3px;
-  border: 3px solid #f2f2f2;
+
+  border-top: 9px solid #f05042;
+  border-bottom: 9px solid #f05042;
   margin-bottom: 15%;
   margin-top: 15%;
 }
 
 .reports-ad-header{
-  color: #333;
-  background-color: white;
+  color: white;
+  background-color: #333;
   min-height: 50px;
   padding: 5%;
   width: 100%;
@@ -487,23 +488,19 @@ h3, h4, .business-h3, .daily-column-h2{
 }
 
 .reports-ad-header h3{
-  font-weight: 400;
+  font-weight: lighter;
 }
 
 .reports-ad-body{
   padding: 5%;
-  color: white;
-  background-color: #f05042;
-  opacity: 0.5;
+  color: #333;
+  background-color: white;
 }
 
 .reports-ad-container:hover{
   cursor: pointer;
 }
 
-.reports-ad-container:hover .reports-ad-body{
-  opacity: 1;
-}
 
 .reports-ad-top{
   padding: 5%;
