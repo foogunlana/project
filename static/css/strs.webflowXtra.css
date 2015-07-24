@@ -569,7 +569,10 @@ th{
     line-height: 8;
   }
 
-
+  .article-thumbnail{
+    width: 100%;
+    padding:2%;
+  }
 }
 
 
