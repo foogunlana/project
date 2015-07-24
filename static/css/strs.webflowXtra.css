@@ -479,8 +479,8 @@ h3, h4, .business-h3, .daily-column-h2{
 }
 
 .reports-ad-header{
-  color: white;
-  background-color: #333;
+  color: #333;
+  background-color: white;
   min-height: 50px;
   padding: 5%;
   width: 100%;
@@ -493,8 +493,8 @@ h3, h4, .business-h3, .daily-column-h2{
 
 .reports-ad-body{
   padding: 5%;
-  color: #333;
-  background-color: white;
+  color: white;
+  background-color: #f05042;
 }
 
 .reports-ad-container:hover{
