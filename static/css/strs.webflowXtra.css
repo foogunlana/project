@@ -503,15 +503,23 @@ h3, h4, .business-h3, .daily-column-h2{
 
 .reports-ad-container:hover .reports-ad-body{
   opacity: 1;
-  color: #737373;
-  background-color: white;
 }
 
-.reports-ad-container:hover .reports-ad-header{
-  background-color: #f05042;
-  color: white
+.reports-ad-top{
+  padding: 5%;
+  padding-bottom: 0px;
+  border-top: 9px solid #f05042;
 }
 
+.report-catch{
+  font-weight: 600;
+}
+
+.report-ad-pre{
+  font-size: 120%;
+  font-weight: 400;
+  margin-top: 0px;
+}
 
 .report-ad{
   margin: 0px;
@@ -596,6 +604,9 @@ th{
 
     .top-stories-container, .sfeatures-container{
       margin-bottom: 60px;
+    }
+
+    .sfeatures-container{
       margin-top: 15%;
     }
 
