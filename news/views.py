@@ -113,15 +113,22 @@ def main_features(request):
     if request.method == 'GET':
         onsite = mongo_calls('onsite')
         try:
-            r = onsite.aggregate([{
-                "$group": {"_id": {'headline': "$main_feature.headline",
-                           'article_id': "$main_feature.article_id",
-                           'par1': '$main_feature.par1',
-                           'photo': '$main_feature.photo'}}}])
-            responseData['articles'] = map(
-                lambda x: x['_id'] if x['_id'] else None, r['result'])
+            # r = onsite.aggregate([{
+            #     "$group": {"_id": {'headline': "$main_feature.headline",
+            #                'article_id': "$main_feature.article_id",
+            #                'par1': '$main_feature.par1',
+            #                'photo': '$main_feature.photo'}}}])
+            top_picks = onsite.find_one({'page': 'home'},
+                                        {'main_feature': 1, 'secondary': 1,
+                                         'tertiaries': {'$slice': 1}, '_id': 0})
+            top_picks['tertiaries'] = top_picks['tertiaries'][0]
+            top_picks = [{'headline': a['headline'],
+                          'article_id': a['article_id'],
+                          'par1': a['par1']} for a in top_picks.values()]
+            responseData['articles'] = top_picks
             responseData['success'] = True
-        except Exception:
+        except Exception as e:
+            print e
             responseData['success'] = False
     return HttpResponse(json.dumps(responseData))
 
