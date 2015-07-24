@@ -511,6 +511,11 @@ h3, h4, .business-h3, .daily-column-h2{
   border-top: 9px solid #f05042;
 }
 
+.reports-ad-link{
+  font:inherit;
+  color: inherit;
+}
+
 .report-catch{
   font-weight: 600;
 }
