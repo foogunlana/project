@@ -45,6 +45,14 @@
  font-size: 2em	
 }
 
+.secondary-article{
+  vertical-align: top;
+}
+
+.third-article-section{
+  vertical-align: top;
+}
+
 .all-text-article-p{
   padding-right: 10px;
 }

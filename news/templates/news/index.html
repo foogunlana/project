@@ -71,57 +71,59 @@
           </div>
         </a>
       </div>
-      <div class="w-section secondary-article">
-        {% if secondary %}
-          <div class="w-inline-block article-link-block nest-anchor">
-            <div class="w-row">
-              <div class="w-col w-col-5 w-col-medium-6 secondary-article-text">
-                <div class="secondary-header-and-author">
-                  <div class="article-category">{{ secondary.category|pretty_category }}</div>
-                  <h2 class="secondary-h2"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' secondary.article_id %}">{{ secondary.headline }}</a></h2>
-                  <div class="article-author">{{ secondary.writer|format_name:'long' }}</div>
-                  <p class="post-summary">{{ secondary.par1|truncatechars:90 }}</p>
+      <div class="second-row-container">
+        <div class="w-section secondary-article">
+          {% if secondary %}
+            <div class="w-inline-block article-link-block nest-anchor">
+              <div class="w-row">
+                <div class="w-col w-col-5 w-col-medium-6 secondary-article-text">
+                  <div class="secondary-header-and-author">
+                    <div class="article-category">{{ secondary.category|pretty_category }}</div>
+                    <h2 class="secondary-h2"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' secondary.article_id %}">{{ secondary.headline }}</a></h2>
+                    <div class="article-author">{{ secondary.writer|format_name:'long' }}</div>
+                    <p class="post-summary">{{ secondary.par1|truncatechars:90 }}</p>
+                  </div>
+                </div>
+                <div class="w-col w-col-7 w-col-medium-6 secondary-article-img">
+                  <img class="secondary-photo" src="{% if secondary.photoset %}{{ secondary.photoset.photomfm }}{% else %}{{ secondary.photo }}{% endif %}" alt="">
                 </div>
               </div>
-              <div class="w-col w-col-7 w-col-medium-6 secondary-article-img">
-                <img class="secondary-photo" src="{% if secondary.photoset %}{{ secondary.photoset.photomfm }}{% else %}{{ secondary.photo }}{% endif %}" alt="">
-              </div>
+            </div>
+          {% endif %}
+        </div>
+        <div class="w-section third-article-section">
+          <div class="w-row third-article-segment">
+            <div class="w-col w-col-7 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col1">
+              {% if tertiaries.0 %}
+                <div class="w-inline-block article-link-block all-text-article nest-anchor">
+                  <div class="article-category">{{ tertiaries.0.category|pretty_category }}</div>
+                  <h3><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' tertiaries.0.article_id %}">{{ tertiaries.0.headline }}</a></h3>
+                  <div class="article-author">{{ tertiaries.0.writer|format_name:'long' }}</div>
+                  <p class="all-text-article-p">{{ tertiaries.0.par1|truncatechars:90 }}</p>
+                </div>
+              {% endif %}
+            </div>
+            <div class="w-col w-col-5 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col2">
+              {% if tertiaries.1 %}
+                <div class="w-inline-block article-link-block mini-article-segment nest-anchor">
+                  <div class="article-category mini-article-category">{{ tertiaries.1.category|pretty_category }}</div>
+                  <h4><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' tertiaries.1.article_id %}">{{ tertiaries.1.headline }}</a></h4>
+                  <div class="article-author mini-article-author">{{ tertiaries.1.writer|format_name:'long' }}</div>
+                </div>
+              {% endif %}
+              <div class="w-section mini-segment-horizontal-border"></div>
+              {% if tertiaries.2 %}
+                <div class="w-inline-block article-link-block mini-article-segment nest-anchor">
+                  <div class="article-category mini-article-category">{{ tertiaries.2.category|pretty_category }}</div>
+                  <h4><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' tertiaries.2.article_id %}">{{ tertiaries.2.headline }}</a></h4>
+                  <div class="article-author mini-article-author">{{ tertiaries.2.writer|format_name:'long' }}</div>
+                </div>
+              {% endif %}
             </div>
           </div>
-        {% endif %}
-      </div>
-      <div class="w-section third-article-section">
-        <div class="w-row third-article-segment">
-          <div class="w-col w-col-7 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col1">
-            {% if tertiaries.0 %}
-              <div class="w-inline-block article-link-block all-text-article nest-anchor">
-                <div class="article-category">{{ tertiaries.0.category|pretty_category }}</div>
-                <h3><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' tertiaries.0.article_id %}">{{ tertiaries.0.headline }}</a></h3>
-                <div class="article-author">{{ tertiaries.0.writer|format_name:'long' }}</div>
-                <p class="all-text-article-p">{{ tertiaries.0.par1|truncatechars:90 }}</p>
-              </div>
-            {% endif %}
+          <div class="w-clearfix goodmusicftbigsean">
+            <div class="maybachmusic"></div>
           </div>
-          <div class="w-col w-col-5 w-col-medium-6 w-col-small-6 w-col-tiny-6 third-article-row-col2">
-            {% if tertiaries.1 %}
-              <div class="w-inline-block article-link-block mini-article-segment nest-anchor">
-                <div class="article-category mini-article-category">{{ tertiaries.1.category|pretty_category }}</div>
-                <h4><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' tertiaries.1.article_id %}">{{ tertiaries.1.headline }}</a></h4>
-                <div class="article-author mini-article-author">{{ tertiaries.1.writer|format_name:'long' }}</div>
-              </div>
-            {% endif %}
-            <div class="w-section mini-segment-horizontal-border"></div>
-            {% if tertiaries.2 %}
-              <div class="w-inline-block article-link-block mini-article-segment nest-anchor">
-                <div class="article-category mini-article-category">{{ tertiaries.2.category|pretty_category }}</div>
-                <h4><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' tertiaries.2.article_id %}">{{ tertiaries.2.headline }}</a></h4>
-                <div class="article-author mini-article-author">{{ tertiaries.2.writer|format_name:'long' }}</div>
-              </div>
-            {% endif %}
-          </div>
-        </div>
-        <div class="w-clearfix goodmusicftbigsean">
-          <div class="maybachmusic"></div>
         </div>
       </div>
     </div>
