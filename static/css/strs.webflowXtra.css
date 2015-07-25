@@ -189,6 +189,13 @@
   color: white;
 }
 
+.mobile-nav-link{
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  border-bottom: 1px solid #f2f2f2;
+}
+
 .companies-row-1{
   margin-top:3%;
 }
@@ -361,7 +368,27 @@ h3, h4, .business-h3, .daily-column-h2{
   color: white;
 }
 
+.w-nav-button{
+  padding:15px;
+  padding-top: 0px;
+  padding-left: 25px;
+}
+
 .w-nav-button.w--open{
+  background-color: white;
+}
+
+.w-nav-button-container{
+  padding-top: 18px;
+}
+
+.w-icon-nav-menu{
+  width: 100%;
+  padding: 0px;
+}
+
+.w-nav-button.w--open .w-nav-button-container{
+  padding-top: 18px;
   background-color: #f05042;
 }
 
