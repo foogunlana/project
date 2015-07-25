@@ -68,11 +68,8 @@ var get_features = function(){
 									+ fo.headline + '</a>';
 					f.find('.feature-headline').html(headline);
 					f.find('img').attr('src', fo.photo);
-					if(i === 0){
-						summary.text(fo.par1.slice(0, 150) + '...');
-					}else{
-						summary.text(fo.par1.slice(0, 50) + '...');
-					}	
+					summary.text(fo.par1.slice(0, 50) + '...');
+
 					f.appendTo('.features-body');
 					$('#features-gif-loader').hide();
 				}
