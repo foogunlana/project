@@ -112,7 +112,7 @@
             </h3>
           </div>
           <div class="gif-loader" id="top-gif-loader">
-            <img src="/static/images/ajax-loader.gif" alt="">
+            <!-- <img src="/static/images/ajax-loader.gif" alt=""> -->
           </div>
           <div class="top-stories-body">
             <div class="top-story" id="example_main_feature">
@@ -135,7 +135,7 @@
             </h3>
           </div>
           <div class="gif-loader" id="features-gif-loader">
-            <img src="/static/images/ajax-loader.gif" alt="">
+            <!-- <img src="/static/images/ajax-loader.gif" alt=""> -->
           </div>
           <div class="features-body">
             <div class="feature" id="example_feature">
@@ -156,10 +156,6 @@
       </div>
     </div>
     {% include 'news/footer.html' %}
-  <script type="text/javascript">
-    $.ajaxSetup({
-      data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
-    })</script>
   <script>
   $(document).ready(function(){
     $($('.article-paragraph').find('a')).attr('target', '_blank');
@@ -167,8 +163,9 @@
 
     $('#retract_article_form').submit(function(event){
       event.preventDefault();
-      var formData = {'pk':this.pk.value};
-
+      var formData = {'pk':this.pk.value,
+                      'csrfmiddlewaretoken': '{{ csrf_token }}'};
+      alert(JSON.stringify(formData));
       $.ajax({
         url: $(this).data('url'),
         type: 'post',
@@ -183,7 +180,7 @@
             }
               },
         error: function(jqXHR, textStatus, errorThrown) {
-            alert(errorThrown + 'Please contact tech team');
+            alert(errorThrown + '. Please contact tech team');
         },});
         return false;
       });
@@ -192,6 +189,5 @@
   <script type="text/javascript" src="/static/js/webflow.js"></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script type="text/javascript" src="/static/js/webflow.js"></script>
-  <script type="text/javascript" src="/static/js/news/article.js"></script>
 </body>
 </html>
