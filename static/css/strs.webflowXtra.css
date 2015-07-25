@@ -167,26 +167,7 @@
 
 .nav-content{
   padding: 0px;
-  height: 70px;
-}
-
-.nav-text.w--current{
-  font-weight: 300;
-  color: #f05042;
-}
-
-.nav-text{
-  margin:0px;
-  padding:20px;
-  display: inline-block;
-  height: 100%;
-  line-height: 30px;
-}
-
-.nav-text:hover{
-  background-color: #f05042;
-  text-decoration: none;
-  color: white;
+  height: auto;
 }
 
 .mobile-nav-link{
@@ -363,7 +344,7 @@ h3, h4, .business-h3, .daily-column-h2{
   width: 100%;
 }
 
-.w-nav-link:hover, .w-nav-link.w--current:hover, .w-nav-link:active, .w-nav-link.w--current:active{
+.mobile-nav-link:hover, .mobile-nav-link.w--current:hover, .mobile-nav-link-link:active, .mobile-nav-link.w--current:active{
   background-color: #f05042;
   color: white;
 }
@@ -392,9 +373,69 @@ h3, h4, .business-h3, .daily-column-h2{
   background-color: #f05042;
 }
 
-.w-nav-link.w--current{
-  color: #f05042;
+.nav-text-con{
+  margin:0px;
+  padding:0px;
+  padding-left:5px;
+  padding-right:5px; 
+  display: inline-block;
+  height: 100%;
+  height: auto;
 }
+
+.w-nav-link.nav-text{
+  padding: 20px;
+  padding-left:5px;
+  padding-right:5px;
+  margin: 0px;
+  border-bottom: 1px solid white;
+  font-weight: 300;
+  color: #333;
+  font-size: 14px;
+}
+
+.w-nav-link.nav-text:hover, .w-nav-link.nav-text.hovered{
+  text-decoration: none;
+  background-color: white;
+  border-bottom: 1px solid #f05042;
+}
+
+.business-nav-container{
+  background-color: white;
+  width: 100%;
+  display: inline-block;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.business-nav{
+  width: 85%;
+  height: auto;
+  margin: auto;
+}
+
+.business-nav-links{
+  float: right;
+}
+
+.b-nav-link{
+  padding: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  display: inline-block;
+  height: auto;
+}
+
+.b-nav-text{
+  padding-left: 5px;
+  padding-right: 5px;
+  height:auto;
+  color: #333;
+  font-size: 14px;
+  font-family: 'nimbus-sans', Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-weight: 300;
+  text-decoration: none;
+}
+
 
 .article-header{
   margin-top: 0px;

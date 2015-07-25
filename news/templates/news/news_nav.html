@@ -13,9 +13,9 @@
           </a>
         </div>
         <nav class="w-nav-menu nav-content" role="navigation">
-          <a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:index' %}">Home</a>
-          <a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Business &amp; Economy</a>
-          <a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:reports' %}">Market Reports</a>
+          <div class="nav-text-con"><a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:index' %}">Home</a></div>
+          <div class="nav-text-con"><a class="w-nav-link nav-text" id="b_e_nav" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Business &amp; Economy</a></div>
+          <div class="nav-text-con"><a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:reports' %}">Market Reports</a></div>
         </nav>
       </div>
     </div>
@@ -36,6 +36,21 @@
             <div class="w-icon-nav-menu hamburger-icon"></div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="business-nav-container">
+    <div class="business-nav">
+      <div class="business-nav-links">
+        <div class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsBusiness' %}">
+          Business</a></div>
+        <div class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsGovernance' %}">
+          Governance</a></div>
+        <div class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Macroeconomy</a></div>
+        <div class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsEditorial' %}">
+          Editorial</a></div>
+        <div class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsColumn' %}">
+          Columns</a></div>
       </div>
     </div>
   </div>

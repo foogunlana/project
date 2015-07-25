@@ -18,4 +18,8 @@ $(document).ready(function(){
     window.open($(this).find('.target-anchor').attr('href'), target);
   });
 
+  $('.business-nav-container').hover(function(event){
+    console.log('hover');
+    $('#b_e_nav').toggleClass('hovered');
+  });
 });
