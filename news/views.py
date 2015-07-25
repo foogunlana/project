@@ -108,16 +108,11 @@ def index(request):
     return render(request, 'news/index.html', context)
 
 
-def main_features(request):
+def top_picks(request):
     responseData = {}
     if request.method == 'GET':
         onsite = mongo_calls('onsite')
         try:
-            # r = onsite.aggregate([{
-            #     "$group": {"_id": {'headline': "$main_feature.headline",
-            #                'article_id': "$main_feature.article_id",
-            #                'par1': '$main_feature.par1',
-            #                'photo': '$main_feature.photo'}}}])
             top_picks = onsite.find_one({'page': 'home'},
                                         {'main_feature': 1, 'secondary': 1,
                                          'tertiaries': {'$slice': 1}, '_id': 0})
@@ -128,8 +123,8 @@ def main_features(request):
             responseData['articles'] = top_picks
             responseData['success'] = True
         except Exception as e:
-            print e
             responseData['success'] = False
+            responseData['message'] = e
     return HttpResponse(json.dumps(responseData))
 
 
@@ -144,6 +139,7 @@ def features(request):
                         'headline': a['headline'], 'par1': a['par1'],
                         'photo': a['photo'], 'article_id': a['article_id']}]
             responseData['success'] = True
-        except Exception:
+        except Exception as e:
             responseData['success'] = False
+            responseData['message'] = e
     return HttpResponse(json.dumps(responseData))

@@ -471,11 +471,6 @@ h3, h4, .business-h3, .daily-column-h2{
 .reports-ad-container{
   background-color: white;
   width: 100%;
-
-  border-top: 9px solid #f05042;
-  border-bottom: 9px solid #f05042;
-  margin-bottom: 15%;
-  margin-top: 15%;
 }
 
 .reports-ad-header{
@@ -495,10 +490,16 @@ h3, h4, .business-h3, .daily-column-h2{
   padding: 5%;
   color: white;
   background-color: #f05042;
+  opacity: 0.5;
+  vertical-align:top;
 }
 
 .reports-ad-container:hover{
   cursor: pointer;
+}
+
+.reports-ad-container:hover .reports-ad-body{
+  opacity: 1;
 }
 
 
@@ -506,6 +507,7 @@ h3, h4, .business-h3, .daily-column-h2{
   padding: 5%;
   padding-bottom: 0px;
   border-top: 9px solid #f05042;
+  vertical-align: top;
 }
 
 .reports-ad-link{
@@ -515,12 +517,19 @@ h3, h4, .business-h3, .daily-column-h2{
 
 .report-catch{
   font-weight: 600;
+  font-size: 100%;
+  color: #333;
+  margin: 0px;
+  width: auto;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .report-ad-pre{
   font-size: 120%;
   font-weight: 400;
   margin-top: 0px;
+  display: inline-block;
 }
 
 .report-ad{
@@ -572,6 +581,24 @@ th{
     margin-right: 5%;
     margin-left: 5%;
   }
+
+  .reports-ad-header{
+    display: inline-block;
+    width: 49%;
+    margin-right: 1%;
+    padding: 5%;
+  }
+
+  .reports-ad-header h3{
+    font-size: 400%;
+  }
+
+  .reports-ad-body{
+    display: inline-block;
+    width: 49%;
+    padding: 2%;
+  }
+
 }
 
  @media (min-width: 768px) {
@@ -610,6 +637,11 @@ th{
 
     .sfeatures-container{
       margin-top: 15%;
+    }
+
+    .reports-ad-container{
+        margin-bottom: 15%;
+        margin-top: 15%;
     }
 
     .feature-body{
@@ -746,6 +778,10 @@ th{
    }
  @media (max-width: 767px) and (min-width: 480px){
   
+  .reports-ad-header h3{
+    font-size: 200%;
+  }
+
   .feature{
     width: 49.5%;
     display: inline-block;
@@ -819,7 +855,6 @@ th{
   .features-body{
     margin-right: 5%;
     margin-left: 5%;
-    width: 100%;
   }
 
   .feature-body{

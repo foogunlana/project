@@ -1,7 +1,7 @@
-var get_main_features = function(){
+var get_top_picks = function(){
 	$('#top-gif-loader').show();
 	$.ajax({
-	url : '/articles/mfeatures/',
+	url : '/articles/toppicks/',
     type: "get",
     data: {},
 
@@ -26,16 +26,20 @@ var get_main_features = function(){
 						summary.text(mfo.par1.slice(0, 50) + '...');
 					}	
 					mf.appendTo('.top-stories-body');
-					$('.gif-loader').hide();
+					$('#top-gif-loader').hide();
 				}
 			}
 			$('#example_main_feature').remove();
         }else{
-			alert('Failed');
+			$('#top-gif-loader').hide();
+			$('#example_main_feature').html("No top picks available");
+			console.log(msg.message);
         }
     },
 		error: function(jqXHR, textStatus, errorThrown) {
-			alert(errorThrown);
+			console.log(errorThrown);
+			$('#top-gif-loader').hide();
+			$('#example_main_feature').html("No top picks available");
 		},
 	});
     return false;
@@ -44,7 +48,7 @@ var get_main_features = function(){
 var get_features = function(){
 	$('#features-gif-loader').show();
 	$.ajax({
-	url : '/articles/homefeatures/',
+	url : '/articles/features/',
     type: "get",
     data: {},
 
@@ -70,16 +74,20 @@ var get_features = function(){
 						summary.text(fo.par1.slice(0, 50) + '...');
 					}	
 					f.appendTo('.features-body');
-					$('.gif-loader').hide();
+					$('#features-gif-loader').hide();
 				}
 			}
 			$('#example_feature').remove();
         }else{
-			alert('Failed');
+        	console.log(msg.message);
+        	$('#features-gif-loader').hide();
+			$('#example_feature').html("No features available");
         }
     },
 		error: function(jqXHR, textStatus, errorThrown) {
-			alert(errorThrown);
+			console.log(errorThrown);
+			$('#features-gif-loader').hide();
+			$('#example_feature').html("No features available");
 		},
 	});
     return false;
@@ -91,7 +99,7 @@ $(document).ready(function(){
    $($('.article-paragraph').find('a')).attr('target', '_blank');
    $('.article-paragraph').find('.hidden-s').html('<em>Stears</em>');
 
-   get_main_features();
+   get_top_picks();
    $('.top-story').click(function(event){
 		event.preventDefault();
 		var link = $(this).find('a').attr('href');
