@@ -13,9 +13,11 @@
           </a>
         </div>
         <nav class="w-nav-menu nav-content" role="navigation">
-          <div class="nav-text-con"><a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:index' %}">Home</a></div>
-          <div class="nav-text-con"><a class="w-nav-link nav-text" id="b_e_nav" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Business &amp; Economy</a></div>
-          <div class="nav-text-con"><a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:reports' %}">Market Reports</a></div>
+          <ul class="nav-items">
+            <div class="nav-text-con"><a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:index' %}">Home</a></div>
+            <div class="nav-text-con"><a class="w-nav-link nav-text" id="b_e_nav" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Business &amp; Economy</a></div>
+            <div class="nav-text-con"><a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:reports' %}">Market Reports</a></div>
+          </ul>
         </nav>
       </div>
     </div>

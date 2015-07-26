@@ -1,5 +1,6 @@
 
 $(document).ready(function(){
+  $('.business-nav-container').hide();
   $($('.article-paragraph').find('a')).attr('target', '_blank');
   $('.article-paragraph').find('.hidden-s').html('<em>Stears</em>');
 
@@ -18,14 +19,36 @@ $(document).ready(function(){
     window.open($(this).find('.target-anchor').attr('href'), target);
   });
 
-   $("#b_e_nav").hover(
-    function () {
-       $('.business-nav-container').slideDown('medium');
-    }, 
-    function () {
-       $('.business-nav-container').slideUp('medium');
-    }
-  );
+   $("#b_e_nav").mouseenter(function () {
+      $('.business-nav-container').addClass('hovered');
+      $('.business-nav-container').slideDown('medium');
+    });
+
+   $("#b_e_nav").mouseleave(function () {
+      $('.business-nav-container').removeClass('hovered');
+      setTimeout(
+        function(){
+          if(!$('.business-nav-container').hasClass('hovered')){
+            $('.business-nav-container').slideUp('medium');
+          }
+        }, 300);
+    });
+
+   $('.business-nav-container').mouseenter(function(){
+      $("#b_e_nav").addClass('hovered');
+      $(this).addClass('hovered');
+   });
+
+   $('.business-nav-container').mouseleave(function(){
+      $("#b_e_nav").removeClass('hovered');
+      $(this).removeClass('hovered');
+      setTimeout(
+        function(){
+          if(!$('.business-nav-container').hasClass('hovered')){
+            $('.business-nav-container').slideUp('medium');
+          }
+        }, 300);
+   });
 
 
 });

@@ -400,11 +400,14 @@ h3, h4, .business-h3, .daily-column-h2{
   border-bottom: 1px solid #f05042;
 }
 
+.nav-items{
+  display: block;
+}
+
 .business-nav-container{
   background-color: white;
   width: 100%;
   height: 41px;
-  display: none;
   border-bottom: 1px solid #f2f2f2;
 }
 
