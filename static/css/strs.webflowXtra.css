@@ -404,6 +404,11 @@ h3, h4, .business-h3, .daily-column-h2{
   display: block;
 }
 
+.sub-nav-wrap{
+  width: 444px;
+  float: right;
+}
+
 .business-nav-container{
   background-color: white;
   width: 100%;
@@ -417,8 +422,12 @@ h3, h4, .business-h3, .daily-column-h2{
   margin: auto;
 }
 
-.business-nav-links{
+.business-nav-links.subnav2{
   float: right;
+}
+
+.business-nav-links.subnav1{
+  float: left;
 }
 
 .b-nav-link{
