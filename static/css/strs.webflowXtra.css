@@ -439,7 +439,7 @@ h3, h4, .business-h3, .daily-column-h2{
   font-family: 'nimbus-sans', Arial, 'Helvetica Neue', Helvetica, sans-serif;
   font-weight: 300;
   text-decoration: none;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #f2f2f2;
 }
 
 .b-nav-link:hover .b-nav-text{
