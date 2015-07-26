@@ -15,7 +15,8 @@
         <nav class="w-nav-menu nav-content" role="navigation">
           <ul class="nav-items">
             <div class="nav-text-con"><a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:index' %}">Home</a></div>
-            <div class="nav-text-con"><a class="w-nav-link nav-text" id="b_e_nav" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Business &amp; Economy</a></div>
+            <div class="nav-text-con"><a class="w-nav-link nav-text dropdown-tab drop1" id="b_e_nav" data-subs="nav1" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Business &amp; Economy</a></div>
+            <div class="nav-text-con"><a class="w-nav-link nav-text dropdown-tab drop2" data-subs="nav2" href="{{ sUri }}{% url 'news:reports' %}">Opinion</a></div>
             <div class="nav-text-con"><a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:reports' %}">Market Reports</a></div>
           </ul>
         </nav>
@@ -41,7 +42,7 @@
       </div>
     </div>
   </div>
-  <div class="business-nav-container">
+  <div class="business-nav-container nav1" data-main="drop1">
     <div class="business-nav">
       <ul class="business-nav-links">
         <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsBusiness' %}">
@@ -49,6 +50,12 @@
         <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsGovernance' %}">
           Governance</a></li>
         <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Macroeconomy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="business-nav-container nav2" data-main="drop2">
+    <div class="business-nav">
+      <ul class="business-nav-links">
         <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsEditorial' %}">
           Editorial</a></li>
         <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsColumn' %}">
