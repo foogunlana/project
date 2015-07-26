@@ -403,7 +403,8 @@ h3, h4, .business-h3, .daily-column-h2{
 .business-nav-container{
   background-color: white;
   width: 100%;
-  display: inline-block;
+  height: 41px;
+  display: none;
   border-bottom: 1px solid #f2f2f2;
 }
 
@@ -418,7 +419,6 @@ h3, h4, .business-h3, .daily-column-h2{
 }
 
 .b-nav-link{
-  padding: 10px;
   padding-left: 5px;
   padding-right: 5px;
   display: inline-block;
@@ -426,6 +426,8 @@ h3, h4, .business-h3, .daily-column-h2{
 }
 
 .b-nav-text{
+  display: block;
+  padding: 10px;
   padding-left: 5px;
   padding-right: 5px;
   height:auto;
@@ -434,8 +436,12 @@ h3, h4, .business-h3, .daily-column-h2{
   font-family: 'nimbus-sans', Arial, 'Helvetica Neue', Helvetica, sans-serif;
   font-weight: 300;
   text-decoration: none;
+  border-bottom: 1px solid white;
 }
 
+.b-nav-link:hover .b-nav-text{
+  border-bottom: 1px solid #f05042;
+}
 
 .article-header{
   margin-top: 0px;

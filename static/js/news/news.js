@@ -18,8 +18,14 @@ $(document).ready(function(){
     window.open($(this).find('.target-anchor').attr('href'), target);
   });
 
-  $('.business-nav-container').hover(function(event){
-    console.log('hover');
-    $('#b_e_nav').toggleClass('hovered');
-  });
+   $("#b_e_nav").hover(
+    function () {
+       $('.business-nav-container').slideDown('medium');
+    }, 
+    function () {
+       $('.business-nav-container').slideUp('medium');
+    }
+  );
+
+
 });
