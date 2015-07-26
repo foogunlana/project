@@ -175,6 +175,17 @@
   width: 100%;
   max-width: 100%;
   border-bottom: 1px solid #f2f2f2;
+  text-align: left;
+}
+
+.mobile-nav-items{
+  width: 100%;
+  padding: 0px;
+}
+
+.mobile-nav-con{
+  height: auto;
+  list-style-type: none;
 }
 
 .companies-row-1{
@@ -418,6 +429,7 @@ h3, h4, .business-h3, .daily-column-h2{
 
 .business-nav{
   width: 85%;
+  max-width: 1100px;
   height: auto;
   margin: auto;
 }
@@ -453,6 +465,24 @@ h3, h4, .business-h3, .daily-column-h2{
 
 .b-nav-link:hover .b-nav-text{
   border-bottom: 1px solid #f05042;
+}
+
+.m-nav-link{
+  padding:20px;
+  padding-left:14px;
+  padding-right:14px;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.m-nav-text{
+  text-align: left;
+  text-decoration: none;
+  color: #737373;
+  line-height: 15px;
+}
+
+.mobile-subtabs{
+  padding-left: 20px;
 }
 
 .article-header{
