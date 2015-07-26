@@ -136,7 +136,7 @@ def features(request):
             for a in o.find_one({'page': 'home'}, {'features': 1})['features']:
                 responseData['articles'] = responseData.get(
                     'articles', []) + [{
-                        'headline': a['headline'], 'par1': a['par1'],
+                        'headline': a['headline'], 'writer': a['writer'],
                         'photo': a['photo'], 'article_id': a['article_id']}]
             responseData['success'] = True
         except Exception as e:

@@ -61,23 +61,24 @@ var get_features = function(){
 					var fo = features[i];
 					var f = $('#example_feature').clone(true);
 					f.removeAttr('id');
-					var summary = f.find('.feature-summary');
+					var writer = f.find('.feature-writer');
+					var name = fo.writer.replace('_',' ');
+					var writerName = name.toString().toLowerCase().replace(/\b[a-z]/g, function(letter) {
+							return letter.toUpperCase();});
 					var link = '/article/10' + fo.article_id.toString();
-
 					var headline = '<a href=' + '"' + link + '"' + '>'
 									+ fo.headline + '</a>';
 					f.find('.feature-headline').html(headline);
 					f.find('img').attr('src', fo.photo);
-					summary.text(fo.par1.slice(0, 50) + '...');
-
+					writer.text(writerName);
 					f.appendTo('.features-body');
 					$('#features-gif-loader').hide();
 				}
 			}
 			$('#example_feature').remove();
         }else{
-        	console.log(msg.message);
-        	$('#features-gif-loader').hide();
+			console.log(msg.message);
+			$('#features-gif-loader').hide();
 			$('#example_feature').html("No features available");
         }
     },
@@ -89,7 +90,6 @@ var get_features = function(){
 	});
     return false;
 };
-
 
 
 $(document).ready(function(){
@@ -109,48 +109,5 @@ $(document).ready(function(){
 		var link = $(this).find('a').attr('href');
 		window.open(link, '_self');
    });
-
-   (function($) {
-		if($(window).width() < 991){
-			return false;
-		}
-		var element = $('.follow-scroll'),
-			originalY = element.offset().top + 250;
-
-		// Space between element and top of screen (when scrolling)
-		var topMargin = 0;
-
-		// Stop at end of article content
-		var par = $('.article-paragraph');
-		var stop = par.offset().top + par.outerHeight() - 200;
-
-		// Should probably be set in CSS; but here just for emphasis
-		element.css('position', 'relative');
-		var lastScrollTop = 0;
-		$(window).on('scroll', function(event) {
-			var st = $(window).scrollTop();
-			if (st > lastScrollTop){
-			// downscroll code
-				var scrollTop = st - (element.outerHeight() - $(window).height());
-
-				// if(((scrollTop + element.outerHeight()) < stop) && (Math.abs(scrollTop - element.position().top) > 30)){
-				if(((scrollTop + element.outerHeight()) < stop)){
-					element.stop(false, false).animate({
-						top: scrollTop < originalY ? 0: scrollTop - originalY
-					}, 500);
-				}
-			} else {
-			// upscroll code
-
-				// if(((st + element.outerHeight()) < stop) && (Math.abs(st - element.position().top) > 30)){
-				if(((st + element.outerHeight()) < stop)){
-					element.stop(false, false).animate({
-						top: st < originalY ? 0: st - originalY
-					}, 500);
-				}
-			}
-			lastScrollTop = st;
-		});
-	})(jQuery);
 
 });

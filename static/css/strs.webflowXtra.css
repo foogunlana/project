@@ -270,6 +270,10 @@
   /*color: #1a67a8;*/
 }
 
+.post-block-author{
+  color: #737373;
+}
+
 h3, h4, .business-h3, .daily-column-h2{
   font-weight: 600;
 }
