@@ -55,5 +55,10 @@ $(document).ready(function(){
         }, 50);
    });
 
+   $('.toggle').click(function(event){
+      event.preventDefault();
+      var dropdown = $(this).attr('id');
+      $('.' + dropdown).toggle('slow');
+   });
 
 });
