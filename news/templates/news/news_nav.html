@@ -33,25 +33,21 @@
           <ul class="mobile-nav-items">
             <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link" href="{{ sUri }}{% url 'news:index' %}">Home</a></li>
             <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link b_e_nav toggle" id="dropdown1" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Business &amp; Economy</a></li>
-            
-            <div class="dropdown1 mobile-dropdown">
-              <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:business' 'stearsBusiness' %}">
-              Business</a></li>
-              <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:business' 'stearsGovernance' %}">
-                Governance</a></li>
-              <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Macroeconomy</a></li>
-            </div>
-
+              <div class="dropdown1 mobile-dropdown">
+                <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:business' 'stearsBusiness' %}">
+                Business</a></li>
+                <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:business' 'stearsGovernance' %}">
+                  Governance</a></li>
+                <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Macroeconomy</a></li>
+              </div>
             <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link" href="{{ sUri }}{% url 'news:reports' %}">Market Reports</a></li>
             <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link toggle" id="dropdown2">Opinion</a></li>
-
             <div class="dropdown2 mobile-dropdown">
               <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:business' 'stearsEditorial' %}">
               Editorial</a></li>
               <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:business' 'stearsColumn' %}">
                 Columns</a></li>
             </div>
-
           </ul>
         </nav>
         <div class="w-nav-button mobile-menu-button">
@@ -87,4 +83,3 @@
       </div>
     </div>
   </div>
-
