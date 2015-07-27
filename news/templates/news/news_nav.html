@@ -13,9 +13,12 @@
           </a>
         </div>
         <nav class="w-nav-menu nav-content" role="navigation">
-          <a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:index' %}">Home</a>
-          <a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Business &amp; Economy</a>
-          <a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:reports' %}">Market Reports</a>
+          <ul class="nav-items">
+            <li class="nav-text-con"><a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:index' %}">Home</a></li>
+            <li class="nav-text-con"><a class="w-nav-link nav-text dropdown-tab drop1" id="b_e_nav" data-subs="nav1" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Business &amp; Economy</a></li>
+            <li class="nav-text-con"><a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:reports' %}">Market Reports</a></li>
+            <li class="nav-text-con"><a class="w-nav-link nav-text dropdown-tab drop2" data-subs="nav2" href="{{ sUri }}{% url 'news:reports' %}">Opinion</a></li>
+          </ul>
         </nav>
       </div>
     </div>
@@ -27,9 +30,25 @@
           <img src="/static/images/StearsBetaComplete.svg" width="90" alt="Stears Home">
         </a>
         <nav class="w-nav-menu w-clearfix mobile-nav-menu" role="navigation">
-          <a class="w-nav-link mobile-nav-link" href="{{ sUri }}{% url 'news:index' %}">Home</a>
-          <a class="w-nav-link mobile-nav-link b_e_nav" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Business &amp; Economy</a>
-          <a class="w-nav-link mobile-nav-link" href="{{ sUri }}{% url 'news:reports' %}">Market Reports</a>
+          <ul class="mobile-nav-items">
+            <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link" href="{{ sUri }}{% url 'news:index' %}">Home</a></li>
+            <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link b_e_nav toggle" id="dropdown1" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Business &amp; Economy</a></li>
+              <div class="dropdown1 mobile-dropdown">
+                <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:business' 'stearsBusiness' %}">
+                Business</a></li>
+                <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:business' 'stearsGovernance' %}">
+                  Governance</a></li>
+                <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Macroeconomy</a></li>
+              </div>
+            <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link" href="{{ sUri }}{% url 'news:reports' %}">Market Reports</a></li>
+            <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link toggle" id="dropdown2">Opinion</a></li>
+            <div class="dropdown2 mobile-dropdown">
+              <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:business' 'stearsEditorial' %}">
+              Editorial</a></li>
+              <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:business' 'stearsColumn' %}">
+                Columns</a></li>
+            </div>
+          </ul>
         </nav>
         <div class="w-nav-button mobile-menu-button">
           <div class="w-nav-button-container">
@@ -39,4 +58,28 @@
       </div>
     </div>
   </div>
-
+  <div class="business-nav-container nav1" data-main="drop1">
+    <div class="business-nav">
+      <div class="sub-nav-wrap">
+        <ul class="business-nav-links subnav1">
+          <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsBusiness' %}">
+            Business</a></li>
+          <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsGovernance' %}">
+            Governance</a></li>
+          <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Macroeconomy</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="business-nav-container nav2" data-main="drop2">
+    <div class="business-nav">
+      <div class="sub-nav-wrap">
+        <ul class="business-nav-links subnav2">
+          <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsEditorial' %}">
+            Editorial</a></li>
+          <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsColumn' %}">
+            Columns</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>

@@ -167,26 +167,7 @@
 
 .nav-content{
   padding: 0px;
-  height: 70px;
-}
-
-.nav-text.w--current{
-  font-weight: 300;
-  color: #f05042;
-}
-
-.nav-text{
-  margin:0px;
-  padding:20px;
-  display: inline-block;
-  height: 100%;
-  line-height: 30px;
-}
-
-.nav-text:hover{
-  background-color: #f05042;
-  text-decoration: none;
-  color: white;
+  height: auto;
 }
 
 .mobile-nav-link{
@@ -194,6 +175,17 @@
   width: 100%;
   max-width: 100%;
   border-bottom: 1px solid #f2f2f2;
+  text-align: left;
+}
+
+.mobile-nav-items{
+  width: 100%;
+  padding: 0px;
+}
+
+.mobile-nav-con{
+  height: auto;
+  list-style-type: none;
 }
 
 .companies-row-1{
@@ -367,7 +359,7 @@ h3, h4, .business-h3, .daily-column-h2{
   width: 100%;
 }
 
-.w-nav-link:hover, .w-nav-link.w--current:hover, .w-nav-link:active, .w-nav-link.w--current:active{
+.mobile-nav-link:hover, .mobile-nav-link.w--current:hover, .mobile-nav-link-link:active, .mobile-nav-link.w--current:active{
   background-color: #f05042;
   color: white;
 }
@@ -396,8 +388,112 @@ h3, h4, .business-h3, .daily-column-h2{
   background-color: #f05042;
 }
 
-.w-nav-link.w--current{
-  color: #f05042;
+.nav-text-con{
+  margin:0px;
+  padding:0px;
+  padding-left:5px;
+  padding-right:5px; 
+  display: inline-block;
+  height: 100%;
+  height: auto;
+}
+
+.w-nav-link.nav-text{
+  padding: 20px;
+  padding-left:5px;
+  padding-right:5px;
+  margin: 0px;
+  border-bottom: 1px solid white;
+  font-weight: 300;
+  color: #333;
+  font-size: 14px;
+}
+
+.w-nav-link.nav-text:hover, .w-nav-link.nav-text.hovered{
+  text-decoration: none;
+  background-color: white;
+  border-bottom: 1px solid #f05042;
+}
+
+.nav-items{
+  display: block;
+}
+
+.sub-nav-wrap{
+  width: 444px;
+  float: right;
+}
+
+.business-nav-container{
+  background-color: white;
+  width: 100%;
+  height: 41px;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.business-nav{
+  width: 85%;
+  max-width: 1100px;
+  height: auto;
+  margin: auto;
+}
+
+.business-nav-links.subnav2{
+  float: right;
+}
+
+.business-nav-links.subnav1{
+  float: left;
+}
+
+.b-nav-link{
+  padding-left: 5px;
+  padding-right: 5px;
+  display: inline-block;
+  height: auto;
+}
+
+.b-nav-text{
+  display: block;
+  padding: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  height:auto;
+  color: #333;
+  font-size: 14px;
+  font-family: 'nimbus-sans', Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-weight: 300;
+  text-decoration: none;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.b-nav-link:hover .b-nav-text{
+  border-bottom: 1px solid #f05042;
+}
+
+.m-nav-link{
+  padding:20px;
+  padding-left:14px;
+  padding-right:14px;
+  border-bottom: 1px solid #f2f2f2;
+  display: block;
+}
+
+.m-nav-text{
+  text-align: left;
+  text-decoration: none;
+  color: #737373;
+  line-height: 15px;
+  list-style-type: none; 
+}
+
+.mobile-subtabs{
+  display: block;
+}
+
+.m-nav{
+  padding-left: 40px;
+  background-color: #f2f2f2;
 }
 
 .article-header{
@@ -514,7 +610,6 @@ h3, h4, .business-h3, .daily-column-h2{
 }
 
 .reports-ad-header{
-  color: #333;
   background-color: white;
   min-height: 50px;
   padding: 5%;
@@ -524,6 +619,7 @@ h3, h4, .business-h3, .daily-column-h2{
 
 .reports-ad-header h3{
   font-weight: lighter;
+  color: #737373;
 }
 
 .reports-ad-body{
@@ -542,12 +638,15 @@ h3, h4, .business-h3, .daily-column-h2{
   opacity: 1;
 }
 
-
 .reports-ad-top{
   padding: 5%;
   padding-bottom: 0px;
   border-top: 9px solid #f05042;
   vertical-align: top;
+}
+
+.reports-ad-top h4{
+  color: #737373;
 }
 
 .reports-ad-link{
@@ -570,6 +669,7 @@ h3, h4, .business-h3, .daily-column-h2{
   font-weight: 400;
   margin-top: 0px;
   display: inline-block;
+  color: #737373;
 }
 
 .report-ad{
@@ -604,6 +704,16 @@ th{
 }
 
 @media (min-width: 768px) and (max-width: 990px){
+  
+  .business-nav{
+    width: 100%;
+    padding-left: 7.75%;
+    padding-right: 6%;
+    max-width: 1100px;
+    height: auto;
+    margin: auto;
+  }
+
   .top-story{
     width: 49.5%;
     display: inline-block;
@@ -670,7 +780,6 @@ th{
  }
 
   @media (min-width: 991px) {
-
     .top-stories-container, .sfeatures-container{
       margin-bottom: 60px;
     }
