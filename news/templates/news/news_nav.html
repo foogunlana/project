@@ -58,6 +58,7 @@
       </div>
     </div>
   </div>
+  {% ifnotequal page 'b_e' %}
   <div class="business-nav-container nav1" data-main="drop1">
     <div class="business-nav">
       <div class="sub-nav-wrap">
@@ -83,3 +84,22 @@
       </div>
     </div>
   </div>
+  {% else %}
+  <div class="businesspage-nav-container" >
+    <div class="business-nav">
+      <div class="sub-nav-wrap2">
+        <ul class="business-nav-links subnav1">
+          <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsBusiness' %}">
+            Business</a></li>
+          <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsGovernance' %}">
+            Governance</a></li>
+          <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Macroeconomy</a></li>
+          <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsEditorial' %}">
+            Editorial</a></li>
+          <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsColumn' %}">
+            Columns</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  {% endifnotequal %}

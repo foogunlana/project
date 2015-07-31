@@ -424,7 +424,18 @@ h3, h4, .business-h3, .daily-column-h2{
   float: right;
 }
 
+.sub-nav-wrap2{
+  float: right;
+}
+
 .business-nav-container{
+  background-color: white;
+  width: 100%;
+  height: 41px;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.businesspage-nav-container{
   background-color: white;
   width: 100%;
   height: 41px;
