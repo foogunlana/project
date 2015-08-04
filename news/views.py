@@ -101,7 +101,7 @@ def index(request):
                 context['column'] = todays_column
 
             context['sUri'] = absolute_url
-            # cache.set(cache_name, context, 60*60*1)
+            cache.set(cache_name, context, 60*60*1)
         except Exception as e:
             context['sUri'] = absolute_url
             print e
