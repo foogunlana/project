@@ -483,7 +483,7 @@ h3, h4, .business-h3, .daily-column-h2{
   padding:20px;
   padding-left:14px;
   padding-right:14px;
-  border-bottom: 1px solid #efefef;
+  border-bottom: 1px solid #f2f2f2;
   display: block;
 }
 
@@ -501,7 +501,7 @@ h3, h4, .business-h3, .daily-column-h2{
 
 .m-nav{
   padding-left: 40px;
-  background-color: #f2f2f2;
+  background-color: #efefef;
 }
 
 .article-header{
