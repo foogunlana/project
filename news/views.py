@@ -65,7 +65,7 @@ def reports(request):
             context['reports'] = reports
             context['page'] = 'reports'
         except Exception as e:
-            print e
+            print str(e)
     context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
     return render(request, 'news/stearsreport.html', context)
 
@@ -104,7 +104,7 @@ def index(request):
             cache.set(cache_name, context, 60*60*1)
         except Exception as e:
             context['sUri'] = absolute_url
-            print e
+            print str(e)
     return render(request, 'news/index.html', context)
 
 
@@ -124,7 +124,7 @@ def top_picks(request):
             responseData['success'] = True
         except Exception as e:
             responseData['success'] = False
-            responseData['message'] = e
+            responseData['message'] = str(e)
     return HttpResponse(json.dumps(responseData))
 
 
@@ -141,7 +141,7 @@ def features(request):
             responseData['success'] = True
         except Exception as e:
             responseData['success'] = False
-            responseData['message'] = e
+            responseData['message'] = str(e)
     return HttpResponse(json.dumps(responseData))
 
 
@@ -159,12 +159,12 @@ def related_articles(request, pk):
                 {'keywords': 1, 'article_id': 1, '_id': 0,
                  'headline': 1})]
 
-            f = lambda a: 1./len(set(a['keywords']) & set(tags))
+            f = lambda a: 1. - 1./(len(set(a['keywords']) & set(tags))+1)
             for article in picks:
                 article['f'] = f(article)
-            responseData['articles'] = sorted(picks, key=f)
+            responseData['articles'] = sorted(picks, key=f, reverse=True)
             responseData['success'] = True
         except Exception as e:
             responseData['success'] = False
-            responseData['message'] = e
+            responseData['message'] = str(e)
     return HttpResponse(json.dumps(responseData))
