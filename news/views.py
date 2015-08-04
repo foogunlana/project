@@ -159,10 +159,10 @@ def related_articles(request, pk):
                 {'keywords': 1, 'article_id': 1, '_id': 0,
                  'headline': 1})]
 
-            f = lambda a: 1./len(set(a['keywords']) & set(tags))
+            f = lambda a: 1. - 1./len(set(a['keywords']) & set(tags))
             for article in picks:
                 article['f'] = f(article)
-            responseData['articles'] = sorted(picks, key=f)
+            responseData['articles'] = sorted(picks, key=f, reverse=True)
             responseData['success'] = True
         except Exception as e:
             responseData['success'] = False
