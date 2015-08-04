@@ -48,7 +48,7 @@ def business(request, sector):
             cache.set(cache_name, context, 60*60*24)
         except Exception:
             context['sUri'] = absolute_url
-            pass
+
     return render(request, 'news/business.html', context)
 
 
