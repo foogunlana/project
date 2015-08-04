@@ -48,7 +48,7 @@ def business(request, sector):
             cache.set(cache_name, context, 60*60*24)
         except Exception:
             context['sUri'] = absolute_url
-            pass
+
     return render(request, 'news/business.html', context)
 
 
@@ -65,7 +65,7 @@ def reports(request):
             context['reports'] = reports
             context['page'] = 'reports'
         except Exception as e:
-            print e
+            print str(e)
     context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
     return render(request, 'news/stearsreport.html', context)
 
@@ -104,7 +104,7 @@ def index(request):
             cache.set(cache_name, context, 60*60*1)
         except Exception as e:
             context['sUri'] = absolute_url
-            print e
+            print str(e)
     return render(request, 'news/index.html', context)
 
 
@@ -124,7 +124,7 @@ def top_picks(request):
             responseData['success'] = True
         except Exception as e:
             responseData['success'] = False
-            responseData['message'] = e
+            responseData['message'] = str(e)
     return HttpResponse(json.dumps(responseData))
 
 
@@ -141,7 +141,7 @@ def features(request):
             responseData['success'] = True
         except Exception as e:
             responseData['success'] = False
-            responseData['message'] = e
+            responseData['message'] = str(e)
     return HttpResponse(json.dumps(responseData))
 
 
@@ -166,5 +166,5 @@ def related_articles(request, pk):
             responseData['success'] = True
         except Exception as e:
             responseData['success'] = False
-            responseData['message'] = e
+            responseData['message'] = str(e)
     return HttpResponse(json.dumps(responseData))
