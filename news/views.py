@@ -143,3 +143,28 @@ def features(request):
             responseData['success'] = False
             responseData['message'] = e
     return HttpResponse(json.dumps(responseData))
+
+
+def related_articles(request, pk):
+    pk = int(pk)
+    responseData = {}
+    if request.method == 'GET':
+        m = mongo_calls('migrations')
+        try:
+            tags = m.find_one({'article_id': pk},
+                              {'keywords': 1, '_id': 0})['keywords']
+            picks = [s for s in m.find(
+                {'posted': {'$exists': 1},
+                 'keywords': {'$elemMatch': {'$in': tags}}},
+                {'keywords': 1, 'article_id': 1, '_id': 0,
+                 'headline': 1})]
+
+            f = lambda a: 1./len(set(a['keywords']) & set(tags))
+            for article in picks:
+                article['f'] = f(article)
+            responseData['articles'] = sorted(picks, key=f)
+            responseData['success'] = True
+        except Exception as e:
+            responseData['success'] = False
+            responseData['message'] = e
+    return HttpResponse(json.dumps(responseData))
