@@ -128,6 +128,8 @@ def nse_date2(value):
 
 @register.filter("pretty_category")
 def pretty_category(string):
+    if string == 'stearsMacroeconomy':
+        return 'Economy'
     string = string.replace('stears', '').replace('_', ' ')
     return string
 
