@@ -211,6 +211,7 @@
 					<form method="post" action = "{% url 'weal:reload' %}" enctype="multipart/form-data">
 						{% csrf_token %}
 						<select style="width:80%;display:inline-block;" name="page" id="id_reloader">
+							<option selected disabled>Reload a page</option>
 							<option value="index">Reload Home page</option>
 							{% for sector in sectors %}
 							<option value="business,{{ sector }}">Reload {{ sector|pretty_category }} sector</option>
