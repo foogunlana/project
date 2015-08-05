@@ -130,6 +130,8 @@ def nse_date2(value):
 def pretty_category(string):
     if string == 'stearsMacroeconomy':
         return 'Economy'
+    if string == 'stearsColumn':
+        return 'Opinion'
     string = string.replace('stears', '').replace('_', ' ')
     return string
 
