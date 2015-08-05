@@ -58,28 +58,16 @@
       {% endif %}
     </div>
     <div class="w-col w-col-2 w-hidden-small w-hidden-tiny category-sidebar">
-      <p class="news-in-brief-p sections-header">Sections</p>
-      <ul class="w-list-unstyled sub-category-list">
-        <li><a class="sub-category option_stearsBusiness" href="{{ sUri }}{% url 'news:business' 'stearsBusiness' %}">Business</a>
-        </li>
-        <li><a class="sub-category option_stearsGovernance" href="{{ sUri }}{% url 'news:business' 'stearsGovernance' %}">Governance</a>
-        </li>
-        <li><a class="sub-category option_stearsMacroeconomy" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Macroeconomy</a>
-        </li>
-        <li><a class="sub-category option_stearsEditorial" href="{{ sUri }}{% url 'news:business' 'stearsEditorial' %}">Editorial</a>
-        </li>
-        <li><a class="sub-category option_stearsColumn" href="{{ sUri }}{% url 'news:business' 'stearsColumn' %}">Column</a>
-        </li>
-      </ul>
-      <p class="news-in-brief-p">Economic Data</p>
-      <div class="economic-data-header">GDP Growth</div>
-      <div class="economic-figures">{{ economic_data.gdp_growth }}%</div>
-      <div class="economic-data-header">Unemployment</div>
-      <div class="economic-figures">{{ economic_data.unemployment }}%</div>
-      <div class="economic-data-header">Inflation</div>
-      <div class="economic-figures">{{ economic_data.inflation }}%</div>
-      <div class="economic-data-header">Interest Rate</div>
-      <div class="economic-figures">{{ economic_data.interest_rates }}%</div>
+      <div class="ecodata-container">
+        <div class="economic-data-header">GDP Growth</div>
+        <div class="economic-figures">{{ economic_data.gdp_growth }}%</div>
+        <div class="economic-data-header">Unemployment</div>
+        <div class="economic-figures">{{ economic_data.unemployment }}%</div>
+        <div class="economic-data-header">Inflation</div>
+        <div class="economic-figures">{{ economic_data.inflation }}%</div>
+        <div class="economic-data-header">Interest Rate</div>
+        <div class="economic-figures">{{ economic_data.interest_rates }}%</div>
+      </div>
     </div>
   </div>
   <div class="w-row w-hidden-main w-hidden-small w-hidden-tiny category-row-tablet">
