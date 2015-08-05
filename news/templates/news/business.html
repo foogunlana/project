@@ -59,14 +59,44 @@
     </div>
     <div class="w-col w-col-2 w-hidden-small w-hidden-tiny category-sidebar">
       <div class="ecodata-container">
-        <div class="economic-data-header">GDP Growth</div>
-        <div class="economic-figures">{{ economic_data.gdp_growth }}%</div>
-        <div class="economic-data-header">Unemployment</div>
-        <div class="economic-figures">{{ economic_data.unemployment }}%</div>
-        <div class="economic-data-header">Inflation</div>
-        <div class="economic-figures">{{ economic_data.inflation }}%</div>
-        <div class="economic-data-header">Interest Rate</div>
-        <div class="economic-figures">{{ economic_data.interest_rates }}%</div>
+        <div class="ecodata">
+          <div class="economic-data-header">GDP Growth</div>
+          <div class="economic-figures">{{ economic_data.gdp_growth }}%</div>
+        </div>
+        <div class="ecodata">
+          <div class="economic-data-header">Unemployment</div>
+          <div class="economic-figures">{{ economic_data.unemployment }}%</div>
+        </div>
+        <div class="ecodata">
+          <div class="economic-data-header">Inflation</div>
+          <div class="economic-figures">{{ economic_data.inflation }}%</div>
+        </div>
+        <div class="ecodata">
+          <div class="economic-data-header">Interest Rate</div>
+          <div class="economic-figures">{{ economic_data.interest_rates }}%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-row w-hidden-main  w-hidden-medium category-bar" >
+    <div class="w-col w-col-2 w-hidden-main w-hidden-medium category-sidebar">
+      <div class="ecodata-container">
+        <div class="ecodata">
+          <div class="economic-data-header">GDP Growth</div>
+          <div class="economic-figures">{{ economic_data.gdp_growth }}%</div>
+        </div>
+        <div class="ecodata">
+          <div class="economic-data-header">Unemployment</div>
+          <div class="economic-figures">{{ economic_data.unemployment }}%</div>
+        </div>
+        <div class="ecodata">
+          <div class="economic-data-header">Inflation</div>
+          <div class="economic-figures">{{ economic_data.inflation }}%</div>
+        </div>
+        <div class="ecodata">
+          <div class="economic-data-header">Interest Rate</div>
+          <div class="economic-figures">{{ economic_data.interest_rates }}%</div>
+        </div>
       </div>
     </div>
   </div>
@@ -123,6 +153,9 @@
       $('#Sub-Category').change(function(event){
         window.open($('#Sub-Category').val(),'_self');
       });
+      // if($(window).width() >= 768){
+      //   $('.category-sidebar').outerHeight($('.featured-image').outerHeight());
+      // }
     });
   </script>
 </body>

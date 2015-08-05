@@ -325,6 +325,33 @@ h3, h4, .business-h3, .daily-column-h2{
   overflow: hidden;
 }
 
+.category-sidebar{
+  padding: 2px;
+  border-left: 1px solid #e1e1e1;
+  background-color: #f2f2f2;
+}
+
+.ecodata-container{
+  width: 100%;
+  height: 100%;
+}
+
+.ecodata{
+  border: 1px solid #f2f2f2;
+  padding: 5%;
+  margin: 1px;
+  background-color: white;
+  border-radius: 2px;
+  font-size: 90%;
+  border-left: 4px solid #f05042;
+}
+
+.economic-data-header{
+  margin-top: 0px;
+  font-weight: bolder;
+  text-decoration: none;
+}
+
 .nest-anchor{
   cursor: pointer;
 }
@@ -1007,6 +1034,42 @@ th{
     width: 100%;
     padding:2%;
   }
+
+    .category-sidebar{
+      height: auto;
+      border: none;
+      display: block;
+      margin-bottom: 50px;
+    }
+
+    .category-bar{
+      display: block;
+      width: 97%;
+      margin: auto;
+    }
+
+    .ecodata-container{
+      height: auto;
+    }
+
+    .ecodata{
+      padding: 10px;
+      display: inline-block;
+      margin: 1px;
+      width: 49%;
+    }
+
+    .economic-data-header{
+      display: inline-block;
+    }
+
+    .economic-data-header:after{
+      content: ': ';
+    }
+
+    .economic-figures{
+      display: inline-block;
+    }
 }
 
 
@@ -1093,7 +1156,7 @@ th{
   }
 
   .mobile-menu-button{
-  margin-top: 0px;
+    margin-top: 0px;
   }
 
   .mobile-nav {
@@ -1102,6 +1165,38 @@ th{
 
   .header-and-author{
     height: 140px;
+  }
+
+  .category-sidebar{
+    height: auto;
+    border: none;
+    background-color: transparent;
+    display: block;
+    margin-bottom: 50px;
+  }
+
+  .category-bar{
+    display: block;
+  }
+
+  .ecodata-container{
+    height: auto;
+  }
+
+  .ecodata{
+    padding: 10px;
+  }
+
+  .economic-data-header{
+    display: inline-block;
+  }
+
+  .economic-data-header:after{
+    content: ': ';
+  }
+
+  .economic-figures{
+    display: inline-block;
   }
 
 }
