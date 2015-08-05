@@ -923,7 +923,6 @@ def reload_page(request):
         else:
             page, sector = pagesector[0], None
         if page:
-            print page, sector
             expire_page(page=page, sector=sector)
     return HttpResponseRedirect(reverse('weal:allocator'))
 
