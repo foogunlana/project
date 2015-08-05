@@ -28,6 +28,4 @@ $( document ).ready(function() {
 		var filter = $(this).data('filter');
 		$('#onsite_sorter').val(filter).change();
 	});
-
-	$('#onsite_sorter').val('unused').change();
 });
