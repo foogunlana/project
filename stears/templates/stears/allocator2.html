@@ -208,6 +208,18 @@
 						</div>
 					</div>
 					<br>
+					<form method="post" action = "{% url 'weal:reload' %}" enctype="multipart/form-data">
+						{% csrf_token %}
+						<select style="width:80%;display:inline-block;" name="page" id="id_reloader">
+							<option value="index">Reload Home page</option>
+							{% for sector in sectors %}
+							<option value="business,{{ sector }}">Reload {{ sector|pretty_category }} sector</option>
+							{% endfor %}
+							<option value="reports">Reload Market Reports</option>
+						</select>
+						<button style="width:15%;display:inline-block;" class="confirm-submission">Go</button>
+					</form>
+					<br>
 				</div>
 			</div>
 		</div>

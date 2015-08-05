@@ -20,7 +20,7 @@ from stears.utils import article_key_words, revive_from_trash, add_writers,\
     new_member, retract, \
     make_new_quote, edit_writer_registration_details
 
-from news.utils import put_article_on_page, articles_on_site
+from news.utils import put_article_on_page, articles_on_site, expire_page
 
 from stears.permissions import approved_writer, is_a_boss, \
     writer_can_edit_article
@@ -902,15 +902,29 @@ def allocator(request):
             columns = columns + [{'day': day, 'writer': writer,
                                  'title': wcolumns.get(writer)}]
 
-        context2 = {'cats': groups, 'reports': reports, 'columns': columns,
-                    'sectors': sectors, 'economic_data_form': economic_data_form,
-                    'report_form': report_form, 'writers_columns': wcolumns,
-                    'quote_form': quote_form}
+        context2 = {
+            'cats': groups, 'reports': reports, 'columns': columns,
+            'sectors': sectors, 'economic_data_form': economic_data_form,
+            'report_form': report_form, 'writers_columns': wcolumns,
+            'quote_form': quote_form}
 
         context = dict(context, **context2)
     except Exception as e:
         context = {'error': e}
     return render(request, 'stears/allocator2.html', context)
+
+
+@user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
+def reload_page(request):
+    if request.method == 'POST':
+        pagesector = request.POST.get('page', '').split(',')
+        if len(pagesector) == 2:
+            page, sector = pagesector
+        else:
+            page, sector = pagesector[0], None
+        if page:
+            expire_page(page=page, sector=sector)
+    return HttpResponseRedirect(reverse('weal:allocator'))
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
