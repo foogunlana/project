@@ -55,6 +55,35 @@
 						</div>
 						<br>
 					</div>
+					<div class="fill summary_toggle" hidden>
+						<div class="row fill">
+							<div class="columns small-12">
+								{% if article.summary %}
+									<div class="article_box">
+										Summary:
+										<p id="article_summary">
+											{{ article.summary }}
+										</p>
+									</div>
+								{% else %}
+									<div class="article_box">
+										No summary
+									</div>
+								{% endif %}
+								<br>
+								<div class="article_box">
+									Add/Edit summary: (max: 110 characters)
+									<form action="{% url 'weal:summary' %}" class="weal_ajax_form" data-url="{% url 'weal:summary' %}" data-result="article_summary" id="id_summary_form" method="post">
+										{% csrf_token %}
+										<input type="text" name="pk" id="id_pk" value="{{ article.article_id }}" style="display:none">
+										<input type="text" style="width:80%;display:inline-block;" name='summary' id="id_summary" maxlength='110'>
+										<button style="width:5%;display:inline-block;min-width:50px;" type="submit">Go</button>
+									</form>
+								</div>
+							</div>
+						</div>
+						<br>
+					</div>
 					<div class="fill" >
 						{% if article.writer %}
 							{% if user.username|can_write:article %}
@@ -263,6 +292,9 @@
 						<button id="comment_area" class="toggles_div fill" style="border-radius:3px;" >Comment</button>
 					</div>
 					{% if user|is_editor %}
+					<div class="row">
+						<button class="fill toggles_div" id="summary_toggle">Add Summary</button>
+					</div>
 					<div class="row fill article-box">
 						<form action="{% url 'weal:prepreview' pk=article.article_id %}" method="get">
 							<button class="fill">Preview</button>
@@ -284,6 +316,9 @@
 					</div>
 					{% else%}
 						{% ifequal user.username article.writer %}
+							<div class="row">
+								<button class="fill toggles_div" id="summary_toggle">Add Summary</button>
+							</div>
 							<div class="row">
 								<form action="{% url 'weal:addphoto' pk=article.article_id %}" method='post' class="add_photo" hidden>
 									{% csrf_token %}

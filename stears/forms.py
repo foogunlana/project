@@ -485,6 +485,11 @@ class CommentForm(forms.Form):
         })
 
 
+class SummaryForm(forms.Form):
+    summary = forms.CharField(max_length=110, required=True)
+    pk = forms.IntegerField(required=True)
+
+
 class KeyWordsForm(forms.Form):
     other = forms.CharField(
         widget=forms.TextInput(attrs={
