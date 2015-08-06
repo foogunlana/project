@@ -65,6 +65,8 @@ urlpatterns = patterns('',
                            name='submit'),
                        url(r'^article/suggest/$', views.suggest,
                            name='suggest_nse_article'),
+                       url(r'^article/summary/$', views.article_summary,
+                           name='summary'),
 
                        url(r'^column/select/$', views.select_column,
                            name='select_column'),

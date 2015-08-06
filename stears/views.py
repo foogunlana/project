@@ -4,7 +4,7 @@ from stears.forms import LoginForm, ArticleImageForm, AddWritersForm, \
     ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, \
     NseArticleForm, ChangePasswordForm, ArticleReviewForm, EditWriterForm, \
     AllocationForm, AddPhotoForm, NewQuoteForm, ReportForm, DailyColumnForm, \
-    ColumnForm, EconomicDataForm, DeletePhotoForm, EditPhotoForm
+    ColumnForm, EconomicDataForm, DeletePhotoForm, EditPhotoForm, SummaryForm
 
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout
@@ -649,6 +649,19 @@ def suggest(request):
 
     return HttpResponseRedirect(reverse(
         'weal:article_detail', args=(), kwargs={'pk': article_id}))
+
+
+@user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
+def article_summary(request):
+    if request.method == 'POST':
+        summary_form = SummaryForm(request.POST)
+        if summary_form.is_valid():
+            pk = summary_form.cleaned_data['pk']
+            summary = summary_form.cleaned_data['summary']
+            a = mongo_calls('articles')
+            a.update({'article_id': pk}, {'$set': {'summary': summary}})
+        return HttpResponseRedirect(reverse('weal:article_detail', args=(), kwargs={'pk': pk}))
+    return HttpResponseRedirect(reverse('weal:writers_write'))
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
