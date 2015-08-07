@@ -339,11 +339,13 @@ h3, h4, .business-h3, .daily-column-h2{
 .ecodata{
   border: 1px solid #f2f2f2;
   padding: 5%;
+  padding-top: 3%;
+  padding-bottom: 2%;
   margin: 1px;
   background-color: white;
   border-radius: 2px;
   font-size: 90%;
-  border-left: 4px solid #f05042;
+  border-left: 4px solid #2A58D6;
 }
 
 .economic-data-header{
@@ -1170,13 +1172,14 @@ th{
   .category-sidebar{
     height: auto;
     border: none;
-    background-color: transparent;
     display: block;
     margin-bottom: 50px;
   }
 
   .category-bar{
     display: block;
+    width: 97%;
+    margin: auto;
   }
 
   .ecodata-container{
@@ -1185,6 +1188,9 @@ th{
 
   .ecodata{
     padding: 10px;
+    display: inline-block;
+    margin: 1px;
+    width: 48%;
   }
 
   .economic-data-header{
