@@ -78,18 +78,20 @@ $(document).ready(function() {
         var wym = $.wymeditors(0);
         wym.update();
         if(save_or_review === 'review'){
-            var tag_count = 0;
+            var tag_count = -1;
             $('.tag_button').each(function(){
                 tag_count+=1;
             });
-
+            if(!$('#article_summary').hasClass('updated')){
+                alert('Please add a summary');
+                return false;
+            }
             if($('#article_photo_link').data('link')==='N'){
                 alert('You must add a photo to submit your editor. Ask you editor about uploading photos to the WEAL');
                 return false;
             }
-
-            if(!tag_count){
-                alert('You forgot to add tags!');
+            if(tag_count < 5){
+                alert('Please add at least 3 tags');
                 event.preventDefault();
                 $('#keyword_area').show();
                 $('#id_tags').focus();
@@ -99,6 +101,7 @@ $(document).ready(function() {
                     $('#keyword_area').show();
                     $('#id_tags').focus();
                     save_or_review = 'save';
+                    return false;
                 }else{
                     if(!confirm( "Are you sure you want to post, you won't be able to continue editing this article without editor priviledges!" )){
                         event.preventDefault();

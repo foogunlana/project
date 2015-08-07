@@ -653,6 +653,7 @@ def suggest(request):
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
 def article_summary(request):
+    response_data = {}
     if request.method == 'POST':
         summary_form = SummaryForm(request.POST)
         if summary_form.is_valid():
@@ -660,7 +661,14 @@ def article_summary(request):
             summary = summary_form.cleaned_data['summary']
             a = mongo_calls('articles')
             a.update({'article_id': pk}, {'$set': {'summary': summary}})
-        return HttpResponseRedirect(reverse('weal:article_detail', args=(), kwargs={'pk': pk}))
+            response_data['success'] = True
+            response_data['result'] = {'article_summary': summary}
+            response_data['message'] = 'Summary successfully updated'
+            return HttpResponse(json.dumps(response_data))
+        else:
+            response_data['success'] = False
+            response_data['message'] = summary_form.errors
+        return HttpResponse(json.dumps(response_data))
     return HttpResponseRedirect(reverse('weal:writers_write'))
 
 

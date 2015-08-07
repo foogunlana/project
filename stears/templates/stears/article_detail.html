@@ -58,19 +58,6 @@
 					<div class="fill summary_toggle" hidden>
 						<div class="row fill">
 							<div class="columns small-12">
-								{% if article.summary %}
-									<div class="article_box">
-										Summary:
-										<p id="article_summary">
-											{{ article.summary }}
-										</p>
-									</div>
-								{% else %}
-									<div class="article_box">
-										No summary
-									</div>
-								{% endif %}
-								<br>
 								<div class="article_box">
 									Add/Edit summary: (max: 110 characters)
 									<form action="{% url 'weal:summary' %}" class="weal_ajax_form" data-url="{% url 'weal:summary' %}" data-result="article_summary" id="id_summary_form" method="post">
@@ -84,6 +71,20 @@
 						</div>
 						<br>
 					</div>
+					{% if article.summary %}
+						<div class="article_box" >
+							<h5 id="article_summary">
+								<strong>{{ article.summary }}</strong>
+							</h5>
+						</div>
+					{% else %}
+						<div class="article_box" >
+							<h5 id="article_summary" data-value="default">
+								<strong>No Summary</strong>
+							</h5>
+						</div>
+					{% endif %}
+					<br>
 					<div class="fill" >
 						{% if article.writer %}
 							{% if user.username|can_write:article %}
@@ -478,4 +479,5 @@
 </div>
 </div>
 <script src="/static/js/stears/article_detail.js"></script>
+<script src="/static/js/stears/ajaxgen.js"></script>
 {% endblock %}

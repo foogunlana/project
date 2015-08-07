@@ -208,18 +208,31 @@
 						</div>
 					</div>
 					<br>
-					<form method="post" action = "{% url 'weal:reload' %}" enctype="multipart/form-data">
+					<form method="post" id="reload_page_form" action = "{% url 'weal:reload' %}" enctype="multipart/form-data">
 						{% csrf_token %}
 						<select style="width:80%;display:inline-block;" name="page" id="id_reloader">
-							<option selected disabled>Reload a page</option>
+							<option selected disabled value="None">Reload a page</option>
 							<option value="index">Reload Home page</option>
 							{% for sector in sectors %}
 							<option value="business,{{ sector }}">Reload {{ sector|pretty_category }} sector</option>
 							{% endfor %}
 							<option value="reports">Reload Market Reports</option>
 						</select>
-						<button style="width:15%;display:inline-block;" class="confirm-submission">Go</button>
+						<button style="width:15%;display:inline-block;">Go</button>
 					</form>
+					<script>
+						$(document).ready(function(){
+							$("#reload_page_form").submit(function(event){
+								if(this.page.value === "None"){
+									event.preventDefault();
+									return false;
+								}else{
+									confirm('Are you sure you want to reload this page?');
+									return true;
+								}
+							});
+						})
+					</script>
 					<br>
 				</div>
 			</div>
