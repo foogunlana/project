@@ -15,13 +15,14 @@ $(document).ready(function(){
 			success: function(responseData, textStatus, jqXHR) {
 				msg = JSON.parse(responseData);
 				if(msg.message){
-					alert(msg.message);
+					alert(JSON.stringify(msg.message));
 				}
 				if(msg.success){
 					if(msg.result){
 						var update = msg.result;
 						for(var prop in update){
 							$('#' + result).text(update[prop]);
+							$('#' + result).addClass('updated');
 						}
 					}
 				}else{
