@@ -90,7 +90,7 @@ $(document).ready(function() {
                 alert('You must add a photo to submit your editor. Ask you editor about uploading photos to the WEAL');
                 return false;
             }
-            if(tag_count < 3){
+            if(tag_count < 5){
                 alert('Please add at least 3 tags');
                 event.preventDefault();
                 $('#keyword_area').show();
