@@ -3,6 +3,7 @@ from abc import ABCMeta, abstractmethod
 from lxml import html
 from stears.models import ArticleImageModel
 from django.core.cache import cache
+from datetime import datetime
 
 import stears.params as params
 import time
@@ -188,6 +189,13 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
     link = article.get('photo', '').replace('/media/', '')
     article['photoset'] = photoset(link)
 
+    key = 'lposted' if article.get('posted') else 'posted'
+
+    article[key] = datetime.now()
+    posted = {key: datetime.now()}
+    articles.update({'article_id': article_id},
+                    {'$set': posted})
+
     if sector:
         find_doc = {'page': page, 'sector': sector}
     else:
@@ -201,8 +209,6 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
         onsite.update(find_doc,
                       {'$set': {'active': True, section: article}},
                       upsert=True)
-    articles.update({'article_id': article_id},
-                    {'$set': {'posted': time.time()}})
 
     pcs = {'home': 'index', 'b_e': 'business'}
     try:

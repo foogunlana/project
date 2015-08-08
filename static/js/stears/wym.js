@@ -91,7 +91,7 @@ $(document).ready(function() {
                 return false;
             }
             if(tag_count < 5){
-                alert('Please add at least 3 tags');
+                alert('Please add at least 5 tags');
                 event.preventDefault();
                 $('#keyword_area').show();
                 $('#id_tags').focus();

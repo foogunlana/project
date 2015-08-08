@@ -5,6 +5,7 @@ from mongoengine.django.auth import User
 from django.core.mail import send_mail
 from writers.settings import EMAIL_HOST_USER as email_host
 from writers.settings import client
+from datetime import datetime
 
 import params
 import json
@@ -250,7 +251,7 @@ def submit_writers_article(article_id):
         articles.update(
             {'article_id': article_id},
             {'$set': {'state': 'submitted',
-             'reviewer': 'No reviewer', 'time': time.time()}},
+             'reviewer': 'No reviewer', 'time': datetime.now()}},
             False, False
         )
         return False
@@ -266,7 +267,7 @@ def make_writers_article(form, username):
         'headline': headline,
         'content': stears_italics(content),
         'category': category,
-        'time': time.time(),
+        'time': datetime.now(),
         'writer': username,
         'writers': {'original': username, 'others': []},
         'reviewer': '',
@@ -284,7 +285,7 @@ def stears_italics(content):
 
 def make_comment(username, article_id, comment):
     comment_body = {
-        'time': time.time(),
+        'time': datetime.now(),
         'writer': username,
         'comment': comment,
     }
@@ -428,7 +429,7 @@ def migrate_article(article_id):
 
     try:
         article['state'] = 'site_ready'
-        article['time'] = time.time()
+        article['time'] = datetime.now()
         migrations.update({'article_id': article_id}, article, upsert=True)
         articles.remove({'article_id': article_id})
     except Exception:
