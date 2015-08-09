@@ -25,7 +25,8 @@ def article(request, pk):
                     article['posted'])
             except Exception:
                 pass
-            article['par1'] = summarize(article)
+            if not article.get('par1'):
+                article['par1'] = summarize(article)
             context = {'article': article, 'aUri': aUri}
         except Exception:
             pass
