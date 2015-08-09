@@ -16,7 +16,6 @@
 <meta property="og:title"          content="{{ article.headline }}" />
 <meta property="og:description"    content="{{ article.par1 }}" />
 <meta property="og:image"          content="http://www.stearsng.com{{ article.photo }}"/>
-<meta property="article:author"    content="{{ article.writer|format_name:'long' }}"/>
 <meta property="article:publisher" content="https://www.facebook.com/stearsng"/>
 <meta property="fb:app_id"         content="457339461112605" />
 {% endblock %}
@@ -157,5 +156,16 @@
     {% include 'news/footer.html' %}
     <script type="text/javascript" src="/static/js/jquery1-11-1.min.js"></script>
     <script type="text/javascript" src="/static/js/news/article.js"></script>
+    <script>
+      $(document).ready(function(){
+          $('.fb-stears-share').click(function(event){
+              event.preventDefault();
+              FB.ui({
+                method: 'share',
+                href: '{{ aUri }}',
+              }, function(response){});
+          });
+      });
+    </script>
   </body>
 {% endblock %}
