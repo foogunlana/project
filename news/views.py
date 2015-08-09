@@ -22,7 +22,7 @@ def article(request, pk):
             aUri = HttpRequest.build_absolute_uri(request)
             try:
                 article['posted'] = datetime.fromtimestamp(
-                    article['posted']).strftime('%B %-d, %Y')
+                    article['posted'])
             except Exception:
                 pass
             article['par1'] = summarize(article)
