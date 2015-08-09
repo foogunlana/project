@@ -193,12 +193,46 @@
 						</form>
 					</div>
 					<br>
-
 					<div class="article_box">
 						<a id="e_data_form" class="toggles_div2" style="padding:10px;" data-group="s_pages">Economic Data</a>
 					</div>
 					<br>
 					<div class="e_data_form article_box s_pages" class="columns small-12" style="padding:10px;"  hidden>
+						<div class="article_box">
+							<h5>
+								Currency Converter
+							</h5>
+							<select name="currency_1" id="id_currency_1">
+								<option value="none" selected disabled>From</option>
+								<option value="GBP">Great Britain Pounds</option>
+								<option value="NGN">Nigerian Naira</option>
+								<option value="USD">United States Dollar</option>
+							</select>
+							<select name="currency_2" id="id_currency_2">
+								<option value="none" selected disabled>To</option>
+								<option value="NGN">Nigerian Naira</option>
+								<option value="GBP">Great Britain Pounds</option>
+								<option value="USD">United States Dollar</option>
+							</select>
+							<p class="currency_result">
+								
+							</p>
+							<button class="fill currency_submit" type="submit_external">Go</button>
+							<script>
+							$(document).ready(function(){
+								$('.currency_submit').click(function(event){
+									var from = $('#id_currency_1').val();
+									var to = $('#id_currency_2').val();
+									var query = "http://rate-exchange.herokuapp.com/fetchRate?";
+									var response = $.get(query, {from: from, to: to}, function(data){
+										$('.currency_result').text('1 ' + $('#id_currency_1').val() + ' = ' + data.Rate + ' ' + $('#id_currency_2').val());
+									});
+								});
+							});
+							</script>
+						</div>
+						<br>
+
 						<div id="economic_data" class="">
 							<form method="post" action = "{% url 'weal:economic_data' %}" id="economic_data_form" enctype="multipart/form-data">
 								{% csrf_token %}

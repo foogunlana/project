@@ -4,8 +4,8 @@ from stears.models import ReportModel
 from django.http import HttpRequest, HttpResponse
 from utils import summarize
 from django.core.cache import cache
+from datetime import datetime
 
-import datetime
 import json
 
 
@@ -18,8 +18,10 @@ def article(request, pk):
             article = articles.find_one(
                 {'article_id': pk},
                 {'headline': 1, 'category': 1, 'writer': 1,
-                 'keywords': 1, 'content': 1, 'photo': 1})
+                 'keywords': 1, 'content': 1, 'photo': 1, 'posted': 1})
             aUri = HttpRequest.build_absolute_uri(request)
+            article['posted'] = datetime.fromtimestamp(
+                article['posted']).strftime('%B %-d, %Y')
             article['par1'] = summarize(article)
             context = {'article': article, 'aUri': aUri}
         except Exception:
@@ -40,10 +42,6 @@ def business(request, sector):
         try:
             onsite = mongo_calls('onsite')
             context = onsite.find_one({'page': 'b_e', 'sector': sector})
-            if context and context.get('main_feature'):
-                context['bmf_summary'] = summarize(context['main_feature'])
-            else:
-                context = {}
             context['sUri'] = absolute_url
             cache.set(cache_name, context, 60*60*24)
         except Exception:
@@ -58,7 +56,7 @@ def reports(request):
         try:
             reports = ReportModel.objects.all().order_by('week_ending')
             for report in reports:
-                d = datetime.datetime.strptime(
+                d = datetime.strptime(
                     str(report.week_ending), "%Y-%m-%d")
                 report.time_title = "Week ending {}".format(
                                     d.strftime('%B %-d, %Y'))
@@ -84,7 +82,7 @@ def index(request):
 
         try:
             context = onsite.find_one({'page': 'home'})
-            day = str(datetime.datetime.now().weekday())
+            day = str(datetime.now().weekday())
             col_writer = context['daily_column'].get(day)
             todays_column = articles.find_one({'$query': {
                                                'writer': col_writer,
