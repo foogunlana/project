@@ -20,6 +20,10 @@
         <h1 class="article-header">{{ article.headline }}</h1>
         <div class="w-section article-image">
           <div class="article-author">Written by <font class="author-name">{{ article.writer|format_name:'long' }}</font></div>
+          <div class="clock-time">
+            <img src="/static/images/clock.svg" alt="" class="clock">
+            <p class="time">{{ article.posted }}</p>
+          </div>
           <br>
           <img src="{{ article.photo }}" class="article-page-image" alt="{{ article.headline }}">
         </div>
