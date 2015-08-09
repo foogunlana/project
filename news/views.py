@@ -20,8 +20,11 @@ def article(request, pk):
                 {'headline': 1, 'category': 1, 'writer': 1,
                  'keywords': 1, 'content': 1, 'photo': 1, 'posted': 1})
             aUri = HttpRequest.build_absolute_uri(request)
-            article['posted'] = datetime.fromtimestamp(
-                article['posted']).strftime('%B %-d, %Y')
+            try:
+                article['posted'] = datetime.fromtimestamp(
+                    article['posted']).strftime('%B %-d, %Y')
+            except Exception:
+                pass
             article['par1'] = summarize(article)
             context = {'article': article, 'aUri': aUri}
         except Exception:
