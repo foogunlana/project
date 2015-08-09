@@ -10,16 +10,35 @@
 {% block title %}{{ article.headline }} | Stears{% endblock %}
 
 {% block meta %}
-<meta name="description" content="{{ article.par1|truncatechars:'150' }}"/>
-<meta property="og:url"           content="{{ aUri }}" />
-<meta property="og:type"          content="article" />
-<meta property="og:title"         content="{{ article.headline }}" />
-<meta property="og:description"   content="{{ article.par1 }}" />
-<meta property="og:image"         content="http://www.stearsng.com{{ article.photo }}"/>
+<meta name="description"           content="{{ article.par1|truncatechars:'150' }}"/>
+<meta property="og:url"            content="{{ aUri }}" />
+<meta property="og:type"           content="article" />
+<meta property="og:title"          content="{{ article.headline }}" />
+<meta property="og:description"    content="{{ article.par1 }}" />
+<meta property="og:image"          content="http://www.stearsng.com{{ article.photo }}"/>
+<meta property="article:author"    content="{{ article.writer|format_name:'long' }}"/>
+<meta property="article:publisher" content="https://www.facebook.com/stearsng"/>
+<meta property="fb:app_id"         content="457339461112605" />
 {% endblock %}
 
 {% block body %}
   <body>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '457339461112605',
+          xfbml      : true,
+          version    : 'v2.4'
+        });
+      };
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
     {% include 'news/news_nav.html' %}
     <div class="article-page-container">
       <div class="article-container">
