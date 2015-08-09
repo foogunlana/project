@@ -17,7 +17,7 @@ def article(request, pk):
             articles = mongo_calls('migrations')
             article = articles.find_one(
                 {'article_id': pk},
-                {'headline': 1, 'category': 1, 'writer': 1,
+                {'headline': 1, 'category': 1, 'writer': 1, 'summary': 1,
                  'keywords': 1, 'content': 1, 'photo': 1, 'posted': 1})
             aUri = HttpRequest.build_absolute_uri(request)
             try:
