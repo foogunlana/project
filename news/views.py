@@ -40,10 +40,6 @@ def business(request, sector):
         try:
             onsite = mongo_calls('onsite')
             context = onsite.find_one({'page': 'b_e', 'sector': sector})
-            if context and context.get('main_feature'):
-                context['bmf_summary'] = summarize(context['main_feature'])
-            else:
-                context = {}
             context['sUri'] = absolute_url
             cache.set(cache_name, context, 60*60*24)
         except Exception:
