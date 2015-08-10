@@ -162,7 +162,7 @@
       var response = $.get(query, {from: from, to: to}, function(data){
         var ecodata = $('#example_ecodata').clone(true);
         ecodata.removeAttr('id');
-        ecodata.find('.economic-data-header').text('U.S. Dollar')
+        ecodata.find('.economic-data-header').text('Exchange Rate (USD)')
         ecodata.find('.economic-figures').text("\u20A6"+data.Rate)
         ecodata.appendTo($('.ecodata-container'));
       });
