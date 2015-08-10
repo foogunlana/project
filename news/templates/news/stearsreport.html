@@ -35,7 +35,7 @@
       {% for report in reports reversed%}
         {% if report.industry %}
         <div class="w-clearfix stearsreport-post industry-report">
-          <div class="w-clearfix w-inline-block pdf-link-block nest-anchor">
+          <div class="w-clearfix w-inline-block pdf-link-block nest-anchor v-report">
             <div class="stearsreport-post-text">
               <div class="industry-report-label">Industry Report</div>
               <h2 class="stearsreport-h2"><a href="{{ sUri }}{{ report.pdf.url }}" class="target-anchor inall" target="_blank">{{ report.title }}</a></h2>
@@ -43,12 +43,12 @@
             </div>
           </div>
           <div class="stearsreport-misc industry-options">
-            <div class="w-inline-block view-link-block nest-anchor">
+            <div class="w-inline-block view-link-block nest-anchor v-report">
               <div class="w-clearfix view-report-segment"><img class="view-report" src="/static/images/iconmonstr-eye-7-icon.svg" width="30">
                 <div class="view-report-text"><a href="{{ sUri }}{{ report.pdf.url }}" target="_blank" class="target-anchor inall"></a>View Report</div>
               </div>
             </div>
-            <a class="w-inline-block download-link-block" href="{{ sUri }}{{ report.pdf.url }}" download>
+            <a class="w-inline-block download-link-block d-report" href="{{ sUri }}{{ report.pdf.url }}" download>
               <div class="w-clearfix download-link">
                 <div class="download-report-text">Download <br>Report</div><img class="download-report" src="/static/images/iconmonstr-download-8-icon.svg" width="30">
               </div>
@@ -57,19 +57,19 @@
         </div>
         {% else %}
         <div class="w-clearfix stearsreport-post">
-          <div class="w-clearfix w-inline-block pdf-link-block nest-anchor">
+          <div class="w-clearfix w-inline-block pdf-link-block nest-anchor v-report">
             <div class="stearsreport-post-text">
               <div class="industry-report-label">Weekly Report</div>
               <h2 class="stearsreport-h2"><a href="{{ sUri }}{{ report.pdf.url }}" class="target-anchor inall" target="_blank">Stears Report – {{ report.time_title }}</a></h2>
             </div>
           </div>
           <div class="stearsreport-misc">
-            <div class="w-inline-block view-link-block nest-anchor">
+            <div class="w-inline-block view-link-block nest-anchor v-report">
               <div class="w-clearfix view-report-segment"><img class="view-report" src="/static/images/iconmonstr-eye-7-icon.svg" width="30">
                 <div class="view-report-text"><a href="{{ sUri }}{{ report.pdf.url }}" class="target-anchor inall" target="_blank">View Report</a></div>
               </div>
             </div>
-            <a class="w-inline-block download-link-block" href="{{ sUri }}{{ report.pdf.url }}" download>
+            <a class="w-inline-block download-link-block d-report" href="{{ sUri }}{{ report.pdf.url }}" download>
               <div class="w-clearfix download-link">
                 <div class="download-report-text">Download<br>Report</div><img class="download-report" src="/static/images/iconmonstr-download-8-icon.svg" width="30">
               </div>
