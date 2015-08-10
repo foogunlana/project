@@ -27,13 +27,13 @@ $(document).ready(function(){
   $('.v-report').click(function(event){
     var url = $(this).find('.target-anchor').attr('href');
     gaReports('create', 'UA-65081439-1', 'auto');
-    gaReports('send', 'event', 'click', 'view-report', {'page': url});
+    gaReports('send', 'event', 'click', 'view-report', url);
   });
 
   $('.d-report').click(function(event){
     var url = $(this).find('.target-anchor').attr('href');
     gaReports('create', 'UA-65081439-1', 'auto');
-    gaReports('send', 'event', 'click', 'download-report', {'page': url});
+    gaReports('send', 'event', 'click', 'download-report', url);
   });
 
    $(".dropdown-tab").mouseenter(function () {
