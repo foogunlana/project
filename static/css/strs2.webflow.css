@@ -1177,6 +1177,7 @@ p {
   margin-right: auto;
   margin-left: auto;
   padding: 5% 5px 5px;
+  width: 100%;
 }
 .daily-column-h2 {
   display: inline-block;
@@ -1784,7 +1785,6 @@ p {
   .third-article-section {
     width: 45.6%;
     margin-right: 1.95%;
-    float: right;
   }
   .all-text-article {
     border-right: 1px solid #ccc;
