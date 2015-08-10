@@ -59,7 +59,7 @@
     </div>
     <div class="w-col w-col-2 w-hidden-small w-hidden-tiny category-sidebar">
       <div class="ecodata-container">
-        <div class="ecodata">
+        <div class="ecodata" id="example_ecodata">
           <div class="economic-data-header">GDP Growth</div>
           <div class="economic-figures">{{ economic_data.gdp_growth }}%</div>
         </div>
@@ -156,6 +156,16 @@
       if($(window).width() >= 768){
         $('.category-sidebar').outerHeight($('.featured-image').outerHeight());
       }
+      var from = 'USD';
+      var to = 'NGN'
+      var query = "http://rate-exchange.herokuapp.com/fetchRate?";
+      var response = $.get(query, {from: from, to: to}, function(data){
+        var ecodata = $('#example_ecodata').clone(true);
+        ecodata.removeAttr('id');
+        ecodata.find('.economic-data-header').text('U.S. Dollar')
+        ecodata.find('.economic-figures').text("\u20A6"+data.Rate)
+        ecodata.appendTo($('.ecodata-container'));
+      });
     });
   </script>
 </body>
