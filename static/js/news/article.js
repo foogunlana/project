@@ -121,7 +121,13 @@ $(document).ready(function(){
 
    $('.reports-ad-link').click(function(){
 		gaArticles('create', 'UA-65081439-1', 'auto');
-		gaArticles('send', 'event', 'click', 'reports-ad', link);
+		gaArticles('send', 'event', 'click', 'reports-ad', '/reports/');
+   });
+
+   $('.share-link-block').click(function(){
+		var social = $(this).attr('alt');
+		gaArticles('create', 'UA-65081439-1', 'auto');
+		gaArticles('send', 'event', 'click', 'social-share', social);
    });
 
 });
