@@ -6,7 +6,6 @@ from django.core.cache import cache
 from datetime import datetime
 
 import stears.params as params
-import time
 import htmlentitydefs
 import re
 
@@ -210,12 +209,14 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
                       {'$set': {'active': True, section: article}},
                       upsert=True)
 
+    if page == 'home':
+        if section == 'features':
+            expire_page(page='index', sector='features')
+        if section == 'secondary' or section == 'tertiaries':
+            expire_page(page='index', sector='top_picks')
+
     pcs = {'home': 'index', 'b_e': 'business'}
-    try:
-        expire_page(page=pcs[page], sector=sector)
-    except Exception as e:
-        print e
-        print "page could not be expired"
+    expire_page(page=pcs[page], sector=sector)
 
 
 def reset_page(page):
