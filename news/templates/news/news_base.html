@@ -17,9 +17,6 @@
   {% block special_links %}{% endblock %}
 
   <style>
-    h1, h2, h3, h4, h5{
-      /*visibility: hidden;*/
-    }
     .business-nav-container{
         display: none;
     } 
@@ -36,21 +33,18 @@
 
 {% block body %}{% endblock %}
 
+
 {% compress js %}
+<script async type="text/javascript" src="/static/js/jquery1-11-1.min.js"></script>
+<script async type="text/javascript" src="/static/js/webflow.js"></script>
+<script async type="text/javascript" src="/static/js/modernizr.js"></script>
+{% endcompress %}
+
+{% compress js inline %}
+<script async src="/static/js/news/news.js"></script>
 <script type="text/javascript" src="/static/js/typekit.js"></script>
-<script type="text/javascript">
+<script async type="text/javascript">
   try{Typekit.load();}catch(e){}
 </script>
-<script type="text/javascript" src="/static/js/jquery1-11-1.min.js"></script>
-<script type="text/javascript" src="/static/js/webflow.js"></script>
-<script type="text/javascript" src="/static/js/modernizr.js"></script>
-{% endcompress %}
-<style>
-    h1, h2, h3, h4, h5{
-      visibility: visible;
-    }
-</style>
-{% compress js inline %}
-<script src="/static/js/news/news.js"></script>
 {% endcompress %}
 </html>
