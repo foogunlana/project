@@ -3,6 +3,10 @@
   padding:5px;
 }
 
+.dc-link-block{
+  width: 100%;
+}
+
 .clock-time{
   display: block;
   height: 20px;

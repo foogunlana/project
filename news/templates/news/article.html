@@ -55,7 +55,7 @@
           {% if article.posted %}
           <div class="clock-time">
             <img src="/static/images/clock.svg" alt="" class="clock">
-            <p class="time">{{ article.posted }}</p>
+            <p class="time">{{ article.posted|date:"M d, Y" }}</p>
           </div>
           <br>
           {% endif %}
@@ -164,9 +164,8 @@
       </div>
     </div>
     {% include 'news/footer.html' %}
-    <script type="text/javascript" src="/static/js/jquery1-11-1.min.js"></script>
-    <script type="text/javascript" src="/static/js/news/article.js"></script>
-    <script>
+    <script async type="text/javascript" src="/static/js/news/article.js"></script>
+    <script async>
       $(document).ready(function(){
           $('.fb-stears-share').click(function(event){
               event.preventDefault();
