@@ -369,8 +369,10 @@ h3, h4, .business-h3, .daily-column-h2{
   padding-bottom: 2%;
   margin-bottom: 4px;
   background-color: white;
-  font-size: 90%;
-  border-left: 4px solid #2A58D6;
+  /*font-size: 90%;*/
+  width: 100%;
+  color:  white;
+  background-color: #f05042;
 }
 
 .ecodata{
@@ -380,7 +382,7 @@ h3, h4, .business-h3, .daily-column-h2{
   margin-bottom: 4px;
   background-color: white;
   font-size: 90%;
-  border-left: 4px solid #2A58D6;
+  border-left: 4px solid #f05042;
 }
 
 .economic-data-header{
