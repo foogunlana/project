@@ -29,6 +29,10 @@
   {% endcompress %}
 
   <link rel="shortcut icon" type="/static/images/x-icon" href="/static/images/StearsFavicon.png">
+  
+  {% compress js inline%}
+  <script async type="text/javascript" src="/static/js/jquery1-11-1.min.js"></script>
+  {% endcompress %}
 
   {% compress js %}
   <script async type="text/javascript" src="/static/js/webflow.js"></script>
@@ -39,7 +43,6 @@
 {% block body %}{% endblock %}
 
 {% compress js inline %}
-<script async type="text/javascript" src="/static/js/jquery1-11-1.min.js"></script>
 <script async src="/static/js/news/news.js"></script>
 <script type="text/javascript" src="/static/js/typekit.js"></script>
 <script async type="text/javascript">
