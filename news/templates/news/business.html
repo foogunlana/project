@@ -1,5 +1,6 @@
 {% extends 'news/news_base.html' %}
 {% load stears_tags %}
+{% load compress %}
 
 {% block special_links %}
 {% ifequal sUri 'http://www.stearsng.com' %}
@@ -7,11 +8,31 @@
 {% endifequal %}
 {% endblock %}
 
+{% block title %}Business & Economy - {{ sector|pretty_category }} | Stears{% endblock %}
+
 {% block meta %}
 <meta name="description" content="Stears provides insight and opinion on Nigerian business, economic and financial news, including data and analysis."/>
 {% endblock %}
 
-{% block title %}Business & Economy - {{ sector|pretty_category }} | Stears{% endblock %}
+{% block dynamic_static_head %}
+  {% compress css inline %}
+  <link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/webflow.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/strs2.webflow.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/strs.webflowXtra.css">
+  {% endcompress %}
+
+  <link rel="shortcut icon" type="/static/images/x-icon" href="/static/images/StearsFavicon.png">
+  
+  {% compress js inline %}
+  <script async type="text/javascript" src="/static/js/jquery1-11-1.min.js"></script>
+  {% endcompress %}
+
+  {% compress js %}
+  <script async type="text/javascript" src="/static/js/webflow.js"></script>
+  <script async type="text/javascript" src="/static/js/modernizr.js"></script>
+  {% endcompress %}
+{% endblock %}
 
 {% block body %}
 <head>
@@ -147,6 +168,17 @@
     </div>
   </div>
   {% include 'news/footer.html' %}
+</body>
+
+{% endblock %}
+
+{% block dynamic_static_body %}
+  {% compress js inline %}
+  <script type="text/javascript" src="/static/js/typekit.js"></script>
+  <script async type="text/javascript">
+    try{Typekit.load();}catch(e){}
+  </script>
+  <script async src="/static/js/news/news.js"></script>
   <script async type="text/javascript">
     $(document).ready(function(){
       $('#Sub-Category').change(function(event){
@@ -157,6 +189,5 @@
       }
     });
   </script>
-</body>
-
+  {% endcompress %}
 {% endblock %}
