@@ -1,5 +1,6 @@
 {% extends 'news/news_base.html' %}
 {% load stears_tags %}
+{% load compress %}
 
 {% block special_links %}
 {% ifequal sUri 'http://www.stearsng.com' %}
@@ -26,6 +27,26 @@
 <meta name="twitter:title" content="{{ article.headline }}">
 <meta name="twitter:description" content="{{ article.par1 }}">
 <meta name="twitter:image" content="http://www.stearsng.com{{ article.photo }}">
+{% endblock %}
+
+{% block dynamic_static_head %}
+  {% compress css inline %}
+  <link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/webflow.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/strs2.webflow.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/strs.webflowXtra.css">
+  {% endcompress %}
+
+  <link rel="shortcut icon" type="/static/images/x-icon" href="/static/images/StearsFavicon.png">
+  
+  {% compress js inline %}
+  <script async type="text/javascript" src="/static/js/jquery1-11-1.min.js"></script>
+  {% endcompress %}
+
+  {% compress js %}
+  <script async type="text/javascript" src="/static/js/webflow.js"></script>
+  <script async type="text/javascript" src="/static/js/modernizr.js"></script>
+  {% endcompress %}
 {% endblock %}
 
 {% block body %}
@@ -160,21 +181,30 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
     {% include 'news/footer.html' %}
-    <script async type="text/javascript" src="/static/js/news/article.js"></script>
-    <script async>
-      $(document).ready(function(){
-          $('.fb-stears-share').click(function(event){
-              event.preventDefault();
-              FB.ui({
-                method: 'share',
-                href: '{{ aUri }}',
-              }, function(response){});
-          });
-      });
-    </script>
   </body>
+{% endblock %}
+
+{% block dynamic_static_body %}
+  {% compress js inline %}
+  <script type="text/javascript" src="/static/js/typekit.js"></script>
+  <script async type="text/javascript">
+    try{Typekit.load();}catch(e){}
+  </script>
+  <script async src="/static/js/news/news.js"></script>
+  <script async type="text/javascript" src="/static/js/news/article.js"></script>
+  <script async>
+    $(document).ready(function(){
+        $('.fb-stears-share').click(function(event){
+            event.preventDefault();
+            FB.ui({
+              method: 'share',
+              href: '{{ aUri }}',
+            }, function(response){});
+        });
+    });
+  </script>
+  {% endcompress %}
 {% endblock %}

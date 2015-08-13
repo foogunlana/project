@@ -1,52 +1,22 @@
 <!DOCTYPE html>
-<!-- This site was created in Webflow. http://www.webflow.com-->
-<!-- Last Published: Sun Mar 08 2015 23:59:23 GMT+0000 (UTC) -->
 
 <html data-wf-site="54d15d04624a64834599eee8" data-wf-page="54d15d04624a64834599eee9">
 <head>
   <meta charset="utf-8">
   <title>{% block title %}{% endblock %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="generator" content="Webflow">
   <meta name="copyright" content="Copyright © 2015. Stears Partnership. All rights reserved">
   <meta property="og:site_name"          content="Stears" />
-
   {% block meta %}{% endblock %}
-  {% load compress %}
-  
   {% block special_links %}{% endblock %}
-
   <style>
     .business-nav-container{
         display: none;
     } 
   </style>
-  {% compress css inline %}
-  <link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/webflow.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/strs2.webflow.css">
-  <link rel="stylesheet" type="text/css" href="/static/css/strs.webflowXtra.css">
-  {% endcompress %}
-
-  <link rel="shortcut icon" type="/static/images/x-icon" href="/static/images/StearsFavicon.png">
-  
-  {% compress js inline%}
-  <script async type="text/javascript" src="/static/js/jquery1-11-1.min.js"></script>
-  {% endcompress %}
-
-  {% compress js %}
-  <script async type="text/javascript" src="/static/js/webflow.js"></script>
-  <script async type="text/javascript" src="/static/js/modernizr.js"></script>
-  {% endcompress %}
+  {% block dynamic_static_head %}{% endblock %}
 </head>
 
 {% block body %}{% endblock %}
-
-{% compress js inline %}
-<script async src="/static/js/news/news.js"></script>
-<script type="text/javascript" src="/static/js/typekit.js"></script>
-<script async type="text/javascript">
-  try{Typekit.load();}catch(e){}
-</script>
-{% endcompress %}
+{% block dynamic_static_body %}{% endblock %}
 </html>
