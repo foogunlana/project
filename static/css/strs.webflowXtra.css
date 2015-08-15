@@ -315,7 +315,6 @@ h3, h4, .business-h3, .daily-column-h2{
 }
 
 .stearsreport-description{
-  margin-bottom: 80px;
   padding-top: 10px;
   padding:20px;
   padding-left: 0px;
@@ -784,6 +783,75 @@ h3, h4, .business-h3, .daily-column-h2{
   margin-bottom:10px; 
   font-size: 12px;
   width: 100%;
+}
+
+.subscription-row{
+  width: 100%;
+  display: block;
+  background-color: #f05042;
+  color: white;
+  opacity: 0.5;
+}
+
+.subscription-row:hover{
+  opacity: 1;
+}
+
+.subscription-container{
+  width: 70%;
+  margin: auto;
+}
+
+.srs-body{
+  display: inline-block;
+  font-size: 15px;
+  margin: 10px;
+  margin-left: 0px;
+}
+
+.subscription-message{
+  width: 55%;
+  display: inline-block;
+}
+
+.subscription-email{
+  width: 40%;
+  float: right;
+  display: inline-block;
+  height: 39px;
+  margin: 0px;
+  vertical-align: top;
+}
+
+.srs-email{
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+}
+
+.srs-input{
+  float: right;
+  height: 100%;
+  margin: 0px;
+  color: #737373;
+  background-color: #f2f2f2;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  display: block;
+}
+
+.srs-input:focus{
+  outline: none;
+}
+
+.subscribe_form{
+  height: 100%;
+}
+
+.report-container{
+  margin-top: 80px;
 }
 
 table {

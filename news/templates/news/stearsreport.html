@@ -20,16 +20,28 @@
     <h3 class="daily-column-h2 stearsreport-widget-h4 stearsreport-logo-text">Stears<font class="stearsreport-report stearsreport-logo-text">Report</font></h3>
   </div>
   <div class="stearsreport-description">
-      <h4>
-        What Is StearsReport?
-      </h4>
-      <p>
-        StearsReport includes a weekly overview of the Nigerian financial markets and a quarterly review of evolving sectors. The weekly report analyses the performance of the Nigerian Stock Exchange (NSE), its related indices and market trends. The industry report is a critical review of trends influencing growth and innovation in a particular sector.
-      </p>
-      <p>
-        StearsReport also includes a glossary of definitions and functions of institutions for new entrants into the Nigerian financial markets.
-      </p>
+    <h4>
+      What Is StearsReport?
+    </h4>
+    <p>
+      StearsReport includes a weekly overview of the Nigerian financial markets and a quarterly review of evolving sectors. The weekly report analyses the performance of the Nigerian Stock Exchange (NSE), its related indices and market trends. The industry report is a critical review of trends influencing growth and innovation in a particular sector.
+    </p>
+    <p>
+      StearsReport also includes a glossary of definitions and functions of institutions for new entrants into the Nigerian financial markets.
+    </p>
+  </div>
+  <div class="subscription-row">
+    <div class="subscription-container">
+      <div class="subscription-message">
+        <p class="srs-body"><strong>Stay ahead. </strong>Subscribe to receive weekly StearsReport updates!</p>
+      </div>
+      <div class="subscription-email">
+          <form class="subscribe_form" action="#">
+            <input type="text" name="email" value="Please enter your email address" class="srs-input">
+          </form>
+      </div>
     </div>
+  </div>
   <div class="report-container">
     <div class="w-section stearsreport-container">
       {% for report in reports reversed%}
@@ -88,4 +100,21 @@
   {% compress js inline %}
   <script async src="/static/js/news/news.js"></script>
   {% endcompress %}
+  <script type="text/javascript">
+    var default_message = "Please enter your email address";
+    $(document).ready(function(){
+      $('.srs-input').val(default_message);
+      $('.srs-input').focus(function(){
+        if($('.srs-input').val() === default_message){
+          $('.srs-input').val('');
+        }
+      });
+
+      $('.srs-input').blur(function(){
+        if($('.srs-input').val() === ''){
+          $('.srs-input').val(default_message);
+        }
+      });
+    });
+  </script>
 {% endblock %}
