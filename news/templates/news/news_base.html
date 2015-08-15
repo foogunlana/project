@@ -14,9 +14,27 @@
         display: none;
     } 
   </style>
-  {% block dynamic_static_head %}{% endblock %}
+  {% load compress %}
+  {% compress css %}
+  <link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/webflow.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/strs2.webflow.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/strs.webflowXtra.css">
+  {% endcompress %}
+
+  <link rel="shortcut icon" type="/static/images/x-icon" href="/static/images/StearsFavicon.png">
 </head>
 
 {% block body %}{% endblock %}
+
+<script type="text/javascript" src="https://use.typekit.net/rzv6vwe.js"></script>
+<script defer type="text/javascript">
+  try{Typekit.load();}catch(e){}
+</script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+{% compress js %}
+<script defer type="text/javascript" src="/static/js/webflow.js"></script>
+<script defer type="text/javascript" src="/static/js/modernizr.js"></script>
+{% endcompress %}
 {% block dynamic_static_body %}{% endblock %}
 </html>
