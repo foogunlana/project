@@ -788,9 +788,9 @@ h3, h4, .business-h3, .daily-column-h2{
 .subscription-row{
   width: 100%;
   display: block;
-  background-color: #f05042;
-  color: white;
-  opacity: 0.5;
+  background-color: #efefef;
+  color: #333;
+  /*opacity: 0.5;*/
 }
 
 .subscription-row:hover{
@@ -840,6 +840,9 @@ h3, h4, .business-h3, .daily-column-h2{
   padding: 10px;
   width: 100%;
   display: block;
+  font-size: 15px;
+  font-weight: 300;
+  font-family: nimbus-sans;
 }
 
 .srs-input:focus{
