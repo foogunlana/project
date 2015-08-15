@@ -24,24 +24,6 @@
 </head>
 <body class="w-clearfix">
   {% include 'news/news_nav.html' %}
-  <div class="w-form">
-    <form id="email-form" name="email-form" data-name="Email Form">
-      <select class="w-select w-hidden-main w-hidden-medium sub-category-drop-down" id="Sub-Category" name="Sub-Category" data-name="Sub-Category">
-        <option value="" disabled selected class="placeholder_select">{{ sector|pretty_category }}</option>
-        <option class="option_stearsBusiness" value="{{ sUri }}{% url 'news:business' 'stearsBusiness' %}">Business</option>
-        <option class="option_stearsGovernance" value="{{ sUri }}{% url 'news:business' 'stearsGovernance' %}">Governance</option>
-        <option class="option_stearsMacroeconomy" value="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Economy</option>
-        <option class="option_stearsEditorial" value="{{ sUri }}{% url 'news:business' 'stearsEditorial' %}">Editorial</option>
-        <option class="option_stearsColumn"  value="{{ sUri }}{% url 'news:business' 'stearsColumn' %}">Column</option>
-      </select>
-    </form>
-    <div class="w-form-done">
-      <p>Thank you! Your submission has been received!</p>
-    </div>
-    <div class="w-form-fail">
-      <p>Oops! Something went wrong while submitting the form :(</p>
-    </div>
-  </div>
   <div class="w-row companies-row-1">
      <div class="w-col w-col-10 featured-post">
       {% if main_feature %}

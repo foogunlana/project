@@ -419,9 +419,10 @@ h3, h4, .business-h3, .daily-column-h2{
 }
 
 .w-nav-button{
-  padding:15px;
-  padding-top: 0px;
-  padding-left: 25px;
+  padding: 0px;
+  padding-left: 25px; 
+  width: auto;
+  padding-bottom:15px;
 }
 
 .w-nav-button.w--open{
@@ -429,12 +430,25 @@ h3, h4, .business-h3, .daily-column-h2{
 }
 
 .w-nav-button-container{
+  width: auto;
   padding-top: 18px;
+  display: inline-block;
 }
 
 .w-icon-nav-menu{
-  width: 100%;
   padding: 0px;
+  width: 24px;
+  height: 24px;
+}
+
+.w-nav-sector{
+    width:auto;
+    margin:0;
+    padding-top: 20px;
+    vertical-align: top;
+    display: inline-block;
+    font-weight: lighter;
+    font-size: 12px;
 }
 
 .w-nav-button.w--open .w-nav-button-container{

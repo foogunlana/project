@@ -1,3 +1,4 @@
+  {% load stears_tags %}
   <div class="w-nav w-hidden-small w-hidden-tiny" data-collapse="small" data-animation="default" data-duration="400">
     <div class="w-section w-clearfix navigation">
       <div class="nav-container">
@@ -54,6 +55,9 @@
           <div class="w-nav-button-container">
             <div class="w-icon-nav-menu hamburger-icon"></div>
           </div>
+          <h5 class="w-nav-sector">
+            {{ sector|pretty_category }}
+          </h5>
         </div>
       </div>
     </div>
