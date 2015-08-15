@@ -372,6 +372,8 @@ h3, h4, .business-h3, .daily-column-h2{
   /*font-size: 90%;*/
   width: 100%;
   color:  white;
+  font-size: 100%;
+  font-weight: lighter;
   background-color: #afafaf;
 }
 
