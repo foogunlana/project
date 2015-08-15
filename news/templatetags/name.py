@@ -5,8 +5,8 @@ import re
 register = template.Library()
 
 
-@register.filter("format_name")
-def format_name(long_name, long_or_short):
+@register.filter("name")
+def name(long_name, long_or_short):
     if long_or_short == 'short':
         name = str(long_name.split("_")[0])
     else:

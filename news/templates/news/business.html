@@ -9,10 +9,20 @@
 {% endifequal %}
 {% endblock %}
 
-{% block title %}Business & Economy - {{ sector|pretty_category }} | Stears{% endblock %}
+{% block title %}Business & Economy - {{ sector|category }} | Stears{% endblock %}
 
 {% block meta %}
-<meta name="description" content="Stears provides insight and opinion on Nigerian business, economic and financial news, including data and analysis."/>
+<meta name="description" content="{{ meta_description }}"/>
+<meta property="og:url"           content="{{ aUri }}" />
+<meta property="og:type"          content="website" />
+<meta property="og:title"         content="Business & Economy - {{ sector|category }} | Stears" />
+<meta property="og:description"   content="{{ meta_description }}"/>
+<meta property="og:image"         content="http://www.stearsng.com/static/images/StearsBetaComplete.svg"/>
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@stearsng" />
+<meta name="twitter:title" content="Business & Economy - {{ sector|category }} | Stears" />
+<meta name="twitter:description" content="{{ meta_description }}" />
 {% endblock %}
 
 {% block body %}
@@ -33,9 +43,9 @@
           <img class="featured-image" src="{% if main_feature.photoset %}{{ main_feature.photoset.photomf }}{% else %}{{ main_feature.photo }}{% endif %}" alt="">
         </div>
         <div class="featured-post-text">
-          <div class="featured-post-author">{{ main_feature.writer|format_name:'long' }}</div>
+          <div class="featured-post-author">{{ main_feature.writer|name:'long' }}</div>
           <h2><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' main_feature.article_id %}">{{ main_feature.headline }}</a></h2>
-          <div class="featured-post-category">{{ main_feature.category|pretty_category }}</div>
+          <div class="featured-post-category">{{ main_feature.category|category }}</div>
           <p class="w-hidden-small w-hidden-tiny featured-post-p">{{ main_feature.par1|truncatechars:200 }}</p>
         </div>
       </div>
@@ -118,7 +128,7 @@
           <div class="w-inline-block post-block nest-anchor">
             <div class="header-and-author">
               <h3 class="business-h3"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' feature.article_id %}">{{ feature.headline }}</a></h3>
-              <div class="post-block-author">{{ feature.writer|format_name:'long' }}</div>
+              <div class="post-block-author">{{ feature.writer|name:'long' }}</div>
               <p class="post-summary">{{ feature.par1|truncatechars:110 }}</p>
             </div>
             <div class="w-section article-thumbnail w-hidden-small ">

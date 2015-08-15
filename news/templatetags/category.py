@@ -3,8 +3,8 @@ from django import template
 register = template.Library()
 
 
-@register.filter("pretty_category")
-def pretty_category(string):
+@register.filter("category")
+def category(string):
     if string == 'stearsMacroeconomy':
         return 'Economy'
     if string == 'stearsColumn':

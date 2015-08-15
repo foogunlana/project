@@ -1,13 +1,14 @@
 from django.shortcuts import render
 from stears.utils import mongo_calls
 from stears.models import ReportModel
+from stears import params
 from django.http import HttpRequest, HttpResponse
 from utils import summarize
 from django.core.cache import cache
 from datetime import datetime
 
 import json
-import time
+
 
 def article(request, pk):
     cache_name = 'newscache:{}{}'.format('article', str(pk))
@@ -39,7 +40,6 @@ def article(request, pk):
             cache.set(cache_name, context, 60*60*24)
         except Exception:
             pass
-
     context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
     return render(request, 'news/article.html', context)
 
@@ -49,6 +49,7 @@ def business(request, sector):
     cached_index = cache.get(cache_name, None)
     if cached_index:
         return render(request, 'news/business.html', cached_index)
+
     context = {}
     absolute_url = 'http://{}'.format(HttpRequest.get_host(request))
     if request.method == 'GET':
@@ -56,10 +57,10 @@ def business(request, sector):
             onsite = mongo_calls('onsite')
             context = onsite.find_one({'page': 'b_e', 'sector': sector})
             context['sUri'] = absolute_url
+            context['meta_description'] = params.meta_descriptions['b_e'][sector]
             cache.set(cache_name, context, 60*60*24)
         except Exception:
             context['sUri'] = absolute_url
-
     return render(request, 'news/business.html', context)
 
 
@@ -74,6 +75,7 @@ def reports(request):
                 report.time_title = "Week ending {}".format(
                                     d.strftime('%B %-d, %Y'))
             context['reports'] = reports
+            context['meta_description'] = params.meta_descriptions['reports']
             context['page'] = 'reports'
         except Exception as e:
             print str(e)
@@ -82,15 +84,13 @@ def reports(request):
 
 
 def index(request):
-    x = time.time()
     cache_name = 'newscache:index'
-    # cached_index = cache.get(cache_name, None)
+    cached_index = cache.get(cache_name, None)
     absolute_url = 'http://{}'.format(HttpRequest.get_host(request))
 
-    # if cached_index:
-    #     y = render(request, 'news/index.html', cached_index)
-    #     print time.time() - x
-    #     return y
+    if cached_index:
+        return render(request, 'news/index.html', cached_index)
+
     context = {}
     if request.method == 'GET':
         onsite = mongo_calls('onsite')
@@ -115,13 +115,12 @@ def index(request):
                 context['column'] = todays_column
 
             context['sUri'] = absolute_url
+            context['meta_description'] = params.meta_descriptions['home']
             cache.set(cache_name, context, 60*60*24)
         except Exception as e:
             context['sUri'] = absolute_url
             print str(e)
-    y = render(request, 'news/index.html', context)
-    print time.time() - x
-    return y
+    return render(request, 'news/index.html', context)
 
 
 def top_picks(request):
