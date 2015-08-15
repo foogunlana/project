@@ -779,6 +779,13 @@ h3, h4, .business-h3, .daily-column-h2{
   margin:auto;
 }
 
+.contact-us{
+  margin: 0px;
+  margin-bottom:10px; 
+  font-size: 12px;
+  width: 100%;
+}
+
 table {
     width: 100%;
 }

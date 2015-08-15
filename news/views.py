@@ -7,7 +7,7 @@ from django.core.cache import cache
 from datetime import datetime
 
 import json
-
+import time
 
 def article(request, pk):
     cache_name = 'newscache:{}{}'.format('article', str(pk))
@@ -82,12 +82,15 @@ def reports(request):
 
 
 def index(request):
+    x = time.time()
     cache_name = 'newscache:index'
-    cached_index = cache.get(cache_name, None)
+    # cached_index = cache.get(cache_name, None)
     absolute_url = 'http://{}'.format(HttpRequest.get_host(request))
 
-    if cached_index:
-        return render(request, 'news/index.html', cached_index)
+    # if cached_index:
+    #     y = render(request, 'news/index.html', cached_index)
+    #     print time.time() - x
+    #     return y
     context = {}
     if request.method == 'GET':
         onsite = mongo_calls('onsite')
@@ -116,7 +119,9 @@ def index(request):
         except Exception as e:
             context['sUri'] = absolute_url
             print str(e)
-    return render(request, 'news/index.html', context)
+    y = render(request, 'news/index.html', context)
+    print time.time() - x
+    return y
 
 
 def top_picks(request):

@@ -4,7 +4,7 @@ register = template.Library()
 
 
 @register.filter('replace')
-def repalce(string, ois):
+def replace(string, ois):
     try:
         ois = ois.split(',')
         o, i = ois[0], ois[1]
