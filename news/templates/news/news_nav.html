@@ -55,9 +55,11 @@
           <div class="w-nav-button-container">
             <div class="w-icon-nav-menu hamburger-icon"></div>
           </div>
+          {% if sector %}
           <h5 class="w-nav-sector">
             {{ sector|pretty_category }}
           </h5>
+          {% endif %}
         </div>
       </div>
     </div>
