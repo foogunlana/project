@@ -93,7 +93,7 @@
                     <div class="article-category">{{ secondary.category|pretty_category }}</div>
                     <h2 class="secondary-h2"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' secondary.article_id %}">{{ secondary.headline }}</a></h2>
                     <div class="article-author">{{ secondary.writer|format_name:'long' }}</div>
-                    <p class="post-summary">{{ secondary.par1|truncatechars:90 }}</p>
+                    <p class="post-summary">{{ secondary.par1|truncatechars:110 }}</p>
                   </div>
                 </div>
                 <div class="w-col w-col-7 w-col-medium-6 secondary-article-img">
@@ -111,7 +111,7 @@
                   <div class="article-category">{{ tertiaries.0.category|pretty_category }}</div>
                   <h3><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' tertiaries.0.article_id %}">{{ tertiaries.0.headline }}</a></h3>
                   <div class="article-author">{{ tertiaries.0.writer|format_name:'long' }}</div>
-                  <p class="all-text-article-p">{{ tertiaries.0.par1|truncatechars:90 }}</p>
+                  <p class="all-text-article-p">{{ tertiaries.0.par1|truncatechars:110 }}</p>
                 </div>
               {% endif %}
             </div>
@@ -201,7 +201,7 @@
                     <div class="article-category">{{ secondary.category|pretty_category }}</div>
                     <h2><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' secondary.article_id %}">{{ secondary.headline }}</a></h2>
                     <div class="article-author">{{ secondary.writer|format_name:'long' }}</div>
-                    <p class="post-summary">{{ secondary.par1|truncatechars:90 }}</p>
+                    <p class="post-summary">{{ secondary.par1|truncatechars:110 }}</p>
                   </div>
                 </div>
                 <div class="w-col w-col-7 w-col-stack secondary-article-img">
@@ -222,7 +222,7 @@
                   <h3><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' tertiaries.0.article_id %}">{{ tertiaries.0.headline }}</a></h3>
                   <div class="article-author">{{ tertiaries.0.writer|format_name:'long' }}</div>
                 </div>
-                <p class="all-text-article-p">{{ tertiaries.0.par1|truncatechars:90 }}</p>
+                <p class="all-text-article-p">{{ tertiaries.0.par1|truncatechars:110 }}</p>
               </div>
             {% endif %}
           </div>
@@ -266,7 +266,7 @@
                   <div class="header-and-author">
                     <h3 class="business-h3"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' feature.article_id %}">{{ feature.headline }}</a></h3>
                     <div class="post-block-author">{{ feature.writer|format_name:'long' }}</div>
-                    <p class="post-summary">{{ feature.par1|truncatechars:90 }}</p>
+                    <p class="post-summary">{{ feature.par1|truncatechars:110 }}</p>
                   </div>
                   <div class="w-section article-thumbnail">
                     <img class="stears-thumbnail" src="{% if feature.photoset %}{{ feature.photoset.photof }}{% else %}{{ feature.photo }}{% endif %}" alt="">
@@ -284,7 +284,7 @@
                   <div class="header-and-author">
                     <h3 class="business-h3"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' feature.article_id %}"></a>{{ feature.headline }}</h3>
                     <div class="post-block-author">{{ feature.writer|format_name:'long' }}</div>
-                    <p class="post-summary">{{ feature.par1|truncatechars:90 }}</p>
+                    <p class="post-summary">{{ feature.par1|truncatechars:110 }}</p>
                   </div>
                   <div class="w-section article-thumbnail">
                     <img class="stears-thumbnail" src="{% if feature.photoset %}{{ feature.photoset.photof }}{% else %}{{ feature.photo }}{% endif %}" alt="">

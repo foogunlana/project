@@ -74,10 +74,12 @@
 
 .secondary-article{
   vertical-align: top;
+  display: inline-block;
 }
 
 .third-article-section{
   vertical-align: top;
+  display: inline-block;
 }
 
 .all-text-article-p{

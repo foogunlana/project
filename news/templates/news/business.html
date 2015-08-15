@@ -95,7 +95,7 @@
           <div class="header-and-author">
             <h3 class="business-h3"><a href="{{ sUri }}{% url 'news:article' feature.article_id %}" class="target-anchor inall">{{ feature.headline }}</a></h3>
             <div class="post-block-author">{{ feature.author }}</div>
-            <p class="post-summary">{{ feature.par1|truncatechars:90 }}</p>
+            <p class="post-summary">{{ feature.par1|truncatechars:110 }}</p>
           </div>
           <div class="w-section article-thumbnail">
             <img class="stears-thumbnail" src="{% if feature.photoset %}{{ feature.photoset.photof }}{% else %}{{ feature.photo }}{% endif %}" alt="">
@@ -119,7 +119,7 @@
             <div class="header-and-author">
               <h3 class="business-h3"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' feature.article_id %}">{{ feature.headline }}</a></h3>
               <div class="post-block-author">{{ feature.writer|format_name:'long' }}</div>
-              <p class="post-summary">{{ feature.par1|truncatechars:90 }}</p>
+              <p class="post-summary">{{ feature.par1|truncatechars:110 }}</p>
             </div>
             <div class="w-section article-thumbnail w-hidden-small ">
               <img class="stears-thumbnail" src="{% if feature.photoset %}{{ feature.photoset.photof }}{% else %}{{ feature.photo }}{% endif %}" alt="">
