@@ -33,15 +33,31 @@
   <div class="subscription-row">
     <div class="subscription-container">
       <div class="subscription-message">
-        <p class="srs-body"><strong>Stay ahead. Subscribe to receive weekly StearsReport.</strong></p>
+        <p class="srs-body"><strong>Subscribe to receive weekly StearsReport.</strong></p>
       </div>
-      <div class="subscription-email">
-          <form class="subscribe_form" action="#">
-            <input type="text" name="email" value="Please enter your email address" class="srs-input">
-          </form>
+      <div id="mc_embed_signup" class="subscription-email">
+        <form action="//stearsng.us11.list-manage.com/subscribe/post?u=a4a603de91bcce179e8235a3e&amp;id=ce20fa52cc" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate subscribe_form" target="_blank" novalidate>
+            <div id="mc_embed_signup_scroll">
+              <div class="mc-field-group">
+              </label>
+                <input type="email" value="Please click to enter your email address" class="srs-input required email" name="EMAIL" id="mce-EMAIL">
+              </div>
+              <div id="mce-responses" class="clear">
+                <div class="response" id="mce-error-response" style="display:none"></div>
+                <div class="response success-response" id="mce-success-response" style="display:none"></div>
+              </div> 
+              <input type="text" name="b_a4a603de91bcce179e8235a3e_ce20fa52cc" tabindex="-1" value="" hidden>
+              <div class="clear" hidden>
+                <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+              </div>
+            </div>
+        </form>
       </div>
     </div>
   </div>
+  <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+  <style>
+</style>
   <div class="report-container">
     <div class="w-section stearsreport-container">
       {% for report in reports reversed%}
@@ -107,12 +123,14 @@
       $('.srs-input').focus(function(){
         if($('.srs-input').val() === default_message){
           $('.srs-input').val('');
+          $('.success-response').css({'display':'none'});
         }
       });
 
       $('.srs-input').blur(function(){
         if($('.srs-input').val() === ''){
           $('.srs-input').val(default_message);
+          $('#mce_inline_error').hide();
         }
       });
     });
