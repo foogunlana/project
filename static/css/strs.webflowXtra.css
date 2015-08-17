@@ -317,7 +317,6 @@ h3, h4, .business-h3, .daily-column-h2{
 }
 
 .stearsreport-description{
-  margin-bottom: 80px;
   padding-top: 10px;
   padding:20px;
   padding-left: 0px;
@@ -786,6 +785,98 @@ h3, h4, .business-h3, .daily-column-h2{
   margin-bottom:10px; 
   font-size: 12px;
   width: 100%;
+}
+
+.subscription-row{
+  width: 100%;
+  display: block;
+  background-color: #efefef;
+  color: #333;
+  /*opacity: 0.5;*/
+}
+
+.subscription-row:hover{
+  opacity: 1;
+}
+
+.subscription-container{
+  width: 70%;
+  margin: auto;
+}
+
+.srs-body{
+  display: inline-block;
+  font-size: 15px;
+  margin: 10px;
+  margin-left: 0px;
+}
+
+.subscription-message{
+  width: 55%;
+  display: inline-block;
+}
+
+.subscription-email{
+  width: 40%;
+  float: right;
+  display: inline-block;
+  height: 39px;
+  margin: 0px;
+  vertical-align: top;
+}
+
+
+div.mce_inline_error, div.response{
+  color: #f05042 !important; 
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  font-family: nimbus-sans, arial !important;
+  border: 2px solid #f2f2f2;
+  border-radius: 3px !important;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+div.mce_inline_error{
+  display: none !important;
+}
+
+div.success-response{
+  color: #2A58D6 !important;
+}
+
+.srs-email{
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+}
+
+.srs-input{
+  float: right;
+  height: 100%;
+  margin: 0px;
+  color: #737373;
+  background-color: #f2f2f2;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  display: block;
+  font-size: 15px;
+  font-weight: 300;
+  font-family: nimbus-sans, arial;
+}
+
+.srs-input:focus{
+  outline: none;
+}
+
+.subscribe_form{
+  height: 100%;
+}
+
+.report-container{
+  margin-top: 80px;
 }
 
 table {
