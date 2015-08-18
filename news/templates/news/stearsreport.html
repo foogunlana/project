@@ -147,6 +147,12 @@
         $('.srs-input').val(default_message);
       });
 
+      $('#mc-embedded-subscribe-form input').keydown(function(e) {
+        if (e.keyCode == 13) {
+          $('#mc-embedded-subscribe-form').submit();
+        }
+      });
+
       $('#mc-embedded-subscribe-form').submit(function(event){
         event.preventDefault();
         $('.mc-message-container').hide();
@@ -166,7 +172,7 @@
               $('.mc-message-container').css({'color':'#f05042'});
               $('.ok button').css({'background-color':'#f05042'});
               $('.mc-message-container').slideDown();
-              console.log(responseData);
+              // console.log(JSON.stringify(responseData));
             }else if(responseData.result === 'success'){
               var msg = responseData.msg.replace('0 - ', '');
               $('.mc-message-container').css({'color':'#2A58D6'});
