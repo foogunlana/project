@@ -787,21 +787,58 @@ h3, h4, .business-h3, .daily-column-h2{
   width: 100%;
 }
 
+.mc-message-container{
+  width: 100%;
+  display: none;
+  background-color: #f2f2f2;
+  color: #f05042;
+  height: 39px;
+}
+
+.mc-message{
+  width: 70%;
+  height: 100%;
+  display: block;
+  margin: auto;
+}
+
+.mc-message-body{
+  display: block;
+  font-size: 13px;
+  margin: 9px;
+  float: right;
+}
+
+.ok{
+  display: block;
+  float: right;
+  height: 100%;
+}
+
+.ok button{
+  display: block;
+  height: 100%;
+  border: none;
+  background-color: #f05042;
+  color: #f2f2f2;
+}
+
+.ok button:focus, .ok button:active{
+  outline: none;
+}
+
 .subscription-row{
   width: 100%;
   display: block;
   background-color: #efefef;
   color: #333;
-  /*opacity: 0.5;*/
-}
-
-.subscription-row:hover{
-  opacity: 1;
+  height: auto;
 }
 
 .subscription-container{
   width: 70%;
   margin: auto;
+  height: auto;
 }
 
 .srs-body{
@@ -820,7 +857,6 @@ h3, h4, .business-h3, .daily-column-h2{
   width: 40%;
   float: right;
   display: inline-block;
-  height: 39px;
   margin: 0px;
   vertical-align: top;
 }
@@ -853,7 +889,7 @@ div.success-response{
 }
 
 .srs-input{
-  float: right;
+  /*float: right;*/
   height: 100%;
   margin: 0px;
   color: #737373;
@@ -975,6 +1011,23 @@ th{
   }
 
  }
+
+   @media(max-width: 991px){
+     .subscription-message{
+      width: 100%;
+      display: block;
+    }
+
+    .subscription-email{
+      width: 100%;
+      display: block;
+      float: none;
+    } 
+
+    .srs-input{
+      padding-left: 0px;
+    }
+   }
 
   @media (min-width: 991px) {
     .top-stories-container, .sfeatures-container{
@@ -1123,7 +1176,6 @@ th{
 
    }
  @media (max-width: 767px) and (min-width: 480px){
-  
   .reports-ad-header h3{
     font-size: 200%;
   }
@@ -1227,6 +1279,32 @@ th{
 
 
  @media (max-width: 479px){
+  .mc-message{
+    width: 90%;
+  }
+
+  .mc-message-body{
+    width: 80%;
+    margin-left: 0px;
+    float: left;
+  }
+  .ok{
+    width: 15%; 
+  }
+
+  .ok button{
+    width: 100%;
+    text-align: center;
+  }
+
+  .subscription-container{
+    width: 90%;
+  }
+
+  .mc-message-container{
+    width: 100%;
+  }
+
   .feature{
     width: 100%;
     vertical-align: top;

@@ -40,27 +40,27 @@
       StearsReport also includes a glossary of definitions and functions of institutions for new entrants into the Nigerian financial markets.
     </p>
   </div>
+  <div class="mc-message-container">
+    <div class="mc-message">
+      <div class="ok">
+        <button>
+          ok
+        </button>
+      </div>
+      <div class="mc-message-body">
+      </div>
+    </div>
+  </div>
   <div class="subscription-row">
     <div class="subscription-container">
       <div class="subscription-message">
         <p class="srs-body"><strong>Subscribe to receive weekly StearsReport.</strong></p>
       </div>
       <div id="mc_embed_signup" class="subscription-email">
-        <form action="//stearsng.us11.list-manage.com/subscribe/post-json?u=a4a603de91bcce179e8235a3e&amp;id=ce20fa52cc" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate subscribe_form" target="_blank" novalidate>
-            <div id="mc_embed_signup_scroll">
-              <div class="mc-field-group">
-              </label>
-                <input type="email" value="Please click to enter your email address" class="srs-input required email" name="EMAIL" id="mce-EMAIL">
-              </div>
-              <div id="mce-responses" class="clear">
-                <div class="response" id="mce-error-response" style="display:none"></div>
-                <div class="response success-response" id="mce-success-response" style="display:none"></div>
-              </div> 
-              <input type="text" name="b_a4a603de91bcce179e8235a3e_ce20fa52cc" tabindex="-1" value="" hidden>
-              <div class="clear" hidden>
-                <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
-              </div>
-            </div>
+        <form action="//stearsng.us11.list-manage.com/subscribe/post?u=a4a603de91bcce179e8235a3e&amp;id=ce20fa52cc" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate subscribe_form" target="_blank" novalidate>
+          <input type="email" value="Please click to enter your email address" class="srs-input required email" name="EMAIL" id="mce-EMAIL">
+          <input type="text" name="b_a4a603de91bcce179e8235a3e_ce20fa52cc" tabindex="-1" value="" hidden>
+          <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button" style="display:none;">
         </form>
       </div>
     </div>
@@ -142,20 +142,41 @@
         }
       });
 
+      $('.ok').click(function(event){
+        $('.mc-message-container').slideUp();
+        $('.srs-input').val(default_message);
+      });
+
       $('#mc-embedded-subscribe-form').submit(function(event){
         event.preventDefault();
+        $('.mc-message-container').hide();
+
         $.ajax({
-          url: $('#mc-embedded-subscribe-form').attr('action'),
+          url: "//stearsng.us11.list-manage.com/subscribe/post-json?u=a4a603de91bcce179e8235a3e&amp;id=ce20fa52cc",
           type: 'post',
           data: $('#mc-embedded-subscribe-form').serialize(),
           dataType: 'jsonp',
           jsonp: "c",
           contentType: "application/json; charset=utf-8",
+
           success: function(responseData, textStatus, jqXHR){
-            alert(JSON.stringify(responseData));
+            if(responseData.result === 'error'){
+              var msg = responseData.msg.replace('0 - ', '');
+              $('.mc-message-body').text(msg);
+              $('.mc-message-container').css({'color':'#f05042'});
+              $('.ok button').css({'background-color':'#f05042'});
+              $('.mc-message-container').slideDown();
+              console.log(responseData);
+            }else if(responseData.result === 'success'){
+              var msg = responseData.msg.replace('0 - ', '');
+              $('.mc-message-container').css({'color':'#2A58D6'});
+              $('.ok button').css({'background-color':'#2A58D6'});
+              $('.mc-message-body').text('To receive the StearsReport, we need to confirm your email address. Please click the link in the email you have just received.');
+              $('.mc-message-container').slideDown();
+            }
           },
           error: function(jqXHR, textStatus, errorThrown){
-            alert(errorThrown);
+            console.log(errorThrown);
           },
         });
         return false;
