@@ -1264,5 +1264,11 @@ th{
   .economic-figures{
     display: inline-block;
   }
-
+  
+  .footer{
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 90%;
+    margin: auto;
+  }
 }
