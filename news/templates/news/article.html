@@ -53,7 +53,7 @@
       <div class="article-container">
         <h1 class="article-header">{{ article.headline }}</h1>
         <div class="w-section article-image">
-          <div class="article-author">Written by <font class="author-name">{{ article.writer|format_name:'long' }}</font></div>
+          <div class="article-author">Written by <font class="author-name">{{ article.writer|name:'long' }}</font></div>
           {% if article.posted %}
           <div class="clock-time">
             <img src="/static/images/clock.svg" alt="" class="clock">
@@ -66,7 +66,7 @@
         <div class="w-section w-clearfix article-content">
           <div class="w-clearfix article-detail">
             <div class="article-author article-page">{{ article.author }}</div>
-            <div class="article-category article-page">{{ article.category|pretty_category }}</div>
+            <div class="article-category article-page">{{ article.category|category }}</div>
             <div class="share-article">
               {% include 'news/share_article.html' %}
             </div>
@@ -84,7 +84,7 @@
             {% endfor %}
           </div>
           <br>
-          <div class="article-author article-bottom">Written by <font class="author-name">{{ article.writer|format_name:'long' }}</font></div>
+          <div class="article-author article-bottom">Written by <font class="author-name">{{ article.writer|name:'long' }}</font></div>
           <br>
           <br>
           <div class="share-article article-bottom">

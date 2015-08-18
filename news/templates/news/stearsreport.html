@@ -10,7 +10,17 @@
 {% block title %}StearsReport | Stears{% endblock %}
 
 {% block meta %}
-<meta name="description" content="StearsReport includes a weekly overview of the Nigerian financial markets and a quarterly review of evolving sectors."/>
+<meta name="description" content="{{ meta_description }}"/>
+<meta property="og:url"           content="{{ aUri }}" />
+<meta property="og:type"          content="website" />
+<meta property="og:title"         content="StearsReport | Stears" />
+<meta property="og:description"   content="{{ meta_description }}"/>
+<meta property="og:image"         content="http://www.stearsng.com/static/images/StearsBetaComplete.svg"/>
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@stearsng" />
+<meta name="twitter:title" content="Stears News | Homepage" />
+<meta name="twitter:description" content="{{ meta_description }}" />
 {% endblock %}
 
 {% block body %}
