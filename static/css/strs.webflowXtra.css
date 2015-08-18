@@ -368,13 +368,13 @@ h3, h4, .business-h3, .daily-column-h2{
   padding-top: 3%;
   padding-bottom: 2%;
   margin-bottom: 4px;
-  background-color: white;
+  /*background-color: white;*/
   /*font-size: 90%;*/
   width: 100%;
-  color:  white;
-  font-size: 100%;
-  font-weight: lighter;
-  background-color: #afafaf;
+  color: #333;
+  font-size: 120%;
+  font-weight: bold;
+  /*background-color: #eeeeee;*/
 }
 
 .ecodata{
@@ -384,7 +384,7 @@ h3, h4, .business-h3, .daily-column-h2{
   margin-bottom: 4px;
   background-color: white;
   font-size: 90%;
-  border-left: 4px solid #afafaf;
+  border-left: 4px solid #eeeeee;
 }
 
 .economic-data-header{
