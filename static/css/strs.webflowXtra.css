@@ -369,11 +369,13 @@ h3, h4, .business-h3, .daily-column-h2{
   padding-top: 3%;
   padding-bottom: 2%;
   margin-bottom: 4px;
-  background-color: white;
+  /*background-color: white;*/
   /*font-size: 90%;*/
   width: 100%;
-  color:  white;
-  background-color: #f05042;
+  color: #333;
+  font-size: 120%;
+  font-weight: bold;
+  /*background-color: #eeeeee;*/
 }
 
 .ecodata{
@@ -383,7 +385,7 @@ h3, h4, .business-h3, .daily-column-h2{
   margin-bottom: 4px;
   background-color: white;
   font-size: 90%;
-  border-left: 4px solid #f05042;
+  border-left: 4px solid #eeeeee;
 }
 
 .economic-data-header{
@@ -1264,6 +1266,11 @@ th{
       width: 49%;
     }
 
+    .ecodata-header{
+      padding-left: 5px;
+    } 
+
+
     .economic-data-header{
       display: inline-block;
     }
@@ -1422,6 +1429,10 @@ th{
     width: 48%;
   }
 
+  .ecodata-header{
+    padding-left: 5px;
+  }
+
   .economic-data-header{
     display: inline-block;
   }
@@ -1433,5 +1444,11 @@ th{
   .economic-figures{
     display: inline-block;
   }
-
+  
+  .footer{
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 90%;
+    margin: auto;
+  }
 }
