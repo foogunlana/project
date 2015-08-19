@@ -13,10 +13,8 @@ import json
 
 def article(request, pk):
     cache_name = 'newscache:{}{}'.format('article', str(pk))
-    cached_index = cache.get(cache_name, None)
-    if cached_index:
-        response = render(request, 'news/article.html', cached_index)
-        patch_cache_control(response, max_age=3600, must_revalidate=True)
+    response = cache.get(cache_name, None)
+    if response:
         return response
 
     pk = int(pk)
@@ -40,10 +38,9 @@ def article(request, pk):
                 article['par1'] = summarize(article)
             context = {'article': article, 'aUri': aUri}
             context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
-            cache.set(cache_name, context, 60*60*24)
-
             response = render(request, 'news/article.html', context)
             patch_cache_control(response, max_age=3600, must_revalidate=True)
+            cache.set(cache_name, response, 60*60*24)
             return response
         except Exception:
             pass
@@ -56,10 +53,8 @@ def article(request, pk):
 
 def business(request, sector):
     cache_name = 'newscache:{}{}'.format('business', sector)
-    cached_index = cache.get(cache_name, None)
-    if cached_index:
-        response = render(request, 'news/business.html', cached_index)
-        patch_cache_control(response, max_age=3600, must_revalidate=True)
+    response = cache.get(cache_name, None)
+    if response:
         return response
 
     context = {}
@@ -70,9 +65,9 @@ def business(request, sector):
             context = onsite.find_one({'page': 'b_e', 'sector': sector})
             context['sUri'] = absolute_url
             context['meta_description'] = params.meta_descriptions['b_e'][sector]
-            cache.set(cache_name, context, 60*60*24)
             response = render(request, 'news/business.html', context)
             patch_cache_control(response, max_age=3600, must_revalidate=True)
+            cache.set(cache_name, response, 60*60*24)
             return response
         except Exception:
             context['sUri'] = absolute_url
@@ -95,26 +90,29 @@ def reports(request):
             context['reports'] = reports
             context['meta_description'] = params.meta_descriptions['reports']
             context['page'] = 'reports'
+            context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
+            response = render(request, 'news/stearsreport.html', context)
+            patch_cache_control(response, max_age=3600, must_revalidate=True)
+            return response
         except Exception as e:
             print str(e)
 
     context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
     response = render(request, 'news/stearsreport.html', context)
-    patch_cache_control(response, max_age=3600, must_revalidate=True)
+    patch_cache_control(response, no_cache=True)
     return response
 
 
 def index(request):
     cache_name = 'newscache:index'
-    cached_index = cache.get(cache_name, None)
-    absolute_url = 'http://{}'.format(HttpRequest.get_host(request))
+    response = cache.get(cache_name, None)
 
-    if cached_index:
-        response = render(request, 'news/index.html', cached_index)
-        patch_cache_control(response, max_age=3600, must_revalidate=True)
+    if response:
         return response
 
     context = {}
+    absolute_url = 'http://{}'.format(HttpRequest.get_host(request))
+
     if request.method == 'GET':
         onsite = mongo_calls('onsite')
         articles = mongo_calls('migrations')
@@ -139,10 +137,9 @@ def index(request):
 
             context['sUri'] = absolute_url
             context['meta_description'] = params.meta_descriptions['home']
-            cache.set(cache_name, context, 60*60*24)
-
             response = render(request, 'news/index.html', context)
             patch_cache_control(response, max_age=3600, must_revalidate=True)
+            cache.set(cache_name, response, 60*60*24)
             return response
         except Exception as e:
             context['sUri'] = absolute_url
@@ -155,11 +152,9 @@ def index(request):
 
 def top_picks(request):
     cache_name = 'newscache:{}{}'.format('index', 'top_picks')
-    cached_index = cache.get(cache_name, None)
+    response = cache.get(cache_name, None)
 
-    if cached_index:
-        response = HttpResponse(json.dumps(cached_index))
-        patch_cache_control(response, max_age=3600, must_revalidate=True)
+    if response:
         return response
 
     responseData = {}
@@ -175,10 +170,10 @@ def top_picks(request):
                           'par1': a['par1']} for a in top_picks.values()]
             responseData['articles'] = top_picks
             responseData['success'] = True
-            cache.set(cache_name, responseData, 60*60*24)
 
             response = HttpResponse(json.dumps(responseData))
             patch_cache_control(response, max_age=3600, must_revalidate=True)
+            cache.set(cache_name, response, 60*60*24)
             return response
         except Exception as e:
             responseData['success'] = False
@@ -191,11 +186,9 @@ def top_picks(request):
 
 def features(request):
     cache_name = 'newscache:{}{}'.format('index', 'features')
-    cached_index = cache.get(cache_name, None)
+    response = cache.get(cache_name, None)
 
-    if cached_index:
-        response = HttpResponse(json.dumps(cached_index))
-        patch_cache_control(response, max_age=3600, must_revalidate=True)
+    if response:
         return response
 
     responseData = {}
@@ -208,10 +201,9 @@ def features(request):
                         'headline': a['headline'], 'writer': a['writer'],
                         'photo': a['photo'], 'article_id': a['article_id']}]
             responseData['success'] = True
-            cache.set(cache_name, responseData, 60*60*24)
-
             response = HttpResponse(json.dumps(responseData))
             patch_cache_control(response, max_age=3600, must_revalidate=True)
+            cache.set(cache_name, response, 60*60*24)
             return response
         except Exception as e:
             responseData['success'] = False
