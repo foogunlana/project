@@ -857,7 +857,7 @@ h3, h4, .business-h3, .daily-column-h2{
 
 .subscription-email{
   width: 40%;
-  float: right;
+  float: none;
   display: inline-block;
   margin: 0px;
   vertical-align: top;
