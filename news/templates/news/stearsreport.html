@@ -169,6 +169,8 @@
             if(responseData.result === 'error'){
               var msg = responseData.msg.replace('0 - ', '');
               $('.mc-message-body').html(msg);
+              $('.mc-message-body').find('a').attr('target', '_blank');
+              $('.mc-message-body').find('a').css({'text-decoration':'none'});
               $('.mc-message-container').css({'color':'#f05042'});
               $('.ok button').css({'background-color':'#f05042'});
               $('.mc-message-container').slideDown();
