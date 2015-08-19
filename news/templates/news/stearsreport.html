@@ -168,7 +168,7 @@
           success: function(responseData, textStatus, jqXHR){
             if(responseData.result === 'error'){
               var msg = responseData.msg.replace('0 - ', '');
-              $('.mc-message-body').html(msg + '<a href="">bla</a>');
+              $('.mc-message-body').html(msg);
               $('.mc-message-container').css({'color':'#f05042'});
               $('.ok button').css({'background-color':'#f05042'});
               $('.mc-message-container').slideDown();
