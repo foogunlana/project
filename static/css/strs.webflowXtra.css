@@ -386,6 +386,7 @@ h3, h4, .business-h3, .daily-column-h2{
   background-color: white;
   font-size: 90%;
   border-left: 4px solid #eeeeee;
+  vertical-align: top;
 }
 
 .economic-data-header{
