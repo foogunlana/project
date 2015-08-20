@@ -219,6 +219,51 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
     expire_page(page=pcs[page], sector=sector)
 
 
+def allocator_commands(page_name, sector=None):
+    onsite = mongo_calls('onsite')
+    commands = []
+    singles = ['main_feature', 'secondary']
+    multiples = ['tertiaries', 'features']
+
+    if sector:
+        page = onsite.find_one({'page': page_name, 'sector': sector})
+    else:
+        page = onsite.find_one({'page': page_name})
+    if not page:
+        return None
+
+    for section in singles:
+        try:
+            command = {
+                'page': 'home',
+                'section': section,
+                'article_id': page[section]['article_id'],
+                'sector': sector,
+                'number': None,
+            }
+            commands += [command]
+        except Exception, e:
+            print e
+
+    for section in multiples:
+        if not page.get(section):
+            continue
+        count = len(page[section])
+        for number in range(count):
+            try:
+                command = {
+                    'page': 'home',
+                    'section': section,
+                    'article_id': page[section][number]['article_id'],
+                    'sector': sector,
+                    'number': number,
+                }
+                commands += [command]
+            except Exception, e:
+                print e
+    return commands
+
+
 def reset_page(page):
     onsite = mongo_calls('onsite')
     if page == 'b_e':
