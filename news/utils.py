@@ -188,12 +188,16 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
     link = article.get('photo', '').replace('/media/', '')
     article['photoset'] = photoset(link)
 
-    key = 'lposted' if article.get('posted') else 'posted'
-
-    article[key] = datetime.now()
-    posted = {key: datetime.now()}
+    updates = {}
+    posted = article.get('posted', None)
+    if posted and (type(posted) == float):
+        updates = dict(updates, posted=datetime.fromtimestamp(posted))
+    if not posted:
+        updates = dict(updates, posted=datetime.now())
+    article = dict(article, **updates)
+    updates = dict(updates, lposted=datetime.now())
     articles.update({'article_id': article_id},
-                    {'$set': posted})
+                    {'$set': updates})
 
     if sector:
         find_doc = {'page': page, 'sector': sector}
