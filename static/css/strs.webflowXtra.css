@@ -30,6 +30,39 @@
   color: #737373;
 }
 
+.article-category{
+  display: inline-block;
+  font-size: 13px;
+}
+
+.clock-cat{
+  display: block;
+}
+
+.clock-time-small{
+  display: inline-block;
+  height: 20px;
+  margin-bottom: 0px;
+  border-right: 1px solid #e2e2e2;
+  padding-right: 5px; 
+}
+
+.clock-small{
+  display: inline-block;
+  width: 15px;
+  margin: 0px;
+  margin-bottom: 4px;
+  margin-right: 1px;
+}
+
+.time-small{
+  display: inline-block;
+  margin: 0px;
+  padding: 0px;
+  font-size: 13px;
+  color: #737373;
+}
+
 .button3{
   display: inline-block;
   background-color:#f05042;
