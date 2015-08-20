@@ -32,7 +32,8 @@
 
 .article-category{
   display: inline-block;
-  font-size: 13px;
+  font-size: 11px;
+  margin-left: 3px;
 }
 
 .clock-cat{
@@ -49,9 +50,9 @@
 
 .clock-small{
   display: inline-block;
-  width: 15px;
+  width: 11px;
   margin: 0px;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   margin-right: 1px;
 }
 
@@ -59,7 +60,7 @@
   display: inline-block;
   margin: 0px;
   padding: 0px;
-  font-size: 13px;
+  font-size: 11px;
   color: #737373;
 }
 
