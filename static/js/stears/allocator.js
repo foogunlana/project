@@ -62,8 +62,9 @@ $(document).ready(function(){
                 if(responseData === "reload"){
                     location.reload();
                 }else{
-                    alert(responseData);
+					response = JSON.parse(responseData);
                 }
+				alert(response.message);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log("error");

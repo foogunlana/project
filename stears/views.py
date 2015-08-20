@@ -817,10 +817,16 @@ def allocate_article(request):
                 put_article_on_page(page=page, section=section,
                                     article_id=article_id,
                                     sector=sector, number=number)
+                return HttpResponse(json.dumps({
+                    'success': True,
+                    'message': 'Article {} was successfully allocated'.format(
+                        article_id)}))
             except Exception as e:
-                pass
+                return HttpResponse(json.dumps({'success': False,
+                                                'message': str(e)}))
         else:
-            return HttpResponse(allocation_form.errors)
+            return HttpResponse(json.dumps({'success': False,
+                                            'message': allocation_form.errors}))
     return HttpResponse('reload')
 
 
