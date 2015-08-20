@@ -56,6 +56,10 @@
   margin-left: 3px;
 }
 
+.ac-feature{
+  color: #f75e5e;
+}
+
 .clock-time-small{
   display: inline-block;
   height: 20px;
@@ -89,7 +93,7 @@
 }
 
 .featured-post-category{
-  color: #f05042;
+  color: #f75e5e;
 }
 
 .button3{
