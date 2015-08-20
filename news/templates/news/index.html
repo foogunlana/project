@@ -33,33 +33,33 @@
           <div class="w-hidden-tiny w-section main-article featured-image-container">
             <img class="featured-image" src="{% if main_feature.photoset %}{{ main_feature.photoset.photomf }}{% else %}{{ main_feature.photo }}{% endif %}" alt="">
             <div class="w-section main-article-content">
-              <div class="clock-cat">
+              <h1 class="main-article-h1"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' main_feature.article_id %}">{{ main_feature.headline }}</a></h1>
+              <div class="article-author aa-main">{{ main_feature.writer|name:'long' }}</div>
+              <div class="clock-cat-main">
                 {% if main_feature.posted %}
-                <div class="clock-time-small">
+                <div class="clock-time-small cts-main">
                   <img src="/static/images/clock.svg" alt="" class="clock-small">
                   <p class="time-small">{{ main_feature.posted }}</p>
                 </div>
                 {% endif %}
-                <div class="article-category">{{ main_feature.category|category }}</div>
+                <div class="article-category ac-main">{{ main_feature.category|category }}</div>
               </div>
-              <h1 class="main-article-h1"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' main_feature.article_id %}">{{ main_feature.headline }}</a></h1>
-              <div class="article-author">{{ main_feature.writer|name:'long' }}</div>
             </div>
           </div>
           <div class="w-hidden-small w-section main-article featured-image-container">
             <img class="featured-image" src="{% if main_feature.photoset %}{{ main_feature.photoset.photomf }}{% else %}{{ main_feature.photo }}{% endif %}" alt="">
             <div class="w-section main-article-content">
+              <h1 class="main-article-h1"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' main_feature.article_id %}">{{ main_feature.headline }}</a></h1>
+              <div class="article-author aa-main">{{ main_feature.writer|name:'long' }}</div>
               <div class="clock-cat">
                 {% if main_feature.posted %}
-                <div class="clock-time-small">
+                <div class="clock-time-small cts-main">
                   <img src="/static/images/clock.svg" alt="" class="clock-small">
                   <p class="time-small">{{ main_feature.posted }}</p>
                 </div>
                 {% endif %}
-                <div class="article-category">{{ main_feature.category|category }}</div>
+                <div class="article-category ac-main">{{ main_feature.category|category }}</div>
               </div>
-              <h1 class="main-article-h1"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' main_feature.article_id %}">{{ main_feature.headline }}</a></h1>
-              <div class="article-author">{{ main_feature.writer|name:'long' }}</div>
             </div>
           </div>
         </div>
@@ -229,17 +229,17 @@
             <div class="w-hidden-small w-hidden-tiny main-article featured-image-container">
               <img class="featured-image" src="{% if main_feature.photoset %}{{ main_feature.photoset.photomf }}{% else %}{{ main_feature.photo }}{% endif %}" alt="">
               <div class="w-section main-article-content">
-                <div class="clock-cat">
+                <h1 class="main-article-h1"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' main_feature.article_id %}">{{ main_feature.headline }}</a></h1>
+                <div class="article-author aa-main">{{ main_feature.writer|name:'long' }}</div>
+                <div class="clock-cat-main clock-cat">
                   {% if main_feature.posted %}
-                  <div class="clock-time-small">
+                  <div class="clock-time-small cts-main">
                     <img src="/static/images/clock.svg" alt="" class="clock-small">
                     <p class="time-small">{{ main_feature.posted }}</p>
                   </div>
                   {% endif %}
-                  <div class="article-category">{{ main_feature.category|category }}</div>
+                  <div class="article-category ac-main">{{ main_feature.category|category }}</div>
                 </div>
-                <h1 class="main-article-h1"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' main_feature.article_id %}">{{ main_feature.headline }}</a></h1>
-                <div class="article-author">{{ main_feature.writer|name:'long' }}</div>
               </div>
             </div>
           </div>

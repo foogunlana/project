@@ -43,9 +43,17 @@
           <img class="featured-image" src="{% if main_feature.photoset %}{{ main_feature.photoset.photomf }}{% else %}{{ main_feature.photo }}{% endif %}" alt="">
         </div>
         <div class="featured-post-text">
-          <div class="featured-post-author">{{ main_feature.writer|name:'long' }}</div>
+          <div class="clock-cat">
+            {% if main_feature.posted %}
+            <div class="clock-time-small">
+              <img src="/static/images/clock.svg" alt="" class="clock-small">
+              <p class="time-small">{{ main_feature.posted|date:"M d, Y" }}</p>
+            </div>
+            {% endif %}
+            <div class="featured-post-category ac-main">{{ main_feature.category|category }}</div>
+          </div>
           <h2><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' main_feature.article_id %}">{{ main_feature.headline }}</a></h2>
-          <div class="featured-post-category">{{ main_feature.category|category }}</div>
+          <div class="featured-post-author">{{ main_feature.writer|name:'long' }}</div>
           <p class="w-hidden-small w-hidden-tiny featured-post-p">{{ main_feature.par1|truncatechars:200 }}</p>
         </div>
       </div>
@@ -106,6 +114,15 @@
         {% if feature %}
         <div class="w-inline-block post-block nest-anchor">
           <div class="header-and-author">
+            <div class="clock-cat">
+              {% if feature.posted %}
+              <div class="clock-time-small">
+                <img src="/static/images/clock.svg" alt="" class="clock-small">
+                <p class="time-small">{{ feature.posted|date }}</p>
+              </div>
+              {% endif %}
+              <div class="ac-feature">{{ feature.category|category }}</div>
+            </div>
             <h3 class="business-h3"><a href="{{ sUri }}{% url 'news:article' feature.article_id %}" class="target-anchor inall">{{ feature.headline }}</a></h3>
             <div class="post-block-author">{{ feature.author }}</div>
             <p class="post-summary">{{ feature.par1|truncatechars:110 }}</p>
@@ -130,6 +147,15 @@
           {% if feature %}
           <div class="w-inline-block post-block nest-anchor">
             <div class="header-and-author">
+              <div class="clock-cat">
+                {% if feature.posted %}
+                <div class="clock-time-small">
+                  <img src="/static/images/clock.svg" alt="" class="clock-small">
+                  <p class="time-small">{{ feature.posted|date }}</p>
+                </div>
+                {% endif %}
+                <div class="ac-feature">{{ feature.category|category }}</div>
+              </div>
               <h3 class="business-h3"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' feature.article_id %}">{{ feature.headline }}</a></h3>
               <div class="post-block-author">{{ feature.writer|name:'long' }}</div>
               <p class="post-summary">{{ feature.par1|truncatechars:110 }}</p>

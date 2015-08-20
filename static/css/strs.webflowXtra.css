@@ -40,12 +40,32 @@
   display: block;
 }
 
+.clock-cat-main{
+  float: right;
+}
+
+.aa-main{
+  display: inline-block;
+}
+
+.ac-main, .ac-feature{
+  color: #737373;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 300;
+  margin-left: 3px;
+}
+
 .clock-time-small{
   display: inline-block;
   height: 20px;
   margin-bottom: 0px;
   border-right: 1px solid #e2e2e2;
   padding-right: 5px; 
+}
+
+.cts-main{
+  border-right: 1px solid #737373;
 }
 
 .clock-small{
@@ -62,6 +82,14 @@
   padding: 0px;
   font-size: 11px;
   color: #737373;
+}
+
+.featured-post-author{
+  color: #737373;
+}
+
+.featured-post-category{
+  color: #f05042;
 }
 
 .button3{
