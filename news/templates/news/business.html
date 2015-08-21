@@ -44,13 +44,13 @@
         </div>
         <div class="featured-post-text">
           <div class="clock-cat">
+            <div class="featured-post-category ac-main">{{ main_feature.category|category }}</div>
             {% if main_feature.posted %}
             <div class="clock-time-small">
               <img src="/static/images/clock.svg" alt="" class="clock-small">
               <p class="time-small">{{ main_feature.posted|date:"M d, Y" }}</p>
             </div>
             {% endif %}
-            <div class="featured-post-category ac-main">{{ main_feature.category|category }}</div>
           </div>
           <h2><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' main_feature.article_id %}">{{ main_feature.headline }}</a></h2>
           <div class="featured-post-author">{{ main_feature.writer|name:'long' }}</div>
@@ -115,13 +115,13 @@
         <div class="w-inline-block post-block nest-anchor">
           <div class="header-and-author">
             <div class="clock-cat">
+              <div class="ac-feature">{{ feature.category|category }}</div>
               {% if feature.posted %}
               <div class="clock-time-small">
                 <img src="/static/images/clock.svg" alt="" class="clock-small">
                 <p class="time-small">{{ feature.posted|date:"M d, Y" }}</p>
               </div>
               {% endif %}
-              <div class="ac-feature">{{ feature.category|category }}</div>
             </div>
             <h3 class="business-h3"><a href="{{ sUri }}{% url 'news:article' feature.article_id %}" class="target-anchor inall">{{ feature.headline }}</a></h3>
             <div class="post-block-author">{{ feature.author }}</div>
@@ -148,13 +148,13 @@
           <div class="w-inline-block post-block nest-anchor">
             <div class="header-and-author">
               <div class="clock-cat">
+                <div class="ac-feature">{{ feature.category|category }}</div>
                 {% if feature.posted %}
                 <div class="clock-time-small">
                   <img src="/static/images/clock.svg" alt="" class="clock-small">
                   <p class="time-small">{{ feature.posted|date:"M d, Y" }}</p>
                 </div>
                 {% endif %}
-                <div class="ac-feature">{{ feature.category|category }}</div>
               </div>
               <h3 class="business-h3"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' feature.article_id %}">{{ feature.headline }}</a></h3>
               <div class="post-block-author">{{ feature.writer|name:'long' }}</div>
