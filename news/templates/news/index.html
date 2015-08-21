@@ -39,7 +39,7 @@
                 {% if main_feature.posted %}
                 <div class="clock-time-small cts-main">
                   <img src="/static/images/clock.svg" alt="" class="clock-small">
-                  <p class="time-small">{{ main_feature.posted }}</p>
+                  <p class="time-small">{{ main_feature.posted|date:"M d, Y" }}</p>
                 </div>
                 {% endif %}
                 <div class="article-category ac-main">{{ main_feature.category|category }}</div>
@@ -55,7 +55,7 @@
                 {% if main_feature.posted %}
                 <div class="clock-time-small cts-main">
                   <img src="/static/images/clock.svg" alt="" class="clock-small">
-                  <p class="time-small">{{ main_feature.posted }}</p>
+                  <p class="time-small">{{ main_feature.posted|date:"M d, Y" }}</p>
                 </div>
                 {% endif %}
                 <div class="article-category ac-main">{{ main_feature.category|category }}</div>
@@ -110,7 +110,7 @@
                     {% if secondary.posted %}
                     <div class="clock-time-small">
                       <img src="/static/images/clock.svg" alt="" class="clock-small">
-                      <p class="time-small">{{ secondary.posted }}</p>
+                      <p class="time-small">{{ secondary.posted|date:"M d, Y" }}</p>
                     </div>
                     {% endif %}
                     <div class="article-category">{{ secondary.category|category }}</div>
@@ -136,7 +136,7 @@
                     {% if tertiaries.0.posted %}
                     <div class="clock-time-small">
                       <img src="/static/images/clock.svg" alt="" class="clock-small">
-                      <p class="time-small">{{ tertiaries.0.posted }}</p>
+                      <p class="time-small">{{ tertiaries.0.posted|date:"M d, Y" }}</p>
                     </div>
                     {% endif %}
                     <div class="article-category">{{ tertiaries.0.category|category }}</div>
@@ -154,7 +154,7 @@
                     {% if tertiaries.1.posted %}
                     <div class="clock-time-small">
                       <img src="/static/images/clock.svg" alt="" class="clock-small">
-                      <p class="time-small">{{ tertiaries.1.posted }}</p>
+                      <p class="time-small">{{ tertiaries.1.posted|date:"M d, Y" }}</p>
                     </div>
                     {% endif %}
                     <div class="article-category">{{ tertiaries.1.category|category }}</div>
@@ -170,7 +170,7 @@
                     {% if tertiaries.2.posted %}
                     <div class="clock-time-small">
                       <img src="/static/images/clock.svg" alt="" class="clock-small">
-                      <p class="time-small">{{ tertiaries.2.posted }}</p>
+                      <p class="time-small">{{ tertiaries.2.posted|date:"M d, Y" }}</p>
                     </div>
                     {% endif %}
                     <div class="article-category">{{ tertiaries.2.category|category }}</div>
@@ -235,7 +235,7 @@
                   {% if main_feature.posted %}
                   <div class="clock-time-small cts-main">
                     <img src="/static/images/clock.svg" alt="" class="clock-small">
-                    <p class="time-small">{{ main_feature.posted }}</p>
+                    <p class="time-small">{{ main_feature.posted|date:"M d, Y" }}</p>
                   </div>
                   {% endif %}
                   <div class="article-category ac-main">{{ main_feature.category|category }}</div>
@@ -259,7 +259,7 @@
                       {% if secondary.posted %}
                       <div class="clock-time-small">
                         <img src="/static/images/clock.svg" alt="" class="clock-small">
-                        <p class="time-small">{{ secondary.posted }}</p>
+                        <p class="time-small">{{ secondary.posted|date:"M d, Y" }}</p>
                       </div>
                       {% endif %}
                       <div class="article-category">{{ secondary.category|category }}</div>
@@ -287,7 +287,7 @@
                     {% if tertiaries.0.posted %}
                     <div class="clock-time-small">
                       <img src="/static/images/clock.svg" alt="" class="clock-small">
-                      <p class="time-small">{{ tertiaries.0.posted }}</p>
+                      <p class="time-small">{{ tertiaries.0.posted|date:"M d, Y" }}</p>
                     </div>
                     {% endif %}
                     <div class="article-category">{{ tertiaries.0.category|category }}</div>
@@ -307,7 +307,7 @@
                     {% if tertiaries.1.posted %}
                     <div class="clock-time-small">
                       <img src="/static/images/clock.svg" alt="" class="clock-small">
-                      <p class="time-small">{{ tertiaries.1.posted }}</p>
+                      <p class="time-small">{{ tertiaries.1.posted|date:"M d, Y" }}</p>
                     </div>
                     {% endif %}
                     <div class="article-category">{{ tertiaries.1.category|category }}</div>
@@ -325,7 +325,7 @@
                     {% if tertiaries.2.posted %}
                     <div class="clock-time-small">
                       <img src="/static/images/clock.svg" alt="" class="clock-small">
-                      <p class="time-small">{{ tertiaries.2.posted }}</p>
+                      <p class="time-small">{{ tertiaries.2.posted|date:"M d, Y" }}</p>
                     </div>
                     {% endif %}
                     <div class="article-category">{{ tertiaries.2.category|category }}</div>
@@ -357,7 +357,7 @@
                       {% if feature.posted %}
                       <div class="clock-time-small">
                         <img src="/static/images/clock.svg" alt="" class="clock-small">
-                        <p class="time-small">{{ feature.posted }}</p>
+                        <p class="time-small">{{ feature.posted|date:"M d, Y" }}</p>
                       </div>
                       {% endif %}
                       <div class="article-category">{{ feature.category|category }}</div>
@@ -384,7 +384,7 @@
                       {% if feature.posted %}
                       <div class="clock-time-small">
                         <img src="/static/images/clock.svg" alt="" class="clock-small">
-                        <p class="time-small">{{ feature.posted }}</p>
+                        <p class="time-small">{{ feature.posted|date:"M d, Y" }}</p>
                       </div>
                       {% endif %}
                       <div class="article-category">{{ feature.category|category }}</div>

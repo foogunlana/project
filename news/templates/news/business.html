@@ -118,7 +118,7 @@
               {% if feature.posted %}
               <div class="clock-time-small">
                 <img src="/static/images/clock.svg" alt="" class="clock-small">
-                <p class="time-small">{{ feature.posted|date }}</p>
+                <p class="time-small">{{ feature.posted|date:"M d, Y" }}</p>
               </div>
               {% endif %}
               <div class="ac-feature">{{ feature.category|category }}</div>
@@ -151,7 +151,7 @@
                 {% if feature.posted %}
                 <div class="clock-time-small">
                   <img src="/static/images/clock.svg" alt="" class="clock-small">
-                  <p class="time-small">{{ feature.posted|date }}</p>
+                  <p class="time-small">{{ feature.posted|date:"M d, Y" }}</p>
                 </div>
                 {% endif %}
                 <div class="ac-feature">{{ feature.category|category }}</div>
