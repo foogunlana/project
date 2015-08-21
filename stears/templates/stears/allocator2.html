@@ -261,12 +261,27 @@
 									event.preventDefault();
 									return false;
 								}else{
-									confirm('Are you sure you want to reload this page?');
+									if(!confirm('Are you sure you want to reload this page?')){
+										return false;
+									}
 									return true;
 								}
 							});
 						})
 					</script>
+					<br>
+					<p style="margin-bottom:0px;color:#f05042;">This might take a moment... Please only use off peak times</p>
+					<form method="post" id="reallocate_page_form" action = "{% url 'weal:reallocate' %}" enctype="multipart/form-data">
+						{% csrf_token %}
+						<select style="width:80%;display:inline-block;" name="page" id="id_page">
+							<option selected disabled value="None">Rellocate all articles on a page</option>
+							<option value="index">Reallocate Home page</option>
+							{% for sector in sectors %}
+							<option value="business,{{ sector }}">Reallocate {{ sector|pretty_category }} sector</option>
+							{% endfor %}
+						</select>
+						<button style="width:15%;display:inline-block;">Go</button>
+					</form>
 					<br>
 				</div>
 			</div>

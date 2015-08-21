@@ -199,7 +199,8 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
         find_doc = {'page': page, 'sector': sector}
     else:
         find_doc = {'page': page}
-    if number:
+    if number is not None:
+        number = int(number)
         onsite.update(find_doc,
                       {'$set': {'active': True,
                        '{}.{}'.format(section, number): article}},
@@ -224,6 +225,8 @@ def allocator_commands(page_name, sector=None):
     commands = []
     singles = ['main_feature', 'secondary']
     multiples = ['tertiaries', 'features']
+    alias = {'index': 'home', 'business': 'b_e'}
+    page_name = alias.get(page_name, page_name)
 
     if sector:
         page = onsite.find_one({'page': page_name, 'sector': sector})
@@ -235,7 +238,7 @@ def allocator_commands(page_name, sector=None):
     for section in singles:
         try:
             command = {
-                'page': 'home',
+                'page': page_name,
                 'section': section,
                 'article_id': page[section]['article_id'],
                 'sector': sector,
@@ -252,7 +255,7 @@ def allocator_commands(page_name, sector=None):
         for number in range(count):
             try:
                 command = {
-                    'page': 'home',
+                    'page': page_name,
                     'section': section,
                     'article_id': page[section][number]['article_id'],
                     'sector': sector,

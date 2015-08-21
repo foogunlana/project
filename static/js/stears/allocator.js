@@ -59,11 +59,13 @@ $(document).ready(function(){
             type: "post",
             data: post_data,
             success: function(responseData, textStatus, jqXHR) {
-                if(responseData === "reload"){
-                    location.reload();
+                response = JSON.parse(responseData);
+                if(response.success){
+
                 }else{
-                    alert(responseData);
+
                 }
+                alert(response.message);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log("error");

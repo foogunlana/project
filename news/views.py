@@ -88,8 +88,8 @@ def index(request):
     cached_index = cache.get(cache_name, None)
     absolute_url = 'http://{}'.format(HttpRequest.get_host(request))
 
-    if cached_index:
-        return render(request, 'news/index.html', cached_index)
+    # if cached_index:
+    #     return render(request, 'news/index.html', cached_index)
 
     context = {}
     if request.method == 'GET':
