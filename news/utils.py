@@ -199,7 +199,8 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
         find_doc = {'page': page, 'sector': sector}
     else:
         find_doc = {'page': page}
-    if number is not None:
+
+    if number is not None and number != '':
         number = int(number)
         onsite.update(find_doc,
                       {'$set': {'active': True,
