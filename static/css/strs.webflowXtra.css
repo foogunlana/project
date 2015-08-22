@@ -1218,7 +1218,7 @@ th{
     }
 
     .header-and-author{
-      height: 190px;
+      height: 230px;
     }
 
     .stearsreport-widget-logo {
@@ -1353,6 +1353,11 @@ th{
 
 
  @media (max-width: 479px){
+
+  .article-thumbnail, .header-and-author{
+    height: auto;
+  }
+
   .mc-message{
     width: 90%;
   }
@@ -1466,10 +1471,6 @@ th{
 
   .mobile-nav {
     margin-bottom: 0px;
-  }
-
-  .header-and-author{
-    height: 140px;
   }
 
   .category-sidebar{
