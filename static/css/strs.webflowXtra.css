@@ -1046,13 +1046,13 @@ th{
 
  @media (min-width: 768px) {
 
+  .header-and-author{
+      height: 195px;
+    }
+
 	.market-snapshot{
 		width: 33.9%;
 	}
-
-  .header-and-author{
-    height: 180px;
-  }
 
   .article-page-container{
       width:85%;
@@ -1226,7 +1226,7 @@ th{
       line-height: 17px;
     }
     .header-and-author h3{
-      font-size: 22px;
+      font-size: 23px;
     }
 
     .stearsreport-widget-logo {
