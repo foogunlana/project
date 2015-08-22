@@ -1051,7 +1051,7 @@ th{
 	}
 
   .header-and-author{
-    height: 140px;
+    height: 180px;
   }
 
   .article-page-container{
@@ -1218,7 +1218,15 @@ th{
     }
 
     .header-and-author{
-      height: 230px;
+      height: 195px;
+    }
+
+    .header-and-author .post-summary{
+      font-size: 12px;
+      line-height: 17px;
+    }
+    .header-and-author h3{
+      font-size: 22px;
     }
 
     .stearsreport-widget-logo {
@@ -1285,7 +1293,7 @@ th{
   }
 
   .header-and-author{
-    height: 120px;
+    height: 180px;
   }
 
   .stearsreport-widget{
@@ -1307,6 +1315,7 @@ th{
   .article-thumbnail{
     width: 100%;
     padding:2%;
+    min-height: 130px;
   }
 
     .category-sidebar{
