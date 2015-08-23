@@ -1,7 +1,7 @@
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','gaReports');
+})(window,document,'script','//www.google-analytics.com/analytics.js','gaFollow');
 
 $(document).ready(function(){
   $('.business-nav-container').hide();
@@ -24,16 +24,10 @@ $(document).ready(function(){
   });
 
 
-  $('.v-report').click(function(event){
-    var url = $(this).find('.target-anchor').attr('href');
-    gaReports('create', 'UA-65081439-1', 'auto');
-    gaReports('send', 'event', 'click', 'view-report', url);
-  });
-
-  $('.d-report').click(function(event){
-    var url = $(this).find('.target-anchor').attr('href');
-    gaReports('create', 'UA-65081439-1', 'auto');
-    gaReports('send', 'event', 'click', 'download-report', url);
+  $('.follow-us-intent').click(function(event){
+    page = window.location.href;
+    gaFollow('create', 'UA-65081439-1', 'auto');
+    gaFollow('send', 'event', 'click', 'follow us on twitter', page);
   });
 
    $(".dropdown-tab").mouseenter(function () {
