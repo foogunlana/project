@@ -1432,28 +1432,7 @@ p {
 .share-article.article-bottom {
   float: right;
 }
-.twitter-share {
-  margin-right: 12.5px;
-  margin-left: 12.5px;
-}
-.facebook-share {
-  margin-right: 12.5px;
-  margin-left: 12.5px;
-}
-.linkedin-share {
-  margin-right: 12.5px;
-  margin-left: 12.5px;
-}
-.google-plus-share {
-  margin-right: 12.5px;
-  margin-left: 6.5px;
-  padding-top: 4px;
-}
-.mail-share {
-  margin-right: 7px;
-  margin-left: 5.5px;
-  padding-top: 2px;
-}
+
 .share-text {
   display: inline-block;
   margin-right: 20px;

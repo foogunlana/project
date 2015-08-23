@@ -213,25 +213,10 @@
   float: right;
 }
 
-.twitter-share{
-  margin-bottom:0px;
-}
-
-.facebook-share{
-  margin-bottom:-2px;
-}
-
-.linkedin-share{
-  margin-bottom:-1px;
-}
-
-.google-plus-share{
-  margin-bottom:-2px;
-}
-
-.mail-share{
-  margin-bottom:-4px;
-}
+.share-icon{
+  width: 20px;
+  margin: 0px 8px 2px 8px;
+} 
 
 .share-link-block img{
   display: block;
@@ -241,6 +226,7 @@
   font-size: 20px;
   margin-bottom: 10px;
   display: inline-block;
+  vertical-align: top;
 }
 
 .share-block{
