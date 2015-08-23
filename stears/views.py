@@ -20,7 +20,8 @@ from stears.utils import article_key_words, revive_from_trash, add_writers,\
     new_member, retract, \
     make_new_quote, edit_writer_registration_details
 
-from news.utils import put_article_on_page, articles_on_site, expire_page
+from news.utils import put_article_on_page, articles_on_site, expire_page, \
+    allocator_commands
 
 from stears.permissions import approved_writer, is_a_boss, \
     writer_can_edit_article
@@ -817,10 +818,16 @@ def allocate_article(request):
                 put_article_on_page(page=page, section=section,
                                     article_id=article_id,
                                     sector=sector, number=number)
+                return HttpResponse(json.dumps({
+                    'success': True,
+                    'message': 'Article {} was successfully allocated'.format(
+                        article_id)}))
             except Exception as e:
-                pass
+                return HttpResponse(json.dumps({'success': False,
+                                                'message': str(e)}))
         else:
-            return HttpResponse(allocation_form.errors)
+            return HttpResponse(json.dumps({'success': False,
+                                            'message': allocation_form.errors}))
     return HttpResponse('reload')
 
 
@@ -945,6 +952,21 @@ def reload_page(request):
             page, sector = pagesector[0], None
         if page:
             expire_page(page=page, sector=sector)
+    return HttpResponseRedirect(reverse('weal:allocator'))
+
+
+@user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
+def reallocate_page(request):
+    if request.method == 'POST':
+        pagesector = request.POST.get('page', '').split(',')
+        if len(pagesector) == 2:
+            page, sector = pagesector
+        else:
+            page, sector = pagesector[0], None
+        if page:
+            commands = allocator_commands(page_name=page, sector=sector)
+            for command in commands:
+                put_article_on_page(**command)
     return HttpResponseRedirect(reverse('weal:allocator'))
 
 

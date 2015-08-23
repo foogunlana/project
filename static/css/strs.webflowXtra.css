@@ -30,6 +30,72 @@
   color: #737373;
 }
 
+.article-category{
+  display: inline-block;
+  font-size: 11px;
+  margin-right: 3px;
+}
+
+.clock-cat{
+  display: block;
+}
+
+.clock-cat-main{
+  float: right;
+}
+
+.aa-main{
+  display: inline-block;
+}
+
+.ac-main, .ac-feature{
+  color: #737373;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 300;
+  margin-left: 3px;
+}
+
+.ac-feature{
+  color: #f75e5e;
+}
+
+.clock-time-small{
+  display: inline-block;
+  height: 20px;
+  margin-bottom: 0px;
+  border-left: 1px solid #e2e2e2;
+  padding-left: 5px; 
+}
+
+.cts-main{
+  border-left: 1px solid #737373;
+}
+
+.clock-small{
+  display: inline-block;
+  width: 11px;
+  margin: 0px;
+  margin-bottom: 2px;
+  margin-right: 1px;
+}
+
+.time-small{
+  display: inline-block;
+  margin: 0px;
+  padding: 0px;
+  font-size: 11px;
+  color: #737373;
+}
+
+.featured-post-author{
+  color: #737373;
+}
+
+.featured-post-category{
+  color: #f75e5e;
+}
+
 .button3{
   display: inline-block;
   background-color:#f05042;
@@ -386,6 +452,7 @@ h3, h4, .business-h3, .daily-column-h2{
   background-color: white;
   font-size: 90%;
   border-left: 4px solid #eeeeee;
+  vertical-align: top;
 }
 
 .economic-data-header{
@@ -979,13 +1046,13 @@ th{
 
  @media (min-width: 768px) {
 
+  .header-and-author{
+      height: 195px;
+    }
+
 	.market-snapshot{
 		width: 33.9%;
 	}
-
-  .header-and-author{
-    height: 140px;
-  }
 
   .article-page-container{
       width:85%;
@@ -1151,7 +1218,14 @@ th{
     }
 
     .header-and-author{
-      height: 190px;
+      height: 200px;
+    }
+
+    .header-and-author .post-summary{
+      line-height: 17px;
+    }
+    .header-and-author h3{
+      font-size: 23px;
     }
 
     .stearsreport-widget-logo {
@@ -1218,7 +1292,7 @@ th{
   }
 
   .header-and-author{
-    height: 120px;
+    height: 180px;
   }
 
   .stearsreport-widget{
@@ -1240,6 +1314,7 @@ th{
   .article-thumbnail{
     width: 100%;
     padding:2%;
+    min-height: 130px;
   }
 
     .category-sidebar{
@@ -1282,10 +1357,27 @@ th{
     .economic-figures{
       display: inline-block;
     }
+
+    .footer{
+      width: 100%;
+      margin: auto;
+      padding-left: 4%;
+      padding-right: 4%;
+    }
+
+    .category-row-tablet{
+      width: 97%;
+      margin: auto;
+    }
 }
 
 
  @media (max-width: 479px){
+
+  .article-thumbnail, .header-and-author{
+    height: auto;
+  }
+
   .mc-message{
     width: 90%;
   }
@@ -1401,10 +1493,6 @@ th{
     margin-bottom: 0px;
   }
 
-  .header-and-author{
-    height: 140px;
-  }
-
   .category-sidebar{
     height: auto;
     border: none;
@@ -1446,9 +1534,9 @@ th{
   }
   
   .footer{
-    padding-left: 0px;
-    padding-right: 0px;
-    width: 90%;
+    padding-left: 5%;
+    padding-right: 5%;
+    width: 100%;
     margin: auto;
   }
 }

@@ -188,18 +188,24 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
     link = article.get('photo', '').replace('/media/', '')
     article['photoset'] = photoset(link)
 
-    key = 'lposted' if article.get('posted') else 'posted'
-
-    article[key] = datetime.now()
-    posted = {key: datetime.now()}
+    updates = {}
+    posted = article.get('posted', None)
+    if posted and (type(posted) == float):
+        updates = dict(updates, posted=datetime.fromtimestamp(posted))
+    if not posted:
+        updates = dict(updates, posted=datetime.now())
+    article = dict(article, **updates)
+    updates = dict(updates, lposted=datetime.now())
     articles.update({'article_id': article_id},
-                    {'$set': posted})
+                    {'$set': updates})
 
     if sector:
         find_doc = {'page': page, 'sector': sector}
     else:
         find_doc = {'page': page}
-    if number:
+
+    if number is not None and number != '':
+        number = int(number)
         onsite.update(find_doc,
                       {'$set': {'active': True,
                        '{}.{}'.format(section, number): article}},
@@ -217,6 +223,53 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
 
     pcs = {'home': 'index', 'b_e': 'business'}
     expire_page(page=pcs[page], sector=sector)
+
+
+def allocator_commands(page_name, sector=None):
+    onsite = mongo_calls('onsite')
+    commands = []
+    singles = ['main_feature', 'secondary']
+    multiples = ['tertiaries', 'features']
+    alias = {'index': 'home', 'business': 'b_e'}
+    page_name = alias.get(page_name, page_name)
+
+    if sector:
+        page = onsite.find_one({'page': page_name, 'sector': sector})
+    else:
+        page = onsite.find_one({'page': page_name})
+    if not page:
+        return None
+
+    for section in singles:
+        try:
+            command = {
+                'page': page_name,
+                'section': section,
+                'article_id': page[section]['article_id'],
+                'sector': sector,
+                'number': None,
+            }
+            commands += [command]
+        except Exception, e:
+            print e
+
+    for section in multiples:
+        if not page.get(section):
+            continue
+        count = len(page[section])
+        for number in range(count):
+            try:
+                command = {
+                    'page': page_name,
+                    'section': section,
+                    'article_id': page[section][number]['article_id'],
+                    'sector': sector,
+                    'number': number,
+                }
+                commands += [command]
+            except Exception, e:
+                print e
+    return commands
 
 
 def reset_page(page):

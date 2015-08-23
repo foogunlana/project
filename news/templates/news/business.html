@@ -43,9 +43,17 @@
           <img class="featured-image" src="{% if main_feature.photoset %}{{ main_feature.photoset.photomf }}{% else %}{{ main_feature.photo }}{% endif %}" alt="">
         </div>
         <div class="featured-post-text">
-          <div class="featured-post-author">{{ main_feature.writer|name:'long' }}</div>
+          <div class="clock-cat">
+            <div class="featured-post-category ac-main">{{ main_feature.category|category }}</div>
+            {% if main_feature.posted %}
+            <div class="clock-time-small">
+              <img src="/static/images/clock.svg" alt="" class="clock-small">
+              <p class="time-small">{{ main_feature.posted|date:"M d, Y" }}</p>
+            </div>
+            {% endif %}
+          </div>
           <h2><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' main_feature.article_id %}">{{ main_feature.headline }}</a></h2>
-          <div class="featured-post-category">{{ main_feature.category|category }}</div>
+          <div class="featured-post-author">{{ main_feature.writer|name:'long' }}</div>
           <p class="w-hidden-small w-hidden-tiny featured-post-p">{{ main_feature.par1|truncatechars:200 }}</p>
         </div>
       </div>
@@ -69,7 +77,7 @@
           <div class="economic-figures">{{ economic_data.inflation }}%</div>
         </div>
         <div class="ecodata">
-          <div class="economic-data-header">Interest Rate</div>
+          <div class="economic-data-header">Interest Rate (Base Rate)</div>
           <div class="economic-figures">{{ economic_data.interest_rates }}%</div>
         </div>
       </div>
@@ -90,22 +98,31 @@
           <div class="economic-figures">{{ economic_data.unemployment }}%</div>
         </div>
         <div class="ecodata">
-          <div class="economic-data-header">Inflation</div>
-          <div class="economic-figures">{{ economic_data.inflation }}%</div>
+          <div class="economic-data-header">Interest Rate (Inter-Bank)</div>
+          <div class="economic-figures">{{ economic_data.interest_rates }}%</div>
         </div>
         <div class="ecodata">
-          <div class="economic-data-header">Interest Rate</div>
-          <div class="economic-figures">{{ economic_data.interest_rates }}%</div>
+          <div class="economic-data-header">Inflation</div>
+          <div class="economic-figures">{{ economic_data.inflation }}%</div>
         </div>
       </div>
     </div>
   </div>
-  <div class="w-row w-hidden-main w-hidden-small w-hidden-tiny category-row-tablet">
+  <div class="w-row w-hidden-main w-hidden-tiny category-row-tablet">
     {% for feature in features %}
-      <div class="w-col w-col-6 article-segment">
+      <div class="w-col w-col-6 w-col-small-6 article-segment">
         {% if feature %}
         <div class="w-inline-block post-block nest-anchor">
           <div class="header-and-author">
+            <div class="clock-cat">
+              <div class="ac-feature">{{ feature.category|category }}</div>
+              {% if feature.posted %}
+              <div class="clock-time-small">
+                <img src="/static/images/clock.svg" alt="" class="clock-small">
+                <p class="time-small">{{ feature.posted|date:"M d, Y" }}</p>
+              </div>
+              {% endif %}
+            </div>
             <h3 class="business-h3"><a href="{{ sUri }}{% url 'news:article' feature.article_id %}" class="target-anchor inall">{{ feature.headline }}</a></h3>
             <div class="post-block-author">{{ feature.author }}</div>
             <p class="post-summary">{{ feature.par1|truncatechars:110 }}</p>
@@ -124,12 +141,21 @@
     {% endfor %}
   </div>
   <div class="be-container">
-    <div class="w-row w-hidden-medium category-row">
+    <div class="w-row w-hidden-medium w-hidden-small category-row">
       {% for feature in features %}
         <div class="w-col w-col-3 article-segment">
           {% if feature %}
           <div class="w-inline-block post-block nest-anchor">
             <div class="header-and-author">
+              <div class="clock-cat">
+                <div class="ac-feature">{{ feature.category|category }}</div>
+                {% if feature.posted %}
+                <div class="clock-time-small">
+                  <img src="/static/images/clock.svg" alt="" class="clock-small">
+                  <p class="time-small">{{ feature.posted|date:"M d, Y" }}</p>
+                </div>
+                {% endif %}
+              </div>
               <h3 class="business-h3"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' feature.article_id %}">{{ feature.headline }}</a></h3>
               <div class="post-block-author">{{ feature.writer|name:'long' }}</div>
               <p class="post-summary">{{ feature.par1|truncatechars:110 }}</p>
