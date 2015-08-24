@@ -54,19 +54,20 @@
         <h1 class="article-header">{{ article.headline }}</h1>
         <div class="w-section article-image">
           <div class="article-author">Written by <font class="author-name">{{ article.writer|name:'long' }}</font></div>
-          {% if article.posted %}
-          <div class="clock-time">
-            <img src="/static/images/clock.svg" alt="" class="clock">
-            <p class="time">{{ article.posted|date:"M d, Y" }}</p>
+          <div class="clock-cat-main">
+            <div class="article-category">{{ article.category|category }}</div>
+            {% if article.posted %}
+            <div class="clock-time-small">
+              <img src="/static/images/clock.svg" alt="" class="clock-small">
+              <p class="time-small">{{ article.posted|date:"M d, Y" }}</p>
+            </div>
+            {% endif %}
           </div>
-          <br>
-          {% endif %}
           <img src="{{ article.photo }}" class="article-page-image" alt="{{ article.headline }}">
         </div>
         <div class="w-section w-clearfix article-content">
           <div class="w-clearfix article-detail">
             <div class="article-author article-page">{{ article.author }}</div>
-            <div class="article-category article-page">{{ article.category|category }}</div>
             <div class="share-article">
               {% include 'news/share_article.html' %}
             </div>
