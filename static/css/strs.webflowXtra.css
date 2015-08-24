@@ -215,7 +215,7 @@
 
 .share-icon{
   width: 20px;
-  margin: 0px 8px 2px 8px;
+  margin: 0px 10px 2px 10px;
 } 
 
 .share-link-block img{
@@ -1359,6 +1359,10 @@ th{
 
 
  @media (max-width: 479px){
+  .share-icon{
+    width: 20px;
+    margin: 0px 8px 2px 8px;
+  } 
 
   .article-thumbnail, .header-and-author{
     height: auto;
