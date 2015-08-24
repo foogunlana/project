@@ -59,6 +59,10 @@
           <h5 class="w-nav-sector">
             {{ sector|pretty_category }}
           </h5>
+          {% else %}
+          <h5 class="w-nav-sector">
+            {{ page|capfirst }}
+          </h5>
           {% endif %}
         </div>
       </div>
