@@ -950,7 +950,13 @@ def reload_page(request):
             page, sector = pagesector
         else:
             page, sector = pagesector[0], None
-        if page:
+        if page == 'articles':
+            articles = mongo_calls('migrations')
+            ids = list(articles.distinct('article_id'))
+
+            expire_article = lambda x: expire_page(page='article{}'.format(x))
+            map(expire_article, ids)
+        elif page:
             expire_page(page=page, sector=sector)
     return HttpResponseRedirect(reverse('weal:allocator'))
 

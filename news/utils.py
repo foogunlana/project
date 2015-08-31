@@ -223,6 +223,7 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
 
     pcs = {'home': 'index', 'b_e': 'business'}
     expire_page(page=pcs[page], sector=sector)
+    expire_page(page='article{}'.format(article_id))
 
 
 def allocator_commands(page_name, sector=None):
