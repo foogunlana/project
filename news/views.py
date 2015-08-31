@@ -5,7 +5,6 @@ from stears import params
 from django.http import HttpRequest, HttpResponse
 from utils import summarize
 from django.core.cache import cache
-from django.views.decorators.cache import patch_cache_control
 from datetime import datetime
 
 import json
@@ -36,10 +35,11 @@ def article(request, pk):
                 article['par1'] = article['summary']
             else:
                 article['par1'] = summarize(article)
+
             context = {'article': article, 'aUri': aUri}
             context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
+
             response = render(request, 'news/article.html', context)
-            patch_cache_control(response, max_age=3600, must_revalidate=True)
             cache.set(cache_name, response, 60*60*24)
             return response
         except Exception:
@@ -47,7 +47,6 @@ def article(request, pk):
 
     context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
     response = render(request, 'news/article.html', context)
-    patch_cache_control(response, no_cache=True)
     return response
 
 
@@ -65,15 +64,14 @@ def business(request, sector):
             context = onsite.find_one({'page': 'b_e', 'sector': sector})
             context['sUri'] = absolute_url
             context['meta_description'] = params.meta_descriptions['b_e'][sector]
+
             response = render(request, 'news/business.html', context)
-            patch_cache_control(response, max_age=3600, must_revalidate=True)
             cache.set(cache_name, response, 60*60*24)
             return response
         except Exception:
             context['sUri'] = absolute_url
 
     response = render(request, 'news/business.html', context)
-    patch_cache_control(response, no_cache=True)
     return response
 
 
@@ -91,15 +89,14 @@ def reports(request):
             context['meta_description'] = params.meta_descriptions['reports']
             context['page'] = 'reports'
             context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
+
             response = render(request, 'news/stearsreport.html', context)
-            patch_cache_control(response, max_age=3600, must_revalidate=True)
             return response
         except Exception as e:
             print str(e)
 
     context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
     response = render(request, 'news/stearsreport.html', context)
-    patch_cache_control(response, no_cache=True)
     return response
 
 
@@ -137,8 +134,8 @@ def index(request):
 
             context['sUri'] = absolute_url
             context['meta_description'] = params.meta_descriptions['home']
+
             response = render(request, 'news/index.html', context)
-            patch_cache_control(response, max_age=3600, must_revalidate=True)
             cache.set(cache_name, response, 60*60*24)
             return response
         except Exception as e:
@@ -146,7 +143,6 @@ def index(request):
             print str(e)
 
     response = render(request, 'news/index.html', context)
-    patch_cache_control(response, no_cache=True)
     return response
 
 
@@ -172,7 +168,6 @@ def top_picks(request):
             responseData['success'] = True
 
             response = HttpResponse(json.dumps(responseData))
-            patch_cache_control(response, max_age=3600, must_revalidate=True)
             cache.set(cache_name, response, 60*60*24)
             return response
         except Exception as e:
@@ -180,7 +175,6 @@ def top_picks(request):
             responseData['message'] = str(e)
 
     response = HttpResponse(json.dumps(responseData))
-    patch_cache_control(response, no_cache=True)
     return response
 
 
@@ -201,8 +195,8 @@ def features(request):
                         'headline': a['headline'], 'writer': a['writer'],
                         'photo': a['photo'], 'article_id': a['article_id']}]
             responseData['success'] = True
+
             response = HttpResponse(json.dumps(responseData))
-            patch_cache_control(response, max_age=3600, must_revalidate=True)
             cache.set(cache_name, response, 60*60*24)
             return response
         except Exception as e:
@@ -210,7 +204,6 @@ def features(request):
             responseData['message'] = str(e)
 
     response = HttpResponse(json.dumps(responseData))
-    patch_cache_control(response, no_cache=True)
     return response
 
 
@@ -238,5 +231,4 @@ def related_articles(request, pk):
             responseData['message'] = str(e)
 
     response = HttpResponse(json.dumps(responseData))
-    patch_cache_control(response, no_cache=True)
     return response
