@@ -12,9 +12,9 @@ import json
 
 def article(request, pk):
     cache_name = 'newscache:{}{}'.format('article', str(pk))
-    cached_index = cache.get(cache_name, None)
-    if cached_index:
-        return render(request, 'news/article.html', cached_index)
+    response = cache.get(cache_name, None)
+    if response:
+        return response
 
     pk = int(pk)
     context = {}
@@ -35,20 +35,26 @@ def article(request, pk):
                 article['par1'] = article['summary']
             else:
                 article['par1'] = summarize(article)
+
             context = {'article': article, 'aUri': aUri}
             context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
-            cache.set(cache_name, context, 60*60*24)
+
+            response = render(request, 'news/article.html', context)
+            cache.set(cache_name, response, 60*60*24)
+            return response
         except Exception:
             pass
+
     context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
-    return render(request, 'news/article.html', context)
+    response = render(request, 'news/article.html', context)
+    return response
 
 
 def business(request, sector):
     cache_name = 'newscache:{}{}'.format('business', sector)
-    cached_index = cache.get(cache_name, None)
-    if cached_index:
-        return render(request, 'news/business.html', cached_index)
+    response = cache.get(cache_name, None)
+    if response:
+        return response
 
     context = {}
     absolute_url = 'http://{}'.format(HttpRequest.get_host(request))
@@ -58,10 +64,15 @@ def business(request, sector):
             context = onsite.find_one({'page': 'b_e', 'sector': sector})
             context['sUri'] = absolute_url
             context['meta_description'] = params.meta_descriptions['b_e'][sector]
-            cache.set(cache_name, context, 60*60*24)
+
+            response = render(request, 'news/business.html', context)
+            cache.set(cache_name, response, 60*60*24)
+            return response
         except Exception:
             context['sUri'] = absolute_url
-    return render(request, 'news/business.html', context)
+
+    response = render(request, 'news/business.html', context)
+    return response
 
 
 def reports(request):
@@ -77,21 +88,28 @@ def reports(request):
             context['reports'] = reports
             context['meta_description'] = params.meta_descriptions['reports']
             context['page'] = 'reports'
+            context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
+
+            response = render(request, 'news/stearsreport.html', context)
+            return response
         except Exception as e:
             print str(e)
+
     context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
-    return render(request, 'news/stearsreport.html', context)
+    response = render(request, 'news/stearsreport.html', context)
+    return response
 
 
 def index(request):
     cache_name = 'newscache:index'
-    cached_index = cache.get(cache_name, None)
-    absolute_url = 'http://{}'.format(HttpRequest.get_host(request))
+    response = cache.get(cache_name, None)
 
-    if cached_index:
-        return render(request, 'news/index.html', cached_index)
+    if response:
+        return response
 
     context = {}
+    absolute_url = 'http://{}'.format(HttpRequest.get_host(request))
+
     if request.method == 'GET':
         onsite = mongo_calls('onsite')
         articles = mongo_calls('migrations')
@@ -116,19 +134,24 @@ def index(request):
 
             context['sUri'] = absolute_url
             context['meta_description'] = params.meta_descriptions['home']
-            cache.set(cache_name, context, 60*60*24)
+
+            response = render(request, 'news/index.html', context)
+            cache.set(cache_name, response, 60*60*24)
+            return response
         except Exception as e:
             context['sUri'] = absolute_url
             print str(e)
-    return render(request, 'news/index.html', context)
+
+    response = render(request, 'news/index.html', context)
+    return response
 
 
 def top_picks(request):
     cache_name = 'newscache:{}{}'.format('index', 'top_picks')
-    cached_index = cache.get(cache_name, None)
+    response = cache.get(cache_name, None)
 
-    if cached_index:
-        return HttpResponse(json.dumps(cached_index))
+    if response:
+        return response
 
     responseData = {}
     if request.method == 'GET':
@@ -143,19 +166,24 @@ def top_picks(request):
                           'par1': a['par1']} for a in top_picks.values()]
             responseData['articles'] = top_picks
             responseData['success'] = True
-            cache.set(cache_name, responseData, 60*60*24)
+
+            response = HttpResponse(json.dumps(responseData))
+            cache.set(cache_name, response, 60*60*24)
+            return response
         except Exception as e:
             responseData['success'] = False
             responseData['message'] = str(e)
-    return HttpResponse(json.dumps(responseData))
+
+    response = HttpResponse(json.dumps(responseData))
+    return response
 
 
 def features(request):
     cache_name = 'newscache:{}{}'.format('index', 'features')
-    cached_index = cache.get(cache_name, None)
+    response = cache.get(cache_name, None)
 
-    if cached_index:
-        return HttpResponse(json.dumps(cached_index))
+    if response:
+        return response
 
     responseData = {}
     if request.method == 'GET':
@@ -167,11 +195,16 @@ def features(request):
                         'headline': a['headline'], 'writer': a['writer'],
                         'photo': a['photo'], 'article_id': a['article_id']}]
             responseData['success'] = True
-            cache.set(cache_name, responseData, 60*60*24)
+
+            response = HttpResponse(json.dumps(responseData))
+            cache.set(cache_name, response, 60*60*24)
+            return response
         except Exception as e:
             responseData['success'] = False
             responseData['message'] = str(e)
-    return HttpResponse(json.dumps(responseData))
+
+    response = HttpResponse(json.dumps(responseData))
+    return response
 
 
 def related_articles(request, pk):
@@ -196,4 +229,6 @@ def related_articles(request, pk):
         except Exception as e:
             responseData['success'] = False
             responseData['message'] = str(e)
-    return HttpResponse(json.dumps(responseData))
+
+    response = HttpResponse(json.dumps(responseData))
+    return response
