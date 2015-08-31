@@ -53,7 +53,6 @@ class EditPhotoForm(forms.Form):
 class ReportForm(forms.Form):
     pdf = forms.FileField(label="Please upload .pdf file")
     author = forms.CharField(required=True, label="Author")
-    industry = forms.BooleanField(required=False)
     title = forms.CharField(required=False, max_length=50)
     summary = forms.CharField(required=False,
         widget=forms.Textarea(attrs={
@@ -62,17 +61,26 @@ class ReportForm(forms.Form):
             'style': 'height:100px;'
         }), label='Summary of industry report')
     week_ending = forms.DateField(
-                    required=True,
-                    label='Week ending',
-                    widget=forms.DateInput())
+        required=True,
+        label='Week ending',
+        widget=forms.DateInput())
+
+    def __init__(self, *args, **kwargs):
+        super(ReportForm, self).__init__(*args, **kwargs)
+        self.fields['ftype'] = forms.ChoiceField(
+            required=True,
+            choices=[('industry', 'Industry'),
+                     ('weekly', 'Weekly'),
+                     ('monthly', 'Monthly')],
+        )
 
     def clean(self):
         cleaned_data = super(ReportForm, self).clean()
-        industry = cleaned_data.get("industry", None)
+        ftype = cleaned_data.get("ftype", None)
         summary = cleaned_data.get("summary", None)
         title = cleaned_data.get("title", None)
 
-        if industry and not (summary and title):
+        if (ftype == "industry") and not (summary and title):
             raise ValidationError('Both Title and Summary are required for Industry Reports')
 
     def clean_pdf(self):

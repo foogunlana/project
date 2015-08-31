@@ -69,7 +69,7 @@
   <div class="report-container">
     <div class="w-section stearsreport-container">
       {% for report in reports reversed%}
-        {% if report.industry %}
+        {% ifequal report.ftype 'industry' %}
         <div class="w-clearfix stearsreport-post industry-report">
           <div class="w-clearfix w-inline-block pdf-link-block nest-anchor v-report">
             <div class="stearsreport-post-text">
@@ -112,7 +112,7 @@
             </a>
           </div>
         </div>
-        {% endif %}
+        {% endifequal %}
       {% endfor %}
     </div>
   </div>
