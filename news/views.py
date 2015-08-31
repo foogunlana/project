@@ -12,6 +12,8 @@ import json
 
 def article(request, pk):
     cache_name = 'newscache:{}{}'.format('article', str(pk))
+    icache = 'infinitecache:{}{}'.format('article', str(pk))
+
     response = cache.get(cache_name, None)
     if response:
         return response
@@ -41,9 +43,12 @@ def article(request, pk):
 
             response = render(request, 'news/article.html', context)
             cache.set(cache_name, response, 60*60*24)
+            cache.set(icache, response, 60*60*24*14)
             return response
         except Exception:
-            pass
+            # Log exception
+            response = cache.get(icache, None)
+            return response
 
     context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
     response = render(request, 'news/article.html', context)
@@ -52,6 +57,8 @@ def article(request, pk):
 
 def business(request, sector):
     cache_name = 'newscache:{}{}'.format('business', sector)
+    icache = 'infinitecache:{}{}'.format('business', sector)
+
     response = cache.get(cache_name, None)
     if response:
         return response
@@ -67,10 +74,14 @@ def business(request, sector):
 
             response = render(request, 'news/business.html', context)
             cache.set(cache_name, response, 60*60*24)
+            cache.set(icache, response, 60*60*24*14)
             return response
         except Exception:
-            context['sUri'] = absolute_url
+            # Log exception
+            response = cache.get(icache, None)
+            return response
 
+    context['sUri'] = absolute_url
     response = render(request, 'news/business.html', context)
     return response
 
@@ -91,9 +102,12 @@ def reports(request):
             context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
 
             response = render(request, 'news/stearsreport.html', context)
+            icache = 'infinitecache:{}'.format('reports')
+            cache.set(icache, response, 60*60*24*14)
             return response
-        except Exception as e:
-            print str(e)
+        except Exception:
+            response = cache.get(icache, None)
+            return response
 
     context['sUri'] = 'http://{}'.format(HttpRequest.get_host(request))
     response = render(request, 'news/stearsreport.html', context)
@@ -102,8 +116,9 @@ def reports(request):
 
 def index(request):
     cache_name = 'newscache:index'
-    response = cache.get(cache_name, None)
+    icache = 'infinitecache:{}'.format('index')
 
+    response = cache.get(cache_name, None)
     if response:
         return response
 
@@ -137,17 +152,20 @@ def index(request):
 
             response = render(request, 'news/index.html', context)
             cache.set(cache_name, response, 60*60*24)
+            cache.set(icache, response, 60*60*24*14)
             return response
-        except Exception as e:
-            context['sUri'] = absolute_url
-            print str(e)
+        except Exception:
+            response = cache.get(icache, None)
+            return response
 
+    context['sUri'] = absolute_url
     response = render(request, 'news/index.html', context)
     return response
 
 
 def top_picks(request):
     cache_name = 'newscache:{}{}'.format('index', 'top_picks')
+    icache = 'infinitecache:{}{}'.format('index', 'top_picks')
     response = cache.get(cache_name, None)
 
     if response:
@@ -169,17 +187,21 @@ def top_picks(request):
 
             response = HttpResponse(json.dumps(responseData))
             cache.set(cache_name, response, 60*60*24)
+            cache.set(icache, response, 60*60*24*14)
             return response
         except Exception as e:
-            responseData['success'] = False
-            responseData['message'] = str(e)
+            response = cache.get(icache, None)
+            return response
 
+    responseData['success'] = False
+    responseData['message'] = str(e)
     response = HttpResponse(json.dumps(responseData))
     return response
 
 
 def features(request):
     cache_name = 'newscache:{}{}'.format('index', 'features')
+    icache = 'infinitecache:{}{}'.format('index', 'features')
     response = cache.get(cache_name, None)
 
     if response:
@@ -198,11 +220,14 @@ def features(request):
 
             response = HttpResponse(json.dumps(responseData))
             cache.set(cache_name, response, 60*60*24)
+            cache.set(icache, response, 60*60*24*14)
             return response
         except Exception as e:
-            responseData['success'] = False
-            responseData['message'] = str(e)
+            response = cache.get(icache, None)
+            return response
 
+    responseData['success'] = False
+    responseData['message'] = str(e)
     response = HttpResponse(json.dumps(responseData))
     return response
 
