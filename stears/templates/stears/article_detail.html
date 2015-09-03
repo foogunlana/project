@@ -292,14 +292,14 @@
 					<div class="row">
 						<button id="comment_area" class="toggles_div fill" style="border-radius:3px;" >Comment</button>
 					</div>
-					{% if user|is_editor %}
-					<div class="row">
-						<button class="fill toggles_div" id="summary_toggle">Add Summary</button>
-					</div>
 					<div class="row fill article-box">
 						<form action="{% url 'weal:prepreview' pk=article.article_id %}" method="get">
 							<button class="fill">Preview</button>
 						</form>
+					</div>
+					{% if user|is_editor %}
+					<div class="row">
+						<button class="fill toggles_div" id="summary_toggle">Add Summary</button>
 					</div>
 					<div class="row">
 						<form action="{% url 'weal:addphoto' pk=article.article_id %}" method='post' class="add_photo" hidden>

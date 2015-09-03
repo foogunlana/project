@@ -45,7 +45,7 @@
 	<div class="row" style="padding:20px;">
 		{% if photos %}
 			{% if user|is_editor %}
-				{% for photo in photos %}
+				{% for photo in photos reversed %}
 					<div class="columns small-12 medium-4 large-3" id="photo_{{photo.pk}}">
 						<br>
 						<div class="article_box" style="width:100%;padding:5px;display:inline-block;margin-bottom:5px;margin-top:5px;" >

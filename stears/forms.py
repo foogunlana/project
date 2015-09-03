@@ -257,7 +257,7 @@ class RegisterForm(forms.Form):
 
     def clean_first_name(self):
         first_name = self.cleaned_data['first_name']
-        if not re.match(r'^[a-zA-Z]+$', first_name):
+        if not re.match(r'^[a-zA-Z ]+$', first_name):
             raise forms.ValidationError(
                 "Name should include only alphanumeric characters, letters and numbers")
         return first_name

@@ -149,6 +149,8 @@ def edit_writer_registration_details(form):
 
 
 def make_username(first_name, last_name):
+    first_name = first_name.replace(" ", "_")
+    last_name = last_name.replace(" ", "_")
     long_name = "%s_%s" % (first_name, last_name)
     while True:
         if long_name not in User.objects.distinct('username'):
