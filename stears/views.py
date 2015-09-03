@@ -652,7 +652,7 @@ def suggest(request):
         'weal:article_detail', args=(), kwargs={'pk': article_id}))
 
 
-@user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
+@user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
 def article_summary(request):
     response_data = {}
     if request.method == 'POST':

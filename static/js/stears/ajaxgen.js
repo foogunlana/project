@@ -15,7 +15,16 @@ $(document).ready(function(){
 			success: function(responseData, textStatus, jqXHR) {
 				msg = JSON.parse(responseData);
 				if(msg.message){
-					alert(JSON.stringify(msg.message));
+					if(msg.message instanceof Object ){
+						var keys = Object.keys(msg.message);
+						message = '';
+						for(i = 0; i < keys.length; i++){
+							message += '('+ keys[i] + ')' + ': ' + msg.message[keys[i]] + '\n';
+						}
+						alert(message);
+					}else{
+						alert(JSON.stringify(msg.message));
+					}
 				}
 				if(msg.success){
 					if(msg.result){
