@@ -10,6 +10,13 @@ from datetime import datetime
 import json
 
 
+def column(request):
+    context = {}
+    a = mongo_calls('migrations')
+    context['article'] = a.find_one({'article_id': 61})
+    return render(request, 'news/column.html', context)
+
+
 def article(request, pk):
     cache_name = 'newscache:{}{}'.format('article', str(pk))
     response = cache.get(cache_name, None)

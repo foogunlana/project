@@ -1,0 +1,108 @@
+{% extends 'news/news_base.html' %}
+{% load category %}
+{% load name %}
+{% load compress %}
+
+{% block special_links %}
+{% ifequal sUri 'http://www.stearsng.com' %}
+{% include 'news/ganalytics.html' %}
+{% endifequal %}
+
+<link rel="stylesheet" href="/static/css/news/column.css">
+{% endblock %}
+
+{% block title %}Opinion | Stears{% endblock %}
+
+{% block meta %}
+<meta name="description"           content="{{ article.par1|truncatechars:'150' }}"/>
+<meta property="og:url"            content="{{ aUri }}" />
+<meta property="og:type"           content="article" />
+<meta property="og:title"          content="{{ article.headline }}" />
+<meta property="og:description"    content="{{ article.par1 }}" />
+<meta property="og:image"          content="http://www.stearsng.com{{ article.photo }}"/>
+<meta property="article:publisher" content="https://www.facebook.com/stearsng"/>
+<meta property="fb:app_id"         content="457339461112605" />
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@stearsng">
+<meta name="twitter:url" content="{{ aUri }}">
+<meta name="twitter:creator" content="@stearsng">
+<meta name="twitter:title" content="{{ article.headline }}">
+<meta name="twitter:description" content="{{ article.par1 }}">
+<meta name="twitter:image" content="http://www.stearsng.com{{ article.photo }}">
+{% endblock %}
+
+{% block body %}
+  <body>
+    {% include 'news/news_nav.html' %}
+    
+    <div class="column-page-container">
+      <div class="column-page">
+        <div class="column-banner-container">
+          <div class="cb-image-container">
+            <img src="{{ article.photo }}" class="cb-image" alt="">
+          </div>
+          <div class="column-banner">
+            <div class="column-header">
+              <h1 class="column-h1">
+                Shock Value by Ebeyi Iyoha
+              </h1>
+            </div>
+          </div>
+        </div>
+        <div class="column-container">
+          <div class="column-area">
+            <div class="headline-container">
+              <div class="headline">
+                <h3 class="column-h3">
+                  {{ article.headline }}
+                </h3>
+              </div>
+              <div class="cat-clock">
+                <div class="c-cat">
+                  <p>
+                    Opinion
+                  </p>
+                </div>
+                <div class="c-clock">
+                  <img src="/static/images/clock.svg" alt="" class="clock-small">
+                  <p>
+                    {{ article.posted|date:"M d, Y" }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="c-left column-chunk">
+              <div class="author-photo-container">
+                <div class="author-photo">
+                  <img src="/static/images/ebeyi.jpg" class="ap-image" alt="">
+                </div>
+                <div class="photo-title">
+                  <h5 class="pt-writer">
+                    Ebeyi Iyoha
+                  </h5>
+                </div>
+              </div>
+            </div>
+            <div class="c-middle column-chunk">
+              <div class="article-par">
+                {% autoescape off %}
+                {{ article.content }}
+                {% endautoescape %}
+              </div>
+            </div>
+            <div class="c-right column-chunk"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include 'news/footer.html' %}
+  </body>
+{% endblock %}
+
+{% block dynamic_static_body %}
+  {% compress js inline %}
+  <script defer src="/static/js/news/news.js"></script>
+  {% endcompress %}
+{% endblock %}
