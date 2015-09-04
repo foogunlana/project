@@ -29,6 +29,8 @@ def editor(username):
     return False
 
 #Optimisation needed! Checked for each article button. Extremely inefficient
+
+
 def editor2(username):
     users = mongo_calls('user')
     writer = users.find_one({'username': str(username)})
@@ -39,11 +41,35 @@ def editor2(username):
     return False
 
 
+def get_article_perms(username, article):
+    perms = {}
+    is_editor = editor2(username)
+    can_edit = writer_can_edit_article(username, article)
+    is_writer = (username == article['writer'])
+
+    perms['edit'] = can_edit
+    perms['editor'] = is_editor
+    perms['tag'] = can_edit
+    perms['editor_or_writer'] = (is_editor or is_writer)
+    perms['add_writer'] = is_writer and (article['state'] == 'in_progress')
+    perms['delete'] = is_editor
+    perms['approve'] = is_editor and (article['state'] == 'submitted')
+    perms['review'] = (
+        article['state'] == 'in_review') and (article['reviewer'] == username)
+    perms['view_review'] = is_editor
+
+    return perms
+
+
 def writer_can_edit_article(username, article):
     state = article['state']
     writer = article.get('writer', '')
+
     if (state == 'submitted') or (state == 'in_review'):
-        return editor(username)
+        return editor2(username)
+
+    if (state == 'in_progress') and editor2(username):
+        return True
 
     if not writer:
         return True
