@@ -24,7 +24,7 @@ from news.utils import put_article_on_page, articles_on_site, expire_page, \
     allocator_commands
 
 from stears.permissions import approved_writer, is_a_boss, \
-    writer_can_edit_article
+    writer_can_edit_article, get_article_perms
 
 from stears.models import ArticleImageModel, ReportModel
 from mongoengine.queryset import DoesNotExist

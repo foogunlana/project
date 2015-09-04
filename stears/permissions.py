@@ -51,7 +51,7 @@ def get_article_perms(username, article):
     perms['editor'] = is_editor
     perms['tag'] = can_edit
     perms['editor_or_writer'] = (is_editor or is_writer)
-    perms['add_writer'] = is_writer
+    perms['add_writer'] = is_writer and (article['state'] == 'in_progress')
     perms['delete'] = is_editor
     perms['approve'] = is_editor and (article['state'] == 'submitted')
     perms['review'] = (
@@ -66,7 +66,10 @@ def writer_can_edit_article(username, article):
     writer = article.get('writer', '')
 
     if (state == 'submitted') or (state == 'in_review'):
-        return editor(username)
+        return editor2(username)
+
+    if (state == 'in_progress') and editor2(username):
+        return True
 
     if not writer:
         return True
