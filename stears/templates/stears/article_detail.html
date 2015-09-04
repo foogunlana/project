@@ -86,39 +86,24 @@
 					{% endif %}
 					<br>
 					<div class="fill" >
-						{% if article.writer %}
-							{% if user.username|can_write:article %}
-								<div class="row" style="padding-left:15px;padding-right:15px;">
-									<div class="fill article_box" >
-										<a id="article_form_toggle"  style="padding:10px;">Write/Edit article</a>
-									</div>
-									<div id="hidden_article_form" class="columns small-12" style="padding:0px;" hidden>
-										<br>
-										{% include 'stears/write_form.html' %}
-									</div>
-								</div>
-							{% else %}
-								<div class="row" style="padding-left:15px;padding-right:15px;">
-									<div class="article_box">
-										<strong>
-										Sorry, you can't edit this article
-										</strong>
-									</div>
-								</div>
-							{% endif %}
-						{% else %}
+						{% if perms.edit %}
 							<div class="row" style="padding-left:15px;padding-right:15px;">
-								<div class="shadowbox article_box" >
-									<a id="article_form_toggle">Write new NSE Tier 1 article</a>
+								<div class="fill article_box" >
+									<a id="article_form_toggle"  style="padding:10px;">Write/Edit article</a>
 								</div>
-								<div id="hidden_article_form" class="columns small-11 " hidden>
+								<div id="hidden_article_form" class="columns small-12" style="padding:0px;" hidden>
 									<br>
-									<div  class="home_box" style="background-color:white;padding:30px;">
-										{% include 'stears/write_form.html' %}
-									</div>
+									{% include 'stears/write_form.html' %}
 								</div>
 							</div>
-							{% include "stears/nse_versions.html" %}
+						{% else %}
+							<div class="row" style="padding-left:15px;padding-right:15px;">
+								<div class="article_box">
+									<strong>
+									Sorry, you can't edit this article
+									</strong>
+								</div>
+							</div>
 						{% endif %}
 						<br>
 						<div class="row" style="padding-left:15px;padding-right:15px;">
@@ -147,17 +132,15 @@
 										<strong>{{ article.headline }}</strong>
 									</td>
 								</tr>
-								{% if article.writer %}
-									{% if article.nse_article_id != '0' %}
-										<tr>
-											<td>
-												Related NSE article
-											</td>
-											<td>
-												<a href="{% url 'weal:article_detail' pk=article.nse_article_id %}">{{ article.nse_article_id|get_headline }}</a>
-											</td>
-										</tr>
-									{% endif %}
+								{% if article.nse_article_id != '0' %}
+									<tr>
+										<td>
+											Related NSE article
+										</td>
+										<td>
+											<a href="{% url 'weal:article_detail' pk=article.nse_article_id %}">{{ article.nse_article_id|get_headline }}</a>
+										</td>
+									</tr>
 								{% endif %}
 							</table>
 							<div class="article_box" id="ajax_article_content">
@@ -179,14 +162,12 @@
 									Writer
 								</td>
 								<td>
-									{% if article.writer %}
-										{% if user.username|is_editor %}
-											<a href="{% url 'weal:writer_detail' article.writer %}">
-												{{ article.writer|format_name:'long' }}
-											</a>
-										{% else %}
+									{% if perms.editor %}
+										<a href="{% url 'weal:writer_detail' article.writer %}">
 											{{ article.writer|format_name:'long' }}
-										{% endif %}
+										</a>
+									{% else %}
+										{{ article.writer|format_name:'long' }}
 									{% endif %}
 								</td>
 							</tr>
@@ -197,12 +178,7 @@
 									</td>
 									<td>
 										{% for writer in article.writers.others %}
-											{% if user.username|is_editor %}
-												<a href="{% url 'weal:writer_detail' writer %}">{{ writer|format_name:'long' }}, </a>
-											{% else %}
-												{{ writer|format_name:'long' }},
-											{% endif %}
-											
+											<a href="{% url 'weal:writer_detail' writer %}">{{ writer|format_name:'long' }}, </a>
 										{% endfor %}
 									</td>
 								</tr>
@@ -217,7 +193,7 @@
 									</strong>
 								</td>
 							</tr>
-							{% if user|is_editor %}
+							{% if perms.editor %}
 								{% if article.reviewer %}
 									<tr>
 										<td>
@@ -244,7 +220,7 @@
 							</div>
 						</div>
 						{% csrf_token %}
-						{% if user.username|can_write:article %}
+						{% if perms.edit %}
 							<h6 style="color:red;">
 								Click tags to delete
 							</h6>
@@ -297,7 +273,7 @@
 							<button class="fill">Preview</button>
 						</form>
 					</div>
-					{% if user|is_editor %}
+					{% if writer_or_editor %}
 					<div class="row">
 						<button class="fill toggles_div" id="summary_toggle">Add Summary</button>
 					</div>
@@ -315,29 +291,8 @@
 							Add Photo
 						{% endif %}</button>
 					</div>
-					{% else%}
-						{% ifequal user.username article.writer %}
-							<div class="row">
-								<button class="fill toggles_div" id="summary_toggle">Add Summary</button>
-							</div>
-							<div class="row">
-								<form action="{% url 'weal:addphoto' pk=article.article_id %}" method='post' class="add_photo" hidden>
-									{% csrf_token %}
-									{{ add_photo_form }}
-									<button type="submit" class="fill toggles_div" name="article_id" value="{{ article.article_id }}">Go</button>
-									<button style="background-color:#FF4747;" class="fill toggles_div cancel_button" id="add_photo" >Cancel</button>
-								</form>
-								<button class="fill toggles_div add_photo" id="add_photo" >
-								{% if article.photo %}
-									Change Photo
-								{% else %}
-									Add Photo
-								{% endif %}</button>
-							</div>
-						{% endifequal %}
 					{% endif %}
-					{% ifequal user.username article.writer %}
-						{% ifequal article.state 'in_progress' %}
+					{% if perms.add_writer %}
 							<div class="row">
 								<form action="{% url 'weal:add_writer' %}" method="post" class="add_writers" hidden>
 									{% csrf_token %}
@@ -358,28 +313,16 @@
 									<button type="submit" class="fill toggles_div remove_writers" id="remove_writers" >Remove writer(s)</button>
 								</div>
 							{% endif %}
-						{% endifequal %}
-					{% endifequal %}
-					{% if user.username|is_editor %}
-						{% ifequal article.type 'writers_article' %}
+					{% endif %}
+					{% if perms.delete %}
 							<div class="row">
 								<form action="{% url 'weal:delete_article' %}" method="post" id="delete">
 									{% csrf_token %}
 									<button type="submit" class="fill delete" name="article_id" value="{{ article.article_id }}">Delete</button>
 								</form>
 							</div>
-						{% endifequal %}
 					{% endif %}
-					{% if user.username|can_suggest:article %}
-						<div class="row">
-							<form action="{% url 'weal:suggest_nse_article' %}" method="post" id="assign">
-								{% csrf_token %}
-								{{ suggest_form }}
-								<button type="submit" class="fill" name="article_id" value="{{ article.article_id }}">Suggest</button>
-							</form>
-						</div>
-					{% endif %}
-					{% if user.username|can_approve:article %}
+					{% if perms.approve %}
 						<div class="row">
 							<form action="{% url 'weal:approve_article' %}" method="post" id="approve">
 								{% csrf_token %}
@@ -418,21 +361,19 @@
 							</div>
 						{% endif %}
 					{% endifequal %}
-					{% if user.username|can_write:article %}
+					{% if perms.tag %}
 						<div class="row">
 							<button id="keyword_area_button"  class="fill">Edit tags</button>
 						</div>
 					{% endif %}
-					{% ifequal article.state 'in_review' %}
-						{% ifequal article.reviewer user.username %}
+					{% if perms.review %}
 							<div class="row">
 								<form method="get" action="{% url 'weal:review' pk=article.article_id %}">
 									<button class="fill" type="submit">Review</button>
 								</form>
 							</div>
-						{% endifequal %}
-					{% endifequal %}
-					{% if user.username|is_editor %}
+					{% endif %}
+					{% if perms.view_review %}
 						<div class="row">
 							<button class="fill toggles_div" id="review_toggle">View reviews</button>
 						</div>

@@ -68,11 +68,7 @@
 						</div>
 					</div>
 				{% else %}
-					{% if article.writer %}
-						<div class="columns small-12">
-							<button type="submit" name="submit" value="save" class="fill wymupdate button2 wym_submit_button">Save article</button>
-						</div>
-					{% else %}
+					{% if perms.edit %}
 						<div class="row">
 							<div class="columns small-12 medium-6">
 								<button type="submit" name="submit" value="save" class="fill wymupdate button2 wym_submit_button">Save article</button>
@@ -80,6 +76,10 @@
 							<div class="columns small-12 medium-6">
 								<button class="wym_submit_button wymupdate button2 fill" type="submit" name="submit" value="review" >Post article</button>
 							</div>
+						</div>
+					{% else %}
+						<div class="columns small-12">
+							<button type="submit" name="submit" value="save" class="fill wymupdate button2 wym_submit_button">Save article</button>
 						</div>
 					{% endif %}
 				{% endifequal %}
