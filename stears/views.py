@@ -506,10 +506,10 @@ def article_detail(request, **kwargs):
         nse_id = pk
         category = "stearsOther"
 
+    perms = get_article_perms(username=str(user), article=article)
     approved_writers = users.find(
         {'state': 'approved'}).distinct('username')
     suggest_form = SuggestForm(my_arg=approved_writers)
-
     locked_fields = ['nse_headlines']
     # s_cat = lambda x: 'stears' + x.replace(' ', '_')
 
@@ -540,7 +540,8 @@ def article_detail(request, **kwargs):
                'add_photo_form': add_photo_form,
                'writers_article_form': writers_article_form,
                'add_writers_form': add_writers_form,
-               'comment_form': comment_form}
+               'comment_form': comment_form,
+               'perms': perms}
 
     return render(request, 'stears/article_detail.html', context)
 

@@ -370,15 +370,6 @@
 							</div>
 						{% endifequal %}
 					{% endif %}
-					{% if user.username|can_suggest:article %}
-						<div class="row">
-							<form action="{% url 'weal:suggest_nse_article' %}" method="post" id="assign">
-								{% csrf_token %}
-								{{ suggest_form }}
-								<button type="submit" class="fill" name="article_id" value="{{ article.article_id }}">Suggest</button>
-							</form>
-						</div>
-					{% endif %}
 					{% if user.username|can_approve:article %}
 						<div class="row">
 							<form action="{% url 'weal:approve_article' %}" method="post" id="approve">
