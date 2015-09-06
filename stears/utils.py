@@ -26,7 +26,7 @@ def mongo_calls(collection_name, c=client):
             c = MongoClient(params.MONGO_URI)
         collection = c[params.db][collection_name]
     except Exception:
-        raise Exception
+        collection = None
     return collection
 
 
