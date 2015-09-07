@@ -95,7 +95,7 @@
         <div class="w-clearfix stearsreport-post">
           <div class="w-clearfix w-inline-block pdf-link-block nest-anchor v-report">
             <div class="stearsreport-post-text">
-              <div class="industry-report-label">{{ report.ftype|title }} Report</div>
+              <div class="industry-report-label">{% if report.ftype %}{{ report.ftype|title }}{% else %}Weekly{% endif %} Report</div>
               <h2 class="stearsreport-h2"><a href="{{ sUri }}{{ report.pdf.url }}" class="target-anchor inall" target="_blank">Stears Report – {{ report.time_title }}</a></h2>
             </div>
           </div>
