@@ -42,6 +42,22 @@
 	display: inline-block;
 }
 
+.ca-body{
+	/*margin-left: 20px;*/
+	margin-top: 10px;
+	font-family: nimbus-sans, Arial;
+	font-weight: 300;
+	font-size: 15px;
+}
+
+.ca-h4{
+	font-size: 20px;
+}
+
+.ca-title{
+
+}
+
 .cat-clock{
 	margin-bottom: 10px;
 }
@@ -53,6 +69,14 @@
 .cb-image-container{
 	position: absolute;
 	width: 100%;
+}
+
+.cc-clock{
+	margin-left: 20px;
+}
+
+.cc-clock p{
+	margin-top: 10px;
 }
 
 .clock-small{
@@ -93,10 +117,10 @@
 }
 
 .column-h1{
-	font-size: 40px;
+	font-size: 50px;
 	text-align: right;
 	display: inline-block;
-	margin-right: 0px;
+	padding-right: 10px;
 }
 
 .column-h3{
@@ -155,6 +179,45 @@
 	margin: 0px;
 	margin-top: 10px;
 	width: 100%;
+}
+
+.read-next{
+	margin-top: 40px;
+	padding-left: 60px;
+	display: inline-block;
+}
+
+.rn-article{
+	border-radius: 2px;
+	padding:10px;
+}
+
+.rn-article:hover{
+	background-color: #f2f2f2;
+	color: #333;
+}
+
+.rn-body{
+	margin-top: 30px;
+}
+
+.rn-h3{
+}
+
+.rn-link{
+	text-decoration: none;
+	color: #737373;
+}
+
+.rn-title{
+	/*border-top: 1px solid #f2f2f2;*/
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #f05042;
+}
+
+.rnt-container{
+	padding: 10px;
 }
 
 

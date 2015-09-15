@@ -90,8 +90,43 @@
                 {{ article.content }}
                 {% endautoescape %}
               </div>
+              <div class="post-article">
+                <div class="read-next">
+                  <div class="rnt-container">
+                    <div class="rn-title">
+                      <h3 class="rn-h3">
+                        More from Shock Value
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="rn-body">
+                    {% for x in '1234' %}
+                    <a class="rn-link" href="#">
+                      <div class="rn-article">
+                        <div class="ca-title">
+                          <h4 class="ca-h4">
+                            Political Superwomen (Part 2)
+                          </h4>
+                        </div>
+                        <p class="ca-body">
+                          Why we are all better off with women at the helm.
+                        </p>
+                        <div class="cc-clock">
+                          <img src="/static/images/clock.svg" alt="" class="clock-small">
+                          <p>
+                            {{ article.posted|date:"M d, Y" }}
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="c-right column-chunk"></div>
+            <div class="c-right column-chunk">
+              
+            </div>
           </div>
         </div>
       </div>
