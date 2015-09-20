@@ -34,104 +34,24 @@
 
 {% block body %}
   <body>
-    {% include 'news/news_nav.html' %}
-    
-    <div class="column-page-container">
-      <div class="column-page">
-        <div class="column-banner-container">
-          <div class="cb-image-container">
-            <img src="{{ article.photo }}" class="cb-image" alt="">
+    {% include 'news/news_nav.html' %}   
+    <div class="cp-container">
+      <div class="cposter">
+        <div class="cp-content">
+          <div class="cp-heading">
+            <h1 class="cp-title">
+              Thinking Economics
+            </h1>
           </div>
-          <div class="column-banner">
-            <div class="column-header">
-              <h1 class="column-h1">
-                Shock Value by Ebeyi Iyoha
-              </h1>
-            </div>
-          </div>
-        </div>
-        <div class="column-container">
-          <div class="column-area">
-            <div class="headline-container">
-              <div class="headline">
-                <h3 class="column-h3">
-                  {{ article.headline }}
-                </h3>
-              </div>
-              <div class="cat-clock">
-                <div class="c-cat">
-                  <p>
-                    Opinion
-                  </p>
-                </div>
-                <div class="c-clock">
-                  <img src="/static/images/clock.svg" alt="" class="clock-small">
-                  <p>
-                    {{ article.posted|date:"M d, Y" }}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="c-left column-chunk">
-              <div class="author-photo-container">
-                <div class="author-photo">
-                  <img src="/static/images/ebeyi.jpg" class="ap-image" alt="">
-                </div>
-                <div class="photo-title">
-                  <h5 class="pt-writer">
-                    Ebeyi Iyoha
-                  </h5>
-                </div>
-              </div>
-            </div>
-            <div class="c-middle column-chunk">
-              <div class="article-par">
-                {% autoescape off %}
-                {{ article.content }}
-                {% endautoescape %}
-              </div>
-              <div class="post-article">
-                <div class="read-next">
-                  <div class="rnt-container">
-                    <div class="rn-title">
-                      <h3 class="rn-h3">
-                        More from Shock Value
-                      </h3>
-                    </div>
-                  </div>
-                  <div class="rn-body">
-                    {% for x in '1234' %}
-                    <a class="rn-link" href="#">
-                      <div class="rn-article">
-                        <div class="ca-title">
-                          <h4 class="ca-h4">
-                            Political Superwomen (Part 2)
-                          </h4>
-                        </div>
-                        <p class="ca-body">
-                          Why we are all better off with women at the helm.
-                        </p>
-                        <div class="cc-clock">
-                          <img src="/static/images/clock.svg" alt="" class="clock-small">
-                          <p>
-                            {{ article.posted|date:"M d, Y" }}
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                    {% endfor %}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="c-right column-chunk">
-              
-            </div>
+          <div class="cp-divider"></div>
+          <div class="cp-stears">
+            <h1 class="cps">
+              Chuba Ezekwesili
+            </h1>
           </div>
         </div>
       </div>
     </div>
-
     {% include 'news/footer.html' %}
   </body>
 {% endblock %}
