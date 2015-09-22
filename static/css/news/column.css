@@ -10,32 +10,38 @@ body{
 .c-container{
 	margin-top: 20px;
 	height: 600px;
-	background-color: #f2f2f2;
+	background-color: transparent;
 }
 
 .cb-page{
 	height: 100%;
 	width: 85%;
+	max-width: 1100px;
 	margin: auto;
+	background-color: white;
+	border-top: 4px solid #f05042;
 }
 
 .cb-heading{
 	height: 20%;
-	background-color: red;
+	background-color: white;
+	border: 1px solid #f2f2f2;
 }
 
 .cb-left{
 	height: 80%;
 	width: 60%;
-	background-color: green;
+	background-color: white;
 	display: inline-block;
+	border: 1px solid #f2f2f2;
 }	
 
 .cb-right{
 	height: 80%;
 	width: 35%;
-	background-color: blue;
+	background-color: white;
 	display: inline-block;
+	border: 1px solid #f2f2f2;
 }
 
 .c-body{
