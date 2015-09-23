@@ -15,6 +15,7 @@ def column(request):
     a = mongo_calls('migrations')
     context['article'] = a.find_one({'article_id': 61})
     context['summary'] = summarize(article)
+    context['others'] = list(a.find({'type': 'writers_article'}).limit(5))
     return render(request, 'news/column.html', context)
 
 
