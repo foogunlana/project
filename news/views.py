@@ -14,6 +14,7 @@ def column(request):
     context = {}
     a = mongo_calls('migrations')
     context['article'] = a.find_one({'article_id': 61})
+    context['summary'] = summarize(article)
     return render(request, 'news/column.html', context)
 
 
