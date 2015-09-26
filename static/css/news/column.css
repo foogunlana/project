@@ -199,6 +199,11 @@ body{
 	line-height: 1.5;
 }
 
+.lb-text a{
+	font-weight: bolder;
+	text-decoration: none;
+}
+
 .no-styles{
 	text-decoration: none;
 }
