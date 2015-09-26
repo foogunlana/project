@@ -21,12 +21,14 @@ def handle_uploaded_file(image):
 
 
 def mongo_calls(collection_name, c=client):
+    collection = None
     try:
         if not c:
             c = MongoClient(params.MONGO_URI)
         collection = c[params.db][collection_name]
     except Exception:
-        raise Exception
+        print "URGENT ERROR: DATABASE UNAVAILABLE"
+        pass
     return collection
 
 
