@@ -83,23 +83,80 @@
             <div class="ab-container">
               <div class="author-block">
                 <div class="ab-section section1">
-                  <!-- <div class="abp-holder">
+                  <div class="abp-holder">
                     <img src="/media/CACHE/images/articleImages/2015/07/02/3615061750_3f45682353_o_xNf4cz7/644e39b85dc35748ce815ab60b8e7b61.jpg" alt="" class="ab-pic">
                   </div>
                   <div class="ab-text">
                     <h3 class="ab-h3">
                       Chuba Ezekwesili
                     </h3>
-                  </div> -->
-
-                  
+                  </div>
                 </div>
                 <div class="ab-section section2">
-                  
+                  <div class="bio">
+                    <p class="bio-text">
+                      Some people are just born with it, everything they write down kicks ass. It is epic from the moment their pen hits the paper. Epic comes from the Latin word epicus, in turn from Greek epikos, from epos which means word or song.
+                    </p>
+                  </div>
                 </div>
                 <div class="ab-section section3">
-                  
+                  <div class="ab-profiles">
+                    <div class="abp ab-linkedin">
+                      <p class="abp-text">
+                        Contact me on Linkedin
+                      </p>
+                    </div>
+                    <div class="abp ab-twitter">
+                      <p class="abp-text">
+                        Follow me on twitter
+                      </p>
+                    </div>
+                    <div class="abp ab-email">
+                      <p class="abp-text">
+                        Email me @ chuba@test.com
+                      </p>
+                    </div>
+                  </div>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div class="cb2">
+            <div class="rn-articles">
+              <div class="rn-heading">
+                <div class="rnh3-container">
+                  <h3 class="rn-h3">
+                    More from Thinking Economics
+                  </h3>
+                </div>
+              </div>
+              <div class="rn-container">
+                {% for n in '12345' %}
+                <a href="#" class="no-styles">
+                  <div class="rn-article">
+                    <div class="rn-time">
+                      <div class="rn-clock">
+                        <img src="/static/images/clock.svg" alt="" class="rnc">
+                        <p class="rnt">
+                          {% now "j F, Y" %}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="rn-body">
+                      <div class="rn-title">
+                        <h4 class="rnt-h4">
+                          Blessing in disguise
+                        </h4>
+                      </div>
+                      <div class="rn-summary">
+                        <p class="rns-text">
+                          This article is a blessing in disguise so please read and enjoy.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                {% endfor %}
               </div>
             </div>
           </div>
