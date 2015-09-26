@@ -131,7 +131,7 @@
                 </div>
               </div>
               <div class="rn-container">
-                {% for n in '12345' %}
+                {% for n in others %}
                 <a href="#" class="no-styles">
                   <div class="rn-article">
                     <div class="rn-time">
@@ -145,12 +145,16 @@
                     <div class="rn-body">
                       <div class="rn-title">
                         <h4 class="rnt-h4">
-                          Blessing in disguise
+                          {{ n.headline }}
                         </h4>
                       </div>
                       <div class="rn-summary">
                         <p class="rns-text">
-                          This article is a blessing in disguise so please read and enjoy.
+                          {% if n.par1 %}
+                            {{ n.par1 }}
+                          {% else %}
+                            This article is a blessing in disguise so please read and enjoy.
+                          {% endif %}
                         </p>
                       </div>
                     </div>
