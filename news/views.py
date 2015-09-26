@@ -7,7 +7,20 @@ from utils import summarize
 from django.core.cache import cache
 from datetime import datetime
 
+from django.contrib.auth.decorators import user_passes_test
+from stears.permissions import is_a_boss
+
 import json
+
+
+@user_passes_test(lambda u: is_a_boss(u), login_url='/')
+def column(request):
+    context = {}
+    a = mongo_calls('migrations')
+    context['article'] = a.find_one({'article_id': 61})
+    context['summary'] = summarize(article)
+    context['others'] = list(a.find({'type': 'writers_article'}).limit(5))
+    return render(request, 'news/column.html', context)
 
 
 def article(request, pk):

@@ -1,0 +1,178 @@
+{% extends 'news/news_base.html' %}
+{% load category %}
+{% load name %}
+{% load compress %}
+
+{% block special_links %}
+{% ifequal sUri 'http://www.stearsng.com' %}
+{% include 'news/ganalytics.html' %}
+{% endifequal %}
+
+<link rel="stylesheet" href="/static/css/news/column.css">
+{% endblock %}
+
+{% block title %}Opinion | Stears{% endblock %}
+
+{% block meta %}
+<meta name="description"           content="{{ article.par1|truncatechars:'150' }}"/>
+<meta property="og:url"            content="{{ aUri }}" />
+<meta property="og:type"           content="article" />
+<meta property="og:title"          content="{{ article.headline }}" />
+<meta property="og:description"    content="{{ article.par1 }}" />
+<meta property="og:image"          content="http://www.stearsng.com{{ article.photo }}"/>
+<meta property="article:publisher" content="https://www.facebook.com/stearsng"/>
+<meta property="fb:app_id"         content="457339461112605" />
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@stearsng">
+<meta name="twitter:url" content="{{ aUri }}">
+<meta name="twitter:creator" content="@stearsng">
+<meta name="twitter:title" content="{{ article.headline }}">
+<meta name="twitter:description" content="{{ article.par1 }}">
+<meta name="twitter:image" content="http://www.stearsng.com{{ article.photo }}">
+{% endblock %}
+
+{% block body %}
+  <body>
+    {% include 'news/news_nav.html' %}   
+    <div class="cp-container">
+      <div class="cposter">
+        <div class="cp-content">
+          <div class="cp-heading">
+            <h1 class="cp-title">
+              Thinking Economics
+            </h1>
+          </div>
+          <div class="cp-divider"></div>
+          <div class="cp-stears">
+            <h1 class="cps">
+              Chuba Ezekwesili
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="c-container">
+      <div class="c-body">
+        <div class="cb-page">
+          <div class="cb-heading">
+
+          </div>
+          <div class="cb-left">
+            <div class="l-container">
+              <div class="l-headline">
+                <div class="lh-text">
+                  <h2 class="lh-h2">
+                    {{ article.headline }}
+                  </h2>
+                </div>
+              </div>
+              <div class="share_block">
+                {% include 'news/share_block.html' %}
+              </div>
+              <div class="l-body">
+                <div class="lb-text">
+                  {% autoescape off %}
+                  {{ article.content }}
+                  {% endautoescape %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cb-right">
+            <div class="ab-container">
+              <div class="author-block">
+                <div class="ab-section section1">
+                  <div class="abp-holder">
+                    <img src="/media/CACHE/images/articleImages/2015/07/02/3615061750_3f45682353_o_xNf4cz7/644e39b85dc35748ce815ab60b8e7b61.jpg" alt="" class="ab-pic">
+                  </div>
+                  <div class="ab-text">
+                    <h3 class="ab-h3">
+                      Chuba Ezekwesili
+                    </h3>
+                  </div>
+                </div>
+                <div class="ab-section section2">
+                  <div class="bio">
+                    <p class="bio-text">
+                      Some people are just born with it, everything they write down kicks ass. It is epic from the moment their pen hits the paper. Epic comes from the Latin word epicus, in turn from Greek epikos, from epos which means word or song.
+                    </p>
+                  </div>
+                </div>
+                <div class="ab-section section3">
+                  <div class="ab-profiles">
+                    <div class="abp ab-linkedin">
+                      <p class="abp-text">
+                        Contact me on Linkedin
+                      </p>
+                    </div>
+                    <div class="abp ab-twitter">
+                      <p class="abp-text">
+                        Follow me on twitter
+                      </p>
+                    </div>
+                    <div class="abp ab-email">
+                      <p class="abp-text">
+                        Email me @ chuba@test.com
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cb2">
+            <div class="rn-articles">
+              <div class="rn-heading">
+                <div class="rnh3-container">
+                  <h3 class="rn-h3">
+                    More from Thinking Economics
+                  </h3>
+                </div>
+              </div>
+              <div class="rn-container">
+                {% for n in others %}
+                <a href="#" class="no-styles">
+                  <div class="rn-article">
+                    <div class="rn-time">
+                      <div class="rn-clock">
+                        <img src="/static/images/clock.svg" alt="Author Image goes here" class="rnc">
+                        <p class="rnt">
+                          {% now "j F, Y" %}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="rn-body">
+                      <div class="rn-title">
+                        <h4 class="rnt-h4">
+                          {{ n.headline }}
+                        </h4>
+                      </div>
+                      <div class="rn-summary">
+                        <p class="rns-text">
+                          {% if n.par1 %}
+                            {{ n.par1 }}
+                          {% else %}
+                            This article is a blessing in disguise so please read and enjoy.
+                          {% endif %}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% include 'news/footer.html' %}
+  </body>
+{% endblock %}
+
+{% block dynamic_static_body %}
+  {% compress js inline %}
+  <script defer src="/static/js/news/news.js"></script>
+  {% endcompress %}
+{% endblock %}
