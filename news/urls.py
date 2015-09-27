@@ -8,5 +8,5 @@ urlpatterns = patterns('',
                        url(r'^reports/$', views.reports, name='reports'),
                        url(r'^articles/toppicks/$', views.top_picks, name='toppicks'),
                        url(r'^articles/features/$', views.features, name='features'),
-                       url(r'^articles/relatedto/10(?P<pk>[0-9]+)$$', views.related_articles, name='related'),
+                       url(r'^articles/relatedto/10(?P<pk>[0-9]+)$', views.related_articles, name='related'),
                        )

@@ -1,0 +1,23 @@
+{% extends 'news/news_base.html' %}
+
+{% block body %}
+  <body>
+  	<link rel="stylesheet" href="/static/css/news/errors.css">
+    {% include 'news/news_nav.html' %}
+    <div class="ep-container">
+    	<div class="errorpage">
+	    	<div class="message">
+	    		<h4 class="error-message">
+	    			Error 404: We're sorry it seems that page doesn't exist!
+	    		</h4>
+	    		<div class="stears-box">
+	    			<h1 class="stears-h1">
+		    			Stears
+		    		</h1>
+	    		</div>
+	    	</div>
+	    </div>
+    </div>
+    {% include 'news/footer.html' %}
+  </body>
+{% endblock %}

@@ -1086,6 +1086,11 @@ th{
    }
 
   @media (min-width: 991px) {
+
+    .secondary-article{
+      height: 210px;
+    }
+
     .top-stories-container, .sfeatures-container{
       margin-bottom: 60px;
     }
