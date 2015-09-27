@@ -1,0 +1,64 @@
+html, body{
+	height: 100%;
+}
+
+.ep-container{
+	background-color: #f05042;
+}
+
+.errorpage{
+	width: 85%;
+	margin: auto;
+}
+
+.message{
+	width: 100%;
+	margin: auto;
+}
+
+.stears-box{
+	display: block;
+	height: auto;
+}
+
+.stears-h1{
+	color: white;
+	font-size: 60px;
+	text-align: center;
+	width: 100%;
+	color: white;
+	vertical-align: bottom;
+	padding: 100px;
+	font-weight: 400;
+}
+
+.error-message{
+	display: block;
+	font-size: 40px;
+	text-align: center;
+	width: 100%;
+	color: white;
+	padding: 100px;
+	margin: 0px;
+	line-height: 2;
+}
+
+
+@media  (max-width: 767px){
+	.stears-h1{
+		padding: 5%;
+		padding-top: 10%;
+		padding-bottom: 10%;
+	}
+
+	.error-message{
+		padding: 5%;
+		padding-top: 10%;
+		padding-bottom: 10%;
+	}
+}
+
+
+
+
+

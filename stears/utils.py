@@ -28,7 +28,7 @@ def mongo_calls(collection_name, c=client):
         collection = c[params.db][collection_name]
     except Exception:
         print "URGENT ERROR: DATABASE UNAVAILABLE"
-        pass
+        collection = None
     return collection
 
 
