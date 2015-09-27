@@ -10,4 +10,5 @@ urlpatterns = patterns('',
                        url(r'^business/(?P<sector>[a-zA-Z]+)$', views.business, name='business'),
                        url(r'^opinion/$', views.column, name='column'),
                        url(r'^reports/$', views.reports, name='reports'),
+                       url(r'^articles/relatedto/10(?P<pk>[0-9]+)$', views.related_articles, name='related'),
                        )
