@@ -2,10 +2,22 @@
 
 {% block body %}
   <body>
+  	<link rel="stylesheet" href="/static/css/news/errors.css">
     {% include 'news/news_nav.html' %}
-    <h1>
-      404!!!
-    </h1>
+    <div class="ep-container">
+    	<div class="errorpage">
+	    	<div class="message">
+	    		<h4 class="error-message">
+	    			Error 500: Stears is down for maintenace. Check back in a few hours!
+	    		</h4>
+	    		<div class="stears-box">
+	    			<h1 class="stears-h1">
+		    			Stears
+		    		</h1>
+	    		</div>
+	    	</div>
+	    </div>
+    </div>
     {% include 'news/footer.html' %}
   </body>
 {% endblock %}
