@@ -338,6 +338,7 @@ body{
 
 .rn-photo{
 	padding: 0px;
+	width: 100%;
 }
 
 .rn-time{
@@ -371,6 +372,7 @@ body{
 
 .rnp{
 	/*box-shadow: 0px 0px 2px 1px;*/
+	width: 100%;
 }
 
 .rns-text{
