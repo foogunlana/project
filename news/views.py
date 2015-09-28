@@ -14,12 +14,21 @@ import json
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/')
-def column(request):
+def column(request, pk=None):
     context = {}
     a = mongo_calls('migrations')
-    context['article'] = a.find_one({'article_id': 61})
+
+    if not pk:
+        context['article'] = a.find_one({'article_id': 47})
+        context['first_visit'] = True
+    else:
+        context['article'] = a.find_one({'article_id': int(pk)})
+        context['first_visit'] = False
     context['summary'] = summarize(article)
-    context['others'] = list(a.find({'type': 'writers_article'}).limit(5))
+
+    content = context['article']['content'].split('</p>')
+    context['preview'] = '</p>'.join(content[:3])
+    context['others'] = list(a.find({'writer': context['article']['writer']}).limit(5))
     return render(request, 'news/column.html', context)
 
 
