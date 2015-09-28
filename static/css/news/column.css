@@ -115,7 +115,7 @@ body{
 }
 
 .cp-container{
-	min-height: 85%;
+	height: 85%;
 	width: 100%;
 	background-color: white;
 	border-bottom: 1px solid #f2f2f2;
