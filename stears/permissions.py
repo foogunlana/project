@@ -20,6 +20,16 @@ def is_a_boss(username):
     return False
 
 
+def is_columnist(username):
+    if is_a_boss(username):
+        return True
+    users = mongo_calls('user')
+    writer = users.find_one({'username': str(username)})
+    if writer:
+        if writer.get('role', "") == 'Columnist':
+            return True
+    return False
+
 def editor(username):
     writer = User.objects.get(username=str(username))
     if not writer:
