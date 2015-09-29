@@ -116,7 +116,7 @@ body{
 }
 
 .cp-container{
-	height: 85%;
+	/*height: 85%;*/
 	width: 100%;
 	background-color: white;
 	border-bottom: 1px solid #f2f2f2;
@@ -162,6 +162,7 @@ body{
 .cp-description{
 	width: 50%;
 	margin: auto;
+	margin-bottom: 10%;
 }
 
 .cpd-text{
