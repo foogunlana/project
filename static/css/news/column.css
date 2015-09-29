@@ -7,9 +7,6 @@ body{
 	position: relative;
 }
 
-img{
-	width: 100%;
-}
 
 .ab-container{
 	padding: 15px;
@@ -342,7 +339,7 @@ img{
 
 .rn-photo{
 	padding: 0px;
-	width: 100%;
+	width: 100% !important;
 }
 
 .rn-time{
