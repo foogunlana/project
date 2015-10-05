@@ -67,7 +67,7 @@ var get_features = function(){
 					var f = $('#example_feature').clone(true);
 					f.removeAttr('id');
 					var writer = f.find('.feature-writer');
-					var name = fo.writer.replace('_',' ');
+					var name = fo.writer.replace('_',' ').replace('_',' ');
 					var writerName = name.toString().toLowerCase().replace(/\b[a-z]/g, function(letter) {
 							return letter.toUpperCase();});
 					var link = '/article/10' + fo.article_id.toString();
