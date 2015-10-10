@@ -35,24 +35,26 @@
 {% block body %}
   <body>
     {% include 'news/news_nav.html' %} 
-    <div class="cp-container p-slide" {% if first_visit %}{% else %}hidden{% endif %}>
-      <div class="cposter hoverable">
-        <div class="cp-content">
-          <div class="cp-heading">
-            <h1 class="cp-title">
+    <div class="cp-background">
+      <div class="cp-container p-slide" {% if first_visit %}{% else %}hidden{% endif %}>
+        <div class="cposter hoverable">
+          <div class="cp-content">
+            <div class="cp-heading">
+              <h1 class="cp-title">
               Thinking Economics
-            </h1>
-          </div>
-          <div class="cp-divider"></div>
-          <div class="cp-stears">
-            <h1 class="cps">
+              </h1>
+            </div>
+            <div class="cp-divider"></div>
+            <div class="cp-stears">
+              <h1 class="cps">
               Chuba Ezekwesili
-            </h1>
-          </div>
-          <div class="cp-description">
-            <h4 class="cpd-text">
+              </h1>
+            </div>
+            <div class="cp-description">
+              <h4 class="cpd-text">
               Thinking Economics is about the economics of thought. Though shalt not forgoe any attainable utility and neither shall thou waste unprecedented or accounted for resources. Mental resources in this case. In other words, save your thoughts for yourself, you're reading my thoughts now. And I think you will like them. - Chuba Ezekwesili
-            </h4>
+              </h4>
+            </div>
           </div>
         </div>
       </div>
@@ -118,7 +120,7 @@
               <div class="author-block">
                 <div class="ab-section section1">
                   <div class="abp-holder">
-                    <img src="" alt="" class="ab-pic">
+                    <img src="/static/images/ebeyi.jpg" alt="" class="ab-pic">
                   </div>
                   <div class="ab-text">
                     <h3 class="ab-h3">
@@ -135,21 +137,41 @@
                 </div>
                 <div class="ab-section section3">
                   <div class="ab-profiles">
-                    <div class="abp ab-linkedin">
-                      <p class="abp-text">
-                        Contact me on Linkedin
-                      </p>
-                    </div>
-                    <div class="abp ab-twitter">
-                      <p class="abp-text">
-                        Follow me on twitter
-                      </p>
-                    </div>
-                    <div class="abp ab-email">
-                      <p class="abp-text">
-                        Email me @ chuba@test.com
-                      </p>
-                    </div>
+                    
+                      <a href="#" class="abp-link">
+                        <div class="abp ab-linkedin">
+                        <div class="abp-social">
+                          <img class=" abp-linkedin abp-icon" src="/static/images/linkedin-icon.svg" width="19">
+                        </div>
+                        <p class="abp-text">
+                          Contact me on Linkedin
+                        </p>
+                        </div>
+                      </a>
+                    
+                      <a href="#" class="abp-link">
+                        <div class="abp ab-twitter">
+                        <div class="abp-social">
+                          <img class=" abp-icon" src="/static/images/twitter-icon.svg" width="17">
+                        </div>
+                        <p class="abp-text">
+                          Follow me on twitter
+                        </p>
+                        </div>
+                      </a>
+                    
+                    
+                      <a href="#" class="abp-link">
+                        <div class="abp ab-email">
+                        <div class="abp-social">
+                          <img class=" abp-icon" src="/static/images/iconmonstr-email-4-icon.svg" width="22">
+                        </div>
+                        <p class="abp-text">
+                          Email me @ chuba@test.com
+                        </p>
+                        </div>
+                      </a>
+                    
                   </div>
                 </div>
               </div>
@@ -234,7 +256,12 @@
 
   $(document).ready(function(){
     $(".p-slide").click(function(){
-      $(".cp-container").slideToggle(500);
+      if($(".sticky").hasClass("stick")){
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+      }else{
+        $(".cp-container").slideToggle(500);
+      }
+
     });
 
     $(".krt").click(function(){
