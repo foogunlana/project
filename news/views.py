@@ -32,6 +32,25 @@ def column(request, pk=None):
     return render(request, 'news/column.html', context)
 
 
+@user_passes_test(lambda u: is_columnist(u), login_url='/')
+def column2(request, pk=None):
+    context = {}
+    a = mongo_calls('migrations')
+
+    if not pk:
+        context['article'] = a.find_one({'article_id': 47})
+        context['first_visit'] = True
+    else:
+        context['article'] = a.find_one({'article_id': int(pk)})
+        context['first_visit'] = False
+    context['summary'] = summarize(article)
+
+    content = context['article']['content'].split('</p>')
+    context['preview'] = '</p>'.join(content[:3])
+    context['others'] = list(a.find({'writer': context['article']['writer']}).limit(5))
+    return render(request, 'news/column2.html', context)
+
+
 def article(request, pk):
     cache_name = 'newscache:{}{}'.format('article', str(pk))
     icache = 'infinitecache:{}{}'.format('article', str(pk))
