@@ -494,7 +494,7 @@ body{
 		margin-top: 10px;
 	}
 
-	.c-body{
+	.c-body, .c-body2{
 		padding-left: 7.75%;
 		padding-right: 6%;
 	}
@@ -504,7 +504,7 @@ body{
 		width: 100%;
 	}
 
-	.cb-page{
+	.cb-page, .cb-page2{
 		width: 100%;
 		margin: 0px;
 		padding-left: 0px;
@@ -533,7 +533,7 @@ body{
 		margin-top: 10px;
 	}
 
-	.cb-page{
+	.cb-page, .cb-page2{
 		width: 100%;
 		margin: 0px;
 	}
@@ -576,7 +576,7 @@ body{
 		padding-right: 5%;
 	}
 
-	.cb-page{
+	.cb-page, .cb-page2{
 		width: 100%;
 		margin: 0px;
 	}
