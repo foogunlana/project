@@ -12,8 +12,8 @@ body{
 	padding: 15px;
 	margin: auto;
 	margin-top: 100px;
-	border: 1px solid rgba(100, 100, 100, 0.1);
-	border-top: 1px solid #f05042;
+	/*border: 1px solid rgba(100, 100, 100, 0.1);*/
+	/*border-top: 1px solid #f05042;*/
 	border-radius: 2px;
 	max-width: 400px;
 }
