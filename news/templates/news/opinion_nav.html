@@ -1,0 +1,115 @@
+  {% load stears_tags %}
+  <div class="w-nav w-hidden-small w-hidden-tiny" data-collapse="small" data-animation="default" data-duration="400">
+    <div class="w-section w-clearfix navigation">
+      <div class="nav-container">
+        <a class="w-clearfix w-inline-block logo-link" href="{{ sUri }}{% url 'news:index' %}">
+          <img class="stears-logo" src="/static/images/StearsBetaCompleteCopy.svg" width="480" alt="Stears Home">
+        </a>
+        <div class="w-clearfix top-half">
+          <a class="w-clearfix w-inline-block social-link-block follow-us-intent" href="https://twitter.com/intent/follow?screen_name=@stearsng" target="_blank">
+            <div class="nav-social">
+              <div class="follow-us">Follow us on Twitter</div>
+              <img class="twitter-icon" src="/static/images/twitter-icon.svg" width="18">
+            </div>
+          </a>
+        </div>
+        <nav class="w-nav-menu nav-content" role="navigation">
+          <ul class="nav-items">
+            <li class="nav-text-con"><a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:index' %}">Home</a></li>
+            <li class="nav-text-con"><a class="w-nav-link nav-text dropdown-tab drop1" id="b_e_nav" data-subs="nav1" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Business &amp; Economy</a></li>
+            <li class="nav-text-con"><a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:reports' %}">Market Reports</a></li>
+            <li class="nav-text-con"><a class="w-nav-link nav-text dropdown-tab drop2" data-subs="nav2" href="{{ sUri }}{% url 'news:business' 'stearsColumn' %}">Opinion</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="w-nav w-hidden-main w-hidden-medium mobile-navspace" data-collapse="small" data-animation="default" data-duration="400">
+    <div class="w-nav w-hidden-main w-hidden-medium mobile-nav" data-collapse="small" data-animation="default" data-duration="400" data-contain="1">
+      <div class="w-container">
+        <a class="w-nav-brand mobile-logo" href="{{ sUri }}{% url 'news:index' %}">
+          <img src="/static/images/StearsBetaComplete.svg" width="90" alt="Stears Home">
+        </a>
+        <nav class="w-nav-menu w-clearfix mobile-nav-menu" role="navigation">
+          <ul class="mobile-nav-items">
+            <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link" href="{{ sUri }}{% url 'news:index' %}">Home</a></li>
+            <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link b_e_nav toggle" id="dropdown1">Business &amp; Economy</a></li>
+              <div class="dropdown1 mobile-dropdown">
+                <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:business' 'stearsBusiness' %}">
+                Business</a></li>
+                <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:business' 'stearsGovernance' %}">
+                  Governance</a></li>
+                <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Economy</a></li>
+              </div>
+            <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link" href="{{ sUri }}{% url 'news:reports' %}">Market Reports</a></li>
+            <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link toggle" id="dropdown2">Opinion</a></li>
+            <div class="dropdown2 mobile-dropdown">
+              <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:business' 'stearsEditorial' %}">
+              Editorial</a></li>
+              <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:business' 'stearsColumn' %}">
+                Columns</a></li>
+            </div>
+          </ul>
+        </nav>
+        <div class="w-nav-button mobile-menu-button">
+          <div class="w-nav-button-container">
+            <div class="w-icon-nav-menu hamburger-icon"></div>
+          </div>
+          {% if sector %}
+          <h5 class="w-nav-sector">
+            {{ sector|pretty_category }}
+          </h5>
+          {% else %}
+          <h5 class="w-nav-sector">
+            {{ page|capfirst }}
+          </h5>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% ifnotequal page 'b_e' %}
+  <div class="business-nav-container nav1" data-main="drop1">
+    <div class="business-nav">
+      <div class="sub-nav-wrap">
+        <ul class="business-nav-links subnav1">
+          <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsBusiness' %}">
+            Business</a></li>
+          <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsGovernance' %}">
+            Governance</a></li>
+          <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Economy</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="business-nav-container nav2" data-main="drop2">
+    <div class="business-nav">
+      <div class="sub-nav-wrap">
+        <ul class="business-nav-links subnav2">
+          <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsEditorial' %}">
+            Editorial</a></li>
+          <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsColumn' %}">
+            Columns</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="businesspage-nav-container" >
+    <div class="business-nav">
+      <div class="sub-nav-wrap2">
+        <ul class="business-nav-links subnav3">
+          <li class="b-nav-link"><a class="b-nav-text {% ifequal sector 'stearsBusiness' %}c-page{% endifequal %}" href="{{ sUri }}{% url 'news:business' 'stearsBusiness' %}">
+            Business</a></li>
+          <li class="b-nav-link"><a class="b-nav-text {% ifequal sector 'stearsGovernance' %}c-page{% endifequal %}" href="{{ sUri }}{% url 'news:business' 'stearsGovernance' %}">
+            Governance</a></li>
+          <li class="b-nav-link"><a class="b-nav-text {% ifequal sector 'stearsMacroeconomy' %}c-page{% endifequal %}" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Economy</a></li>
+          <li class="b-nav-link"><a class="b-nav-text {% ifequal sector 'stearsEditorial' %}c-page{% endifequal %}" href="{{ sUri }}{% url 'news:business' 'stearsEditorial' %}">
+            Editorial</a></li>
+          <li class="b-nav-link"><a class="b-nav-text {% ifequal sector 'stearsColumn' %}c-page{% endifequal %}" href="{{ sUri }}{% url 'news:business' 'stearsColumn' %}">
+            Columns</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  {% endifnotequal %}

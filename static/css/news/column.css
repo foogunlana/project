@@ -12,8 +12,8 @@ body{
 	padding: 15px;
 	margin: auto;
 	margin-top: 100px;
-	/*border: 1px solid rgba(100, 100, 100, 0.1);*/
-	/*border-top: 1px solid #f05042;*/
+	border: 1px solid rgba(100, 100, 100, 0.1);
+	border-top: 1px solid #f05042;
 	border-radius: 2px;
 	max-width: 400px;
 }
@@ -53,10 +53,6 @@ body{
 	border-bottom: 1px solid white;
 }
 
-.abp:hover{
-	background-color: #f2f2f2;
-}
-
 .abp-holder{
 	overflow: hidden;
 	border-radius: 50%;
@@ -77,7 +73,7 @@ body{
 }
 
 .abp-linkedin{
-	margin-bottom: 6px !important;
+	margin-bottom: 6px;
 }
 
 .abp-social{
@@ -110,7 +106,7 @@ body{
 }
 
 .c-container{
-	margin-top: 20px;
+	margin-top: 0px;
 	border-top: 1px solid #f2f2f2;
 	background-color: transparent;
 }
@@ -297,11 +293,11 @@ body{
 }
 
 .lb-text{
-	border-bottom: none !important;
+	border-bottom: none;
 }
 
 .lb-text p{
-	font-size: 14px;
+	font-size: 15px;
 	margin-top: 30px;
 	line-height: 1.5;
 }
@@ -314,7 +310,7 @@ body{
 .mini-cp-container{
 	width: 100%;
 	background-color: white;
-	border-bottom: 1px solid #f2f2f2;
+	border-bottom: 1px solid #f0f0f0;
 }
 
 .mcs-text{
@@ -324,8 +320,12 @@ body{
 	font-size: 20px;
 	padding: 10px;
 	font-weight: lighter;
-	color: #333;
+	color: transparent;
 	text-align: center;
+}
+
+.mcs-text.display, .mcs-text.white_text{
+	color: white;
 }
 
 .mcslider{
@@ -404,7 +404,7 @@ body{
 }
 
 .rn-photo{
-	width: 100% !important;
+	width: 100%;
 }
 
 .rn-time{
@@ -612,4 +612,46 @@ body{
 		margin-left: 0px;
 	}
 
+}
+
+
+
+
+/** NAV EDITS **/
+
+.navigation, .top-half, .business-nav-container, .mini-cp-container, .cp-container{
+	background-color: #f05042;
+	border-bottom: none;
+	border-top: none;
+}
+
+.cp-divider{
+	border-bottom: 1px solid white;
+}
+
+.cpd-text{
+	margin-top: 0px;
+}
+
+.w-nav-link.nav-text, .b-nav-text{
+	color: white;
+	border-bottom: 1px solid #f05042;
+}
+
+.w-nav-link.nav-text:hover, .nav-text.hovered, .b-nav-text:hover {
+	background-color: #f05042 !important;
+	border-bottom: 1px solid white !important;
+}
+
+.social-link-block, .cp-title, .cpd-text{
+	color: white;
+}
+
+.footer-social{
+	color: #333;
+}
+
+
+.cp-background, .cp-container{
+	background-color: #f05042;
 }
