@@ -72,6 +72,12 @@ urlpatterns = patterns('',
 
                        url(r'^column/select/$', views.select_column,
                            name='select_column'),
+                       url(r'^columns/$', views.column_master,
+                           name='column_master'),
+                       url(r'^columns/new/$', views.add_column,
+                           name='add_column'),
+                       url(r'^columns/preview/$', views.preview_column,
+                           name='preview_column'),
 
                        url(r'^changepassword/$', views.change_password,
                            name='change_password'),

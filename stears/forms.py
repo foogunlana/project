@@ -120,6 +120,40 @@ class ColumnForm(forms.Form):
         return day
 
 
+class ColumnPageForm(forms.Form):
+    # SET MAX LENGTHS
+    title = forms.CharField(required=True, widget=forms.TextInput())
+    bio = forms.CharField(required=True, widget=forms.Textarea())
+    summary = forms.CharField(required=True, widget=forms.Textarea())
+    linkedin = forms.CharField(required=True, widget=forms.TextInput())
+    twitter = forms.CharField(required=True, widget=forms.TextInput())
+    facebook = forms.CharField(required=True, widget=forms.TextInput())
+    blog = forms.CharField(required=True, widget=forms.TextInput())
+
+    def clean_title(self):
+        title = self.cleaned_data.get('title')
+        if not re.match(r'^[a-zA-Z ]+$', title):
+            raise forms.ValidationError(
+                "Only alphanumeric characters allowed")
+        return title
+
+    def clean_linkedin(self):
+        linkedin = self.cleaned_data.get('linkedin')
+        return linkedin
+
+    def clean_facebook(self):
+        facebook = self.cleaned_data.get('facebook')
+        return facebook
+
+    def clean_twitter(self):
+        twitter = self.cleaned_data.get('twitter')
+        return twitter
+
+    def clean_blog(self):
+        blog = self.cleaned_data.get('blog')
+        return blog
+
+
 class LoginForm(forms.Form):
     email = forms.EmailField(label='Email', max_length=30, widget=forms.TextInput(
         attrs={'data-validation': 'length', 'data-validation-length': 'min1'}))

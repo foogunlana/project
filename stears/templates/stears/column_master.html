@@ -1,0 +1,40 @@
+{% extends "stears/writers_base_test.html" %}
+{% load stears_tags %}
+{% block nav_block %}
+	{% include 'stears/writers_nav.html' %}
+{% endblock %}
+{% block page_title_block %}
+	<br>
+	<br>
+	<div class="row">
+		<div class="columns small-11 small-centered " style="padding-left:0;">
+			<h1>Columns</h1>
+		</div>
+	</div>
+{% endblock %}
+{% block writers_block %}
+	<br>
+	<br>
+
+	<div class="row" >
+		<div class="columns small-11 small-centered" style="padding:0px;">
+			<a href="{% url 'weal:add_column' %}">Add a column</a>
+		</div>
+	</div>
+
+	<br>
+	<br>
+	<div class="row">
+		<div class="columns small-11 small-centered">
+			{% for column in columns %}
+				<div class="row article_button article_box " >
+					<div class="columns small-6 ">
+						<a href="#">
+							{{ column.title }} by {{ column.writer }}
+						</a>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

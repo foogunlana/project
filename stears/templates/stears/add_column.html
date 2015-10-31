@@ -1,0 +1,28 @@
+{% extends "stears/writers_base_test.html" %}
+{% load stears_tags %}
+{% block nav_block %}
+	{% include 'stears/writers_nav.html' %}
+{% endblock %}
+{% block page_title_block %}
+	<br>
+	<br>
+	<div class="row">
+		<div class="columns small-11 small-centered " style="padding-left:0;">
+			<h1>Add a column</h1>
+		</div>
+	</div>
+{% endblock %}
+{% block writers_block %}
+	<br>
+	<br>
+	<br>
+	<div class="row" >
+		<div class="columns small-11 small-centered" style="padding:0px;">
+			<form action="{% url 'weal:add_column' %}" method='post'>
+				{% csrf_token %}
+				{{ column_page_form }}
+				<input type="submit">
+			</form>
+		</div>
+	</div>
+{% endblock %}

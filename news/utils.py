@@ -281,12 +281,25 @@ def reset_page(page):
                           {'page': 'b_e', 'sector': sector,
                            'features': [], 'active': True},
                           upsert=True)
+
     if page == 'home':
         onsite.update(
             {'page': 'home'},
             {'page': 'home', 'features': [], 'tertiaries': [],
              'daily_column': {}, 'active': True},
             upsert=True)
+
+    # if page == 'opinion':
+    #     ids = onsite.find({'page': 'opinion'}).distinct('opinion_id')
+    #     max_id = max(ids)
+
+    #     onsite.update(
+    #         {'page': 'opinion'},
+    #         {'title': '', 'articles': [], 'links':{},
+    #          'writer':'', 'description':'', 'opinion_id': 0},
+    #         upsert=True,
+    #     )
+            
 
 
 

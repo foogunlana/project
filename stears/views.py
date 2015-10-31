@@ -4,7 +4,8 @@ from stears.forms import LoginForm, ArticleImageForm, AddWritersForm, \
     ForgotPasswordForm, CommentForm, SuggestForm, WritersArticleForm, \
     NseArticleForm, ChangePasswordForm, ArticleReviewForm, EditWriterForm, \
     AllocationForm, AddPhotoForm, NewQuoteForm, ReportForm, DailyColumnForm, \
-    ColumnForm, EconomicDataForm, DeletePhotoForm, EditPhotoForm, SummaryForm
+    ColumnForm, EconomicDataForm, DeletePhotoForm, EditPhotoForm, SummaryForm, \
+    ColumnPageForm
 
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout
@@ -17,14 +18,14 @@ from stears.utils import article_key_words, revive_from_trash, add_writers,\
     accept_to_write, request_json, make_url, move_to_trash, \
     suggest_nse_article, update_writers_article, edit_user, \
     make_writer_id, make_writers_article, submit_writers_article, \
-    new_member, retract, \
+    new_member, retract, new_column, \
     make_new_quote, edit_writer_registration_details
 
 from news.utils import put_article_on_page, articles_on_site, expire_page, \
     allocator_commands
 
 from stears.permissions import approved_writer, is_a_boss, \
-    writer_can_edit_article, get_article_perms
+    writer_can_edit_article, get_article_perms, is_columnist
 
 from stears.models import ArticleImageModel, ReportModel
 from mongoengine.queryset import DoesNotExist
@@ -33,6 +34,49 @@ from mongoengine.queryset import DoesNotExist
 import datetime
 import params
 import json
+
+
+@user_passes_test(lambda u: is_columnist(u), login_url='/')
+def add_column(request):
+    errors = []
+    if request.method == 'GET':
+        column_page_form = ColumnPageForm()
+        context = {'column_page_form': column_page_form}
+        return render(request, 'stears/add_column.html', context)
+
+    if request.method == 'POST':
+        column_page_form = ColumnPageForm(request.POST)
+        if column_page_form.is_valid():
+            column_page = new_column(user=request.user, **column_page_form.cleaned_data)
+
+            columns = mongo_calls('columns')
+            columns.update({'writer': request.user.username}, column_page, upsert=True)
+            return HttpResponseRedirect(reverse('weal:column_master'))
+        else:
+            errors += column_page_form.errors
+            print errors
+        context = {'column_page_form': column_page_form, 'errors': errors}
+        return render(request, 'stears/add_column.html', context)
+
+
+@user_passes_test(lambda u: is_columnist(u), login_url='/')
+def preview_column(request, opinion_id):
+    if request.method == 'GET':
+        opinion_id = int(opinion_id)
+        columns = mongo_calls('columns')
+        column_page = columns.find_one({'opinion_id': opinion_id})
+        context = {'column': column_page}
+        return render(request, 'news/opinion.html', context)
+
+
+@user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
+def column_master(request):
+    columns = mongo_calls('columns')
+    context = {}
+    if request.method == 'GET':
+        cols = list(columns.find())
+        context['columns'] = cols
+        return render(request, 'stears/column_master.html', context)
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')

@@ -32,6 +32,26 @@ def mongo_calls(collection_name, c=client):
     return collection
 
 
+def new_column(user, bio, summary, title, **kwargs):
+    for key in kwargs:
+        if not kwargs[key]: del kwargs[key]
+    column_page = dict({
+        'writer': user.username,
+        'bio': bio,
+        'summary': summary,
+        'title': title,
+        'column_id': make_id('columns', 'column_id')
+    }, **kwargs)
+    return column_page
+
+
+def make_id(collection_name, id_field):
+    collection = mongo_calls(collection_name)
+    ids = collection.distinct(id_field)
+    new_id = first_missing_number(ids)
+    return new_id
+
+
 def make_new_quote(body, author):
     onsite = mongo_calls('onsite')
     onsite.update({'page': 'home'},
