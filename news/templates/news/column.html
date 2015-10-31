@@ -7,7 +7,9 @@
 {% ifequal sUri 'http://www.stearsng.com' %}
 {% include 'news/ganalytics.html' %}
 {% endifequal %}
+{% endblock %}
 
+{% block special_styles %}
 <link rel="stylesheet" href="/static/css/news/column.css">
 {% endblock %}
 
@@ -34,7 +36,7 @@
 
 {% block body %}
   <body>
-    {% include 'news/news_nav.html' %} 
+    {% include 'news/opinion_nav.html' %} 
     <div class="cp-background">
       <div class="cp-container p-slide" {% if first_visit %}{% else %}hidden{% endif %}>
         <div class="cposter hoverable">
@@ -45,14 +47,14 @@
               </h1>
             </div>
             <div class="cp-divider"></div>
-            <div class="cp-stears">
+            <div class="cp-stears" hidden>
               <h1 class="cps">
               Chuba Ezekwesili
               </h1>
             </div>
-            <div class="cp-description">
+            <div class="cp-description" >
               <h4 class="cpd-text">
-              Thinking Economics is about the economics of thought. Though shalt not forgoe any attainable utility and neither shall thou waste unprecedented or accounted for resources. Mental resources in this case. In other words, save your thoughts for yourself, you're reading my thoughts now. And I think you will like them. - Chuba Ezekwesili
+              Thinking Economics is about the economics of thought. In other words, save your thoughts for yourself, you're reading my thoughts now. And I think you will like them. - Chuba Ezekwesili
               </h4>
             </div>
           </div>
@@ -62,8 +64,11 @@
     <div id="sticky-anchor"></div>
     <div class="mini-cp-container sticky">
       <div class="mcslider p-slide hoverable">
-        <h3 class="mcs-text">
-          Thinking Economics by Chuba Ezekwesili
+        <div class="sticky-logo">
+          <img class="sticky-stears-logo" src="/static/images/StearsBetaComplete.svg">
+        </div>
+        <h3 class="mcs-text {% if first_visit %}{% else %}white_text{% endif %}">
+          <font class="mcs-title">Thinking Economics</font><font class="mcs-author"> by Chuba Ezekwesili</font>
         </h3>
       </div>
     </div>  
@@ -177,9 +182,13 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="c-body2">
+        <div class="cb-page2">
           <div class="cb2">
             <div class="rn-articles">
-              <div class="rn-heading">
+              <div class="rn-heading" hidden>
                 <div class="rnh3-container">
                   <h3 class="rn-h3">
                     More from Thinking Economics
@@ -187,9 +196,30 @@
                 </div>
               </div>
               <div class="rn-container">
-                {% for n in others %}
-                <a href="{% url 'news:column' n.article_id %}" class="no-styles">
-                  <div class="rn-article">
+                {% for feature in others %}
+                <a href="{% url 'news:column' feature.article_id %}" class="no-styles">
+                  <div class="post-block rn-article">
+                    <div class="rn-content">
+                      <div class="header-and-author">
+                        <div class="clock-cat">
+                          <div class="ac-feature">{{ feature.category|category }}</div>
+                          {% if feature.posted %}
+                            <div class="clock-time-small">
+                              <img src="/static/images/clock.svg" alt="" class="clock-small">
+                              <p class="time-small">{{ feature.posted|date:"M d, Y" }}</p>
+                            </div>
+                          {% endif %}
+                        </div>
+                        <h3 class="business-h3">{{ feature.headline }}</h3>
+                        <div class="post-block-author">{{ feature.writer|name:'long' }}</div>
+                        <p class="post-summary">{{ feature.summary }}</p>
+                      </div>
+                    </div>
+                    <div class="rn-photo">
+                      <img class="rnp" src="{{ feature.photo }}" alt="">
+                    </div>
+                  </div>
+                  <!-- <div class="rn-article">
                     <div class="rn-content">
                       <div class="rn-time">
                         <div class="rn-clock">
@@ -218,7 +248,7 @@
                     <div class="rn-photo">
                       <img class="rnp" src="{{ n.photo }}" alt="">
                     </div>
-                  </div>
+                  </div> -->
                 </a>
                 {% endfor %}
               </div>
@@ -242,10 +272,12 @@
       var div_top = $('#sticky-anchor').offset().top;
       if (window_top > div_top) {
           $('.sticky').addClass('stick');
-          $('.c-container').css({'margin-top': '64px'});
+          $('.mcs-text').addClass('display');
+          $('.c-container').css({'margin-top': '45px'});
       } else {
           $('.sticky').removeClass('stick');
-          $('.c-container').css({'margin-top': '20px'});
+          $('.mcs-text').removeClass('display');
+          $('.c-container').css({'margin-top': '0px'});
       }
   }
 
@@ -259,7 +291,7 @@
       if($(".sticky").hasClass("stick")){
         $("html, body").animate({ scrollTop: 0 }, "slow");
       }else{
-        $(".cp-container").slideToggle(500);
+        // $(".cp-container").slideToggle(500);
       }
 
     });
