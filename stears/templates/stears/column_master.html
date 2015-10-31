@@ -1,5 +1,6 @@
 {% extends "stears/writers_base_test.html" %}
 {% load stears_tags %}
+{% load name %}
 {% block nav_block %}
 	{% include 'stears/writers_nav.html' %}
 {% endblock %}
@@ -29,8 +30,8 @@
 			{% for column in columns %}
 				<div class="row article_button article_box " >
 					<div class="columns small-6 ">
-						<a href="#">
-							{{ column.title }} by {{ column.writer }}
+						<a href="{% url 'weal:preview_column' column_id=column.column_id %}">
+							{{ column.title }} by {{ column.writer|name:'long' }}
 						</a>
 					</div>
 				</div>

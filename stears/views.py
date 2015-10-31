@@ -60,13 +60,43 @@ def add_column(request):
 
 
 @user_passes_test(lambda u: is_columnist(u), login_url='/')
-def preview_column(request, opinion_id):
+def preview_column(request, column_id, pk=None):
+    context = {}
     if request.method == 'GET':
-        opinion_id = int(opinion_id)
+        column_id = int(column_id)
         columns = mongo_calls('columns')
-        column_page = columns.find_one({'opinion_id': opinion_id})
+        column_page = columns.find_one({'column_id': column_id})
+        migrations = mongo_calls('migrations')
+
+        writer = column_page['writer']
+        articles = list(migrations.find({
+                '$query': {
+                    'writer': 'Ebehi_Iyoha',
+                    'category': 'stearsColumn',
+                },
+                '$orderby': {'time': -1}}))
         context = {'column': column_page}
-        return render(request, 'news/opinion.html', context)
+
+        if pk:
+            pk = int(pk)
+            article = migrations.find_one({'article_id': pk})
+            articles = [a for a in articles if a['article_id'] != article['article_id']]
+
+            more_context = {
+                'article': article,
+                'others': articles,
+                'first_visit': False,
+            }
+        else:
+            more_context = {
+                'article': articles[0],
+                'others': articles[1:],
+                'first_visit': True,
+                'preview': '</p>'.join(articles[0]['content'].split('</p>')[:3])
+            }
+
+        context = dict(context, **more_context)
+        return render(request, 'news/column2.html', context)
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
