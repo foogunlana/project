@@ -43,18 +43,22 @@
           <div class="cp-content">
             <div class="cp-heading">
               <h1 class="cp-title">
-              Thinking Economics
+              <!-- Thinking Economics -->
+              {{ column.title }}
               </h1>
             </div>
             <div class="cp-divider"></div>
             <div class="cp-stears" hidden>
               <h1 class="cps">
-              Chuba Ezekwesili
+              <!-- Chuba Ezekwesili -->
+              {{ column.writer|name:'long' }}
               </h1>
             </div>
             <div class="cp-description" >
               <h4 class="cpd-text">
-              Thinking Economics is about the economics of thought. In other words, save your thoughts for yourself, you're reading my thoughts now. And I think you will like them. - Chuba Ezekwesili
+              <!-- Thinking Economics is about the economics of thought. In other words, save your thoughts for yourself, you're reading my thoughts now. And I think you will like them. - Chuba Ezekwesili -->
+
+              {{ column.summary }}
               </h4>
             </div>
           </div>
@@ -68,7 +72,7 @@
           <img class="sticky-stears-logo" src="/static/images/StearsBetaComplete.svg">
         </div>
         <h3 class="mcs-text {% if first_visit %}{% else %}white_text{% endif %}">
-          <font class="mcs-title">Thinking Economics</font><font class="mcs-author"> by Chuba Ezekwesili</font>
+          <font class="mcs-title">{{ column.title }}</font><font class="mcs-author"> by {{ column.writer|name:'long' }}</font>
         </h3>
       </div>
     </div>  
@@ -129,14 +133,15 @@
                   </div>
                   <div class="ab-text">
                     <h3 class="ab-h3">
-                      Chuba Ezekwesili
+                      {{ column.writer|name:'long' }}
                     </h3>
                   </div>
                 </div>
                 <div class="ab-section section2">
                   <div class="bio">
                     <p class="bio-text">
-                      Some people are just born with it, everything they write down kicks ass. It is epic from the moment their pen hits the paper. Epic comes from the Latin word epicus, in turn from Greek epikos, from epos which means word or song.
+                      <!-- Some people are just born with it, everything they write down kicks ass. It is epic from the moment their pen hits the paper. Epic comes from the Latin word epicus, in turn from Greek epikos, from epos which means word or song. -->
+                      {{ column.bio }}
                     </p>
                   </div>
                 </div>
@@ -197,7 +202,7 @@
               </div>
               <div class="rn-container">
                 {% for feature in others %}
-                <a href="{% url 'news:column' feature.article_id %}" class="no-styles">
+                <a href="{% url 'weal:preview_column' column_id=column.column_id pk=feature.article_id %}" class="no-styles">
                   <div class="post-block rn-article">
                     <div class="rn-content">
                       <div class="header-and-author">

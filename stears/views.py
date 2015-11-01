@@ -96,7 +96,7 @@ def preview_column(request, column_id, pk=None):
             }
 
         context = dict(context, **more_context)
-        return render(request, 'news/column2.html', context)
+        return render(request, 'news/column.html', context)
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
