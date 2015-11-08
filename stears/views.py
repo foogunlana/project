@@ -77,7 +77,7 @@ def preview_column(request, column_id, pk=None):
         columns = mongo_calls('columns')
         column_page = columns.find_one({'column_id': column_id})
         photo = ProfileImageModel.objects.get(
-                    pk=column_page['photo']).docfile.url
+                    pk=column_page.get('photo')).docfile.url
         migrations = mongo_calls('migrations')
 
         writer = column_page['writer']
