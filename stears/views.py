@@ -76,8 +76,13 @@ def preview_column(request, column_id, pk=None):
         column_id = int(column_id)
         columns = mongo_calls('columns')
         column_page = columns.find_one({'column_id': column_id})
-        photo = ProfileImageModel.objects.get(
+        try:
+            photo = ProfileImageModel.objects.get(
                     pk=column_page.get('photo')).docfile.url
+        except Exception as e:
+            print("ERROR: {}".format(e))
+            photo = None
+        
         migrations = mongo_calls('migrations')
 
         writer = column_page['writer']
