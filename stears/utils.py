@@ -32,15 +32,22 @@ def mongo_calls(collection_name, c=client):
     return collection
 
 
-def new_column(user, bio, summary, title, **kwargs):
+def new_column(user, bio, description, title, email, photo, **kwargs):
+    dels = []
     for key in kwargs:
-        if not kwargs[key]: del kwargs[key]
+        if not kwargs[key]: dels.append(key)
+
+    for key in dels:
+        del kwargs[key]
+
     column_page = dict({
         'writer': user.username,
         'bio': bio,
-        'summary': summary,
+        'description': description,
         'title': title,
-        'column_id': make_id('columns', 'column_id')
+        'column_id': make_id('columns', 'column_id'),
+        'email': email,
+        'photo': photo,
     }, **kwargs)
     return column_page
 

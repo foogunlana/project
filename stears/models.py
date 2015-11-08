@@ -19,7 +19,12 @@ class ArticleImageModel(models.Model):
 
 
 class ProfileImageModel(models.Model):
+    title = models.CharField(max_length=50, default='')
     docfile = models.FileField(upload_to='profileImages/%Y/%m/%d')
+    small = ImageSpecField(
+        source='docfile', processors=[SmartResize(200, 200)], format='JPEG')
+    large = ImageSpecField(
+        source='docfile', processors=[ResizeToFill(500, 500)], format='JPEG')
 
 
 class ReportModel(models.Model):

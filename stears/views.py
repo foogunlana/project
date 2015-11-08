@@ -27,7 +27,7 @@ from news.utils import put_article_on_page, articles_on_site, expire_page, \
 from stears.permissions import approved_writer, is_a_boss, \
     writer_can_edit_article, get_article_perms, is_columnist
 
-from stears.models import ArticleImageModel, ReportModel
+from stears.models import ArticleImageModel, ReportModel, ProfileImageModel
 from mongoengine.queryset import DoesNotExist
 
 
@@ -45,9 +45,19 @@ def add_column(request):
         return render(request, 'stears/add_column.html', context)
 
     if request.method == 'POST':
-        column_page_form = ColumnPageForm(request.POST)
+        column_page_form = ColumnPageForm(request.POST, request.FILES)
         if column_page_form.is_valid():
-            column_page = new_column(user=request.user, **column_page_form.cleaned_data)
+
+            docfile = column_page_form.cleaned_data.pop('docfile')
+            title = request.user.username
+            
+            profile_image = ProfileImageModel(docfile=docfile, title=title)
+            profile_image.save()
+
+            column_page = new_column(
+                user=request.user,
+                photo=profile_image.pk,
+                **column_page_form.cleaned_data)
 
             columns = mongo_calls('columns')
             columns.update({'writer': request.user.username}, column_page, upsert=True)
@@ -66,6 +76,8 @@ def preview_column(request, column_id, pk=None):
         column_id = int(column_id)
         columns = mongo_calls('columns')
         column_page = columns.find_one({'column_id': column_id})
+        photo = ProfileImageModel.objects.get(
+                    pk=column_page['photo']).docfile.url
         migrations = mongo_calls('migrations')
 
         writer = column_page['writer']
@@ -75,7 +87,7 @@ def preview_column(request, column_id, pk=None):
                     'category': 'stearsColumn',
                 },
                 '$orderby': {'time': -1}}))
-        context = {'column': column_page}
+        context = {'column': column_page, 'photo': photo}
 
         if pk:
             pk = int(pk)

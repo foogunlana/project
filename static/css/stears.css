@@ -8,6 +8,27 @@ body{
 
 }
 
+.fyi{
+  font-size: 13px;
+  color: #737373;
+  margin-left: 20px;
+}
+
+.errorlist {
+  display: inline-block;
+  margin:0px;
+  margin-left: 10px;
+}
+
+.errorlist li{
+  display: inline-block;
+  color: #f05042;
+}
+
+label{
+  display: inline-block;
+}
+
 .blur{
   background-color:rgba(255,255,255,0.7);
   margin-top:-20px;

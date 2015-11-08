@@ -122,13 +122,29 @@ class ColumnForm(forms.Form):
 
 class ColumnPageForm(forms.Form):
     # SET MAX LENGTHS
-    title = forms.CharField(required=True, widget=forms.TextInput())
-    bio = forms.CharField(required=True, widget=forms.Textarea())
-    summary = forms.CharField(required=True, widget=forms.Textarea())
-    linkedin = forms.CharField(required=True, widget=forms.TextInput())
-    twitter = forms.CharField(required=True, widget=forms.TextInput())
-    facebook = forms.CharField(required=True, widget=forms.TextInput())
-    blog = forms.CharField(required=True, widget=forms.TextInput())
+    title = forms.CharField(required=True, widget=forms.TextInput(), max_length=50)
+    bio = forms.CharField(required=True, max_length=300, widget=forms.Textarea(
+        attrs={'style': 'height:80px;'}))
+    description = forms.CharField(required=True, max_length=400, widget=forms.Textarea(
+        attrs={'style': 'height:80px;'}))
+    linkedin = forms.CharField(required=False, widget=forms.TextInput())
+    twitter = forms.CharField(required=False, widget=forms.TextInput())
+    facebook = forms.CharField(required=False, widget=forms.TextInput())
+    blog = forms.CharField(required=False, widget=forms.TextInput())
+    email = forms.EmailField(required=True)
+
+    docfile = forms.FileField(label="Please upload a square shaped image of yourself", required=True)
+
+    def clean_docfile(self):
+        image = self.cleaned_data['docfile']
+        if image.content_type in settings.IMAGE_CONTENT_TYPES:
+            if image._size > settings.MAX_UPLOAD_SIZE:
+                raise forms.ValidationError('Please keep filesize under %s. Current filesize %s' % (
+                    filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(image._size)))
+        else:
+            raise forms.ValidationError(
+                'Not supported, image must be jpeg or png')
+        return image
 
     def clean_title(self):
         title = self.cleaned_data.get('title')

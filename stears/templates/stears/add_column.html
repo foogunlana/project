@@ -16,12 +16,72 @@
 	<br>
 	<br>
 	<br>
-	<div class="row" >
+	<div class="row " >
 		<div class="columns small-11 small-centered" style="padding:0px;">
-			<form action="{% url 'weal:add_column' %}" method='post'>
+			<form action="{% url 'weal:add_column' %}" method='post' enctype="multipart/form-data">
 				{% csrf_token %}
-				{{ column_page_form }}
-				<input type="submit">
+				<div class="row">
+					<div class="columns small-12">
+						<p>
+							{{ column_page_form.docfile.label }}
+						</p>
+						{{ column_page_form.docfile.errors }}
+						{{ column_page_form.docfile }}
+					</div>
+				</div>
+				<div class="row">
+					<div class="columns small-12">
+						{{ column_page_form.title.label }}
+						{{ column_page_form.title.errors }}
+						{{ column_page_form.title }}
+					</div>
+				</div>
+				<div class="row">
+					<div class="columns small-12 medium-6">
+						{{ column_page_form.description.label }}
+						{{ column_page_form.description.errors }}
+						{{ column_page_form.description }}
+					</div>
+					<div class="columns small-12 medium-6">
+						{{ column_page_form.bio.label }}
+						{{ column_page_form.bio.errors }}
+						{{ column_page_form.bio }}
+					</div>
+				</div>
+				<div class="row">
+					<div class="columns small-12 medium-6">
+						{{ column_page_form.linkedin.label }} <font class="fyi">(optional)</font>
+						{{ column_page_form.linkedin.errors }}
+						{{ column_page_form.linkedin }}
+					</div>
+					<div class="columns small-12 medium-6">
+						{{ column_page_form.twitter.label }} <font class="fyi">(optional)</font>
+						{{ column_page_form.twitter.errors }}
+						{{ column_page_form.twitter }}
+					</div>
+				</div>
+				<div class="row">
+					<div class="columns small-12 medium-4">
+						{{ column_page_form.email.label }} 
+						{{ column_page_form.email.errors }}
+						{{ column_page_form.email }}
+					</div>
+					<div class="columns small-12 medium-4">
+						{{ column_page_form.facebook.label }} <font class="fyi">(optional)</font>
+						{{ column_page_form.facebook.errors }}
+						{{ column_page_form.facebook }}
+					</div>
+					<div class="columns small-12 medium-4">
+						{{ column_page_form.blog.label }} <font class="fyi">(optional)</font>
+						{{ column_page_form.blog.errors }}
+						{{ column_page_form.blog }}
+					</div>
+				</div>
+				<div class="row">
+					<div class="columns small-12">
+						<button class="fill" type="submit">Go</button>
+					</div>
+				</div>
 			</form>
 		</div>
 	</div>

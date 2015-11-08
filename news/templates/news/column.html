@@ -58,7 +58,7 @@
               <h4 class="cpd-text">
               <!-- Thinking Economics is about the economics of thought. In other words, save your thoughts for yourself, you're reading my thoughts now. And I think you will like them. - Chuba Ezekwesili -->
 
-              {{ column.summary }}
+              {{ column.description }}
               </h4>
             </div>
           </div>
@@ -129,7 +129,7 @@
               <div class="author-block">
                 <div class="ab-section section1">
                   <div class="abp-holder">
-                    <img src="/static/images/ebeyi.jpg" alt="" class="ab-pic">
+                    <img src="{{ photo }}" alt="" class="ab-pic">
                   </div>
                   <div class="ab-text">
                     <h3 class="ab-h3">
@@ -147,8 +147,8 @@
                 </div>
                 <div class="ab-section section3">
                   <div class="ab-profiles">
-                    
-                      <a href="#" class="abp-link">
+                      {% if column.linkedin %}
+                      <a href="{{ column.linkedin }}" class="abp-link">
                         <div class="abp ab-linkedin">
                         <div class="abp-social">
                           <img class=" abp-linkedin abp-icon" src="/static/images/linkedin-icon.svg" width="19">
@@ -158,8 +158,10 @@
                         </p>
                         </div>
                       </a>
+                      {% endif %}
                     
-                      <a href="#" class="abp-link">
+                      {% if column.twitter %}
+                      <a href="{{ column.twitter }}" class="abp-link">
                         <div class="abp ab-twitter">
                         <div class="abp-social">
                           <img class=" abp-icon" src="/static/images/twitter-icon.svg" width="17">
@@ -169,18 +171,20 @@
                         </p>
                         </div>
                       </a>
-                    
-                    
-                      <a href="#" class="abp-link">
+                      {% endif %}
+                      
+                      {% if column.email %}
+                      <a href="mailto:{{ column.email }}?Subject=Your Stears opinion page" target="_top" class="abp-link">
                         <div class="abp ab-email">
                         <div class="abp-social">
                           <img class=" abp-icon" src="/static/images/iconmonstr-email-4-icon.svg" width="22">
                         </div>
                         <p class="abp-text">
-                          Email me @ chuba@test.com
+                          Email me @ {{ column.email }}
                         </p>
                         </div>
                       </a>
+                      {% endif %}
                     
                   </div>
                 </div>
