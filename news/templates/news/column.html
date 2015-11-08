@@ -21,7 +21,7 @@
 <meta property="og:type"           content="article" />
 <meta property="og:title"          content="{{ article.headline }}" />
 <meta property="og:description"    content="{{ article.par1 }}" />
-<meta property="og:image"          content="http://www.stearsng.com{{ article.photo }}"/>
+<meta property="og:image"          content="http://www.stearsng.com{{ photo }}"/>
 <meta property="article:publisher" content="https://www.facebook.com/stearsng"/>
 <meta property="fb:app_id"         content="457339461112605" />
 
@@ -31,7 +31,7 @@
 <meta name="twitter:creator" content="@stearsng">
 <meta name="twitter:title" content="{{ article.headline }}">
 <meta name="twitter:description" content="{{ article.par1 }}">
-<meta name="twitter:image" content="http://www.stearsng.com{{ article.photo }}">
+<meta name="twitter:image" content="http://www.stearsng.com{{ photo }}">
 {% endblock %}
 
 {% block body %}
@@ -43,21 +43,17 @@
           <div class="cp-content">
             <div class="cp-heading">
               <h1 class="cp-title">
-              <!-- Thinking Economics -->
               {{ column.title }}
               </h1>
             </div>
             <div class="cp-divider"></div>
             <div class="cp-stears" hidden>
               <h1 class="cps">
-              <!-- Chuba Ezekwesili -->
               {{ column.writer|name:'long' }}
               </h1>
             </div>
             <div class="cp-description" >
               <h4 class="cpd-text">
-              <!-- Thinking Economics is about the economics of thought. In other words, save your thoughts for yourself, you're reading my thoughts now. And I think you will like them. - Chuba Ezekwesili -->
-
               {{ column.description }}
               </h4>
             </div>
@@ -140,7 +136,6 @@
                 <div class="ab-section section2">
                   <div class="bio">
                     <p class="bio-text">
-                      <!-- Some people are just born with it, everything they write down kicks ass. It is epic from the moment their pen hits the paper. Epic comes from the Latin word epicus, in turn from Greek epikos, from epos which means word or song. -->
                       {{ column.bio }}
                     </p>
                   </div>
@@ -168,6 +163,19 @@
                         </div>
                         <p class="abp-text">
                           Follow me on twitter
+                        </p>
+                        </div>
+                      </a>
+                      {% endif %}
+
+                      {% if column.blog %}
+                      <a href="{{ column.blog }}" class="abp-link">
+                        <div class="abp ab-blog">
+                        <div class="abp-social">
+                          <img class=" abp-icon" src="/static/images/blog-icon.svg" width="17">
+                        </div>
+                        <p class="abp-text">
+                          Visit my blog
                         </p>
                         </div>
                       </a>
@@ -228,36 +236,6 @@
                       <img class="rnp" src="{{ feature.photo }}" alt="">
                     </div>
                   </div>
-                  <!-- <div class="rn-article">
-                    <div class="rn-content">
-                      <div class="rn-time">
-                        <div class="rn-clock">
-                          <p class="rnt">
-                            {% now "j F, Y" %}
-                          </p>
-                        </div>
-                      </div>
-                      <div class="rn-body">
-                        <div class="rn-title">
-                          <h4 class="rnt-h4">
-                            {{ n.headline }}
-                          </h4>
-                        </div>
-                        <div class="rn-summary">
-                          <p class="rns-text">
-                            {% if n.summary %}
-                              {{ n.summary }}
-                            {% else %}
-                              This article is a blessing in disguise so please read and enjoy.
-                            {% endif %}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="rn-photo">
-                      <img class="rnp" src="{{ n.photo }}" alt="">
-                    </div>
-                  </div> -->
                 </a>
                 {% endfor %}
               </div>

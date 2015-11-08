@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import login, logout
 from mongoengine.django.auth import User
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
 from stears.utils import article_key_words, revive_from_trash, add_writers,\
     remove_writers, make_username, migrate_article, mongo_calls, \
     make_comment, forgot_password_email, save_writers_article, \
@@ -87,7 +87,10 @@ def preview_column(request, column_id, pk=None):
                     'category': 'stearsColumn',
                 },
                 '$orderby': {'time': -1}}))
-        context = {'column': column_page, 'photo': photo}
+        context = {
+            'column': column_page,
+            'photo': photo,
+            'aUri': HttpRequest.build_absolute_uri(request)}
 
         if pk:
             pk = int(pk)
