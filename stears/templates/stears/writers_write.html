@@ -56,19 +56,11 @@
 				{% if daily_column_form %}
 					<div class="row">
 						<div class="columns small-12 small-centered medium-6 medium-uncentered">
-							<a class="fill article_box toggles_div" style="padding-left:10px;" id="dc_form_toggle">
-								Enter Daily Column
+							<a class="fill article_box" href="{% url 'weal:columns' %}" style="padding-left:10px;" id="dc_form_toggle">
+								Edit/View your opinion page
 							</a>
 							<br>
 							<br>
-							<div class="article_box dc_form_toggle " style="padding-left:10px;"hidden>
-								<form method="POST" action="{% url 'weal:daily_column' %}" enctype="multipart/form-data">
-									{% csrf_token %}
-									Column title
-									{{ daily_column_form.title }}
-									<button type="submit" class="fill">Go</button>
-								</form>
-							</div>
 							<br>
 						</div>
 					</div>

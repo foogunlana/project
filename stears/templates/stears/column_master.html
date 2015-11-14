@@ -5,13 +5,7 @@
 	{% include 'stears/writers_nav.html' %}
 {% endblock %}
 {% block page_title_block %}
-	<br>
-	<br>
-	<div class="row">
-		<div class="columns small-11 small-centered " style="padding-left:0;">
-			<h1>Columns</h1>
-		</div>
-	</div>
+
 {% endblock %}
 {% block writers_block %}
 	<br>
@@ -19,7 +13,9 @@
 
 	<div class="row" >
 		<div class="columns small-11 small-centered" style="padding:0px;">
-			<a href="{% url 'weal:add_column' %}">Add a column</a>
+			<a href="{% url 'weal:add_column' %}" >
+				<button>Add/Edit your column</button>
+			</a>
 		</div>
 	</div>
 

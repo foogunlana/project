@@ -61,7 +61,7 @@ def add_column(request):
 
             columns = mongo_calls('columns')
             columns.update({'writer': request.user.username}, column_page, upsert=True)
-            return HttpResponseRedirect(reverse('weal:column_master'))
+            return HttpResponseRedirect(reverse('weal:columns'))
         else:
             errors += column_page_form.errors
             print errors
