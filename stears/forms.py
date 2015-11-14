@@ -127,10 +127,10 @@ class ColumnPageForm(forms.Form):
         attrs={'style': 'height:80px;'}))
     description = forms.CharField(required=True, max_length=400, widget=forms.Textarea(
         attrs={'style': 'height:80px;'}))
-    linkedin = forms.CharField(required=False, widget=forms.TextInput())
-    twitter = forms.CharField(required=False, widget=forms.TextInput())
-    facebook = forms.CharField(required=False, widget=forms.TextInput())
-    blog = forms.CharField(required=False, widget=forms.TextInput())
+    linkedin = forms.URLField(required=False, widget=forms.TextInput())
+    twitter = forms.URLField(required=False, widget=forms.TextInput())
+    facebook = forms.URLField(required=False, widget=forms.TextInput())
+    blog = forms.URLField(required=False, widget=forms.TextInput())
     email = forms.EmailField(required=True)
 
     docfile = forms.FileField(label="Please upload a square shaped image of yourself", required=True)
