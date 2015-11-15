@@ -30,6 +30,27 @@
 							{{ column.title }} by {{ column.writer|name:'long' }}
 						</a>
 					</div>
+					{% if user|is_editor %}
+						<div class="columns small-3">
+							<div class="row fill">
+								{% if column.active %}
+									<div class="columns small-12">
+										<form action="{% url 'weal:retract_column' column_id=column.column_id %}" method="post">
+											{% csrf_token %}
+											<button class="fill button3">Retract</button>
+										</form>
+									</div>
+								{% else %}
+									<div class="columns small-12">
+										<form action="{% url 'weal:launch_column' column_id=column.column_id %}" method="post">
+											{% csrf_token %}
+											<button class="fill button3">Launch</button>
+										</form>
+									</div>
+								{% endif %}
+							</div>
+						</div>
+					{% endif %}
 				</div>
 				<br>
 			{% endfor %}

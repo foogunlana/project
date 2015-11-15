@@ -39,8 +39,30 @@ import json
 @user_passes_test(lambda u: is_columnist(u), login_url='/')
 def add_column(request):
     errors = []
+    user = request.user
     if request.method == 'GET':
-        column_page_form = ColumnPageForm()
+
+        columns = mongo_calls('columns')
+        column_page = columns.find_one({'writer': user.username})
+
+        kwargs = {}
+        if column_page:
+
+            kwargs = { 
+                'initial': {
+                    'title': column_page.get('title'),
+                    'bio': column_page.get('bio'),
+                    'description': column_page.get('description'),
+                    'email': column_page.get('email'),
+                    'linkedin': column_page.get('linkedin'),
+                    'twitter': column_page.get('twitter'),
+                    'blog': column_page.get('blog'),
+                    'facebook': column_page.get('facebook'),
+                },
+            }
+
+        column_page_form = ColumnPageForm(**kwargs)
+
         context = {'column_page_form': column_page_form}
         return render(request, 'stears/add_column.html', context)
 
@@ -55,12 +77,12 @@ def add_column(request):
             profile_image.save()
 
             column_page = new_column(
-                user=request.user,
+                user=user,
                 photo=profile_image.pk,
                 **column_page_form.cleaned_data)
 
             columns = mongo_calls('columns')
-            columns.update({'writer': request.user.username}, column_page, upsert=True)
+            columns.update({'writer': user.username}, column_page, upsert=True)
             return HttpResponseRedirect(reverse('weal:columns'))
         else:
             errors += column_page_form.errors
@@ -127,6 +149,40 @@ def column_master(request):
         cols = list(columns.find())
         context['columns'] = cols
         return render(request, 'stears/column_master.html', context)
+
+
+@user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
+def launch_column(request, column_id):
+    column_id = int(column_id)
+    columns = mongo_calls('columns')
+    context = {}
+    if request.method == 'POST':
+        kwargs = {
+            'query': {'column_id': column_id},
+            'update': {'$set': {'active': True}},
+            'new': True,
+        }
+        column_page = columns.find_and_modify(**kwargs)
+        print column_page
+
+        return HttpResponseRedirect(reverse('weal:columns'))
+
+
+@user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
+def retract_column(request, column_id):
+    column_id = int(column_id)
+    columns = mongo_calls('columns')
+    context = {}
+    if request.method == 'POST':
+        kwargs = {
+            'query': {'column_id': column_id},
+            'update': {'$set': {'active': False}},
+            'new': True,
+        }
+        column_page = columns.find_and_modify(**kwargs)
+        print column_page
+
+        return HttpResponseRedirect(reverse('weal:columns'))
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')

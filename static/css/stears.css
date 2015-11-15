@@ -223,7 +223,7 @@ button:focus{
 }
 
 .button2{
-  padding:8px;
+  padding: 8px;
   border-radius: 3px;
 }
 
@@ -233,6 +233,12 @@ button:focus{
     -moz-box-shadow:    inset 0 0 5px #000000;
    -webkit-box-shadow: inset 0 0 5px #000000;
    box-shadow:         inset 0 0 6px #000000;
+}
+
+.button3{
+  margin-bottom: 0px;
+  height: auto;
+  padding: 4px;
 }
 
 
