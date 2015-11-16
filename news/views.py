@@ -32,6 +32,7 @@ def column(request, column_id, pk=None):
         if len(articles) < 2:
             context = {
                 'column': column_page,
+                'first_visit': True,
             }
         else:
             if pk:
