@@ -87,11 +87,11 @@
                   </h2>
                 </div>
               </div>
+              <div class="share_block">
+                {% include 'news/share_block.html' %}
+              </div>
               <div class="l-body">
                 {% if first_visit %}
-                <div class="share_block">
-                  {% include 'news/share_block.html' %}
-                </div>
                 <div id="preview-article" class="lb-text article-paragraph" >
                   {% autoescape off %}
                   {{ preview }}
@@ -106,10 +106,6 @@
                   {% endautoescape %}
                 </div>
                 {% else %}
-                <img src="{{ article.photo }}" class="article-page-image" alt="{{ article.headline }}">
-                <div class="share_block">
-                  {% include 'news/share_block.html' %}
-                </div>
                 <div id="preview-article" class="lb-text article-paragraph" hidden>
                   {% autoescape off %}
                   {{ preview }}
@@ -218,7 +214,7 @@
               </div>
               <div class="rn-container">
                 {% for feature in others %}
-                <a href="{% url 'news:column' column_id=column.column_id pk=feature.article_id %}" class='no-styles'>
+                <a href="{% url 'weal:preview_column' column_id=column.column_id pk=feature.article_id %}" class="no-styles">
                   <div class="post-block rn-article">
                     <div class="rn-content">
                       <div class="header-and-author">

@@ -36,7 +36,7 @@ import params
 import json
 
 
-@user_passes_test(lambda u: is_columnist(u), login_url='/')
+@user_passes_test(lambda u: is_columnist(u), login_url='/weal/noaccess')
 def add_column(request):
     errors = []
     user = request.user
@@ -91,7 +91,7 @@ def add_column(request):
         return render(request, 'stears/add_column.html', context)
 
 
-@user_passes_test(lambda u: is_columnist(u), login_url='/')
+@user_passes_test(lambda u: is_columnist(u), login_url='/weal/noaccess')
 def preview_column(request, column_id, pk=None):
     context = {}
     if request.method == 'GET':
@@ -138,7 +138,7 @@ def preview_column(request, column_id, pk=None):
             }
 
         context = dict(context, **more_context)
-        return render(request, 'news/column.html', context)
+        return render(request, 'stears/preview_column.html', context)
 
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess/')
@@ -155,15 +155,21 @@ def column_master(request):
 def launch_column(request, column_id):
     column_id = int(column_id)
     columns = mongo_calls('columns')
+    onsite = mongo_calls('onsite')
     context = {}
     if request.method == 'POST':
         kwargs = {
             'query': {'column_id': column_id},
-            'update': {'$set': {'active': True}},
+            'update': {'$set': {'state': 'active'}},
             'new': True,
         }
         column_page = columns.find_and_modify(**kwargs)
-        print column_page
+        del column_page['_id']
+        column_page['page'] = 'opinion'
+
+        onsite.update(
+            {'column_id': column_id},
+            column_page, upsert=True)
 
         return HttpResponseRedirect(reverse('weal:columns'))
 
@@ -176,11 +182,10 @@ def retract_column(request, column_id):
     if request.method == 'POST':
         kwargs = {
             'query': {'column_id': column_id},
-            'update': {'$set': {'active': False}},
+            'update': {'$set': {'state': 'inactive'}},
             'new': True,
         }
         column_page = columns.find_and_modify(**kwargs)
-        print column_page
 
         return HttpResponseRedirect(reverse('weal:columns'))
 

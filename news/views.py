@@ -8,47 +8,48 @@ from django.core.cache import cache
 from datetime import datetime
 
 from django.contrib.auth.decorators import user_passes_test
-from stears.permissions import is_columnist
+from stears.permissions import is_columnist, approved_writer
 
 import json
 
 
-# @user_passes_test(lambda u: is_columnist(u), login_url='/')
-# def column(request, pk=None):
-#     context = {}
-#     a = mongo_calls('migrations')
+@user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess')
+def column(request, column_id, pk=None):
+    context = {}
+    column_id = int(column_id)
+    articles = mongo_calls('migrations')
+    onsite = mongo_calls('onsite')
 
-#     if not pk:
-#         context['article'] = a.find_one({'article_id': 47})
-#         context['first_visit'] = True
-#     else:
-#         context['article'] = a.find_one({'article_id': int(pk)})
-#         context['first_visit'] = False
-#     context['summary'] = summarize(article)
+    if request.method == 'GET':
 
-#     content = context['article']['content'].split('</p>')
-#     context['preview'] = '</p>'.join(content[:3])
-#     context['others'] = list(a.find({'writer': context['article']['writer']}).limit(5))
-#     return render(request, 'news/column.html', context)
+        column_page = onsite.find_one({'page': 'opinion', 'column_id': column_id})
+        articles = list(articles.find({
+                            'query': {
+                                'writer': column_page.get('writer'),
+                                'category': 'stearsColumn'},
+                            'orderby': {'posted': -1}}))
 
+        if len(articles) < 2:
+            return render(request, 'news/column.html', {'column': column_page})
+        else:
+            if pk:
+                pk = int(pk)
+                func = lambda a: a.get('article_id') == pk
+                article = filter(func, articles)[0]
+                articles = articles.remove(article)
+                first_visit = False
+            else:
+                article, articles = articles[0], articles[1:]
+                first_visit = True
 
-# @user_passes_test(lambda u: is_columnist(u), login_url='/')
-# def column2(request, pk=None):
-#     context = {}
-#     a = mongo_calls('migrations')
-
-#     if not pk:
-#         context['article'] = a.find_one({'article_id': 47})
-#         context['first_visit'] = True
-#     else:
-#         context['article'] = a.find_one({'article_id': int(pk)})
-#         context['first_visit'] = False
-#     context['summary'] = summarize(article)
-
-#     content = context['article']['content'].split('</p>')
-#     context['preview'] = '</p>'.join(content[:3])
-#     context['others'] = list(a.find({'writer': context['article']['writer']}).limit(5))
-#     return render(request, 'news/column2.html', context)
+            context = {
+                'article': article,
+                'first_visit': first_visit,
+                'preview': '</p>'.join(article.get('content').split('</p>')[:3]),
+                'others': articles,
+                'column': column_page,
+            }
+        return render(request, 'news/column.html', context)
 
 
 def article(request, pk):

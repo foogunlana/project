@@ -33,7 +33,7 @@
 					{% if user|is_editor %}
 						<div class="columns small-3">
 							<div class="row fill">
-								{% if column.active %}
+								{% ifequal column.state 'active' %}
 									<div class="columns small-12">
 										<form action="{% url 'weal:retract_column' column_id=column.column_id %}" method="post">
 											{% csrf_token %}
@@ -47,7 +47,7 @@
 											<button class="fill button3">Launch</button>
 										</form>
 									</div>
-								{% endif %}
+								{% endifequal %}
 							</div>
 						</div>
 					{% endif %}
