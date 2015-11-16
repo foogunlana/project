@@ -25,20 +25,25 @@
 		<div class="columns small-11 small-centered">
 			{% for column in columns %}
 				<div class="row article_button article_box " >
-					<div class="columns small-6 ">
+					<div class="columns small-12 medium-6">
 						<a href="{% url 'weal:preview_column' column_id=column.column_id %}">
 							{{ column.title }} by {{ column.writer|name:'long' }}
 						</a>
 					</div>
 					{% if user|is_editor %}
-						<div class="columns small-3">
+						<div class="columns small-12 medium-6 small-centered medium-uncentered">
 							<div class="row fill">
 								{% ifequal column.state 'active' %}
-									<div class="columns small-12">
+									<div class="columns small-6">
 										<form action="{% url 'weal:retract_column' column_id=column.column_id %}" method="post">
 											{% csrf_token %}
 											<button class="fill button3">Retract</button>
 										</form>
+									</div>
+									<div class="columns small-6">
+										<a href="{% url 'news:column' column_id=column.column_id %}">
+											<button class="fill button3">View</button>
+										</a>
 									</div>
 								{% else %}
 									<div class="columns small-12">
@@ -51,6 +56,8 @@
 							</div>
 						</div>
 					{% endif %}
+					{% ifequal column.state 'active' %}
+					{% endifequal %}
 				</div>
 				<br>
 			{% endfor %}

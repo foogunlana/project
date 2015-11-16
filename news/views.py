@@ -30,7 +30,9 @@ def column(request, column_id, pk=None):
                             'orderby': {'posted': -1}}))
 
         if len(articles) < 2:
-            return render(request, 'news/column.html', {'column': column_page})
+            context = {
+                'column': column_page,
+            }
         else:
             if pk:
                 pk = int(pk)

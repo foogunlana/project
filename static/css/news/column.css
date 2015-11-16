@@ -508,6 +508,10 @@ body{
 	color: white;
 }
 
+.social-link-block:hover{
+	color: white;
+}
+
 .sticky.stick {
     position: fixed;
     top: 0;
