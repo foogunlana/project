@@ -128,7 +128,7 @@ class ColumnPageForm(forms.Form):
     description = forms.CharField(required=True, max_length=400, widget=forms.Textarea(
         attrs={'style': 'height:80px;'}))
     linkedin = forms.URLField(required=False, widget=forms.TextInput())
-    twitter = forms.URLField(required=False, widget=forms.TextInput())
+    twitter = forms.CharField(required=False, widget=forms.TextInput())
     facebook = forms.URLField(required=False, widget=forms.TextInput())
     blog = forms.URLField(required=False, widget=forms.TextInput())
     email = forms.EmailField(required=True)

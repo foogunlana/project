@@ -104,7 +104,7 @@ def preview_column(request, column_id, pk=None):
         except Exception as e:
             print("ERROR: {}".format(e))
             photo = None
-        
+
         migrations = mongo_calls('migrations')
 
         writer = column_page['writer']
@@ -1054,6 +1054,8 @@ def allocator(request):
     onsite = mongo_calls('onsite')
     pipeline = mongo_calls('migrations')
     writers = mongo_calls('user')
+    column_pages = mongo_calls('columns')
+
     report_form = ReportForm()
     economic_data_form = EconomicDataForm()
     quote_form = NewQuoteForm()
@@ -1062,7 +1064,6 @@ def allocator(request):
     sectors = params.sectors.values()
     cats = params.article_categories.values()
 
-    columns = []
     pages = list(onsite.find({'page': {'$exists': True}}))
     articles = list(pipeline.find({
                     '$query': {'type': 'writers_article',
@@ -1077,19 +1078,27 @@ def allocator(request):
             groups[article['category']] = groups.get(
                 article['category'], []) + [article]
 
+        columns = []
         daily_column = context['home']['daily_column']
-        wcolumns = {writer['username']: writer['column']
-                    for writer in writers.find({},
-                    {'column': 1, 'username': 1}) if writer.get('column')}
+
+        # wcolumns = {writer['username']: writer['column']
+        #             for writer in writers.find({},
+        #             {'column': 1, 'username': 1}) if writer.get('column')}
+
+        cols = { c['writer']: c['title']
+                for c in column_pages.find(
+                    {'state': 'active'},
+                    {'writer': 1, 'title': 1, '_id': 0, 'column_id': 1})}
+
         for index, day in enumerate(params.columns):
             writer = daily_column.get(str(index))
             columns = columns + [{'day': day, 'writer': writer,
-                                 'title': wcolumns.get(writer)}]
+                                 'title': cols.get(writer)}]
 
         context2 = {
             'cats': groups, 'reports': reports, 'columns': columns,
             'sectors': sectors, 'economic_data_form': economic_data_form,
-            'report_form': report_form, 'writers_columns': wcolumns,
+            'report_form': report_form, 'writers_columns': cols,
             'quote_form': quote_form}
 
         context = dict(context, **context2)
