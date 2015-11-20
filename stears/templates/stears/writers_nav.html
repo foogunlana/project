@@ -37,10 +37,10 @@
 				<li>
 					<a href="{% url 'weal:articles_group' group='peers' %}">Articles</a>
 				</li>
+				<li>
+					<a href="{% url 'weal:columns' %}">Columns</a>
+				</li>
 				{% if user.username|is_editor %}
-					<li>
-						<a href="{% url 'weal:columns' %}">Columns</a>
-					</li>
 					<li >
 						<a href="{% url 'weal:submissions' %}">Submissions</a>
 					</li>
