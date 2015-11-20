@@ -175,6 +175,18 @@ def launch_column(request, column_id):
 
 
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
+def remove_column(request, column_id):
+    column_id = int(column_id)
+    columns = mongo_calls('columns')
+    context = {}
+    if request.method == 'POST':
+        column_page = columns.remove({
+            'column_id': column_id, 'state': 'inactive'})
+
+        return HttpResponseRedirect(reverse('weal:columns'))
+
+
+@user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
 def retract_column(request, column_id):
     column_id = int(column_id)
     columns = mongo_calls('columns')

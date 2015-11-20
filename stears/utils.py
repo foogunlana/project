@@ -48,6 +48,7 @@ def new_column(user, bio, description, title, email, photo, **kwargs):
         'column_id': make_id('columns', 'column_id'),
         'email': email,
         'photo': photo,
+        'state': 'inactive',
     }, **kwargs)
     return column_page
 

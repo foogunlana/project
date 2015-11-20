@@ -46,7 +46,13 @@
 										</a>
 									</div>
 								{% else %}
-									<div class="columns small-12 medium-6 medium-push-6">
+									<div class="columns small-6">
+										<form action="{% url 'weal:remove_column' column_id=column.column_id %}" method="post">
+											{% csrf_token %}
+											<button class="fill button3 cancel_button2">Remove</button>
+										</form>
+									</div>
+									<div class="columns small-6">
 										<form action="{% url 'weal:launch_column' column_id=column.column_id %}" method="post">
 											{% csrf_token %}
 											<button class="fill button3">Launch</button>
