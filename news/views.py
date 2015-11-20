@@ -173,6 +173,7 @@ def index(request):
     if request.method == 'GET':
         onsite = mongo_calls('onsite')
         articles = mongo_calls('migrations')
+        # columns = mongo_calls('columns')
 
         try:
             context = onsite.find_one({'page': 'home'})
@@ -183,7 +184,13 @@ def index(request):
                                                'category': 'stearsColumn',
                                                'state': 'site_ready'},
                                                '$orderby': {'time': -1}})
+            # column = columns.find_one({
+            #                     'writer': col_writer,
+            #                     'state': 'active'})
+            # context['column'] = column
+
             if todays_column:
+
                 writers = mongo_calls('user')
                 writer = writers.find_one({'username': col_writer})
                 if writer:
