@@ -39,7 +39,7 @@ def column(request, column_id, pk=None):
                 pk = int(pk)
                 func = lambda a: a.get('article_id') == pk
                 article = filter(func, articles)[0]
-                articles = articles.remove(article)
+                articles.remove(article)
                 first_visit = False
             else:
                 article, articles = articles[0], articles[1:]
