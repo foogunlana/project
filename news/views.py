@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from stears.utils import mongo_calls
-from stears.models import ReportModel
+from stears.models import ReportModel, ProfileImageModel
 from stears import params
 from django.http import HttpRequest, HttpResponse
 from utils import summarize
@@ -23,6 +23,8 @@ def column(request, column_id, pk=None):
     if request.method == 'GET':
 
         column_page = onsite.find_one({'page': 'opinion', 'column_id': column_id})
+        photo = ProfileImageModel.objects.get(pk=column_page.get('photo'))
+        column_page['photo'] = photo.docfile.url
         articles = list(articles.find({
                             'query': {
                                 'writer': column_page.get('writer'),
