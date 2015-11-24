@@ -107,10 +107,10 @@ def preview_column(request, column_id, pk=None):
 
         migrations = mongo_calls('migrations')
 
-        writer = column_page['writer']
+        writer = column_page.get('writer')
         articles = list(migrations.find({
                 '$query': {
-                    'writer': 'Ebehi_Iyoha',
+                    'writer': writer,
                     'category': 'stearsColumn',
                 },
                 '$orderby': {'time': -1}}))
