@@ -24,7 +24,8 @@ def column(request, column_id, pk=None):
 
         column_page = onsite.find_one({'page': 'opinion', 'column_id': column_id})
         photo = ProfileImageModel.objects.get(pk=column_page.get('photo'))
-        column_page['photo'] = photo.docfile.url
+        if photo:
+            column_page['photo'] = photo.docfile.url
         articles = list(articles.find({
                             'query': {
                                 'writer': column_page.get('writer'),
