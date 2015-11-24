@@ -24,20 +24,22 @@
 	<div class="row">
 		<div class="columns small-11 small-centered">
 			{% for column in columns %}
-				<div class="row article_button article_box " >
+				<div class="row article_box" >
 					<div class="columns small-12 medium-6">
-						<a href="{% url 'weal:preview_column' column_id=column.column_id %}">
-							{{ column.title }} by {{ column.writer|name:'long' }}
-						</a>
+						<div>
+							<a href="{% url 'weal:preview_column' column_id=column.column_id %}">
+								{{ column.title }} by {{ column.writer|name:'long' }}
+							</a>
+						</div>
 					</div>
 					{% if user|is_editor %}
-						<div class="columns small-12 medium-6 small-centered medium-uncentered">
-							<div class="row fill">
+						<div class="columns small-12 medium-6 ">
+							<div class="row">
 								{% ifequal column.state 'active' %}
 									<div class="columns small-6">
 										<form action="{% url 'weal:retract_column' column_id=column.column_id %}" method="post">
 											{% csrf_token %}
-											<button class="fill button3">Retract</button>
+											<button class="fill button3 confirm-submission">Retract</button>
 										</form>
 									</div>
 									<div class="columns small-6">
@@ -49,7 +51,7 @@
 									<div class="columns small-6">
 										<form action="{% url 'weal:remove_column' column_id=column.column_id %}" method="post">
 											{% csrf_token %}
-											<button class="fill button3 cancel_button2">Remove</button>
+											<button class="fill button3 cancel_button2 confirm-submission">Remove</button>
 										</form>
 									</div>
 									<div class="columns small-6">
