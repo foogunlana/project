@@ -34,7 +34,7 @@ def column(request, column_id, pk=None):
                             'query': {
                                 'writer': column_page.get('writer'),
                                 'category': 'stearsColumn'},
-                            'orderby': {'posted': -1}}))
+                            'orderby': {'time': -1}}))
 
         if len(articles) < 2:
             context = {
@@ -187,9 +187,9 @@ def index(request):
             day = str(datetime.now().weekday())
             col_writer = context['daily_column'].get(day)
             todays_column = articles.find_one({'$query': {
-                                               'writer': col_writer,
-                                               'category': 'stearsColumn',
-                                               'state': 'site_ready'},
+                                                   'writer': col_writer,
+                                                   'category': 'stearsColumn',
+                                                   'state': 'site_ready'},
                                                '$orderby': {'time': -1}})
             # column = columns.find_one({
             #                     'writer': col_writer,
