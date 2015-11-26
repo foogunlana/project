@@ -1093,15 +1093,16 @@ def allocator(request):
         columns = []
         daily_column = context['home']['daily_column']
 
-        cols = { c['writer']: c['title']
-                for c in column_pages.find(
-                    {'state': 'active'},
-                    {'writer': 1, 'title': 1, '_id': 0, 'column_id': 1})}
+        cols = { c['writer']: { 'title': c['title'], 'state': c['state']} 
+                for c in column_pages.find({},
+                    {'writer': 1, 'title': 1, 'state': 1, '_id': 0})}
 
         for index, day in enumerate(params.columns):
             writer = daily_column.get(str(index))
+            col = cols.get(writer)
+            title = col['title'] if col else None
             columns = columns + [{'day': day, 'writer': writer,
-                                 'title': cols.get(writer)}]
+                                 'title': title}]
 
         context2 = {
             'cats': groups, 'reports': reports, 'columns': columns,

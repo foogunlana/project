@@ -77,8 +77,10 @@
 								{% endfor %}
 								<select style="width:90%;display:inline-block;" name="" id="select_column" style="" data-url="{% url 'weal:select_column' %}" >
 								<option value="None"> Choose Columns </option>
-								{% for writer, title in writers_columns.items %}
-								<option value="{{ writer }}">{{ title }} by {{ writer|format_name:'long' }}</option>
+								{% for writer, col in writers_columns.items %}
+								{% ifequal col.state 'active' %}
+								<option value="{{ writer }}">{{ col.title }} by {{ writer|format_name:'long' }}</option>
+								{% endifequal %}
 								{% empty %}
 								<option value="None">Sorry! No columns here</option>
 								{% endfor %}
