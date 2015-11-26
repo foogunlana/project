@@ -19,6 +19,7 @@ html, body{
 .stears-box{
 	display: block;
 	height: auto;
+	width:500px;
 }
 
 .stears-h1{
