@@ -19,7 +19,8 @@ html, body{
 .stears-box{
 	display: block;
 	height: auto;
-	width: 150px;
+	width: 180px;
+	padding: 20px;
 	margin-left: auto;
 	margin-right: auto;
 }
