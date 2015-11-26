@@ -1093,10 +1093,6 @@ def allocator(request):
         columns = []
         daily_column = context['home']['daily_column']
 
-        # wcolumns = {writer['username']: writer['column']
-        #             for writer in writers.find({},
-        #             {'column': 1, 'username': 1}) if writer.get('column')}
-
         cols = { c['writer']: c['title']
                 for c in column_pages.find(
                     {'state': 'active'},
