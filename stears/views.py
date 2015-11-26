@@ -1093,9 +1093,10 @@ def allocator(request):
         columns = []
         daily_column = context['home']['daily_column']
 
-        cols = { c['writer']: { 'title': c['title'], 'state': c['state']} 
+        cols = { c['writer']: { 'title': c['title'], 'state': c['state'],
+                 'column_id': c['column_id']}
                 for c in column_pages.find({},
-                    {'writer': 1, 'title': 1, 'state': 1, '_id': 0})}
+                    {'writer': 1, 'title': 1, 'state': 1, 'column_id': 1, '_id': 0})}
 
         for index, day in enumerate(params.columns):
             writer = daily_column.get(str(index))
@@ -1130,6 +1131,21 @@ def reload_page(request):
 
             expire_article = lambda x: expire_page(page='article{}'.format(x))
             map(expire_article, ids)
+
+        elif page == 'opinion':
+            column_id = sector
+            articles = mongo_calls('migrations')
+            columns = mongo_calls('columns')
+            column = columns.find_one({'column_id': int(column_id)},
+                                  {'writer': 1})
+            writer = column.get('writer')
+            ids = articles.find({
+                'writer': writer, 'category': 'stearsColumn'}).distinct('article_id')
+
+            expire_article = lambda pk: expire_page(
+                                            page='opinion{}-{}'.format(column_id, pk))
+            map(expire_article, ids + [''])
+
         elif page:
             expire_page(page=page, sector=sector)
     return HttpResponseRedirect(reverse('weal:allocator'))

@@ -249,8 +249,13 @@
 						<select style="width:80%;display:inline-block;" name="page" id="id_reloader">
 							<option selected disabled value="None">Reload a page</option>
 							<option value="index">Reload Home page</option>
+							{% for writer, column in writers_columns.items %}
+								{% ifequal column.state 'active' %}
+									<option value="opinion,{{ column.column_id }}">Reload {{ column.title }}</option>
+								{% endifequal %}
+							{% endfor %}
 							{% for sector in sectors %}
-							<option value="business,{{ sector }}">Reload {{ sector|pretty_category }} sector</option>
+								<option value="business,{{ sector }}">Reload {{ sector|pretty_category }} sector</option>
 							{% endfor %}
 							<option value="reports">Reload Market Reports</option>
 							<option value="articles">Reload Article Pages</option>

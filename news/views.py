@@ -15,6 +15,17 @@ import json
 
 @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess')
 def column(request, column_id, pk=None):
+
+    cache_name = 'newscache:{}{}-{}'.format(
+        'opinion', column_id, pk if pk else '')
+
+    icache = 'infinitecache:{}{}-{}'.format(
+        'opinion', column_id, pk if pk else '')
+
+    response = cache.get(cache_name, None)
+    if response:
+        return response
+
     context = {}
     column_id = int(column_id)
     articles = mongo_calls('migrations')
@@ -26,40 +37,51 @@ def column(request, column_id, pk=None):
         if not column_page:
             raise Http404("Sorry, we can't find that page")
 
-        photo = ProfileImageModel.objects.get(pk=column_page.get('photo'))
-        if photo:
-            column_page['photo'] = photo.docfile.url
+        try:
+            photo = ProfileImageModel.objects.get(pk=column_page.get('photo'))
+            if photo:
+                column_page['photo'] = photo.docfile.url
 
-        articles = list(articles.find({
-                            'query': {
-                                'writer': column_page.get('writer'),
-                                'category': 'stearsColumn'},
-                            'orderby': {'time': -1}}))
+            articles = list(articles.find({
+                                'query': {
+                                    'writer': column_page.get('writer'),
+                                    'category': 'stearsColumn'},
+                                'orderby': {'time': -1}}))
 
-        if len(articles) < 2:
-            context = {
-                'column': column_page,
-                'first_visit': True,
-            }
-        else:
-            if pk:
-                pk = int(pk)
-                func = lambda a: a.get('article_id') == pk
-                article = filter(func, articles)[0]
-                articles.remove(article)
-                first_visit = False
+            if len(articles) < 2:
+                context = {
+                    'column': column_page,
+                    'first_visit': True,
+                }
             else:
-                article, articles = articles[0], articles[1:]
-                first_visit = True
+                if pk:
+                    pk = int(pk)
+                    func = lambda a: a.get('article_id') == pk
+                    article = filter(func, articles)[0]
+                    articles.remove(article)
+                    first_visit = False
+                else:
+                    article, articles = articles[0], articles[1:]
+                    first_visit = True
 
-            context = {
-                'article': article,
-                'first_visit': first_visit,
-                'preview': '</p>'.join(article.get('content').split('</p>')[:3]),
-                'others': articles,
-                'column': column_page,
-            }
-        return render(request, 'news/column.html', context)
+                context = {
+                    'article': article,
+                    'first_visit': first_visit,
+                    'preview': '</p>'.join(article.get('content').split('</p>')[:3]),
+                    'others': articles,
+                    'column': column_page,
+                }
+
+            response = render(request, 'news/column.html', context)
+            cache.set(cache_name, response, 60*60*12)
+            cache.set(icache, response, 60*60*24*14)
+            return response
+
+        except Exception:
+
+            response = cache.get(icache, None)
+            return response
+        
 
 
 def article(request, pk):
