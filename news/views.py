@@ -13,7 +13,7 @@ from stears.permissions import is_columnist, approved_writer
 import json
 
 
-@user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess')
+# @user_passes_test(lambda u: approved_writer(u), login_url='/weal/noaccess')
 def column(request, column_id, pk=None):
 
     cache_name = 'newscache:{}{}-{}'.format(
