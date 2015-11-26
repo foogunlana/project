@@ -147,7 +147,7 @@
                 <div class="ab-section section3">
                   <div class="ab-profiles">
                       {% if column.linkedin %}
-                      <a href="{{ column.linkedin }}" class="abp-link">
+                      <a href="{{ column.linkedin }}" target="_blank" class="abp-link">
                         <div class="abp ab-linkedin">
                         <div class="abp-social">
                           <img class=" abp-linkedin abp-icon" src="/static/images/linkedin-icon.svg" width="19">
@@ -160,7 +160,7 @@
                       {% endif %}
                     
                       {% if column.twitter %}
-                      <a href="https://twitter.com/intent/follow?screen_name={{ column.twitter }}" class="abp-link">
+                      <a href="https://twitter.com/intent/follow?screen_name={{ column.twitter }}" target="_blank" class="abp-link">
                         <div class="abp ab-twitter">
                         <div class="abp-social">
                           <img class=" abp-icon" src="/static/images/twitter-icon.svg" width="17">
@@ -173,7 +173,7 @@
                       {% endif %}
 
                       {% if column.blog %}
-                      <a href="{{ column.blog }}" class="abp-link">
+                      <a href="{{ column.blog }}" target="_blank" class="abp-link">
                         <div class="abp ab-blog">
                         <div class="abp-social">
                           <img class=" abp-icon abp-blogger" src="/static/images/blogger-icon.svg" width="17">
