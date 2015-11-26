@@ -52,7 +52,7 @@
             </div>
             {% endif %}
           </div>
-          <h2><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' main_feature.article_id %}">{{ main_feature.headline }}</a></h2>
+          <h2><a class="target-anchor inall" href="{{ sUri }}{% if main_feature.column_id %}{% url 'news:column' column_id=main_feature.column_id pk=main_feature.article_id %}{% else %}{% url 'news:article' main_feature.article_id %}{% endif %}">{{ main_feature.headline }}</a></h2>
           <div class="featured-post-author">{{ main_feature.writer|name:'long' }}</div>
           <p class="w-hidden-small w-hidden-tiny featured-post-p">{{ main_feature.par1|truncatechars:200 }}</p>
         </div>
@@ -123,7 +123,7 @@
               </div>
               {% endif %}
             </div>
-            <h3 class="business-h3"><a href="{{ sUri }}{% url 'news:article' feature.article_id %}" class="target-anchor inall">{{ feature.headline }}</a></h3>
+            <h3 class="business-h3"><a href="{{ sUri }}{% if feature.column_id %}{% url 'news:column' column_id=feature.column_id pk=feature.article_id %}{% else %}{% url 'news:article' feature.article_id %}{% endif %}" class="target-anchor inall">{{ feature.headline }}</a></h3>
             <div class="post-block-author">{{ feature.author }}</div>
             <p class="post-summary">{{ feature.par1|truncatechars:110 }}</p>
           </div>
@@ -156,7 +156,7 @@
                 </div>
                 {% endif %}
               </div>
-              <h3 class="business-h3"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' feature.article_id %}">{{ feature.headline }}</a></h3>
+              <h3 class="business-h3"><a class="target-anchor inall" href="{{ sUri }}{% if feature.column_id %}{% url 'news:column' column_id=feature.column_id pk=feature.article_id %}{% else %}{% url 'news:article' feature.article_id %}{% endif %}">{{ feature.headline }}</a></h3>
               <div class="post-block-author">{{ feature.writer|name:'long' }}</div>
               <p class="post-summary">{{ feature.par1|truncatechars:110 }}</p>
             </div>

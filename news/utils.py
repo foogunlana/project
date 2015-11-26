@@ -167,11 +167,34 @@ def summarize2(article):
 
 
 def photoset(link):
-    photo = ArticleImageModel.objects.get(docfile=link)
-    photoset = {'photop': photo.picker.url, 'photof': photo.feature.url,
-                'photomfm': photo.main_feature_mobile.url,
-                'photomf': photo.main_feature.url}
-    return photoset
+    try:
+        photo = ArticleImageModel.objects.get(docfile=link)
+        photoset = {'photop': photo.picker.url, 'photof': photo.feature.url,
+                    'photomfm': photo.main_feature_mobile.url,
+                    'photomf': photo.main_feature.url}
+        return photoset
+    except Exception:
+        return {}
+
+
+def opinion_category(article):
+    if article['category'] != 'stearsColumn':
+        return article
+
+    columns = mongo_calls('columns')
+    writer = article['writer']
+
+    column_page = columns.find_one(
+                    {'writer': writer},
+                    {'column_id': 1, 'title': 1, '_id': 0})
+
+    if not column_page:
+        return article
+
+    article['category'] = column_page['title']
+    article['column_id'] = column_page['column_id']
+    return article
+
 
 
 def put_article_on_page(page, section, article_id, sector=None, number=None):
@@ -179,6 +202,8 @@ def put_article_on_page(page, section, article_id, sector=None, number=None):
     articles = mongo_calls('migrations')
     onsite = mongo_calls('onsite')
     article = articles.find_one({'article_id': article_id})
+
+    article = opinion_category(article)
 
     if not article.get('summary', None):
         article['par1'] = summarize(article)
