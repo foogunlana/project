@@ -22,7 +22,6 @@ html, body{
 }
 
 .stears-h1{
-	color: white;
 	font-size: 60px;
 	text-align: center;
 	width: 100%;
@@ -30,6 +29,10 @@ html, body{
 	vertical-align: bottom;
 	padding: 100px;
 	font-weight: 400;
+}
+
+.stears-img{
+	width: 100%;
 }
 
 .error-message{

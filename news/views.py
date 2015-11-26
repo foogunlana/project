@@ -2,7 +2,7 @@ from django.shortcuts import render
 from stears.utils import mongo_calls
 from stears.models import ReportModel, ProfileImageModel
 from stears import params
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, Http404
 from utils import summarize
 from django.core.cache import cache
 from datetime import datetime
@@ -23,9 +23,13 @@ def column(request, column_id, pk=None):
     if request.method == 'GET':
 
         column_page = onsite.find_one({'page': 'opinion', 'column_id': column_id})
+        if not column_page:
+            raise Http404("Sorry, we can't find that page")
+
         photo = ProfileImageModel.objects.get(pk=column_page.get('photo'))
         if photo:
             column_page['photo'] = photo.docfile.url
+
         articles = list(articles.find({
                             'query': {
                                 'writer': column_page.get('writer'),
