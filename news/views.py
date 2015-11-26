@@ -180,31 +180,22 @@ def index(request):
     if request.method == 'GET':
         onsite = mongo_calls('onsite')
         articles = mongo_calls('migrations')
-        # columns = mongo_calls('columns')
+        columns = mongo_calls('columns')
 
         try:
             context = onsite.find_one({'page': 'home'})
             day = str(datetime.now().weekday())
             col_writer = context['daily_column'].get(day)
-            todays_column = articles.find_one({'$query': {
-                                               'writer': col_writer,
-                                               'category': 'stearsColumn',
-                                               'state': 'site_ready'},
-                                               '$orderby': {'time': -1}})
-            # column = columns.find_one({
-            #                     'writer': col_writer,
-            #                     'state': 'active'})
-            # context['column'] = column
-
-            if todays_column:
-
-                writers = mongo_calls('user')
-                writer = writers.find_one({'username': col_writer})
-                if writer:
-                    todays_column['column_title'] = writer.get('column', '')
-                dc_summary = summarize(todays_column)
-                context['daily_column_summary'] = dc_summary
-                context['column'] = todays_column
+            feature = articles.find_one({'$query': {
+                                           'writer': col_writer,
+                                           'category': 'stearsColumn',
+                                           'state': 'site_ready'},
+                                           '$orderby': {'time': -1}})
+            column = columns.find_one({
+                                'writer': col_writer,
+                                'state': 'active'})
+            column['feature'] = feature
+            context['column'] = column
 
             context['sUri'] = absolute_url
             context['meta_description'] = params.meta_descriptions['home']
@@ -213,7 +204,8 @@ def index(request):
             cache.set(cache_name, response, 60*60*24)
             cache.set(icache, response, 60*60*24*14)
             return response
-        except Exception:
+        except Exception as e:
+            print e
             response = cache.get(icache, None)
             return response
 

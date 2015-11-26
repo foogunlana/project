@@ -71,27 +71,23 @@
               <h2 class="daily-column-h2">Weekly Column</h2>
               <div class="daily-column-secondary-header">
                 <div class="daily-column-secondary-header">
-                  <h4 class="daily-column-byline">{{ column.column_title }}</h4>
+                  <h4 class="daily-column-byline">{{ column.title }}</h4>
                 </div>
               </div>
               <div class="daily-column-widget-text">
-                <h3 class="daily-column-widget-h3"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' column.article_id %}">{{ column.headline }}</a></h3>
+                <h3 class="daily-column-widget-h3"><a class="target-anchor inall" href="{{ sUri }}{% url 'news:column' column_id=column.column_id %}">{{ column.feature.headline }}</a></h3>
               </div>
             </div>
           </div>
           <div class="w-row w-hidden-medium w-hidden-small w-hidden-tiny daily-column-widget">
             <div class="w-col w-col-5 daily-column-title">
               <h2 class="daily-column-h2">Weekly Column</h2>
-              <h4 class="daily-column-byline">{{ column.column_title }}</h4>
+              <h4 class="daily-column-byline">{{ column.title }}</h4>
             </div>
             <div class="w-col w-col-7 daily-column-widget-text">
-              <h3>{{ column.headline }}</h3>
+              <h3>{{ column.feature.headline }}</h3>
               <p>
-                {% if column.summary %}
-                  {{ column.summary|truncatechars:'200' }}
-                {% else %}
-                  {{ daily_column_summary|truncatechars:'200' }}
-                {% endif %}
+                {{ column.feature.summary }}
               </p>
             </div>
           </div>
@@ -201,25 +197,21 @@
               <div class="w-hidden-main daily-column-widget">
                 <h2 class="daily-column-h2">Weekly Column</h2>
                 <div class="daily-column-secondary-header">
-                  <h4 class="daily-column-byline">{{ column.column_title }}</h4>
+                  <h4 class="daily-column-byline">{{ column.title }}</h4>
                 </div>
                 <div class="daily-column-widget-text">
-                  <h3><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' column.article_id %}">{{ column.headline }}</a></h3>
+                  <h3><a class="target-anchor inall" href="{{ sUri }}{% url 'news:column' column_id=column.column_id %}">{{ column.feature.headline }}</a></h3>
                 </div>
               </div>
               <div class="w-row w-hidden-medium w-hidden-small w-hidden-tiny daily-column-widget">
                 <div class="w-col w-col-5 daily-column-title">
                   <h3 class="daily-column-h2">Weekly Column</h3>
-                  <h4 class="daily-column-byline">{{ column.column_title }}</h4>
+                  <h4 class="daily-column-byline">{{ column.title }}</h4>
                 </div>
                 <div class="w-col w-col-7 daily-column-widget-text">
-                  <h4><a class="target-anchor inall" href="{{ sUri }}{% url 'news:article' column.article_id %}">{{ column.headline }}</a></h4>
+                  <h4><a class="target-anchor inall" href="{{ sUri }}{% url 'news:column' column_id=column.column_id %}">{{ column.feature.headline }}</a></h4>
                   <p>
-                    {% if column.summary %}
-                      {{ column.summary|truncatechars:'200' }}
-                    {% else %}
-                      {{ daily_column_summary|truncatechars:'200' }}
-                    {% endif %}
+                    {{ column.feature.summary }}
                   </p>
                 </div>
               </div>
