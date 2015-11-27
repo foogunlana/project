@@ -20,7 +20,7 @@
 <meta property="og:url"            content="{{ aUri }}" />
 <meta property="og:type"           content="article" />
 <meta property="og:title"          content="{{ article.headline }}" />
-<meta property="og:description"    content="{{ article.summary }}" />
+<meta property="og:description"    content="{{ article.summary }} - in {{ column.title }}" />
 <meta property="og:image"          content="http://www.stearsng.com{{ article.photo }}"/>
 <meta property="article:publisher" content="https://www.facebook.com/stearsng"/>
 <meta property="fb:app_id"         content="457339461112605" />
@@ -30,7 +30,7 @@
 <meta name="twitter:url" content="{{ aUri }}">
 <meta name="twitter:creator" content="@stearsng">
 <meta name="twitter:title" content="{{ article.headline }}">
-<meta name="twitter:description" content="{{ article.summary }}">
+<meta name="twitter:description" content="{{ article.summary }} - in {{ column.title }}">
 <meta name="twitter:image" content="http://www.stearsng.com{{ article.photo }}">
 {% endblock %}
 
