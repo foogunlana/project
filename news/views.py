@@ -51,6 +51,7 @@ def column(request, column_id, pk=None):
                 context = {
                     'column': column_page,
                     'first_visit': True,
+                    'aUri': HttpRequest.build_absolute_uri(request),
                 }
             else:
                 if pk:
@@ -69,7 +70,9 @@ def column(request, column_id, pk=None):
                     'preview': '</p>'.join(article.get('content').split('</p>')[:3]),
                     'others': articles,
                     'column': column_page,
+                    'aUri': HttpRequest.build_absolute_uri(request),
                 }
+
 
             response = render(request, 'news/column.html', context)
             cache.set(cache_name, response, 60*60*12)
