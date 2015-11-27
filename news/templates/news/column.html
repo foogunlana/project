@@ -16,12 +16,12 @@
 {% block title %}Opinion | Stears{% endblock %}
 
 {% block meta %}
-<meta name="description"           content="{{ article.par1|truncatechars:'150' }}"/>
+<meta name="description"           content="{{ article.summary }}"/>
 <meta property="og:url"            content="{{ aUri }}" />
 <meta property="og:type"           content="article" />
 <meta property="og:title"          content="{{ article.headline }}" />
-<meta property="og:description"    content="{{ article.par1 }}" />
-<meta property="og:image"          content="http://www.stearsng.com{{ photo }}"/>
+<meta property="og:description"    content="{{ article.summary }}" />
+<meta property="og:image"          content="http://www.stearsng.com{{ article.photo }}"/>
 <meta property="article:publisher" content="https://www.facebook.com/stearsng"/>
 <meta property="fb:app_id"         content="457339461112605" />
 
@@ -30,12 +30,28 @@
 <meta name="twitter:url" content="{{ aUri }}">
 <meta name="twitter:creator" content="@stearsng">
 <meta name="twitter:title" content="{{ article.headline }}">
-<meta name="twitter:description" content="{{ article.par1 }}">
-<meta name="twitter:image" content="http://www.stearsng.com{{ photo }}">
+<meta name="twitter:description" content="{{ article.summary }}">
+<meta name="twitter:image" content="http://www.stearsng.com{{ article.photo }}">
 {% endblock %}
 
 {% block body %}
   <body>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '457339461112605',
+          xfbml      : true,
+          version    : 'v2.4'
+        });
+      };
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
     {% include 'news/opinion_nav.html' %} 
     <div class="cp-background">
       <div class="cp-container p-slide" {% if first_visit %}{% else %}hidden{% endif %}>
@@ -256,8 +272,16 @@
   {% compress js inline %}
   <script defer src="/static/js/news/news.js"></script>
   {% endcompress %}
-
-  <script> 
+  <script>
+  $(document).ready(function(){
+      $('.fb-stears-share').click(function(event){
+          event.preventDefault();
+          FB.ui({
+            method: 'share',
+            href: '{{ aUri }}',
+          }, function(response){});
+      });
+  });
   function sticky_relocate() {
       var window_top = $(window).scrollTop();
       var div_top = $('#sticky-anchor').offset().top;
