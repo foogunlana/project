@@ -18,7 +18,7 @@
             <li class="nav-text-con"><a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:index' %}">Home</a></li>
             <li class="nav-text-con"><a class="w-nav-link nav-text dropdown-tab drop1" id="b_e_nav" data-subs="nav1" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Business &amp; Economy</a></li>
             <li class="nav-text-con"><a class="w-nav-link nav-text" href="{{ sUri }}{% url 'news:reports' %}">Market Reports</a></li>
-            <li class="nav-text-con"><a class="w-nav-link nav-text dropdown-tab drop2" data-subs="nav2" href="{{ sUri }}{% url 'news:business' 'stearsColumn' %}">Opinion</a></li>
+            <li class="nav-text-con"><a class="w-nav-link nav-text dropdown-tab drop2 {% ifequal page 'b_e' %}drop_3{% endifequal %}" data-subs="nav2" href="{{ sUri }}{% url 'news:business' 'stearsColumn' %}">Opinion</a></li>
           </ul>
         </nav>
       </div>
@@ -44,10 +44,12 @@
             <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link" href="{{ sUri }}{% url 'news:reports' %}">Market Reports</a></li>
             <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link toggle" id="dropdown2">Opinion</a></li>
             <div class="dropdown2 mobile-dropdown">
-              <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:business' 'stearsEditorial' %}">
+              <!-- <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:business' 'stearsEditorial' %}">
               Editorial</a></li>
               <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:business' 'stearsColumn' %}">
-                Columns</a></li>
+                Columns</a></li> -->
+                <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:column' column_id=4 %}">Thinking Economics</a></li>
+                <li class="mobile-nav-con"><a class="w-nav-link mobile-nav-link m-nav" href="{{ sUri }}{% url 'news:column' column_id=1 %}">Shock Value</a></li>
             </div>
           </ul>
         </nav>
@@ -82,20 +84,8 @@
       </div>
     </div>
   </div>
-  <div class="business-nav-container nav2" data-main="drop2">
-    <div class="business-nav">
-      <div class="sub-nav-wrap">
-        <ul class="business-nav-links subnav2">
-          <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsEditorial' %}">
-            Editorial</a></li>
-          <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsColumn' %}">
-            Columns</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
   {% else %}
-  <div class="businesspage-nav-container" >
+  <div class="businesspage-nav-container nav3">
     <div class="business-nav">
       <div class="sub-nav-wrap2">
         <ul class="business-nav-links subnav3">
@@ -104,12 +94,29 @@
           <li class="b-nav-link"><a class="b-nav-text {% ifequal sector 'stearsGovernance' %}c-page{% endifequal %}" href="{{ sUri }}{% url 'news:business' 'stearsGovernance' %}">
             Governance</a></li>
           <li class="b-nav-link"><a class="b-nav-text {% ifequal sector 'stearsMacroeconomy' %}c-page{% endifequal %}" href="{{ sUri }}{% url 'news:business' 'stearsMacroeconomy' %}">Economy</a></li>
-          <li class="b-nav-link"><a class="b-nav-text {% ifequal sector 'stearsEditorial' %}c-page{% endifequal %}" href="{{ sUri }}{% url 'news:business' 'stearsEditorial' %}">
+<!--           <li class="b-nav-link"><a class="b-nav-text {% ifequal sector 'stearsEditorial' %}c-page{% endifequal %}" href="{{ sUri }}{% url 'news:business' 'stearsEditorial' %}">
             Editorial</a></li>
           <li class="b-nav-link"><a class="b-nav-text {% ifequal sector 'stearsColumn' %}c-page{% endifequal %}" href="{{ sUri }}{% url 'news:business' 'stearsColumn' %}">
-            Columns</a></li>
+            Columns</a></li> -->
         </ul>
       </div>
     </div>
   </div>
   {% endifnotequal %}
+
+  <div class="business-nav-container nav2" data-main="drop2">
+    <div class="business-nav">
+      <div class="sub-nav-wrap">
+        <ul class="business-nav-links subnav2">
+          <!-- <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsEditorial' %}">
+            Editorial</a></li>
+          <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:business' 'stearsColumn' %}">
+            Columns</a></li> -->
+            <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:column' column_id=4 %}">
+            Thinking Economics</a></li>
+            <li class="b-nav-link"><a class="b-nav-text" href="{{ sUri }}{% url 'news:column' column_id=1 %}">
+            Shock Value</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
