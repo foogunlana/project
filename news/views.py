@@ -136,8 +136,8 @@ def business(request, sector):
     icache = 'infinitecache:{}{}'.format('business', sector)
 
     response = cache.get(cache_name, None)
-    # if response:
-    #     return response
+    if response:
+        return response
 
     context = {}
     absolute_url = 'http://{}'.format(HttpRequest.get_host(request))
