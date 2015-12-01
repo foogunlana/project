@@ -216,9 +216,7 @@ def index(request):
                                            'category': 'stearsColumn',
                                            'state': 'site_ready'},
                                            '$orderby': {'time': -1}})
-            column = columns.find_one({
-                                'writer': col_writer,
-                                'state': 'active'})
+            column = columns.find_one({'writer': col_writer})
             column['feature'] = feature
             context['column'] = column
 
@@ -230,7 +228,6 @@ def index(request):
             cache.set(icache, response, 60*60*24*14)
             return response
         except Exception as e:
-            print e
             response = cache.get(icache, None)
             return response
 
