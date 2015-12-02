@@ -32,7 +32,7 @@ def mongo_calls(collection_name, c=client):
     return collection
 
 
-def new_column(user, bio, description, title, email, photo, **kwargs):
+def new_column(user, bio, description, title, email, photo, column_id, **kwargs):
     dels = []
     for key in kwargs:
         if not kwargs[key]: dels.append(key)
@@ -45,7 +45,7 @@ def new_column(user, bio, description, title, email, photo, **kwargs):
         'bio': bio,
         'description': description,
         'title': title,
-        'column_id': make_id('columns', 'column_id'),
+        'column_id': column_id if column_id else make_id('columns', 'column_id'),
         'email': email,
         'photo': photo,
         'state': 'inactive',

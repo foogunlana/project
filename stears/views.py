@@ -40,9 +40,10 @@ import json
 def add_column(request):
     errors = []
     user = request.user
+    columns = mongo_calls('columns')
+
     if request.method == 'GET':
 
-        columns = mongo_calls('columns')
         column_page = columns.find_one({'writer': user.username})
 
         kwargs = {}
@@ -70,6 +71,11 @@ def add_column(request):
         column_page_form = ColumnPageForm(request.POST, request.FILES)
         if column_page_form.is_valid():
 
+            column_page = columns.find_one({'writer': user.username},
+                                           {'column_id': 1, '_id': 0})
+
+            column_id = column_page['column_id'] if column_page else None
+
             docfile = column_page_form.cleaned_data.pop('docfile')
             title = request.user.username
             
@@ -79,6 +85,7 @@ def add_column(request):
             column_page = new_column(
                 user=user,
                 photo=profile_image.pk,
+                column_id=column_id,
                 **column_page_form.cleaned_data)
 
             columns = mongo_calls('columns')
