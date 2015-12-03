@@ -1127,11 +1127,14 @@ def allocator(request):
 @user_passes_test(lambda u: is_a_boss(u), login_url='/weal/noaccess/')
 def reload_page(request):
     if request.method == 'POST':
+
         pagesector = request.POST.get('page', '').split(',')
+
         if len(pagesector) == 2:
             page, sector = pagesector
         else:
             page, sector = pagesector[0], None
+
         if page == 'articles':
             articles = mongo_calls('migrations')
             ids = list(articles.distinct('article_id'))
@@ -1140,6 +1143,7 @@ def reload_page(request):
             map(expire_article, ids)
 
         elif page == 'opinion':
+
             column_id = sector
             articles = mongo_calls('migrations')
             columns = mongo_calls('columns')
@@ -1152,6 +1156,10 @@ def reload_page(request):
             expire_article = lambda pk: expire_page(
                                             page='opinion{}-{}'.format(column_id, pk))
             map(expire_article, ids + [''])
+
+        elif page == 'all':
+            from django.core.cache import cache
+            cache.clear()
 
         elif page:
             expire_page(page=page, sector=sector)
