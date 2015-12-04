@@ -317,7 +317,7 @@ def related_articles(request, pk):
                 {'posted': {'$exists': 1},
                  'keywords': {'$elemMatch': {'$in': tags}}},
                 {'keywords': 1, 'article_id': 1, '_id': 0,
-                 'headline': 1})]
+                 'headline': 1, 'writer': 1})]
 
             f = lambda a: float(len(set(a['keywords']) & set(tags)))/len(set(tags))
             for article in picks:
