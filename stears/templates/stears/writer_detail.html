@@ -30,6 +30,17 @@
 					<br>
 				</div>
 			</div>
+			<div class="row fill" style="padding:0px">
+				<div class="columns small-12 medium-5 large-3" style="padding:0px">
+					{% if user.is_superuser %}
+						<form action="{% if writer.staff %}{% url 'weal:remove_staff' writer.username %}{% else %}{% url 'weal:add_staff' writer.username %}{% endif %}" method="post">
+							{% csrf_token %}
+							<button class="button2 fill" type="submit">{% if writer.staff %}Remove from staff{% else %}Add to staff{% endif %}</button>
+						</form>
+					{% endif %}
+					<br>
+				</div>
+			</div>
 			<div class="row fill">
 				<div class="columns small-12 large-3" style="padding:0px">
 					<br>

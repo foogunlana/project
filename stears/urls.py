@@ -118,6 +118,10 @@ urlpatterns = patterns('',
                            views.writer_detail, name='writer_detail'),
                        url(r'^writer/detail/edit/$',
                            views.edit_writer_detail, name='edit_writer_detail'),
+                       url(r'^writer/detail/staff/add/(?P<username>[a-zA-Z0-9_]+)/$',
+                           views.add_staff, name='add_staff'),
+                       url(r'^writer/detail/staff/remove/(?P<username>[a-zA-Z0-9_]+)/$',
+                           views.remove_staff, name='remove_staff'),
 
 
                        # url(r'^writers/rich_text/$', views.edit_rich_text,

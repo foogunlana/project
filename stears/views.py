@@ -36,6 +36,33 @@ import params
 import json
 
 
+@user_passes_test(lambda u: u.is_superuser, login_url='/weal/noaccess')
+def add_staff(request, username):
+    writers = mongo_calls('user')
+    if request.method == 'POST':
+        writers.update({'username': username},
+                       {'$set': {'staff': True}}, upsert=True)
+        writer_obj = User.objects.get(username=username)
+        writer_obj.is_staff = True
+        writer_obj.save()
+
+        return HttpResponseRedirect(reverse(
+            'weal:writer_detail', args=(), kwargs={'name': username}))
+
+
+@user_passes_test(lambda u: u.is_superuser, login_url='/weal/noaccess')
+def remove_staff(request, username):
+    writers = mongo_calls('user')
+    if request.method == 'POST':
+        print writers.update({'username': username},
+                       {'$set': {'staff': False}}, upsert=True)
+        writer_obj = User.objects.get(username=username)
+        writer_obj.is_staff = False
+        writer_obj.save()
+        return HttpResponseRedirect(reverse(
+            'weal:writer_detail', args=(), kwargs={'name': username}))
+
+
 @user_passes_test(lambda u: is_columnist(u), login_url='/weal/noaccess')
 def add_column(request):
     errors = []
