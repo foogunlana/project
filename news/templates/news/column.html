@@ -35,6 +35,7 @@
 {% endblock %}
 
 {% block body %}
+
   <body>
     <script>
       window.fbAsyncInit = function() {
@@ -52,7 +53,9 @@
          fjs.parentNode.insertBefore(js, fjs);
        }(document, 'script', 'facebook-jssdk'));
     </script>
+
     {% include 'news/opinion_nav.html' %} 
+    {% include 'news/byebanner.html' %}
     <div class="cp-background">
       <div class="cp-container p-slide" {% if first_visit %}{% else %}hidden{% endif %}>
         <div class="cposter hoverable">

@@ -3,6 +3,35 @@
   padding:5px;
 }
 
+
+.bbcontainer{
+  width: 100%;
+  background-color: white;
+}
+
+.bbcontent{
+  width: 85%;
+  max-width: 1100px;
+  margin: auto;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.bbcontent h2{
+  color: black;
+  font-size: 30px;
+  font-weight: 300;
+}
+
+.bbcontent a{
+  color: #55acee;
+  text-decoration: none;
+}
+
+.byebanner{
+  
+}
+
 .dc-link-block{
   width: 100%;
 }
