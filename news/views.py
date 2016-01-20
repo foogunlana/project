@@ -21,9 +21,9 @@ def column(request, column_id, pk=None):
     icache = 'infinitecache:{}{}-{}'.format(
         'opinion', column_id, pk if pk else '')
 
-    # response = cache.get(cache_name, None)
-    # if response:
-    #     return response
+    response = cache.get(cache_name, None)
+    if response:
+        return response
 
     context = {}
     column_id = int(column_id)
@@ -194,9 +194,9 @@ def index(request):
     cache_name = 'newscache:index'
     icache = 'infinitecache:{}'.format('index')
 
-    # response = cache.get(cache_name, None)
-    # if response:
-    #     return response
+    response = cache.get(cache_name, None)
+    if response:
+        return response
 
     context = {}
     absolute_url = 'http://{}'.format(HttpRequest.get_host(request))
