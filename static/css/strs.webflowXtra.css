@@ -1391,6 +1391,12 @@ th{
       width: 97%;
       margin: auto;
     }
+
+    
+    .bbcontent{
+      width: 90%;
+      margin: auto;
+    }
 }
 
 
@@ -1562,6 +1568,11 @@ th{
     padding-left: 5%;
     padding-right: 5%;
     width: 100%;
+    margin: auto;
+  }
+
+  .bbcontent{
+    width: 90%;
     margin: auto;
   }
 }
