@@ -21,9 +21,9 @@ def column(request, column_id, pk=None):
     icache = 'infinitecache:{}{}-{}'.format(
         'opinion', column_id, pk if pk else '')
 
-#     response = cache.get(cache_name, None)
-#     if response:
-#         return response
+    response = cache.get(cache_name, None)
+    if response:
+        return response
 
     context = {}
     column_id = int(column_id)
@@ -90,9 +90,9 @@ def article(request, pk):
     cache_name = 'newscache:{}{}'.format('article', str(pk))
     icache = 'infinitecache:{}{}'.format('article', str(pk))
 
-#     response = cache.get(cache_name, None)
-#     if response:
-#         return response
+    response = cache.get(cache_name, None)
+    if response:
+        return response
 
     pk = int(pk)
     context = {}
@@ -135,9 +135,9 @@ def business(request, sector):
     cache_name = 'newscache:{}{}'.format('business', sector)
     icache = 'infinitecache:{}{}'.format('business', sector)
 
-#     response = cache.get(cache_name, None)
-#     if response:
-#         return response
+    response = cache.get(cache_name, None)
+    if response:
+        return response
 
     context = {}
     absolute_url = 'http://{}'.format(HttpRequest.get_host(request))
@@ -194,9 +194,9 @@ def index(request):
     cache_name = 'newscache:index'
     icache = 'infinitecache:{}'.format('index')
 
-#     response = cache.get(cache_name, None)
-#     if response:
-#         return response
+    response = cache.get(cache_name, None)
+    if response:
+        return response
 
     context = {}
     absolute_url = 'http://{}'.format(HttpRequest.get_host(request))
@@ -239,10 +239,10 @@ def index(request):
 def top_picks(request):
     cache_name = 'newscache:{}{}'.format('index', 'top_picks')
     icache = 'infinitecache:{}{}'.format('index', 'top_picks')
-#     response = cache.get(cache_name, None)
+    response = cache.get(cache_name, None)
 
-#     if response:
-#         return response
+    if response:
+        return response
 
     responseData = {}
     if request.method == 'GET':
@@ -275,10 +275,10 @@ def top_picks(request):
 def features(request):
     cache_name = 'newscache:{}{}'.format('index', 'features')
     icache = 'infinitecache:{}{}'.format('index', 'features')
-#     response = cache.get(cache_name, None)
+    response = cache.get(cache_name, None)
 
-#     if response:
-#         return response
+    if response:
+        return response
 
     responseData = {}
     if request.method == 'GET':
